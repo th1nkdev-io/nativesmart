@@ -1,0 +1,10 @@
+[
+  {
+    "id": "prd_demo_001",
+    "title": "Starter Product",
+    "priceMinor": 125000,
+    "currency": "NGN",
+    "seller": "Demo Seller",
+    "rating": 4.7
+  }
+]

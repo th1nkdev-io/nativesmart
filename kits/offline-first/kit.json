@@ -1,0 +1,17 @@
+{
+  "id": "offline-first",
+  "name": "Offline-first Kit",
+  "priority": 1,
+  "tier": "pro",
+  "status": "structured",
+  "components": [
+    "OfflineBanner",
+    "NetworkRetryState",
+    "SyncStatusCard",
+    "PendingQueueList",
+    "ConflictState",
+    "RetryAction"
+  ],
+  "flows": ["offline-detection", "retry", "sync-queue", "conflict-warning", "degraded-mode"],
+  "adapters": ["network-status", "sync-queue", "conflict-resolver", "retry-action"]
+}

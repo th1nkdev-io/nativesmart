@@ -1,0 +1,28 @@
+{
+  "id": "marketplace",
+  "name": "Marketplace Kit",
+  "priority": 1,
+  "tier": "pro",
+  "status": "structured",
+  "components": [
+    "ProductCard",
+    "ProductList",
+    "CartSummary",
+    "CheckoutSummary",
+    "OrderStatusCard",
+    "SellerCard",
+    "RatingSummary",
+    "AddressSelector",
+    "DeliveryMethodSelector"
+  ],
+  "flows": [
+    "catalog",
+    "product-details",
+    "cart",
+    "checkout",
+    "order-tracking",
+    "seller-profile",
+    "rating"
+  ],
+  "adapters": ["catalog", "cart", "checkout", "orders", "seller"]
+}
