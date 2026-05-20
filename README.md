@@ -18,6 +18,11 @@ apps/
   docs/
   example-react-native/
   example-flutter/
+kits/
+  fintech/
+  mobile-money/
+  marketplace/
+  offline-first/
 packages/
   tokens/
   core/
@@ -46,6 +51,7 @@ pnpm test
 pnpm typecheck
 pnpm format:check
 pnpm check
+pnpm catalog:validate
 pnpm tokens:build
 ```
 
@@ -68,6 +74,11 @@ pnpm tokens:build
 - [Components](docs/components.md)
 - [Business Components](docs/business-components.md)
 - [Theming](docs/theming.md)
+- [Premium Kits](docs/premium-kits.md)
+- [Commercial Model](docs/commercial-model.md)
+- [Private Registry](docs/private-registry.md)
+- [Enterprise Integration](docs/enterprise-integration.md)
+- [Governance](docs/governance.md)
 - [Roadmap](docs/roadmap.md)
 - [Contribution](docs/contribution.md)
 

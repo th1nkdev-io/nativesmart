@@ -18,6 +18,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "clean": "turbo run clean && pnpm -r exec rimraf node_modules",
+    "catalog:validate": "node tooling/scripts/validate-product-catalog.mjs",
     "tokens:build": "pnpm --filter @nativesmart/tokens build",
     "release": "changeset publish",
     "version": "changeset version"
