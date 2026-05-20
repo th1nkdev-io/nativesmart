@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import '../tokens/nativesmart_tokens.dart';
 
 class NativesmartTheme {
   static ThemeData light() {
-    const primary = Color(0xff059669);
+    const primary = NsColors.green600;
     return ThemeData(
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
@@ -19,16 +20,16 @@ class NativesmartTheme {
   }
 
   static ThemeData dark() {
-    const primary = Color(0xff10b981);
+    const primary = NsColors.green500;
     return ThemeData(
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
         seedColor: primary,
         brightness: Brightness.dark,
         primary: primary,
-        surface: Color(0xff0f172a),
+        surface: NsColors.neutral900,
       ),
-      scaffoldBackgroundColor: const Color(0xff020617),
+      scaffoldBackgroundColor: NsColors.neutral950,
       inputDecorationTheme: const InputDecorationTheme(
         border: OutlineInputBorder(),
       ),
