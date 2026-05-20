@@ -12,5 +12,6 @@ describe("cli", () => {
 
   it("prints available commands", () => {
     expect(getHelpText()).toContain("sync-tokens");
+    expect(getHelpText()).toContain("list kits");
   });
 });

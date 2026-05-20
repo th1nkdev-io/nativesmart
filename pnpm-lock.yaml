@@ -49,6 +49,10 @@ importers:
         version: 19.2.14
 
   packages/cli:
+    dependencies:
+      '@nativesmart/core':
+        specifier: workspace:*
+        version: link:../core
     devDependencies:
       '@types/node':
         specifier: ^22.10.2
