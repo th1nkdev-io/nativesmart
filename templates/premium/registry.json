@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "starters": [
+    { "id": "fintech-mobile-app", "tier": "pro", "target": "both", "status": "structured" },
+    { "id": "mobile-money-wallet", "tier": "pro", "target": "both", "status": "structured" },
+    { "id": "marketplace-buyer-seller", "tier": "pro", "target": "both", "status": "structured" },
+    { "id": "offline-field-agent", "tier": "enterprise", "target": "both", "status": "structured" },
+    { "id": "saas-companion-app", "tier": "pro", "target": "both", "status": "structured" }
+  ]
+}
