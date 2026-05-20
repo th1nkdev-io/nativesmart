@@ -4,13 +4,22 @@
   "private": true,
   "scripts": {
     "build": "echo \"React Native example placeholder\"",
-    "dev": "echo \"Expo example placeholder\"",
+    "dev": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
     "lint": "echo \"Example lint placeholder\"",
     "test": "echo \"Example test placeholder\"",
-    "typecheck": "echo \"Example typecheck placeholder\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
     "clean": "rimraf .expo dist"
   },
   "dependencies": {
-    "@nativesmart/react-native": "workspace:*"
+    "@nativesmart/react-native": "workspace:*",
+    "expo": "^53.0.0",
+    "react": "^19.0.0",
+    "react-native": "^0.79.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0"
   }
 }
