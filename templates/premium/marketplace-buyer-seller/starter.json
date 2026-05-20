@@ -1,0 +1,8 @@
+{
+  "id": "marketplace-buyer-seller",
+  "name": "Marketplace Buyer Seller Starter",
+  "tier": "pro",
+  "target": "both",
+  "kits": ["marketplace", "mobile-money"],
+  "includes": ["navigation", "auth", "screens", "api", "docs"]
+}

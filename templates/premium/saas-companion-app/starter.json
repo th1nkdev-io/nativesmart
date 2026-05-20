@@ -1,0 +1,8 @@
+{
+  "id": "saas-companion-app",
+  "name": "SaaS Companion App Starter",
+  "tier": "pro",
+  "target": "both",
+  "kits": ["saas"],
+  "includes": ["navigation", "auth", "screens", "api", "docs"]
+}

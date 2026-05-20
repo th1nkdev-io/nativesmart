@@ -1,0 +1,8 @@
+{
+  "id": "offline-field-agent",
+  "name": "Offline Field Agent Starter",
+  "tier": "enterprise",
+  "target": "both",
+  "kits": ["offline-first", "public-services"],
+  "includes": ["navigation", "auth", "screens", "api", "docs"]
+}
