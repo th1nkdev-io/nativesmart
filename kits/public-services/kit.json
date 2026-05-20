@@ -1,0 +1,22 @@
+{
+  "id": "public-services",
+  "name": "Public Services Kit",
+  "priority": 2,
+  "tier": "enterprise",
+  "status": "structured",
+  "components": [
+    "ServiceRequestCard",
+    "CaseStatusCard",
+    "DocumentRequirementList",
+    "AppointmentSummary",
+    "PublicNoticeCard"
+  ],
+  "flows": [
+    "service-discovery",
+    "request-submission",
+    "document-upload",
+    "appointment-booking",
+    "case-tracking"
+  ],
+  "adapters": ["case-management", "documents", "appointments", "identity"]
+}

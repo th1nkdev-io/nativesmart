@@ -1,0 +1,16 @@
+{
+  "id": "ecommerce",
+  "name": "Ecommerce Kit",
+  "priority": 2,
+  "tier": "pro",
+  "status": "structured",
+  "components": [
+    "ProductCard",
+    "CartSummary",
+    "CheckoutSummary",
+    "PromoCodeInput",
+    "OrderStatusCard"
+  ],
+  "flows": ["product-catalog", "cart", "checkout", "payment", "order-tracking"],
+  "adapters": ["catalog", "cart", "checkout", "orders", "payments"]
+}

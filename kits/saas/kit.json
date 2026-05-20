@@ -1,0 +1,16 @@
+{
+  "id": "saas",
+  "name": "SaaS Kit",
+  "priority": 2,
+  "tier": "pro",
+  "status": "structured",
+  "components": [
+    "MetricCard",
+    "SubscriptionCard",
+    "WorkspaceSwitcher",
+    "ActivityFeed",
+    "TeamMemberCard"
+  ],
+  "flows": ["workspace-onboarding", "subscription-status", "team-overview", "notification-center"],
+  "adapters": ["workspace", "billing", "metrics", "team"]
+}

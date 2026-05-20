@@ -1,0 +1,16 @@
+{
+  "id": "delivery",
+  "name": "Delivery Kit",
+  "priority": 2,
+  "tier": "pro",
+  "status": "structured",
+  "components": [
+    "DeliveryTrackingCard",
+    "CourierStatusCard",
+    "AddressSelector",
+    "DeliveryMethodSelector",
+    "ProofOfDeliveryState"
+  ],
+  "flows": ["create-delivery", "assign-courier", "track-package", "confirm-delivery"],
+  "adapters": ["logistics", "maps", "courier", "proof-of-delivery"]
+}
