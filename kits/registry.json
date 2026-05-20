@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "kits": [
+    { "id": "fintech", "priority": 1, "tier": "pro", "status": "structured" },
+    { "id": "mobile-money", "priority": 1, "tier": "pro", "status": "structured" },
+    { "id": "marketplace", "priority": 1, "tier": "pro", "status": "structured" },
+    { "id": "offline-first", "priority": 1, "tier": "pro", "status": "structured" },
+    { "id": "delivery", "priority": 2, "tier": "pro", "status": "structured" },
+    { "id": "saas", "priority": 2, "tier": "pro", "status": "structured" },
+    { "id": "public-services", "priority": 2, "tier": "enterprise", "status": "structured" },
+    { "id": "ecommerce", "priority": 2, "tier": "pro", "status": "structured" }
+  ]
+}
