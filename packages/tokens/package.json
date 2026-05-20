@@ -1,0 +1,26 @@
+{
+  "name": "@nativesmart/tokens",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Canonical Nativesmart design tokens and generated platform outputs.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "tokens"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node dist/build.js",
+    "dev": "tsc -w -p tsconfig.json",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
