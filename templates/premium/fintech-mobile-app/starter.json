@@ -1,0 +1,8 @@
+{
+  "id": "fintech-mobile-app",
+  "name": "Fintech Mobile App Starter",
+  "tier": "pro",
+  "target": "both",
+  "kits": ["fintech", "mobile-money", "offline-first"],
+  "includes": ["navigation", "auth", "screens", "api", "docs"]
+}
