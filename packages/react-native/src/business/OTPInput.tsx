@@ -1,6 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { Input } from "../components/Input";
+import { updateOtpAtIndex } from "../hooks/useOtpInput";
 import { useNativesmartTheme } from "../theme";
 
 export function OTPInput({
@@ -22,9 +23,7 @@ export function OTPInput({
           maxLength={1}
           keyboardType="number-pad"
           onChangeText={(digit) => {
-            const next = value.split("");
-            next[index] = digit;
-            onChange?.(next.join("").slice(0, length));
+            onChange?.(updateOtpAtIndex(value, index, digit, length));
           }}
           style={{ width: 44, textAlign: "center" }}
         />
