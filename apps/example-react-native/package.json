@@ -1,0 +1,16 @@
+{
+  "name": "@nativesmart/example-react-native",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "echo \"React Native example placeholder\"",
+    "dev": "echo \"Expo example placeholder\"",
+    "lint": "echo \"Example lint placeholder\"",
+    "test": "echo \"Example test placeholder\"",
+    "typecheck": "echo \"Example typecheck placeholder\"",
+    "clean": "rimraf .expo dist"
+  },
+  "dependencies": {
+    "@nativesmart/react-native": "workspace:*"
+  }
+}
