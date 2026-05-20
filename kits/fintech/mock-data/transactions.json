@@ -1,0 +1,20 @@
+[
+  {
+    "id": "txn_demo_001",
+    "title": "Wallet top-up",
+    "reference": "NS-FIN-0001",
+    "amountMinor": 250000,
+    "currency": "NGN",
+    "status": "successful",
+    "createdAt": "2026-05-20T09:00:00.000Z"
+  },
+  {
+    "id": "txn_demo_002",
+    "title": "Transfer to beneficiary",
+    "reference": "NS-FIN-0002",
+    "amountMinor": 100000,
+    "currency": "XOF",
+    "status": "pending",
+    "createdAt": "2026-05-20T10:15:00.000Z"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "mtn-demo",
+    "label": "MTN Demo",
+    "country": "GH",
+    "currency": "GHS"
+  },
+  {
+    "id": "wave-demo",
+    "label": "Wave Demo",
+    "country": "SN",
+    "currency": "XOF"
+  }
+]

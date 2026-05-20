@@ -1,0 +1,30 @@
+{
+  "id": "fintech",
+  "name": "Fintech Kit",
+  "priority": 1,
+  "tier": "pro",
+  "status": "structured",
+  "components": [
+    "WalletBalanceCard",
+    "TransactionList",
+    "TransactionDetails",
+    "TransferForm",
+    "BeneficiarySelector",
+    "FeeSummary",
+    "PaymentConfirmation",
+    "ReceiptShareView",
+    "KycStatusCard"
+  ],
+  "flows": [
+    "onboarding",
+    "login",
+    "wallet-dashboard",
+    "send-money",
+    "receive-money",
+    "transaction-details",
+    "kyc-status",
+    "receipt-sharing",
+    "network-error-recovery"
+  ],
+  "adapters": ["wallet", "transactions", "beneficiaries", "transfer-quote", "kyc-status"]
+}

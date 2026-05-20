@@ -1,0 +1,25 @@
+{
+  "id": "mobile-money",
+  "name": "Mobile Money Kit",
+  "priority": 1,
+  "tier": "pro",
+  "status": "structured",
+  "components": [
+    "MobileMoneySelector",
+    "PaymentMethodSelector",
+    "ProviderSelector",
+    "FeesBreakdown",
+    "PaymentConfirmation",
+    "PaymentStatus",
+    "ReceiptView",
+    "RetryPaymentState"
+  ],
+  "flows": [
+    "select-provider",
+    "confirm-payment",
+    "payment-status",
+    "retry-payment",
+    "render-receipt"
+  ],
+  "adapters": ["providers", "fee-estimate", "payment-initiation", "payment-status"]
+}
