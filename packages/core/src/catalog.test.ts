@@ -16,4 +16,12 @@ describe("product catalog", () => {
     expect(starterDefinitions).toHaveLength(5);
     expect(getStarterDefinition("offline-field-agent")?.kits).toContain("offline-first");
   });
+
+  it("keeps starter kit references resolvable", () => {
+    for (const starter of starterDefinitions) {
+      for (const kitId of starter.kits) {
+        expect(getKitDefinition(kitId), `${starter.id} references ${kitId}`).not.toBeNull();
+      }
+    }
+  });
 });

@@ -12,5 +12,7 @@ describe("tokens", () => {
     expect(themes.light.colors.background).toBeDefined();
     expect(themes.dark.colors.background).toBeDefined();
     expect(themes.light.colors.primary).toBe(primitives.colors.green[600]);
+    expect(themes.light.colors.onPrimary).toBe(primitives.colors.neutral[0]);
+    expect(themes.dark.colors.onPrimary).toBe(primitives.colors.neutral[950]);
   });
 });

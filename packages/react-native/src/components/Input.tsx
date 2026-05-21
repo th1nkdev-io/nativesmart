@@ -6,10 +6,17 @@ export type InputProps = TextInputProps & {
   invalid?: boolean;
 };
 
-export function Input({ invalid = false, style, placeholderTextColor, ...props }: InputProps) {
+export function Input({
+  invalid = false,
+  style,
+  placeholderTextColor,
+  accessibilityHint,
+  ...props
+}: InputProps) {
   const theme = useNativesmartTheme();
   return (
     <TextInput
+      accessibilityHint={invalid ? "Input value is invalid" : accessibilityHint}
       placeholderTextColor={placeholderTextColor ?? theme.colors.textMuted}
       style={[
         {

@@ -10,6 +10,8 @@ describe("money", () => {
   it("rejects invalid amounts", () => {
     expect(parseAmount("12.999")).toBeNull();
     expect(parseAmount("abc")).toBeNull();
+    expect(parseAmount("-12")).toBeNull();
+    expect(parseAmount("12.")).toBeNull();
   });
 
   it("formats money for a locale", () => {

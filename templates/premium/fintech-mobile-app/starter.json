@@ -4,5 +4,9 @@
   "tier": "pro",
   "target": "both",
   "kits": ["fintech", "mobile-money", "offline-first"],
-  "includes": ["navigation", "auth", "screens", "api", "docs"]
+  "includes": ["navigation", "auth", "screens", "api", "docs"],
+  "entrypoints": {
+    "reactNative": "navigation/AppNavigator.tsx",
+    "api": "api/mockApi.ts"
+  }
 }

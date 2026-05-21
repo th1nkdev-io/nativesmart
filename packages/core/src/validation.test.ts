@@ -10,6 +10,8 @@ describe("validation", () => {
   it("validates amounts", () => {
     expect(validateAmount("100").valid).toBe(true);
     expect(validateAmount("0", 100).valid).toBe(false);
+    expect(validateAmount("0.01", 1).valid).toBe(true);
+    expect(validateAmount("0.01", 2).valid).toBe(false);
   });
 
   it("validates OTP values", () => {
