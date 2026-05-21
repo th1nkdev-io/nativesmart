@@ -17,6 +17,8 @@
     "typecheck": "turbo run typecheck",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "flutter:check": "node tooling/scripts/check-flutter.mjs",
+    "flutter:check:optional": "node tooling/scripts/check-flutter.mjs --allow-missing",
     "clean": "turbo run clean && pnpm -r exec rimraf node_modules",
     "catalog:validate": "node tooling/scripts/validate-product-catalog.mjs",
     "tokens:build": "pnpm --filter @nativesmart/tokens build",
