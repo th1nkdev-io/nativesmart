@@ -72,8 +72,12 @@ describe("cli", () => {
 
       expect(result.exitCode).toBe(0);
       expect(existsSync(join(dir, "wallet-app", "package.json"))).toBe(true);
+      expect(existsSync(join(dir, "wallet-app", "App.tsx"))).toBe(true);
+      expect(existsSync(join(dir, "wallet-app", "src", "navigation", "AppNavigator.tsx"))).toBe(
+        true
+      );
       expect(readFileSync(join(dir, "wallet-app", "nativesmart.config.json"), "utf8")).toContain(
-        "fintech"
+        "premium-template"
       );
     });
   });

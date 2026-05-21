@@ -1,6 +1,14 @@
 #!/usr/bin/env node
 
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  statSync,
+  writeFileSync
+} from "node:fs";
 import { join, resolve } from "node:path";
 import {
   getKitDefinition,
@@ -83,6 +91,40 @@ function writeJson(path: string, value: unknown) {
   writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`);
 }
 
+function getRepositoryRoot() {
+  return resolve(__dirname, "../../..");
+}
+
+function copyDirectory(source: string, target: string) {
+  mkdirSync(target, { recursive: true });
+
+  for (const entry of readdirSync(source)) {
+    const sourcePath = join(source, entry);
+    const targetPath = join(target, entry);
+
+    if (statSync(sourcePath).isDirectory()) {
+      copyDirectory(sourcePath, targetPath);
+    } else {
+      copyFileSync(sourcePath, targetPath);
+    }
+  }
+}
+
+function copyStarterFiles(starterId: string, appDir: string) {
+  const starterDir = join(getRepositoryRoot(), "templates", "premium", starterId);
+  if (!existsSync(starterDir)) return false;
+
+  for (const dir of ["api", "auth", "navigation", "screens"]) {
+    const source = join(starterDir, dir);
+    if (existsSync(source)) copyDirectory(source, join(appDir, "src", dir));
+  }
+
+  const docsDir = join(starterDir, "docs");
+  if (existsSync(docsDir)) copyDirectory(docsDir, join(appDir, "docs"));
+
+  return true;
+}
+
 function validateWorkspace(root = process.cwd()) {
   const errors: string[] = [];
   const kitsRegistryPath = join(root, "kits", "registry.json");
@@ -134,6 +176,8 @@ function createApp(argv: string[]) {
 
   mkdirSync(appDir, { recursive: true });
   mkdirSync(join(appDir, "src"), { recursive: true });
+  const copiedStarter = copyStarterFiles(starter.id, appDir);
+
   writeJson(join(appDir, "package.json"), {
     name,
     version: "0.1.0",
@@ -145,6 +189,7 @@ function createApp(argv: string[]) {
       web: "expo start --web"
     },
     dependencies: {
+      "@nativesmart/core": "latest",
       "@nativesmart/react-native": "latest",
       expo: "^53.0.0",
       react: "^19.0.0",
@@ -154,33 +199,52 @@ function createApp(argv: string[]) {
   writeJson(join(appDir, "nativesmart.config.json"), {
     starter: starter.id,
     kits: starter.kits,
-    theme: "light"
+    theme: "light",
+    source: copiedStarter ? "premium-template" : "generated-minimal"
   });
+  writeJson(join(appDir, "tsconfig.json"), {
+    extends: "expo/tsconfig.base",
+    compilerOptions: {
+      strict: true
+    }
+  });
+
   writeFileSync(
-    join(appDir, "src", "App.tsx"),
-    [
-      'import { NativesmartProvider, Text, Button, Card } from "@nativesmart/react-native";',
-      "",
-      "export default function App() {",
-      "  return (",
-      '    <NativesmartProvider mode="light">',
-      "      <Card>",
-      `        <Text variant="title">${starter.name}</Text>`,
-      "        <Text muted>Generated with Nativesmart.</Text>",
-      '        <Button label="Continue" />',
-      "      </Card>",
-      "    </NativesmartProvider>",
-      "  );",
-      "}",
-      ""
-    ].join("\n")
+    join(appDir, "App.tsx"),
+    copiedStarter
+      ? [
+          'import { AppNavigator } from "./src/navigation/AppNavigator";',
+          "",
+          "export default AppNavigator;",
+          ""
+        ].join("\n")
+      : [
+          'import { NativesmartProvider, Text, Button, Card } from "@nativesmart/react-native";',
+          "",
+          "export default function App() {",
+          "  return (",
+          '    <NativesmartProvider mode="light">',
+          "      <Card>",
+          `        <Text variant="title">${starter.name}</Text>`,
+          "        <Text muted>Generated with Nativesmart.</Text>",
+          '        <Button label="Continue" />',
+          "      </Card>",
+          "    </NativesmartProvider>",
+          "  );",
+          "}",
+          ""
+        ].join("\n")
   );
+
   writeFileSync(
     join(appDir, "README.md"),
     [
       `# ${starter.name}`,
       "",
       `Generated from \`${starter.id}\` with Nativesmart.`,
+      copiedStarter
+        ? "Premium template files were copied into `src/`."
+        : "A minimal shell was generated.",
       "",
       "## Included kits",
       "",
