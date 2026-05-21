@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "turbo run build",
-    "check": "pnpm build && pnpm typecheck && pnpm lint && pnpm test",
+    "check": "pnpm build && pnpm typecheck && pnpm lint && pnpm test && pnpm catalog:validate",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "test": "turbo run test",
