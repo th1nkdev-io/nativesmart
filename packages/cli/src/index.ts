@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import {
   getKitDefinition,
   getStarterDefinition,
@@ -41,6 +43,14 @@ Usage:
 
 Commands:
   ${commands.join("\n  ")}
+
+Examples:
+  nativesmart list kits
+  nativesmart show kit fintech
+  nativesmart create app --name wallet-app --template fintech-mobile-app
+  nativesmart add kit fintech
+  nativesmart doctor
+  nativesmart validate
 `;
 }
 
@@ -48,8 +58,180 @@ function formatList(items: { id: string; name: string; tier: string; status: str
   return items.map((item) => `- ${item.id} (${item.tier}, ${item.status}) ${item.name}`).join("\n");
 }
 
-function getArgAfterCommand(argv: string[]) {
-  return argv.slice(4).find((value) => value && !value.startsWith("-")) ?? null;
+function getCommandLength(command: string | null) {
+  return command?.includes(" ") ? 2 : 1;
+}
+
+function getArgsAfterCommand(argv: string[], command: string | null) {
+  return argv.slice(2 + getCommandLength(command));
+}
+
+function getArgAfterCommand(argv: string[], command: string | null) {
+  return (
+    getArgsAfterCommand(argv, command).find((value) => value && !value.startsWith("-")) ?? null
+  );
+}
+
+function getOption(argv: string[], name: string) {
+  const index = argv.indexOf(`--${name}`);
+  if (index === -1) return null;
+  const value = argv[index + 1];
+  return value && !value.startsWith("-") ? value : null;
+}
+
+function writeJson(path: string, value: unknown) {
+  writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`);
+}
+
+function validateWorkspace(root = process.cwd()) {
+  const errors: string[] = [];
+  const kitsRegistryPath = join(root, "kits", "registry.json");
+  const startersRegistryPath = join(root, "templates", "premium", "registry.json");
+
+  if (!existsSync(kitsRegistryPath)) errors.push("Missing kits/registry.json");
+  if (!existsSync(startersRegistryPath)) errors.push("Missing templates/premium/registry.json");
+
+  for (const kit of kitDefinitions) {
+    const manifestPath = join(root, "kits", kit.id, "kit.json");
+    if (!existsSync(manifestPath)) {
+      errors.push(`Missing kit manifest: ${kit.id}`);
+      continue;
+    }
+
+    const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as { id?: string };
+    if (manifest.id !== kit.id) errors.push(`Kit id mismatch: ${kit.id}`);
+  }
+
+  for (const starter of starterDefinitions) {
+    const manifestPath = join(root, "templates", "premium", starter.id, "starter.json");
+    if (!existsSync(manifestPath)) {
+      errors.push(`Missing starter manifest: ${starter.id}`);
+      continue;
+    }
+
+    const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as { id?: string };
+    if (manifest.id !== starter.id) errors.push(`Starter id mismatch: ${starter.id}`);
+  }
+
+  return errors;
+}
+
+function createApp(argv: string[]) {
+  const name = getOption(argv, "name") ?? "nativesmart-app";
+  const templateId = getOption(argv, "template") ?? "fintech-mobile-app";
+  const starter = getStarterDefinition(templateId);
+
+  if (!starter) {
+    console.error(`Starter not found: ${templateId}`);
+    return 1;
+  }
+
+  const appDir = resolve(process.cwd(), name);
+  if (existsSync(appDir)) {
+    console.error(`Target directory already exists: ${appDir}`);
+    return 1;
+  }
+
+  mkdirSync(appDir, { recursive: true });
+  mkdirSync(join(appDir, "src"), { recursive: true });
+  writeJson(join(appDir, "package.json"), {
+    name,
+    version: "0.1.0",
+    private: true,
+    scripts: {
+      start: "expo start",
+      android: "expo start --android",
+      ios: "expo start --ios",
+      web: "expo start --web"
+    },
+    dependencies: {
+      "@nativesmart/react-native": "latest",
+      expo: "^53.0.0",
+      react: "^19.0.0",
+      "react-native": "^0.79.0"
+    }
+  });
+  writeJson(join(appDir, "nativesmart.config.json"), {
+    starter: starter.id,
+    kits: starter.kits,
+    theme: "light"
+  });
+  writeFileSync(
+    join(appDir, "src", "App.tsx"),
+    [
+      'import { NativesmartProvider, Text, Button, Card } from "@nativesmart/react-native";',
+      "",
+      "export default function App() {",
+      "  return (",
+      '    <NativesmartProvider mode="light">',
+      "      <Card>",
+      `        <Text variant="title">${starter.name}</Text>`,
+      "        <Text muted>Generated with Nativesmart.</Text>",
+      '        <Button label="Continue" />',
+      "      </Card>",
+      "    </NativesmartProvider>",
+      "  );",
+      "}",
+      ""
+    ].join("\n")
+  );
+  writeFileSync(
+    join(appDir, "README.md"),
+    [
+      `# ${starter.name}`,
+      "",
+      `Generated from \`${starter.id}\` with Nativesmart.`,
+      "",
+      "## Included kits",
+      "",
+      ...starter.kits.map((kit) => `- ${kit}`),
+      ""
+    ].join("\n")
+  );
+
+  console.log(`Created ${starter.name} in ${appDir}`);
+  return 0;
+}
+
+function addKit(argv: string[]) {
+  const kitId = getArgAfterCommand(argv, "add kit");
+  const kit = kitId ? getKitDefinition(kitId) : null;
+
+  if (!kit) {
+    console.error(`Kit not found: ${kitId ?? "(missing id)"}`);
+    return 1;
+  }
+
+  const configPath = resolve(process.cwd(), "nativesmart.config.json");
+  const current = existsSync(configPath)
+    ? (JSON.parse(readFileSync(configPath, "utf8")) as { kits?: string[] })
+    : {};
+  const kits = Array.from(new Set([...(current.kits ?? []), kit.id]));
+  writeJson(configPath, { ...current, kits });
+  console.log(`Added kit: ${kit.id}`);
+  return 0;
+}
+
+function runDoctor() {
+  const errors = validateWorkspace();
+  const nodeMajor = Number(process.versions.node.split(".")[0]);
+
+  console.log(`Node: ${process.versions.node}`);
+  console.log(`Kits: ${kitDefinitions.length}`);
+  console.log(`Starters: ${starterDefinitions.length}`);
+
+  if (nodeMajor < 20) {
+    console.error("Node 20 or newer is required.");
+    return 1;
+  }
+
+  if (errors.length > 0) {
+    console.error(errors.join("\n"));
+    return 1;
+  }
+
+  console.log("Nativesmart workspace looks healthy.");
+  return 0;
 }
 
 export function runCli(argv = process.argv) {
@@ -76,7 +258,7 @@ export function runCli(argv = process.argv) {
   }
 
   if (command === "show kit") {
-    const id = getArgAfterCommand(argv);
+    const id = getArgAfterCommand(argv, command);
     const kit = id ? getKitDefinition(id) : null;
     if (!kit) {
       console.error(`Kit not found: ${id ?? "(missing id)"}`);
@@ -87,13 +269,34 @@ export function runCli(argv = process.argv) {
   }
 
   if (command === "show starter") {
-    const id = getArgAfterCommand(argv);
+    const id = getArgAfterCommand(argv, command);
     const starter = id ? getStarterDefinition(id) : null;
     if (!starter) {
       console.error(`Starter not found: ${id ?? "(missing id)"}`);
       return 1;
     }
     console.log(JSON.stringify(starter, null, 2));
+    return 0;
+  }
+
+  if (command === "create app") return createApp(argv);
+  if (command === "add kit") return addKit(argv);
+  if (command === "doctor") return runDoctor();
+
+  if (command === "validate") {
+    const errors = validateWorkspace();
+    if (errors.length > 0) {
+      console.error(errors.join("\n"));
+      return 1;
+    }
+    console.log("Nativesmart catalog is valid.");
+    return 0;
+  }
+
+  if (command === "sync-tokens") {
+    console.log(
+      "Run `pnpm tokens:build` to regenerate JSON, Flutter and React Native token outputs."
+    );
     return 0;
   }
 
