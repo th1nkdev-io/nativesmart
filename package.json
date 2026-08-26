@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "turbo run build",
-    "check": "pnpm build && pnpm typecheck && pnpm lint && pnpm test && pnpm catalog:validate",
+    "check": "pnpm build && pnpm typecheck && pnpm lint && pnpm test && pnpm catalog:validate && pnpm architecture:validate",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "test": "turbo run test",
@@ -21,6 +21,7 @@
     "flutter:check:optional": "node tooling/scripts/check-flutter.mjs --allow-missing",
     "clean": "turbo run clean && pnpm -r exec rimraf node_modules",
     "catalog:validate": "node tooling/scripts/validate-product-catalog.mjs",
+    "architecture:validate": "pnpm --filter @nativesmart/platform-registry validate",
     "tokens:build": "pnpm --filter @nativesmart/tokens build",
     "release": "changeset publish",
     "version": "changeset version"

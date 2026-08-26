@@ -64,7 +64,45 @@ importers:
         specifier: ^2.1.8
         version: 2.1.9(@types/node@22.19.19)(lightningcss@1.27.0)(terser@5.47.1)
 
+  packages/contracts:
+    devDependencies:
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vitest:
+        specifier: ^2.1.8
+        version: 2.1.9(@types/node@22.19.19)(lightningcss@1.27.0)(terser@5.47.1)
+
   packages/core:
+    devDependencies:
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vitest:
+        specifier: ^2.1.8
+        version: 2.1.9(@types/node@22.19.19)(lightningcss@1.27.0)(terser@5.47.1)
+
+  packages/design-systems:
+    dependencies:
+      '@nativesmart/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+    devDependencies:
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vitest:
+        specifier: ^2.1.8
+        version: 2.1.9(@types/node@22.19.19)(lightningcss@1.27.0)(terser@5.47.1)
+
+  packages/platform-registry:
+    dependencies:
+      '@nativesmart/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      '@nativesmart/design-systems':
+        specifier: workspace:*
+        version: link:../design-systems
     devDependencies:
       typescript:
         specifier: ^5.7.2
