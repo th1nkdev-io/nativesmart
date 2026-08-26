@@ -24,7 +24,10 @@ kits/
   marketplace/
   offline-first/
 packages/
+  contracts/
   tokens/
+  design-systems/
+  platform-registry/
   core/
   react-native/
   flutter/
@@ -57,7 +60,10 @@ pnpm tokens:build
 
 ## Package roles
 
+- `@nativesmart/contracts`: platform-neutral component and renderer contracts.
 - `@nativesmart/tokens`: canonical tokens and generated platform outputs.
+- `@nativesmart/design-systems`: Thinkdev, Material, Bootstrap and Cupertino recipes.
+- `@nativesmart/platform-registry`: renderer coverage and architecture conformance.
 - `@nativesmart/core`: shared product types and non-platform logic.
 - `@nativesmart/react-native`: Expo-compatible React Native components and hooks.
 - `nativesmart_flutter`: Flutter theme and widget package.
@@ -67,6 +73,8 @@ pnpm tokens:build
 
 - [Vision](docs/vision.md)
 - [Architecture](docs/architecture.md)
+- [Component Contracts](docs/component-contracts.md)
+- [Design Systems](docs/design-systems.md)
 - [Tokens](docs/tokens.md)
 - [Core](docs/core.md)
 - [React Native](docs/react-native.md)
