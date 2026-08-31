@@ -88,6 +88,7 @@ pnpm tokens:build
 - [Enterprise Integration](docs/enterprise-integration.md)
 - [Governance](docs/governance.md)
 - [Roadmap](docs/roadmap.md)
+- [Production Readiness Checklist](docs/production-readiness-checklist.md)
 - [Contribution](docs/contribution.md)
 
 ## Status
