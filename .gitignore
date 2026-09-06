@@ -13,3 +13,4 @@ coverage/
 pubspec.lock
 ios/Pods/
 android/.gradle/
+.gitignore
