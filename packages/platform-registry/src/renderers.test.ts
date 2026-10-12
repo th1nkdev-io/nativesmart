@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { validateArchitecture, componentContracts } from "@nativesmart/contracts";
 import { designSystems } from "@nativesmart/design-systems";
@@ -59,6 +61,15 @@ describe("platform registry", () => {
       expect.arrayContaining(["react-native-nativewind", "react-web"])
     );
     expect(getIntegrationsForRenderer("swiftui").map((item) => item.id)).toContain("kmp-core");
+  });
+
+  it("maps every manifest to an existing repository directory", () => {
+    const repoRoot = resolve(__dirname, "../../..");
+    const paths = [
+      ...rendererManifests.flatMap((item) => [item.packagePath, item.playgroundPath]),
+      ...integrationManifests.map((item) => item.packagePath)
+    ];
+    expect(paths.filter((path) => !existsSync(resolve(repoRoot, path)))).toEqual([]);
   });
 
   it("is conformant with contracts and design-system definitions", () => {

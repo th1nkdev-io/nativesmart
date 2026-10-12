@@ -7,7 +7,7 @@
 Inside this monorepo, use the workspace package:
 
 ```bash
-pnpm --filter @nativesmart/example-react-native dev
+pnpm --filter @nativesmart/app-react-native dev
 ```
 
 In a future external app, install the published package:
@@ -55,6 +55,6 @@ layer differs; hooks and non-visual logic are not duplicated.
 
 ## Known Limits
 
-- The example app is a demo shell, not a production starter yet.
+- The playground app (`apps/mobile/react-native`) is a demo shell, not a production starter yet.
 - Component tests are still minimal.
 - Advanced mobile patterns such as bottom sheets, select menus and date pickers are not implemented yet.

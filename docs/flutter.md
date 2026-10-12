@@ -4,18 +4,18 @@
 
 ## Installation
 
-Inside this monorepo, the example app uses a local path dependency:
+Inside this monorepo, the playground app uses a local path dependency:
 
 ```yaml
 dependencies:
   nativesmart_flutter:
-    path: ../../packages/flutter
+    path: ../../../packages/mobile/flutter
 ```
 
-Run the example with:
+Run the playground with:
 
 ```bash
-cd apps/example-flutter
+cd apps/mobile/flutter
 flutter pub get
 flutter run
 ```
@@ -38,4 +38,4 @@ MaterialApp(
 
 - Flutter tooling must be installed locally to run `flutter analyze` and `flutter test`.
 - Token access is prepared with Dart classes; full generated-token import can be tightened in a later pass.
-- Widgets are intentionally simple until the example app reveals real product needs.
+- Widgets are intentionally simple until the playground app reveals real product needs.

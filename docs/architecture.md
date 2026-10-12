@@ -54,8 +54,8 @@ logic in `@nativesmart/core` remains independent from UI packages.
 
 Existing preview renderers:
 
-- `packages/react-native`: Android and iOS through React Native and Expo.
-- `packages/flutter`: Android, iOS, web and desktop through Flutter.
+- `packages/mobile/react-native`: Android and iOS through React Native and Expo.
+- `packages/mobile/flutter`: Android, iOS, web and desktop through Flutter.
 
 Planned renderers are declared before implementation in `@nativesmart/platform-registry`:
 

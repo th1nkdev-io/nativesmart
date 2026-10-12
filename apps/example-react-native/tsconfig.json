@@ -1,7 +1,0 @@
-{
-  "extends": "../../tooling/tsconfig/react-native.json",
-  "compilerOptions": {
-    "noEmit": true
-  },
-  "include": ["App.tsx"]
-}

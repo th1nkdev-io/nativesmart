@@ -19,33 +19,47 @@ It is not a button library. It is a reusable foundation for design tokens, mobil
 ```txt
 apps/
   docs/
-  example-react-native/
-  example-flutter/
-kits/
-  fintech/
-  mobile-money/
-  marketplace/
-  offline-first/
+  web/                       # one playground per web renderer
+    html-css/  react/  vue/  svelte/  angular/
+  mobile/                    # one playground per mobile renderer
+    react-native/  react-native-nativewind/  flutter/
+    kotlin/  swift/  ionic-capacitor/  maui/
+  desktop/
+    electron-tauri/
 packages/
-  contracts/
+  contracts/                 # foundation, shared by every renderer
   tokens/
   design-systems/
   platform-registry/
   core/
-  react-native/
-  flutter/
   cli/
+  web/                       # web renderers
+    html-css/  react/  vue/  svelte/  angular/
+  mobile/                    # mobile renderers
+    react-native/  react-native-nativewind/  flutter/
+    kotlin/  swift/  ionic-capacitor/  maui/
+  desktop/
+    electron-tauri/
+  integrations/
+    tailwind-preset/  figma-tokens/  kmp-core/  nuxt/  astro/
+    laravel-blade/  django/  pwa/  expo/  storybook/  ussd/
+kits/
+  fintech/  mobile-money/  marketplace/  ecommerce/
+  delivery/  saas/  public-services/  offline-first/
 templates/
-  react-native-starter/
-  flutter-starter/
-  fintech-starter/
-  marketplace-starter/
+  react-native-starter/  flutter-starter/  fintech-starter/
+  marketplace-starter/  premium/
 tooling/
   eslint-config/
   tsconfig/
   scripts/
 docs/
 ```
+
+Only `packages/mobile/react-native`, `packages/mobile/flutter` and their playgrounds are
+implemented today. Every other renderer and integration directory holds a README describing the
+planned package; each one is declared in `@nativesmart/platform-registry`, and a test fails if a
+manifest points to a missing directory.
 
 ## Commands
 

@@ -86,6 +86,10 @@ export type RendererManifest = {
   status: RendererStatus;
   supportedDesignSystems: readonly string[];
   implementedComponents: readonly string[];
+  /** Repository directory holding the renderer package. */
+  packagePath: string;
+  /** Repository directory holding the renderer playground app. */
+  playgroundPath: string;
   /** Styling engine used by the renderer, such as StyleSheet, NativeWind or CSS. */
   styling?: string;
   /** Renderer this one wraps instead of reimplementing components. */
@@ -99,6 +103,8 @@ export type IntegrationManifest = {
   kind: IntegrationKind;
   description: string;
   packageName: string;
+  /** Repository directory holding the integration package. */
+  packagePath: string;
   status: RendererStatus;
   /** Renderer identifiers consuming or served by this integration. */
   targets: readonly string[];

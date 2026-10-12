@@ -11,6 +11,7 @@ export const integrationManifests: readonly IntegrationManifest[] = [
     description:
       "Canonical tokens exported in the W3C Design Tokens Community Group format and transformed with Style Dictionary for every renderer.",
     packageName: "@nativesmart/tokens",
+    packagePath: "packages/tokens",
     status: "planned",
     targets: [
       "react-native",
@@ -29,6 +30,7 @@ export const integrationManifests: readonly IntegrationManifest[] = [
     description:
       "Tailwind CSS preset generated from tokens and shared by NativeWind and the web renderers.",
     packageName: "@nativesmart/tailwind-preset",
+    packagePath: "packages/integrations/tailwind-preset",
     status: "planned",
     targets: ["react-native-nativewind", "react-web", "vue", "svelte", "html-css"]
   },
@@ -38,6 +40,7 @@ export const integrationManifests: readonly IntegrationManifest[] = [
     kind: "design-tool",
     description: "Two-way token synchronization with Figma through Tokens Studio and DTCG files.",
     packageName: "@nativesmart/figma-tokens",
+    packagePath: "packages/integrations/figma-tokens",
     status: "planned",
     targets: []
   },
@@ -50,6 +53,7 @@ export const integrationManifests: readonly IntegrationManifest[] = [
     description:
       "Port of @nativesmart/core business rules (amounts, phone numbers, OTP, transaction states) shared by Kotlin and Swift renderers.",
     packageName: "com.thinkdev.nativesmart:core",
+    packagePath: "packages/integrations/kmp-core",
     status: "planned",
     targets: ["compose", "swiftui"]
   },
@@ -61,6 +65,7 @@ export const integrationManifests: readonly IntegrationManifest[] = [
     kind: "meta-framework",
     description: "SSR, App Router and React Server Components compatibility plus a starter.",
     packageName: "@nativesmart/react",
+    packagePath: "packages/web/react",
     status: "planned",
     targets: ["react-web"]
   },
@@ -70,6 +75,7 @@ export const integrationManifests: readonly IntegrationManifest[] = [
     kind: "meta-framework",
     description: "Nuxt module registering components, tokens and SSR-safe custom elements.",
     packageName: "@nativesmart/nuxt",
+    packagePath: "packages/integrations/nuxt",
     status: "planned",
     targets: ["vue"]
   },
@@ -79,6 +85,7 @@ export const integrationManifests: readonly IntegrationManifest[] = [
     kind: "meta-framework",
     description: "SSR compatibility and a SvelteKit starter.",
     packageName: "@nativesmart/svelte",
+    packagePath: "packages/web/svelte",
     status: "planned",
     targets: ["svelte"]
   },
@@ -88,6 +95,7 @@ export const integrationManifests: readonly IntegrationManifest[] = [
     kind: "meta-framework",
     description: "Astro integration for content sites and islands using Web Components or React.",
     packageName: "@nativesmart/astro",
+    packagePath: "packages/integrations/astro",
     status: "planned",
     targets: ["html-css", "react-web"]
   },
@@ -99,6 +107,7 @@ export const integrationManifests: readonly IntegrationManifest[] = [
     kind: "server-templates",
     description: "Blade components rendering the HTML and CSS renderer markup server-side.",
     packageName: "thinkdev/nativesmart-blade",
+    packagePath: "packages/integrations/laravel-blade",
     status: "planned",
     targets: ["html-css"]
   },
@@ -108,6 +117,7 @@ export const integrationManifests: readonly IntegrationManifest[] = [
     kind: "server-templates",
     description: "Django template tags rendering the HTML and CSS renderer markup server-side.",
     packageName: "nativesmart-django",
+    packagePath: "packages/integrations/django",
     status: "planned",
     targets: ["html-css"]
   },
@@ -120,6 +130,7 @@ export const integrationManifests: readonly IntegrationManifest[] = [
     description:
       "Installable, offline-first web delivery with service worker, sync queue and low-data defaults.",
     packageName: "@nativesmart/pwa",
+    packagePath: "packages/integrations/pwa",
     status: "planned",
     targets: [...webRenderers]
   },
@@ -129,6 +140,7 @@ export const integrationManifests: readonly IntegrationManifest[] = [
     kind: "hybrid-shell",
     description: "Expo config plugin, EAS build profiles and starters for React Native renderers.",
     packageName: "@nativesmart/expo",
+    packagePath: "packages/integrations/expo",
     status: "planned",
     targets: ["react-native", "react-native-nativewind"]
   },
@@ -141,6 +153,7 @@ export const integrationManifests: readonly IntegrationManifest[] = [
     description:
       "Shared component documentation, visual regression and accessibility checks across renderers.",
     packageName: "@nativesmart/storybook",
+    packagePath: "packages/integrations/storybook",
     status: "planned",
     targets: ["react-native", "react-native-nativewind", ...webRenderers]
   },
@@ -153,6 +166,7 @@ export const integrationManifests: readonly IntegrationManifest[] = [
     description:
       "Text-only rendering of mobile money flow contracts (send money, OTP, receipt) for feature phones and no-data fallback.",
     packageName: "@nativesmart/ussd",
+    packagePath: "packages/integrations/ussd",
     status: "planned",
     targets: []
   }

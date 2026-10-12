@@ -5,7 +5,7 @@
 - Shared token source.
 - React Native package with base components and business component structure.
 - Flutter package with base widgets and business component structure.
-- Example apps for each platform.
+- Playground apps for each platform under `apps/<family>/<technology>`.
 - Starter template folders.
 - Documentation for vision, architecture and contribution.
 - Platform-neutral component contract schema and foundation catalog.

@@ -2,7 +2,7 @@ import { spawnSync } from "node:child_process";
 import { resolve } from "node:path";
 
 const allowMissing = process.argv.includes("--allow-missing");
-const flutterPackageDir = resolve("packages/flutter");
+const flutterPackageDir = resolve("packages/mobile/flutter");
 
 function commandExists(command) {
   const lookup = process.platform === "win32" ? "where" : "which";
@@ -26,7 +26,7 @@ function run(command, args, options = {}) {
       process.exit(0);
     }
 
-    console.error("Flutter SDK not found. Install Flutter to validate packages/flutter.");
+    console.error("Flutter SDK not found. Install Flutter to validate packages/mobile/flutter.");
     process.exit(1);
   }
 
@@ -44,7 +44,7 @@ if (!commandExists("flutter")) {
     process.exit(0);
   }
 
-  console.error("Flutter SDK not found. Install Flutter to validate packages/flutter.");
+  console.error("Flutter SDK not found. Install Flutter to validate packages/mobile/flutter.");
   process.exit(1);
 }
 

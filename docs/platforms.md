@@ -31,23 +31,27 @@ targets iPadOS and macOS. Bootstrap is never offered on mobile renderers and Cup
 offered on web renderers: the validator rejects a design system that shares no category with the
 renderer.
 
-### Package names
+### Packages and directories
 
-| Id                        | Package                                | Registry      |
-| ------------------------- | -------------------------------------- | ------------- |
-| `react-native`            | `@nativesmart/react-native`            | npm           |
-| `react-native-nativewind` | `@nativesmart/react-native-nativewind` | npm           |
-| `flutter`                 | `nativesmart_flutter`                  | pub.dev       |
-| `compose`                 | `com.thinkdev.nativesmart:compose`     | Maven         |
-| `swiftui`                 | `NativesmartSwiftUI`                   | Swift Package |
-| `ionic-capacitor`         | `@nativesmart/capacitor`               | npm           |
-| `maui`                    | `Thinkdev.Nativesmart.Maui`            | NuGet         |
-| `html-css`                | `@nativesmart/elements`                | npm           |
-| `react-web`               | `@nativesmart/react`                   | npm           |
-| `vue`                     | `@nativesmart/vue`                     | npm           |
-| `svelte`                  | `@nativesmart/svelte`                  | npm           |
-| `angular`                 | `@nativesmart/angular`                 | npm           |
-| `desktop-web`             | `@nativesmart/desktop`                 | npm           |
+Each renderer has a package directory under `packages/<family>/<technology>` and a playground app
+under `apps/<family>/<technology>`. Manifests record both as `packagePath` and `playgroundPath`,
+and a registry test fails if either directory is missing.
+
+| Id                        | Package                                | Registry      | Package directory                         | Playground                            |
+| ------------------------- | -------------------------------------- | ------------- | ----------------------------------------- | ------------------------------------- |
+| `react-native`            | `@nativesmart/react-native`            | npm           | `packages/mobile/react-native`            | `apps/mobile/react-native`            |
+| `react-native-nativewind` | `@nativesmart/react-native-nativewind` | npm           | `packages/mobile/react-native-nativewind` | `apps/mobile/react-native-nativewind` |
+| `flutter`                 | `nativesmart_flutter`                  | pub.dev       | `packages/mobile/flutter`                 | `apps/mobile/flutter`                 |
+| `compose`                 | `com.thinkdev.nativesmart:compose`     | Maven         | `packages/mobile/kotlin`                  | `apps/mobile/kotlin`                  |
+| `swiftui`                 | `NativesmartSwiftUI`                   | Swift Package | `packages/mobile/swift`                   | `apps/mobile/swift`                   |
+| `ionic-capacitor`         | `@nativesmart/capacitor`               | npm           | `packages/mobile/ionic-capacitor`         | `apps/mobile/ionic-capacitor`         |
+| `maui`                    | `Thinkdev.Nativesmart.Maui`            | NuGet         | `packages/mobile/maui`                    | `apps/mobile/maui`                    |
+| `html-css`                | `@nativesmart/elements`                | npm           | `packages/web/html-css`                   | `apps/web/html-css`                   |
+| `react-web`               | `@nativesmart/react`                   | npm           | `packages/web/react`                      | `apps/web/react`                      |
+| `vue`                     | `@nativesmart/vue`                     | npm           | `packages/web/vue`                        | `apps/web/vue`                        |
+| `svelte`                  | `@nativesmart/svelte`                  | npm           | `packages/web/svelte`                     | `apps/web/svelte`                     |
+| `angular`                 | `@nativesmart/angular`                 | npm           | `packages/web/angular`                    | `apps/web/angular`                    |
+| `desktop-web`             | `@nativesmart/desktop`                 | npm           | `packages/desktop/electron-tauri`         | `apps/desktop/electron-tauri`         |
 
 ## Renderer strategy
 
@@ -96,6 +100,10 @@ Planned for enterprise and public-sector clients who standardize on .NET. It is 
 demand and does not block any other renderer.
 
 ## Integrations
+
+Integrations with their own package live in `packages/integrations/<name>`. Next.js and
+SvelteKit ship inside the React and Svelte renderer packages, and DTCG tokens inside
+`packages/tokens`.
 
 | Integration         | Id                 | Kind             | Package                         | Serves                                   |
 | ------------------- | ------------------ | ---------------- | ------------------------------- | ---------------------------------------- |
@@ -157,8 +165,10 @@ form-integration and SSR tests.
 
 ## Adding a renderer or integration
 
-1. Add a manifest in `packages/platform-registry/src/renderers.ts` or `integrations.ts` with status
-   `planned`.
-2. Run `pnpm architecture:validate` and fix any unknown design system, wrap or target.
-3. Update this page and the [roadmap](roadmap.md).
-4. Create the package, then move the manifest to `preview` with its `implementedComponents`.
+1. Create `packages/<family>/<technology>` (and `apps/<family>/<technology>` for a renderer) with a
+   README describing the planned package.
+2. Add a manifest in `packages/platform-registry/src/renderers.ts` or `integrations.ts` with status
+   `planned` and the directory paths.
+3. Run `pnpm architecture:validate` and fix any unknown design system, wrap or target.
+4. Update this page and the [roadmap](roadmap.md).
+5. Implement the package, then move the manifest to `preview` with its `implementedComponents`.
