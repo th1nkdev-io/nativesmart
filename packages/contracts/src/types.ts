@@ -3,6 +3,16 @@ export type ComponentStatus = "draft" | "preview" | "stable" | "deprecated";
 export type PropertyKind = "boolean" | "enum" | "number" | "slot" | "string";
 export type PlatformCategory = "desktop" | "mobile" | "web";
 export type RendererStatus = "planned" | "preview" | "stable" | "deprecated";
+export type IntegrationKind =
+  | "channel"
+  | "delivery"
+  | "design-tool"
+  | "hybrid-shell"
+  | "meta-framework"
+  | "server-templates"
+  | "shared-logic"
+  | "token-output"
+  | "tooling";
 export type ColorMode = "dark" | "high-contrast" | "light" | "system";
 export type Density = "comfortable" | "compact" | "spacious";
 export type TextDirection = "ltr" | "rtl";
@@ -76,4 +86,20 @@ export type RendererManifest = {
   status: RendererStatus;
   supportedDesignSystems: readonly string[];
   implementedComponents: readonly string[];
+  /** Styling engine used by the renderer, such as StyleSheet, NativeWind or CSS. */
+  styling?: string;
+  /** Renderer this one wraps instead of reimplementing components. */
+  wraps?: string;
+  notes?: string;
+};
+
+export type IntegrationManifest = {
+  id: string;
+  name: string;
+  kind: IntegrationKind;
+  description: string;
+  packageName: string;
+  status: RendererStatus;
+  /** Renderer identifiers consuming or served by this integration. */
+  targets: readonly string[];
 };

@@ -1,4 +1,9 @@
-import type { ComponentContract, DesignSystemDefinition, RendererManifest } from "./types";
+import type {
+  ComponentContract,
+  DesignSystemDefinition,
+  IntegrationManifest,
+  RendererManifest
+} from "./types";
 
 function duplicates(values: readonly string[]) {
   return values.filter((value, index) => values.indexOf(value) !== index);
@@ -23,10 +28,16 @@ export function validateArchitecture(input: {
   contracts: readonly ComponentContract[];
   designSystems: readonly DesignSystemDefinition[];
   renderers: readonly RendererManifest[];
+  integrations?: readonly IntegrationManifest[];
 }) {
   const errors = validateComponentContracts(input.contracts);
   const contractIds = new Set(input.contracts.map((item) => item.id));
-  const designSystemIds = new Set(input.designSystems.map((item) => item.id));
+  const designSystems = new Map(input.designSystems.map((item) => [item.id, item]));
+  const rendererIds = new Set(input.renderers.map((item) => item.id));
+
+  for (const id of duplicates(input.renderers.map((renderer) => renderer.id))) {
+    errors.push(`Duplicate renderer: ${id}`);
+  }
 
   for (const renderer of input.renderers) {
     for (const component of renderer.implementedComponents) {
@@ -34,9 +45,32 @@ export function validateArchitecture(input: {
         errors.push(`${renderer.id} implements unknown component: ${component}`);
       }
     }
-    for (const designSystem of renderer.supportedDesignSystems) {
-      if (!designSystemIds.has(designSystem)) {
-        errors.push(`${renderer.id} supports unknown design system: ${designSystem}`);
+    for (const id of renderer.supportedDesignSystems) {
+      const designSystem = designSystems.get(id);
+      if (!designSystem) {
+        errors.push(`${renderer.id} supports unknown design system: ${id}`);
+      } else if (
+        !renderer.categories.some((category) => designSystem.supportedCategories.includes(category))
+      ) {
+        errors.push(`${renderer.id} supports ${id}, which targets none of its categories`);
+      }
+    }
+    if (renderer.wraps !== undefined) {
+      if (renderer.wraps === renderer.id) errors.push(`${renderer.id} cannot wrap itself`);
+      else if (!rendererIds.has(renderer.wraps)) {
+        errors.push(`${renderer.id} wraps unknown renderer: ${renderer.wraps}`);
+      }
+    }
+  }
+
+  const integrations = input.integrations ?? [];
+  for (const id of duplicates(integrations.map((integration) => integration.id))) {
+    errors.push(`Duplicate integration: ${id}`);
+  }
+  for (const integration of integrations) {
+    for (const target of integration.targets) {
+      if (!rendererIds.has(target)) {
+        errors.push(`${integration.id} targets unknown renderer: ${target}`);
       }
     }
   }
