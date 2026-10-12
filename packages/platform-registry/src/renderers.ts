@@ -1,6 +1,20 @@
-import { componentContracts, type RendererManifest } from "@nativesmart/contracts";
+import type { RendererManifest } from "@nativesmart/contracts";
 
-const foundationComponents = componentContracts.map((component) => component.id);
+/** Contracts already implemented by the React Native and Flutter preview renderers. */
+const previewComponents = [
+  "avatar",
+  "badge",
+  "box",
+  "button",
+  "card",
+  "divider",
+  "icon",
+  "input",
+  "modal",
+  "spinner",
+  "text",
+  "toast"
+];
 const webDesignSystems = ["thinkdev", "material", "bootstrap"] as const;
 const mobileDesignSystems = ["thinkdev", "material", "cupertino"] as const;
 
@@ -24,7 +38,7 @@ export const rendererManifests: readonly RendererManifest[] = [
     playgroundPath: "apps/mobile/react-native",
     status: "preview",
     supportedDesignSystems: ["thinkdev"],
-    implementedComponents: foundationComponents,
+    implementedComponents: previewComponents,
     styling: "StyleSheet",
     notes: "Expo-compatible. Styles are resolved from tokens through StyleSheet, without Tailwind."
   },
@@ -55,7 +69,7 @@ export const rendererManifests: readonly RendererManifest[] = [
     playgroundPath: "apps/mobile/flutter",
     status: "preview",
     supportedDesignSystems: ["thinkdev", "material"],
-    implementedComponents: foundationComponents,
+    implementedComponents: previewComponents,
     styling: "ThemeData"
   },
   plannedRenderer({

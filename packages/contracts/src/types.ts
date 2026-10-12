@@ -1,4 +1,26 @@
 export type ComponentLayer = "foundation" | "business" | "pattern";
+export type FoundationCategory =
+  | "layout"
+  | "typography"
+  | "actions"
+  | "forms"
+  | "feedback"
+  | "overlays"
+  | "navigation"
+  | "data-display"
+  | "media"
+  | "utilities";
+export type BusinessCategory =
+  | "identity"
+  | "payments"
+  | "connectivity"
+  | "commerce"
+  | "delivery"
+  | "saas"
+  | "public-services";
+export type ComponentCategory = FoundationCategory | BusinessCategory;
+/** P0: Core v1.0. P1: needed for a real product. P2: on demand or with a kit. */
+export type ComponentPriority = "P0" | "P1" | "P2";
 export type ComponentStatus = "draft" | "preview" | "stable" | "deprecated";
 export type PropertyKind = "boolean" | "enum" | "number" | "slot" | "string";
 export type PlatformCategory = "desktop" | "mobile" | "web";
@@ -30,7 +52,12 @@ export type ComponentContract = {
   id: string;
   name: string;
   layer: ComponentLayer;
+  category: ComponentCategory;
+  priority: ComponentPriority;
   status: ComponentStatus;
+  description: string;
+  /** Platform families the component targets. Omitted means every family. */
+  platforms?: readonly PlatformCategory[];
   anatomy: readonly string[];
   properties: readonly ComponentProperty[];
   states: readonly string[];

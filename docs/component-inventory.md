@@ -1,7 +1,9 @@
 # Component Inventory
 
 This is the complete list of components Nativesmart will provide. It is the input for contracts,
-component tokens and design-system recipes: a component gets a contract only once it appears here.
+component tokens and design-system recipes. Each row has a contract file in
+`packages/contracts/src/components/<layer>/<category>/<id>.ts`, and a test keeps this page and the
+contracts in sync. See [Component Contracts](component-contracts.md).
 
 ## Legend
 
@@ -332,7 +334,8 @@ Native and Flutter without a contract.
 ## Next steps
 
 1. Review this inventory and adjust names, scope and priorities.
-2. Write contracts for every P1 component, starting with forms, overlays and navigation.
-3. Add contracts for the 10 business components already implemented.
+2. Complete the draft contracts of every P1 component, starting with forms, overlays and
+   navigation.
+3. Complete the draft contracts of the 10 business components already implemented.
 4. Define component tokens for each contract.
 5. Add recipes for each design system, then implement in the renderers.

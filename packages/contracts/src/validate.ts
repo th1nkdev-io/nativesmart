@@ -15,6 +15,10 @@ export function validateComponentContracts(contracts: readonly ComponentContract
     errors.push(`Duplicate component contract: ${id}`);
   }
   for (const contract of contracts) {
+    if (!/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/.test(contract.id)) {
+      errors.push(`${contract.id} must be a kebab-case identifier`);
+    }
+    if (contract.description.trim() === "") errors.push(`${contract.id} must have a description`);
     if (contract.anatomy.length === 0) errors.push(`${contract.id} must define its anatomy`);
     if (contract.states.length === 0) errors.push(`${contract.id} must define its states`);
     for (const name of duplicates(contract.properties.map((item) => item.name))) {
