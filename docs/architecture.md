@@ -22,8 +22,14 @@ tokens + design-systems
   primitives -> semantics -> recipes -> brand/product overrides
        |
 platform renderers
-  React Native, Flutter, React, Vue, Angular, Web Components,
-  Compose, SwiftUI and desktop shells
+  web: Web Components (HTML-CSS), React, Vue, Svelte, Angular
+  mobile: React Native (StyleSheet or NativeWind), Flutter, Compose (Kotlin),
+          SwiftUI (Swift), Ionic/Capacitor, .NET MAUI
+  desktop: Electron or Tauri shells, Flutter, Compose, SwiftUI
+       |
+integrations
+  token outputs, meta-frameworks, server templates, shared logic,
+  PWA delivery, tooling and USSD/SMS channels
        |
 business components and kits
   fintech, mobile money, marketplace, offline-first and other domains
@@ -39,7 +45,8 @@ logic in `@nativesmart/core` remains independent from UI packages.
 - `packages/contracts`: canonical component, design-system, brand and renderer schemas.
 - `packages/tokens`: primitive and semantic values plus generated platform outputs.
 - `packages/design-systems`: Thinkdev, Material, Bootstrap and Cupertino recipes.
-- `packages/platform-registry`: target inventory, maturity and conformance validation.
+- `packages/platform-registry`: renderer and integration inventory, maturity and conformance
+  validation.
 - `packages/core`: shared product models and non-platform business logic.
 - `packages/cli`: generators, workspace validation and future code generation.
 
@@ -52,9 +59,32 @@ Existing preview renderers:
 
 Planned renderers are declared before implementation in `@nativesmart/platform-registry`:
 
-- React, Vue, Angular and framework-neutral Web Components for the web;
-- Jetpack Compose and SwiftUI for native mobile and desktop;
-- Electron or Tauri-compatible desktop composition using web renderers.
+- web: framework-neutral Web Components (`@nativesmart/elements`), React, and Vue, Svelte and
+  Angular wrappers built on the Web Components;
+- mobile: React Native with NativeWind, Jetpack Compose (Kotlin), SwiftUI (Swift),
+  Ionic/Capacitor on top of the Web Components, and .NET MAUI;
+- desktop: Electron or Tauri-compatible composition using web renderers.
+
+React Native ships two styling engines that share contracts, hooks and logic: `StyleSheet`
+(`@nativesmart/react-native`) and NativeWind (`@nativesmart/react-native-nativewind`).
+
+A manifest may declare `wraps` when it adapts another renderer instead of reimplementing it, and
+`styling` to name its styling engine. The full matrix, package names and delivery order are in
+[Platforms](platforms.md).
+
+## Integrations
+
+Integrations connect renderers to products without being renderers themselves. They are declared
+in `packages/platform-registry/src/integrations.ts` with a kind and the renderers they serve:
+
+- token outputs: W3C DTCG tokens and the shared Tailwind preset;
+- design tools: Figma token synchronization;
+- shared logic: the Kotlin Multiplatform core used by Compose and SwiftUI;
+- meta-frameworks: Next.js, Nuxt, SvelteKit and Astro;
+- server templates: Laravel Blade and Django templates rendering Web Components markup;
+- delivery and shells: Progressive Web App and Expo;
+- tooling: Storybook;
+- channels: USSD and SMS rendering of mobile money flow contracts.
 
 A planned manifest is not an implementation claim. It records package naming, languages,
 platforms, supported design systems and delivery status. A renderer can become stable only after
@@ -108,7 +138,8 @@ Token layers have separate responsibilities:
 4. design-system recipes: anatomy and variant decisions using semantic/component tokens;
 5. brand and product overrides: identity and contextual decisions.
 
-Generated targets may include JSON, CSS custom properties, TypeScript, Dart, Kotlin, Swift and
+Tokens are exported in the W3C DTCG format and transformed with Style Dictionary. Generated targets
+include JSON, CSS custom properties, the Tailwind preset, TypeScript, Dart, Kotlin, Swift, C# and
 design-tool formats. Generated files are outputs, never alternate sources of truth.
 
 ## Business layers
@@ -127,7 +158,11 @@ components. Starters compose kits; they do not redefine them.
 
 - component identifiers and properties are structurally valid;
 - recipes reference known component contracts;
+- renderer and integration identifiers are unique;
 - renderers reference known components and design systems;
+- every supported design system shares at least one category with its renderer;
+- `wraps` references another known renderer;
+- integrations target known renderers;
 - mobile, web and desktop targets are represented.
 
 `pnpm check` runs this architectural validation after build, type checking, linting, tests and

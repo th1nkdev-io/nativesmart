@@ -1,6 +1,10 @@
 # Core
 
-`packages/core` contains shared product logic that is independent from React Native and Flutter.
+`packages/core` contains shared product logic that is independent from every UI renderer.
+
+Kotlin and Swift renderers cannot import TypeScript, so the same rules will be ported to a Kotlin
+Multiplatform core (`com.thinkdev.nativesmart:core`) shared by Jetpack Compose and SwiftUI. The
+TypeScript module stays the reference, and both implementations must pass the same test cases.
 
 It should only contain reusable business concepts, not UI code.
 

@@ -41,6 +41,18 @@ useAmountInput();
 useOtpInput();
 ```
 
+## Styling engines
+
+React Native is delivered in two flavors that share contracts, hooks and business logic:
+
+| Package                                | Styling                                        | Status  |
+| -------------------------------------- | ---------------------------------------------- | ------- |
+| `@nativesmart/react-native`            | `StyleSheet` from tokens, no Tailwind          | preview |
+| `@nativesmart/react-native-nativewind` | NativeWind with `@nativesmart/tailwind-preset` | planned |
+
+Choose the NativeWind flavor when the team already uses Tailwind on the web. Only the styling
+layer differs; hooks and non-visual logic are not duplicated.
+
 ## Known Limits
 
 - The example app is a demo shell, not a production starter yet.

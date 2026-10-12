@@ -1,6 +1,6 @@
 # Nativesmart
 
-Nativesmart is Th1nkdev's internal mobile production infrastructure for building professional React Native and Flutter products faster.
+Nativesmart is Th1nkdev's internal web and mobile production infrastructure for building professional products faster with React Native, Flutter, Kotlin, Swift, React, Vue, Svelte, Angular and plain HTML-CSS.
 
 It is not a button library. It is a reusable foundation for design tokens, mobile UI components, business components, starters, templates, product conventions and future premium delivery.
 
@@ -8,6 +8,9 @@ It is not a button library. It is a reusable foundation for design tokens, mobil
 
 - React Native package with TypeScript and Expo-friendly primitives.
 - Flutter package with Dart tokens, themes and widgets.
+- Registered roadmap for every web and mobile target: Web Components (HTML-CSS), React, Vue,
+  Svelte, Angular, React Native with NativeWind, Kotlin (Compose), Swift (SwiftUI),
+  Ionic/Capacitor and .NET MAUI.
 - Shared canonical design tokens.
 - Product-oriented structure for fintech, mobile money, marketplaces, SaaS, delivery, public services, transaction flows and offline-first apps.
 
@@ -63,16 +66,21 @@ pnpm tokens:build
 - `@nativesmart/contracts`: platform-neutral component and renderer contracts.
 - `@nativesmart/tokens`: canonical tokens and generated platform outputs.
 - `@nativesmart/design-systems`: Thinkdev, Material, Bootstrap and Cupertino recipes.
-- `@nativesmart/platform-registry`: renderer coverage and architecture conformance.
+- `@nativesmart/platform-registry`: renderer and integration coverage and architecture
+  conformance.
 - `@nativesmart/core`: shared product types and non-platform logic.
 - `@nativesmart/react-native`: Expo-compatible React Native components and hooks.
 - `nativesmart_flutter`: Flutter theme and widget package.
 - `@nativesmart/cli`: future generator and starter scaffolding CLI.
 
+Planned renderers and integrations, with their package names, are listed in
+[Platforms](docs/platforms.md).
+
 ## Foundation Docs
 
 - [Vision](docs/vision.md)
 - [Architecture](docs/architecture.md)
+- [Platforms](docs/platforms.md)
 - [Component Contracts](docs/component-contracts.md)
 - [Design Systems](docs/design-systems.md)
 - [Tokens](docs/tokens.md)

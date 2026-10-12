@@ -2,7 +2,9 @@
 
 Nativesmart is Th1nkdev's mobile production infrastructure.
 
-The project exists to accelerate high-quality mobile product delivery by combining shared design tokens, UI components, business components, starters, templates and generation tools for React Native and Flutter.
+The project exists to accelerate high-quality web and mobile product delivery by combining shared design tokens, UI components, business components, starters, templates and generation tools.
+
+Mobile targets are React Native (with or without NativeWind), Flutter, Kotlin (Jetpack Compose), Swift (SwiftUI), Ionic/Capacitor and .NET MAUI. Web targets are HTML-CSS through Web Components, React, Vue, Svelte and Angular. See [Platforms](platforms.md).
 
 ## Product focus
 

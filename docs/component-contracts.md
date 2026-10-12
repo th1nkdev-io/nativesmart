@@ -25,7 +25,8 @@ A renderer must:
 - publish its implementation status through the platform registry.
 
 Contracts describe behavior, not markup or widget trees. A web Button can use `<button>`, React
-Native can use `Pressable`, Flutter can use a Widget and SwiftUI can use its native Button.
+Native can use `Pressable`, Flutter can use a Widget, SwiftUI can use its native Button and Compose
+can use its `Button` composable.
 
 ## Evolution
 

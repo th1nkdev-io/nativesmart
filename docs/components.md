@@ -44,4 +44,4 @@ NsIconPlaceholder
 - Keep APIs small and typed.
 - Support disabled, loading and error states where relevant.
 - Prefer platform idioms over forced API parity.
-- Keep visual behavior coherent between React Native and Flutter.
+- Keep visual behavior coherent across every renderer listed in [Platforms](platforms.md).

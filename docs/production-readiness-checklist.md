@@ -25,7 +25,10 @@ La première disponibilité officielle correspond à `Nativesmart Core v1.0` :
 - packages installables hors du monorepo ;
 - processus de versionnement, publication et support opérationnel.
 
-Vue, Angular, SwiftUI, Compose, desktop natif et les kits commerciaux ne bloquent pas Core v1.0.
+Web Components, Vue, Svelte, Angular, React Native NativeWind, Compose (Kotlin), SwiftUI (Swift),
+Ionic/Capacitor, .NET MAUI, desktop natif, les intégrations (Next.js, Nuxt, SvelteKit, Astro,
+Blade, Django, PWA, USSD/SMS) et les kits commerciaux ne bloquent pas Core v1.0. La matrice complète
+est dans [Platforms](platforms.md).
 
 ---
 
@@ -63,7 +66,8 @@ Vue, Angular, SwiftUI, Compose, desktop natif et les kits commerciaux ne bloquen
   - installer, mettre à jour et tester les composants comme de vrais packages de production.
 - [x] **P0** Éléments explicitement hors périmètre de Core v1.0 :
   - la parité complète entre tous les frameworks et systèmes d'exploitation ;
-  - les renderers Vue, Angular, SwiftUI, Compose et desktop natif stables ;
+  - les renderers Web Components, Vue, Svelte, Angular, React Native NativeWind, Compose,
+    SwiftUI, Ionic/Capacitor, .NET MAUI et desktop natif stables ;
   - Bootstrap et Cupertino en qualité de production ;
   - les kits métier et templates commerciaux complets ;
   - les design systems spécifiques aux clients ;
