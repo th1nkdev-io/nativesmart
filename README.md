@@ -95,6 +95,7 @@ Planned renderers and integrations, with their package names, are listed in
 - [Vision](docs/vision.md)
 - [Architecture](docs/architecture.md)
 - [Platforms](docs/platforms.md)
+- [Component Inventory](docs/component-inventory.md)
 - [Component Contracts](docs/component-contracts.md)
 - [Design Systems](docs/design-systems.md)
 - [Tokens](docs/tokens.md)

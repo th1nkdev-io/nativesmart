@@ -13,6 +13,9 @@ The Button contract, for example, separates presentation (`solid`, `outline`, `g
 from intent (`primary`, `neutral`, `danger`). This prevents a framework-specific prop convention
 from becoming the universal model.
 
+The full list of components to cover, with priorities, is in
+[Component Inventory](component-inventory.md).
+
 ## Renderer rules
 
 A renderer must:
