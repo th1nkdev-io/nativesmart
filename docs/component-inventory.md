@@ -15,7 +15,8 @@ contracts in sync. See [Component Contracts](component-contracts.md).
 
 **Today**
 
-- `C`: a contract exists in `@nativesmart/contracts`.
+- `C`: the contract is specified (`preview` or `stable`). Every other component has a `draft`
+  contract that only reserves its id.
 - `RN`: implemented in `@nativesmart/react-native`.
 - `FL`: implemented in `nativesmart_flutter`.
 - `—`: not started.
@@ -77,30 +78,30 @@ Generic UI with no product assumption.
 | Component         | Id                  | Purpose                                                    | Priority | Today     |
 | ----------------- | ------------------- | ---------------------------------------------------------- | -------- | --------- |
 | Input             | `input`             | Single-line text field                                     | P0       | C, RN, FL |
-| Form Field        | `form-field`        | Wraps a control with label, helper text, error and counter | P1       | —         |
-| Text Area         | `textarea`          | Multi-line text field with optional auto-grow              | P1       | —         |
-| Password Input    | `password-input`    | Masked input with visibility toggle                        | P1       | —         |
-| Search Input      | `search-input`      | Search field with clear action and debounced change        | P1       | —         |
+| Form Field        | `form-field`        | Wraps a control with label, helper text, error and counter | P1       | C         |
+| Text Area         | `textarea`          | Multi-line text field with optional auto-grow              | P1       | C         |
+| Password Input    | `password-input`    | Masked input with visibility toggle                        | P1       | C         |
+| Search Input      | `search-input`      | Search field with clear action and debounced change        | P1       | C         |
 | Number Input      | `number-input`      | Numeric field with increment and decrement                 | P2       | —         |
 | Masked Input      | `masked-input`      | Input following a pattern (dates, IDs, card numbers)       | P2       | —         |
-| Pin Input         | `pin-input`         | Segmented code entry; base of OTP and PIN entry            | P1       | —         |
-| Select            | `select`            | Pick one option from a list                                | P1       | —         |
-| Combobox          | `combobox`          | Searchable select with autocomplete                        | P1       | —         |
+| Pin Input         | `pin-input`         | Segmented code entry; base of OTP and PIN entry            | P1       | C         |
+| Select            | `select`            | Pick one option from a list                                | P1       | C         |
+| Combobox          | `combobox`          | Searchable select with autocomplete                        | P1       | C         |
 | Multi Select      | `multi-select`      | Pick several options, shown as tags                        | P2       | —         |
-| Checkbox          | `checkbox`          | Independent boolean choice, with indeterminate state       | P1       | —         |
-| Checkbox Group    | `checkbox-group`    | Related checkboxes with shared label and validation        | P1       | —         |
-| Radio Group       | `radio-group`       | One choice among a few visible options                     | P1       | —         |
-| Switch            | `switch`            | Immediate on/off setting                                   | P1       | —         |
+| Checkbox          | `checkbox`          | Independent boolean choice, with indeterminate state       | P1       | C         |
+| Checkbox Group    | `checkbox-group`    | Related checkboxes with shared label and validation        | P1       | C         |
+| Radio Group       | `radio-group`       | One choice among a few visible options                     | P1       | C         |
+| Switch            | `switch`            | Immediate on/off setting                                   | P1       | C         |
 | Slider            | `slider`            | Value or range selection on a track                        | P2       | —         |
-| Date Picker       | `date-picker`       | Date selection with locale-aware formats                   | P1       | —         |
+| Date Picker       | `date-picker`       | Date selection with locale-aware formats                   | P1       | C         |
 | Date Range Picker | `date-range-picker` | Start and end date selection                               | P2       | —         |
 | Time Picker       | `time-picker`       | Time selection                                             | P2       | —         |
 | Calendar          | `calendar`          | Month grid used by pickers and booking                     | P2       | —         |
-| File Upload       | `file-upload`       | File or photo selection with progress and validation       | P1       | —         |
+| File Upload       | `file-upload`       | File or photo selection with progress and validation       | P1       | C         |
 | Rating Input      | `rating-input`      | Star or scale rating entry                                 | P2       | —         |
 | Tag Input         | `tag-input`         | Free text entries turned into tags                         | P2       | —         |
 | Fieldset          | `fieldset`          | Groups related fields with a legend                        | P2       | —         |
-| Form              | `form`              | Submission, validation summary and error focus management  | P1       | —         |
+| Form              | `form`              | Submission, validation summary and error focus management  | P1       | C         |
 
 ### 5. Feedback and status
 

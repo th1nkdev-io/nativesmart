@@ -1,5 +1,6 @@
 import type {
   ComponentContract,
+  ComponentProperty,
   DesignSystemDefinition,
   IntegrationManifest,
   RendererManifest
@@ -7,6 +8,33 @@ import type {
 
 function duplicates(values: readonly string[]) {
   return values.filter((value, index) => values.indexOf(value) !== index);
+}
+
+const defaultValueTypes: Partial<Record<ComponentProperty["kind"], string>> = {
+  boolean: "boolean",
+  number: "number",
+  string: "string",
+  enum: "string"
+};
+
+function validateProperty(contractId: string, item: ComponentProperty) {
+  const errors: string[] = [];
+  const label = `${contractId}.${item.name}`;
+  if (item.kind === "enum" && (item.values?.length ?? 0) === 0) {
+    errors.push(`${label} is an enum without values`);
+  }
+  if (item.kind !== "enum" && item.values !== undefined) {
+    errors.push(`${label} declares values but is not an enum`);
+  }
+  if (item.defaultValue !== undefined) {
+    const expected = defaultValueTypes[item.kind];
+    if (expected === undefined || typeof item.defaultValue !== expected) {
+      errors.push(`${label} has a default value that does not match its ${item.kind} kind`);
+    } else if (item.kind === "enum" && !item.values?.includes(String(item.defaultValue))) {
+      errors.push(`${label} default value is not one of its values`);
+    }
+  }
+  return errors;
 }
 
 export function validateComponentContracts(contracts: readonly ComponentContract[]) {
@@ -23,6 +51,18 @@ export function validateComponentContracts(contracts: readonly ComponentContract
     if (contract.states.length === 0) errors.push(`${contract.id} must define its states`);
     for (const name of duplicates(contract.properties.map((item) => item.name))) {
       errors.push(`${contract.id} has duplicate property: ${name}`);
+    }
+    for (const [list, values] of [
+      ["anatomy part", contract.anatomy],
+      ["state", contract.states],
+      ["event", contract.events]
+    ] as const) {
+      for (const value of duplicates(values)) {
+        errors.push(`${contract.id} has duplicate ${list}: ${value}`);
+      }
+    }
+    for (const item of contract.properties) {
+      errors.push(...validateProperty(contract.id, item));
     }
   }
   return errors;

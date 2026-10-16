@@ -22,7 +22,7 @@ export type ComponentCategory = FoundationCategory | BusinessCategory;
 /** P0: Core v1.0. P1: needed for a real product. P2: on demand or with a kit. */
 export type ComponentPriority = "P0" | "P1" | "P2";
 export type ComponentStatus = "draft" | "preview" | "stable" | "deprecated";
-export type PropertyKind = "boolean" | "enum" | "number" | "slot" | "string";
+export type PropertyKind = "boolean" | "enum" | "number" | "slot" | "string" | "string-list";
 export type PlatformCategory = "desktop" | "mobile" | "web";
 export type RendererStatus = "planned" | "preview" | "stable" | "deprecated";
 export type IntegrationKind =

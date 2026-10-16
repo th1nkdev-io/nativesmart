@@ -45,8 +45,46 @@ Each contract declares:
 `default` state and no properties). A draft contract reserves the component and its place in the
 architecture; it is completed before any renderer implements it.
 
-Today, 12 contracts are in `preview` (Avatar, Badge, Box, Button, Card, Divider, Icon, Input,
-Modal, Spinner, Text and Toast) and the other 181 are drafts.
+Today, 26 contracts are specified in `preview`:
+
+- the 12 Core v1.0 components: Avatar, Badge, Box, Button, Card, Divider, Icon, Input, Modal,
+  Spinner, Text and Toast;
+- the 14 P1 form components: Form, Form Field, Text Area, Password Input, Search Input, Pin Input,
+  Select, Combobox, Checkbox, Checkbox Group, Radio Group, Switch, Date Picker and File Upload.
+
+The other 167 contracts are drafts.
+
+## Property kinds
+
+| Kind          | Use                                                       |
+| ------------- | --------------------------------------------------------- |
+| `string`      | Text, identifiers, ISO 8601 dates and locales             |
+| `number`      | Counts, sizes and durations                               |
+| `boolean`     | Flags such as `disabled` or `checked`                     |
+| `enum`        | A closed set of `values`; the default must be one of them |
+| `slot`        | Content provided by the caller (children, options, items) |
+| `string-list` | Several values, such as the checked items of a group      |
+
+Validation rejects an enum without values, values on a non-enum property, a default value of the
+wrong type or outside the enum values, and duplicate anatomy parts, states or events.
+
+## Form control conventions
+
+Form contracts share the same vocabulary so a form behaves the same on every platform. The shared
+building blocks live in `components/foundation/forms/shared.ts`.
+
+- **Properties**: labelled controls expose `label` (required), `name`, `description`,
+  `errorMessage`, `required`, `invalid`, `disabled` and `readOnly`, plus `value` and, when it
+  applies, `placeholder`.
+- **Controlled values**: `value` holds the current value and `change` reports a new one. Dates use
+  ISO 8601 strings (`YYYY-MM-DD`); multiple values use `string-list`.
+- **States**: text-like controls share `default`, `hovered`, `focused`, `invalid`, `readonly` and
+  `disabled`; choice controls describe their own (`checked`, `indeterminate`, `on`, `off`).
+- **Events**: `change`, `focus` and `blur`; overlays add `open-change`.
+- **Accessibility**: label, description and error are programmatically associated with the
+  control, errors are announced, and required or invalid fields never rely on color alone.
+- **Validation**: `Form` decides when fields are validated (`submit`, `blur` or `change`) and moves
+  focus to the error summary or the first invalid field after a failed submission.
 
 The Button contract, for example, separates presentation (`solid`, `outline`, `ghost`, `link`)
 from intent (`primary`, `neutral`, `danger`). This prevents a framework-specific prop convention
