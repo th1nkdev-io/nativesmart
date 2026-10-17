@@ -1,6 +1,6 @@
 # Vue playground
 
-Planned playground app for [`@nativesmart/vue`](../../../packages/web/vue). Nothing is implemented yet.
+Vue renderer of the [Nativesmart showcase](../../showcase), built on [`@nativesmart/vue`](../../../packages/web/vue).
 
 Vite + Vue playground; a Nuxt variant validates the nuxt integration.
 

@@ -160,7 +160,7 @@ export const rendererManifests: readonly RendererManifest[] = [
     styling: "CSS custom properties and Tailwind preset",
     notes: "Native React implementation for SSR and React Server Components compatibility."
   }),
-  plannedRenderer({
+  {
     id: "vue",
     name: "Vue",
     framework: "Vue",
@@ -170,11 +170,12 @@ export const rendererManifests: readonly RendererManifest[] = [
     packageName: "@nativesmart/vue",
     packagePath: "packages/web/vue",
     playgroundPath: "apps/web/vue",
+    status: "preview",
     supportedDesignSystems: webDesignSystems,
+    implementedComponents: ["badge", "button", "spinner"],
     styling: "CSS custom properties and Tailwind preset",
-    wraps: "html-css",
-    notes: "Typed wrappers with v-model support around the Web Components."
-  }),
+    notes: "First renderer: native Vue 3 components, validated in CV Action with Nuxt 4."
+  },
   plannedRenderer({
     id: "svelte",
     name: "Svelte",

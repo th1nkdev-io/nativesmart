@@ -1,25 +1,42 @@
 # Vue
 
-Planned Nativesmart renderer. Nothing is implemented yet.
+Nativesmart renderer for Vue 3 and Nuxt. Status: `preview`.
 
 - Registry id: `vue`
 - Package: `@nativesmart/vue`
-- Language: TypeScript
-- Styling: CSS custom properties and Tailwind preset
-- Builds on: `html-css` renderer (wraps it instead of reimplementing components)
-- Playground: [`apps/web/vue`](../../../apps/web/vue)
+- Styling: CSS custom properties from `@nativesmart/tokens`, one `--ns-<component>-*` variable per
+  component token so a product can override a single component
+- Playground: [`apps/web/vue`](../../../apps/web/vue), shown in the
+  [Nativesmart Lab](../../../apps/showcase/README.md)
 
-## Planned layout
+## Components
 
-```txt
-src/
-  components/      # typed wrappers with v-model around @nativesmart/elements
-  business/
-  plugin.ts        # app.use(Nativesmart)
-  index.ts
-test/
+| Contract  | Component   |
+| --------- | ----------- |
+| `badge`   | `NsBadge`   |
+| `button`  | `NsButton`  |
+| `spinner` | `NsSpinner` |
+
+Props use the contract property names; contract events are emitted as Vue events (`press`,
+`focus`, `blur`).
+
+## Usage
+
+```ts
+import "@nativesmart/tokens/css/cv-action.css";
+import "@nativesmart/vue/style.css";
+import { Nativesmart } from "@nativesmart/vue";
+
+app.use(Nativesmart);
 ```
 
-The renderer implements the shared component contracts from `@nativesmart/contracts` and consumes
-tokens from `@nativesmart/tokens`. See [Platforms](../../../docs/platforms.md) for scope, delivery
-order and promotion rules.
+```vue
+<NsButton label="Envoyer" intent="primary" :loading="sending" @press="send" />
+```
+
+## Commands
+
+```bash
+pnpm --filter @nativesmart/vue test
+pnpm --filter @nativesmart/vue build
+```

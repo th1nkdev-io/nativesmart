@@ -41,6 +41,7 @@ describe("platform registry", () => {
   it("distinguishes implemented and planned renderers", () => {
     expect(getRendererManifest("react-native")?.status).toBe("preview");
     expect(getRendererManifest("react-web")?.status).toBe("planned");
+    expect(getRendererManifest("vue")?.status).toBe("preview");
   });
 
   it("separates React Native styling engines", () => {
@@ -50,10 +51,9 @@ describe("platform registry", () => {
 
   it("builds framework wrappers on the Web Components renderer", () => {
     const wrappers = getRenderersWrapping("html-css").map((item) => item.id);
-    expect(wrappers).toEqual(
-      expect.arrayContaining(["vue", "svelte", "angular", "ionic-capacitor"])
-    );
+    expect(wrappers).toEqual(expect.arrayContaining(["svelte", "angular", "ionic-capacitor"]));
     expect(getRendererManifest("react-web")?.wraps).toBeUndefined();
+    expect(getRendererManifest("vue")?.wraps).toBeUndefined();
   });
 
   it("shares the Tailwind preset between NativeWind and the web", () => {

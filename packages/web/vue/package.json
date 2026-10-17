@@ -1,0 +1,46 @@
+{
+  "name": "@nativesmart/vue",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Nativesmart components for Vue 3 and Nuxt.",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "sideEffects": [
+    "*.css",
+    "*.vue"
+  ],
+  "files": [
+    "dist",
+    "src",
+    "!src/**/*.test.ts"
+  ],
+  "scripts": {
+    "build": "vite build && vue-tsc -p tsconfig.build.json",
+    "lint": "vue-tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "typecheck": "vue-tsc -p tsconfig.json --noEmit",
+    "clean": "rimraf dist"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/test-utils": "2.4.6",
+    "happy-dom": "^15.11.7",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8",
+    "vue": "^3.5.13",
+    "vue-tsc": "^2.1.10"
+  }
+}

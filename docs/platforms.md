@@ -21,7 +21,7 @@ checks every manifest against contracts and design systems.
 | .NET MAUI                 | `maui`                    | C#, XAML         | ResourceDictionary           | —          | Thinkdev, Material, Cupertino | planned |
 | HTML-CSS (Web Components) | `html-css`                | HTML, CSS, JS    | CSS custom properties        | —          | Thinkdev, Material, Bootstrap | planned |
 | React                     | `react-web`               | TypeScript       | CSS variables + Tailwind     | —          | Thinkdev, Material, Bootstrap | planned |
-| Vue                       | `vue`                     | TypeScript       | CSS variables + Tailwind     | `html-css` | Thinkdev, Material, Bootstrap | planned |
+| Vue                       | `vue`                     | TypeScript       | CSS variables + Tailwind     | —          | Thinkdev, Material, Bootstrap | preview |
 | Svelte                    | `svelte`                  | TypeScript       | CSS variables + Tailwind     | `html-css` | Thinkdev, Material, Bootstrap | planned |
 | Angular                   | `angular`                 | TypeScript       | CSS custom properties        | `html-css` | Thinkdev, Material, Bootstrap | planned |
 | Desktop web shell         | `desktop-web`             | TypeScript, Rust | CSS custom properties        | `html-css` | Thinkdev, Material, Bootstrap | planned |
@@ -58,11 +58,10 @@ and a registry test fails if either directory is missing.
 ### Web Components first
 
 `@nativesmart/elements` implements every contract once as framework-neutral custom elements built
-with Lit, styled with CSS custom properties generated from tokens. Vue, Svelte, Angular, Capacitor
-and the desktop shell **wrap** it (`wraps: "html-css"` in the manifest) instead of reimplementing
+with Lit, styled with CSS custom properties generated from tokens. Svelte, Angular, Capacitor and
+the desktop shell **wrap** it (`wraps: "html-css"` in the manifest) instead of reimplementing
 components:
 
-- Vue: typed components, `v-model` bindings and slot mapping;
 - Svelte: typed components, `bind:` support and slot mapping;
 - Angular: standalone components and `ControlValueAccessor` for forms;
 - Capacitor: native device plugins (camera for KYC, biometrics, share) around the same elements.
@@ -70,8 +69,12 @@ components:
 Wrappers own framework ergonomics only. Behavior, accessibility and styling live in the elements,
 so a fix lands once for every wrapper.
 
-React is the exception: `@nativesmart/react` is a native implementation so that SSR, hydration and
-React Server Components work without custom-element limitations.
+React and Vue are the exceptions:
+
+- `@nativesmart/vue` is the first renderer. It is written in native Vue 3 and validated inside CV
+  Action (Nuxt 4) with the CV Action brand theme, which gives a real product from day one.
+- `@nativesmart/react` is a native implementation so that SSR, hydration and React Server
+  Components work without custom-element limitations.
 
 ### React Native: two styling engines
 
@@ -136,11 +139,11 @@ Notes:
 
 ## Delivery order
 
-1. Tokens in DTCG format, Style Dictionary pipeline and the Tailwind preset.
-2. `@nativesmart/react` (Core v1.0 stable web renderer) and Next.js compatibility.
-3. `@nativesmart/elements` (Web Components) and the server-template integrations.
-4. `@nativesmart/react-native-nativewind`.
-5. Vue, Svelte and Angular wrappers with Nuxt and SvelteKit support.
+1. Brand themes, CSS custom properties and the Tailwind preset (done).
+2. `@nativesmart/vue` and the Nuxt module, validated in CV Action, with the Nativesmart Lab.
+3. `@nativesmart/react` (Core v1.0 stable web renderer) and Next.js compatibility.
+4. `@nativesmart/elements` (Web Components) and the server-template integrations.
+5. `@nativesmart/react-native-nativewind`, then Svelte and Angular wrappers with SvelteKit.
 6. PWA, Storybook and Capacitor.
 7. Kotlin Multiplatform core and the Compose renderer.
 8. SwiftUI renderer.
@@ -149,6 +152,13 @@ Notes:
 Only React Native and React/DOM are required for Core v1.0 (see the
 [production readiness checklist](production-readiness-checklist.md)). Every other target can ship
 later as `preview` without blocking the release.
+
+## Nativesmart Lab
+
+The [Nativesmart Lab](../apps/showcase/README.md) is the public page where every component can be
+tried live, published on GitHub Pages from `dev`. It switches technology, brand theme, light or
+dark mode, direction and screen width. Each renderer exposes a playground app that the Lab loads
+in an iframe, so a new technology appears there as soon as its playground is plugged in.
 
 ## Promotion rules
 

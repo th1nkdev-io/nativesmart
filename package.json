@@ -12,6 +12,8 @@
     "build": "turbo run build",
     "check": "pnpm build && pnpm typecheck && pnpm lint && pnpm test && pnpm catalog:validate && pnpm architecture:validate",
     "dev": "turbo run dev --parallel",
+    "showcase": "pnpm --parallel --filter @nativesmart/showcase --filter @nativesmart/app-vue dev",
+    "showcase:build": "node tooling/scripts/build-showcase.mjs",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",
