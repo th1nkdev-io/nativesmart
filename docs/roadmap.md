@@ -12,13 +12,26 @@
 - Thinkdev, Material, Bootstrap and Cupertino design-system definitions.
 - Explicit mobile, web and desktop renderer registry.
 - Brand, mode, density and direction composition model.
+- Semantic color roles and brand themes (Thinkdev, CV Action).
+- CSS custom properties output and the shared Tailwind preset.
+
+## Now: Vue and Nuxt first
+
+The first full renderer is Vue 3 with Nuxt 4, validated inside CV Action
+(`cv-action-io/cv-action__web-v1`) with the CV Action brand theme. Other technologies follow once
+every contract and its tokens are complete.
+
+1. Brand themes, CSS variables and Tailwind preset.
+2. `@nativesmart/vue` native renderer, `@nativesmart/nuxt` module and the `apps/web/vue`
+   playground showing every variation of every component.
+3. Components group by group: contract, component tokens, Vue component, playground page.
+4. Progressive replacement of the `cva-*` components in CV Action.
 
 ## Next
 
 - Align React Native and Flutter public APIs with the shared component contracts.
 - Export tokens in W3C DTCG format through Style Dictionary.
-- Generate the shared Tailwind preset for NativeWind and the web renderers.
-- Implement the React/DOM renderer, CSS token output and Next.js compatibility.
+- Implement the React/DOM renderer and Next.js compatibility.
 - Implement the Web Components renderer (`@nativesmart/elements`).
 - Add the NativeWind variant of the React Native renderer.
 - Add contract-conformance suites reusable by every renderer.
@@ -31,9 +44,9 @@
 
 ## Later
 
-- Multi-brand theme packs.
+- More brand theme packs.
 - Figma token synchronization.
-- Vue, Svelte and Angular wrappers with Nuxt and SvelteKit support.
+- Svelte and Angular renderers with SvelteKit support.
 - Laravel Blade, Django templates and Astro integrations.
 - PWA delivery, Storybook documentation and Ionic/Capacitor renderer.
 - Kotlin Multiplatform core, Jetpack Compose and SwiftUI renderer implementations.

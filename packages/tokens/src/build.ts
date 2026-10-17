@@ -1,5 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
+import { brandThemes } from "./brands";
+import { toCss } from "./css";
 import { primitives } from "./tokens";
 import { themes } from "./themes";
 import { validateTokens } from "./validate";
@@ -23,6 +25,12 @@ async function main() {
 
   await writeJson(resolve(packageRoot, "dist/json/primitives.json"), primitives);
   await writeJson(resolve(packageRoot, "dist/json/themes.json"), themes);
+  await writeJson(resolve(packageRoot, "dist/json/brands.json"), brandThemes);
+
+  await mkdir(resolve(packageRoot, "dist/css"), { recursive: true });
+  for (const theme of Object.values(brandThemes)) {
+    await writeFile(resolve(packageRoot, `dist/css/${theme.id}.css`), toCss(theme));
+  }
 
   await mkdir(resolve(packageRoot, "dist/flutter"), { recursive: true });
   await writeFile(

@@ -12,6 +12,8 @@
     },
     "./json/primitives": "./dist/json/primitives.json",
     "./json/themes": "./dist/json/themes.json",
+    "./json/brands": "./dist/json/brands.json",
+    "./css/*": "./dist/css/*",
     "./react-native": {
       "types": "./dist/react-native/tokens.d.ts",
       "default": "./dist/react-native/tokens.ts"

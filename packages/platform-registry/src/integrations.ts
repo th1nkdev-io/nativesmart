@@ -31,7 +31,7 @@ export const integrationManifests: readonly IntegrationManifest[] = [
       "Tailwind CSS preset generated from tokens and shared by NativeWind and the web renderers.",
     packageName: "@nativesmart/tailwind-preset",
     packagePath: "packages/integrations/tailwind-preset",
-    status: "planned",
+    status: "preview",
     targets: ["react-native-nativewind", "react-web", "vue", "svelte", "html-css"]
   },
   {
