@@ -70,9 +70,11 @@ onBeforeUnmount(() => cleanups.forEach((cleanup) => cleanup()));
 </template>
 
 <style>
+/* The shell sizes the iframe to the reported height: the preview never scrolls itself. */
 html,
 body {
   margin: 0;
+  overflow: hidden;
   background: var(--ns-color-background);
   color: var(--ns-color-text);
   font-family: var(--ns-font-sans);

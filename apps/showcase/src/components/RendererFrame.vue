@@ -11,7 +11,7 @@ const props = defineProps<{ url: string; request: RenderRequest }>();
 const emit = defineEmits<{ event: [name: string] }>();
 
 const frame = ref<HTMLIFrameElement>();
-const height = ref(240);
+const height = ref(250);
 
 // The URL only carries the first request; later changes go through postMessage without reload.
 const src = ref(props.url + requestToSearch(props.request));
@@ -31,7 +31,8 @@ onMounted(() => {
     () => frame.value,
     (message) => {
       if (message.type === "ns:ready") sendRenderRequest(frame.value, props.request);
-      if (message.type === "ns:resize") height.value = Math.max(message.height, 160);
+      // +2 for the iframe border, so the preview never needs to scroll.
+      if (message.type === "ns:resize") height.value = Math.max(message.height, 160) + 2;
       if (message.type === "ns:event") emit("event", message.name);
     }
   );
@@ -41,6 +42,12 @@ onBeforeUnmount(() => stop?.());
 
 <template>
   <div class="frame">
-    <iframe ref="frame" :src="src" :style="{ height: `${height}px` }" title="Aperçu du composant" />
+    <iframe
+      ref="frame"
+      :src="src"
+      :style="{ height: `${height}px` }"
+      scrolling="no"
+      title="Aperçu du composant"
+    />
   </div>
 </template>

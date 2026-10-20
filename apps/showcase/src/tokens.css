@@ -9,11 +9,10 @@
   top: var(--lab-top, 0);
   z-index: var(--ns-z-raised);
   display: flex;
+  flex-wrap: wrap;
   gap: var(--ns-space-1);
-  overflow-x: auto;
   margin-inline: calc(var(--lab-gutter, 0px) * -1);
   padding: var(--ns-space-2) var(--lab-gutter, 0px);
-  scrollbar-width: none;
   border-block-end: 1px solid var(--ns-color-border);
   background: color-mix(in srgb, var(--ns-color-background) 92%, transparent);
   backdrop-filter: blur(8px);

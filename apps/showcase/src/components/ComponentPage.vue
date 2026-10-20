@@ -86,7 +86,7 @@ function reset() {
       </p>
     </header>
 
-    <div class="tabs" role="tablist">
+    <div class="tabs scroll-hidden" role="tablist">
       <button
         v-for="item in tabs"
         :key="item.id"
