@@ -95,7 +95,7 @@ function renderPage(docs) {
 </head>
 <body>
   <header>
-    <img class="brand-logo" src="./brand/nativesmart-logo.png" width="64" height="64" alt="">
+    <img class="brand-logo" src="./brand/icon-128.png" width="64" height="64" alt="">
     <h1>Nativesmart Docs</h1>
     <p>Mobile production infrastructure for React Native and Flutter products.</p>
   </header>

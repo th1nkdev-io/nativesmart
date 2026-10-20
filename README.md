@@ -1,5 +1,9 @@
 # Nativesmart
 
+<img src="public/brand/nativesmart-logo.png" width="96" height="96" alt="NativeSmart logo" />
+
+Official logo, application icons and regeneration instructions: [Brand](docs/brand.md).
+
 Nativesmart is Th1nkdev's internal web and mobile production infrastructure for building professional products faster with React Native, Flutter, Kotlin, Swift, React, Vue, Svelte, Angular and plain HTML-CSS.
 
 It is not a button library. It is a reusable foundation for design tokens, mobile UI components, business components, starters, templates, product conventions and future premium delivery.

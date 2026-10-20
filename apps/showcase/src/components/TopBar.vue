@@ -6,7 +6,7 @@ import { getTechnology } from "../technologies";
 
 defineEmits<{ toggleMenu: [] }>();
 
-const logoUrl = `${import.meta.env.BASE_URL}brand/nativesmart-logo.png`;
+const logoUrl = `${import.meta.env.BASE_URL}brand/icon-64.png`;
 
 const technology = computed(() => getTechnology(state.tech));
 

@@ -6,6 +6,21 @@
     "version": "0.1.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
+    "icon": "../../../public/brand/app-icon-1024.png",
+    "splash": {
+      "image": "../../../public/brand/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f8fafc"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "../../../public/brand/android-adaptive-foreground.png",
+        "backgroundColor": "#f8fafc"
+      }
+    },
+    "web": {
+      "favicon": "../../../public/brand/favicon-32x32.png"
+    },
     "assetBundlePatterns": ["**/*"]
   }
 }

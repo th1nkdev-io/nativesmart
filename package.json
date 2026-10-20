@@ -9,6 +9,7 @@
     "pnpm": ">=9.0.0"
   },
   "scripts": {
+    "brand:generate": "python3 tooling/scripts/generate-brand-assets.py",
     "build": "turbo run build",
     "check": "pnpm build && pnpm typecheck && pnpm lint && pnpm test && pnpm catalog:validate && pnpm architecture:validate",
     "dev": "turbo run dev --parallel",
