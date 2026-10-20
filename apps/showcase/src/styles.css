@@ -1360,26 +1360,115 @@ kbd {
   text-align: center;
 }
 
+/* "On this page": a track with a sliding marker, reading progress and a way back up. */
+
 .toc {
+  display: grid;
+  gap: var(--ns-space-3);
+  padding-block-start: var(--ns-space-1);
+}
+
+.toc svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.toc__head {
+  display: flex;
+  align-items: center;
+  gap: var(--ns-space-2);
+  color: var(--ns-color-text-muted);
+}
+
+.toc__icon {
+  inline-size: 15px;
+  block-size: 15px;
+}
+
+.toc__title {
+  flex: 1;
+  margin: 0;
+  font-family: var(--ns-font-sans);
+  font-size: 11px;
+  font-weight: var(--ns-font-weight-semibold);
+  letter-spacing: 0.06em;
+  line-height: 20px;
+  text-transform: uppercase;
+}
+
+.toc__progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--ns-font-mono);
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.toc__progress svg {
+  inline-size: 16px;
+  block-size: 16px;
+  transform: rotate(-90deg);
+}
+
+.toc__progress-track {
+  stroke: var(--ns-color-border);
+  stroke-width: 2.5;
+}
+
+.toc__progress-value {
+  stroke: var(--ns-color-primary);
+  stroke-width: 2.5;
+  transition: stroke-dasharray var(--ns-duration-fast) linear;
+}
+
+.toc__list {
+  position: relative;
   display: grid;
 }
 
-.toc .aside__title {
-  margin-block-start: 0;
+/* The track, and the marker sliding along it. */
+.toc__list::before {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  inline-size: 1px;
+  background: var(--ns-color-border);
+  content: "";
+}
+
+.toc__marker {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: -1px;
+  inline-size: 3px;
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-primary);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--ns-color-primary) 45%, transparent);
+  transition:
+    transform var(--ns-duration-normal) var(--ns-easing-standard),
+    height var(--ns-duration-normal) var(--ns-easing-standard);
 }
 
 .toc__link {
-  padding: 5px var(--ns-space-3);
-  border-inline-start: 2px solid var(--ns-color-border);
+  padding: 6px var(--ns-space-2) 6px var(--ns-space-4);
   color: var(--ns-color-text-muted);
+  font-size: 13.5px;
+  line-height: 1.4;
   text-decoration: none;
-  transition:
-    color var(--ns-duration-fast) var(--ns-easing-standard),
-    border-color var(--ns-duration-fast) var(--ns-easing-standard);
+  transition: color var(--ns-duration-fast) var(--ns-easing-standard);
 }
 
 .toc__link--sub {
-  padding-inline-start: var(--ns-space-6);
+  padding-inline-start: var(--ns-space-7);
+  font-size: 13px;
+}
+
+.toc__link--read {
+  color: color-mix(in srgb, var(--ns-color-text) 72%, var(--ns-color-text-muted));
 }
 
 .toc__link:hover {
@@ -1387,9 +1476,50 @@ kbd {
 }
 
 .toc__link[aria-current="location"] {
-  border-color: var(--ns-color-primary);
   color: var(--ns-color-primary);
   font-weight: var(--ns-font-weight-semibold);
+}
+
+.toc__top {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: 6px;
+  min-block-size: 30px;
+  padding: 0 var(--ns-space-3) 0 var(--ns-space-2);
+  border: 1px solid var(--ns-color-border);
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-surface);
+  color: var(--ns-color-text-muted);
+  font-size: 12.5px;
+  font-weight: var(--ns-font-weight-medium);
+  cursor: pointer;
+  transition:
+    color var(--ns-duration-fast) var(--ns-easing-standard),
+    border-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.toc__top:hover {
+  border-color: var(--ns-color-border-strong);
+  color: var(--ns-color-text);
+}
+
+.toc__top svg {
+  inline-size: 14px;
+  block-size: 14px;
+}
+
+.toc-top-enter-active,
+.toc-top-leave-active {
+  transition:
+    opacity var(--ns-duration-fast) var(--ns-easing-standard),
+    transform var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.toc-top-enter-from,
+.toc-top-leave-to {
+  opacity: 0;
+  transform: translateY(4px);
 }
 
 .event-log {
