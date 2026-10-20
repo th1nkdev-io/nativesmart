@@ -1,4 +1,5 @@
 import {
+  cpSync,
   existsSync,
   mkdirSync,
   readdirSync,
@@ -71,9 +72,17 @@ function renderPage(docs) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nativesmart Docs</title>
+  <meta name="theme-color" content="#087fe8">
+  <meta name="application-name" content="NativeSmart">
+  <link rel="icon" href="./brand/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="./brand/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./brand/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./brand/apple-touch-icon.png">
+  <link rel="manifest" href="./site.webmanifest">
   <style>
     :root { color-scheme: light dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
     body { margin: 0; background: #f8fafc; color: #0f172a; }
+    .brand-logo { display: block; width: 64px; height: 64px; object-fit: contain; }
     header { background: #0f172a; color: white; padding: 32px max(24px, 8vw); }
     main { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 32px; padding: 32px max(24px, 8vw); }
     nav { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 8px; align-self: start; }
@@ -86,6 +95,7 @@ function renderPage(docs) {
 </head>
 <body>
   <header>
+    <img class="brand-logo" src="./brand/nativesmart-logo.png" width="64" height="64" alt="">
     <h1>Nativesmart Docs</h1>
     <p>Mobile production infrastructure for React Native and Flutter products.</p>
   </header>
@@ -104,6 +114,8 @@ function build() {
   if (docs.length === 0) throw new Error("No markdown docs found.");
   rmSync(outDir, { recursive: true, force: true });
   mkdirSync(outDir, { recursive: true });
+  cpSync(join(root, "public", "brand"), join(outDir, "brand"), { recursive: true });
+  cpSync(join(root, "public", "site.webmanifest"), join(outDir, "site.webmanifest"));
   writeFileSync(join(outDir, "index.html"), renderPage(docs));
   return docs.length;
 }

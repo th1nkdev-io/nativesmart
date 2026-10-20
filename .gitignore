@@ -17,3 +17,4 @@ android/.gradle/
 
 # Reglages d'editeur : jamais versionnes (tasks.json et launch.json executent du code)
 .vscode/
+/output

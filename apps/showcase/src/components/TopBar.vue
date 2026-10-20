@@ -6,6 +6,8 @@ import { getTechnology } from "../technologies";
 
 defineEmits<{ toggleMenu: [] }>();
 
+const logoUrl = `${import.meta.env.BASE_URL}brand/nativesmart-logo.png`;
+
 const technology = computed(() => getTechnology(state.tech));
 
 const densities = [
@@ -27,7 +29,7 @@ const viewports = [
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
     </button>
     <a class="topbar__brand" href="#/" @click.prevent="openPage('')">
-      <span class="topbar__logo">ns</span>
+      <img class="topbar__logo" :src="logoUrl" alt="" width="32" height="32" />
       <span class="topbar__name">Nativesmart <strong>Lab</strong></span>
     </a>
     <span class="topbar__tech" :title="`Technologie active : ${technology.name}`">

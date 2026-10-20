@@ -7,6 +7,7 @@ const source = (path: string) => fileURLToPath(new URL(`../../${path}`, import.m
 // Workspace packages are read from source: contracts and tokens update live.
 export default defineConfig({
   base: "./",
+  publicDir: source("public"),
   plugins: [vue()],
   resolve: {
     alias: {
