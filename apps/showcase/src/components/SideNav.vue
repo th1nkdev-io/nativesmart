@@ -73,7 +73,7 @@ const count = computed(() => groups.value.reduce((total, group) => total + group
       </a>
       <a
         href="#/tokens"
-        :aria-current="state.page === 'tokens' ? 'page' : undefined"
+        :aria-current="state.page.startsWith('tokens') ? 'page' : undefined"
         @click.prevent="openPage('tokens')"
       >
         Tokens

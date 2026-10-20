@@ -76,10 +76,10 @@ function onClick(event: MouseEvent) {
   --ns-button-tone-pressed: var(--ns-color-primary-pressed);
   --ns-button-on-tone: var(--ns-color-on-primary);
   --ns-button-tone-muted: var(--ns-color-primary-muted);
-  --ns-button-radius: var(--ns-radius-md);
-  --ns-button-height: 40px;
+  --ns-button-radius: var(--ns-radius-control);
+  --ns-button-height: var(--ns-control-height-md);
   --ns-button-padding-inline: var(--ns-space-4);
-  --ns-button-font-size: var(--ns-font-size-sm);
+  --ns-button-font-size: var(--ns-text-label-md-size);
   --ns-button-focus-ring: var(--ns-color-focus-ring);
   --ns-button-background: var(--ns-button-tone);
   --ns-button-foreground: var(--ns-button-on-tone);
@@ -97,6 +97,7 @@ function onClick(event: MouseEvent) {
   font-family: var(--ns-font-sans);
   font-size: var(--ns-button-font-size);
   font-weight: var(--ns-font-weight-semibold);
+  letter-spacing: var(--ns-text-label-md-tracking);
   line-height: 1;
   white-space: nowrap;
   cursor: pointer;
@@ -125,21 +126,21 @@ function onClick(event: MouseEvent) {
 }
 
 .ns-button:focus-visible {
-  outline: 2px solid var(--ns-button-focus-ring);
-  outline-offset: 2px;
+  outline: var(--ns-focus-ring-width) solid var(--ns-button-focus-ring);
+  outline-offset: var(--ns-focus-ring-offset);
 }
 
 /* Sizes */
 .ns-button--sm {
-  --ns-button-height: 32px;
+  --ns-button-height: var(--ns-control-height-sm);
   --ns-button-padding-inline: var(--ns-space-3);
-  --ns-button-font-size: var(--ns-font-size-xs);
+  --ns-button-font-size: var(--ns-text-label-sm-size);
 }
 
 .ns-button--lg {
-  --ns-button-height: 48px;
+  --ns-button-height: var(--ns-control-height-lg);
   --ns-button-padding-inline: var(--ns-space-6);
-  --ns-button-font-size: var(--ns-font-size-md);
+  --ns-button-font-size: var(--ns-text-label-lg-size);
 }
 
 /* Intents */

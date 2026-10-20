@@ -20,7 +20,7 @@ withDefaults(defineProps<NsBadgeProps>(), { intent: "neutral" });
 .ns-badge {
   --ns-badge-background: var(--ns-color-surface-muted);
   --ns-badge-foreground: var(--ns-color-text);
-  --ns-badge-radius: var(--ns-radius-full);
+  --ns-badge-radius: var(--ns-radius-badge);
   display: inline-flex;
   align-items: center;
   gap: var(--ns-space-1);
@@ -29,29 +29,30 @@ withDefaults(defineProps<NsBadgeProps>(), { intent: "neutral" });
   background: var(--ns-badge-background);
   color: var(--ns-badge-foreground);
   font-family: var(--ns-font-sans);
-  font-size: var(--ns-font-size-xs);
-  font-weight: var(--ns-font-weight-medium);
-  line-height: var(--ns-line-height-xs);
+  font-size: var(--ns-text-label-sm-size);
+  font-weight: var(--ns-text-label-sm-weight);
+  line-height: var(--ns-text-label-sm-line-height);
+  letter-spacing: var(--ns-text-label-sm-tracking);
   white-space: nowrap;
 }
 
 .ns-badge--info {
   --ns-badge-background: var(--ns-color-info-muted);
-  --ns-badge-foreground: var(--ns-color-info);
+  --ns-badge-foreground: var(--ns-color-on-info-muted);
 }
 
 .ns-badge--success {
   --ns-badge-background: var(--ns-color-success-muted);
-  --ns-badge-foreground: var(--ns-color-success);
+  --ns-badge-foreground: var(--ns-color-on-success-muted);
 }
 
 .ns-badge--warning {
   --ns-badge-background: var(--ns-color-warning-muted);
-  --ns-badge-foreground: var(--ns-color-warning);
+  --ns-badge-foreground: var(--ns-color-on-warning-muted);
 }
 
 .ns-badge--danger {
   --ns-badge-background: var(--ns-color-danger-muted);
-  --ns-badge-foreground: var(--ns-color-danger);
+  --ns-badge-foreground: var(--ns-color-on-danger-muted);
 }
 </style>

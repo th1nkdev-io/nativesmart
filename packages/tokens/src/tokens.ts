@@ -1,1 +1,1 @@
-export { primitives, type NativesmartPrimitives } from "./primitives";
+export * from "./primitives";

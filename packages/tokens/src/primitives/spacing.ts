@@ -1,13 +1,20 @@
+/** Spacing scale in pixels, on a 4px grid. Keys follow the Tailwind spacing scale. */
 export const spacing = {
   0: 0,
+  px: 1,
   1: 4,
   2: 8,
   3: 12,
   4: 16,
   5: 20,
   6: 24,
+  7: 28,
   8: 32,
   10: 40,
   12: 48,
-  16: 64
+  14: 56,
+  16: 64,
+  20: 80,
+  24: 96,
+  32: 128
 } as const;

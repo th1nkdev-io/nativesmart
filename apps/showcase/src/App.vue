@@ -26,7 +26,7 @@ watch(
     <SideNav :class="['lab__nav', { 'lab__nav--open': menuOpen }]" />
     <main class="lab__main">
       <ComponentPage v-if="contract" :key="contract.id" :contract="contract" />
-      <TokensPage v-else-if="state.page === 'tokens'" />
+      <TokensPage v-else-if="state.page.startsWith('tokens')" />
       <HomePage v-else />
     </main>
   </div>
