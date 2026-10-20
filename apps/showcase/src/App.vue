@@ -3,6 +3,7 @@ import { getComponentContract } from "@nativesmart/contracts";
 import { applyLayout, applyPreviewTheme, applyTheme } from "@nativesmart/showcase-runtime";
 import { defaultBrandThemeId } from "@nativesmart/tokens";
 import { computed, ref, watch, watchEffect } from "vue";
+import CommandPalette from "./components/CommandPalette.vue";
 import ComponentPage from "./components/ComponentPage.vue";
 import HomePage from "./components/HomePage.vue";
 import LabFooter from "./components/LabFooter.vue";
@@ -76,6 +77,8 @@ watchEffect(() => {
       </div>
       <LabFooter />
     </main>
+
+    <CommandPalette />
 
     <aside class="lab__aside" aria-label="Panneau contextuel">
       <div id="lab-aside" />

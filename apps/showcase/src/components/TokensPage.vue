@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { brandThemes, semanticColorRoles, textStyles } from "@nativesmart/tokens";
 import { computed, type Component } from "vue";
+import { tokenSections } from "../pages";
 import { openPage, state } from "../state";
 import ColorsSection from "./tokens/ColorsSection.vue";
 import ElevationSection from "./tokens/ElevationSection.vue";
@@ -11,16 +12,20 @@ import SpacingSection from "./tokens/SpacingSection.vue";
 import SystemSection from "./tokens/SystemSection.vue";
 import TypographySection from "./tokens/TypographySection.vue";
 
-const sections: { id: string; label: string; component: Component }[] = [
-  { id: "colors", label: "Couleurs", component: ColorsSection },
-  { id: "typography", label: "Typographie", component: TypographySection },
-  { id: "spacing", label: "Espacements", component: SpacingSection },
-  { id: "sizing", label: "Tailles", component: SizingSection },
-  { id: "shape", label: "Formes", component: ShapeSection },
-  { id: "elevation", label: "Élévation", component: ElevationSection },
-  { id: "motion", label: "Mouvement", component: MotionSection },
-  { id: "system", label: "Système", component: SystemSection }
-];
+const components: Record<(typeof tokenSections)[number]["id"], Component> = {
+  colors: ColorsSection,
+  typography: TypographySection,
+  spacing: SpacingSection,
+  sizing: SizingSection,
+  shape: ShapeSection,
+  elevation: ElevationSection,
+  motion: MotionSection,
+  system: SystemSection
+};
+const sections = tokenSections.map((section) => ({
+  ...section,
+  component: components[section.id]
+}));
 
 const theme = computed(() => brandThemes[state.brand]);
 const current = computed(

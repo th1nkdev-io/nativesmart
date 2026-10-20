@@ -11,6 +11,11 @@ const releases = [
       { kind: "Nouveau", text: "Kit de contrôles du Lab : listes, interrupteurs, segments" },
       { kind: "Nouveau", text: "Les 193 composants listés, avec un état « bientôt »" },
       { kind: "Nouveau", text: "Pages de documentation" },
+      {
+        kind: "Nouveau",
+        text: "Recherche globale ⌘K / Ctrl K dans les pages et les 193 composants"
+      },
+      { kind: "Nouveau", text: "Barre du haut, rail des technologies et navigation redessinés" },
       { kind: "Nouveau", text: "Aperçu et code réunis, onglets Aperçu, Variations et API" },
       { kind: "Nouveau", text: "Code de la technologie active, avec ses syntaxes (Nuxt, Vue…)" },
       { kind: "Nouveau", text: "Toutes les technologies sélectionnables, avec leur API prévue" },

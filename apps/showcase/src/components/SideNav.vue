@@ -28,10 +28,21 @@ const legend = computed(() => [
   {
     value: "available" as const,
     label: "Disponibles",
+    short: "dispo.",
     hint: `Codés en ${technology.value.name} et testables`
   },
-  { value: "specified" as const, label: "Contrat prêt", hint: "Spécifiés, pas encore codés" },
-  { value: "planned" as const, label: "Prévus", hint: "Réservés, contrat à écrire" }
+  {
+    value: "specified" as const,
+    label: "Contrat prêt",
+    short: "contrats",
+    hint: "Spécifiés, pas encore codés"
+  },
+  {
+    value: "planned" as const,
+    label: "Prévus",
+    short: "prévus",
+    hint: "Réservés, contrat à écrire"
+  }
 ]);
 
 function groupKey(contract: ComponentContract) {
@@ -107,40 +118,66 @@ const visibleCount = computed(() =>
         @click.prevent="openPage(item.id)"
       >
         <svg viewBox="0 0 24 24" aria-hidden="true"><path :d="item.icon" /></svg>
-        {{ item.label }}
+        <span>{{ item.label }}</span>
       </a>
     </section>
 
-    <section class="sidenav__section">
-      <h2 class="sidenav__heading">
-        Composants <span class="sidenav__total">{{ componentContracts.length }}</span>
-      </h2>
-      <input
-        v-model="query"
-        class="lab-input lab-input--search sidenav__search"
-        type="search"
-        placeholder="Rechercher…"
-        aria-label="Rechercher un composant"
-      />
+    <section class="sidenav__section sidenav__components">
+      <div class="sidenav__tools">
+        <h2 class="sidenav__heading">
+          Composants <span class="sidenav__total">{{ componentContracts.length }}</span>
+        </h2>
 
-      <div class="status-legend" role="group" aria-label="Filtrer par statut">
-        <button
-          v-for="item in legend"
-          :key="item.value"
-          type="button"
-          :aria-pressed="filter === item.value"
-          :title="`${item.hint}. Cliquez pour ${filter === item.value ? 'tout afficher' : 'filtrer'}.`"
-          @click="filter = filter === item.value ? null : item.value"
+        <div
+          class="coverage"
+          role="img"
+          :aria-label="`${counts.available} disponibles en ${technology.name}, ${counts.specified} contrats prêts, ${counts.planned} prévus`"
         >
-          <span :class="['dot', `dot--${item.value}`]" aria-hidden="true" />
-          <span class="status-legend__count">{{ counts[item.value] }}</span>
-          <span class="sr-only">{{ item.label }}</span>
-        </button>
+          <span
+            v-for="item in legend"
+            :key="item.value"
+            :class="['coverage__part', `coverage__part--${item.value}`]"
+            :style="{ flexGrow: counts[item.value] }"
+          />
+        </div>
+
+        <div class="filter-field">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" />
+          </svg>
+          <input
+            v-model="query"
+            type="search"
+            placeholder="Filtrer la liste"
+            aria-label="Filtrer les composants"
+          />
+          <button
+            v-if="query"
+            type="button"
+            class="filter-field__clear"
+            aria-label="Effacer le filtre"
+            @click="query = ''"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+          </button>
+        </div>
+
+        <div class="status-legend" role="group" aria-label="Filtrer par statut">
+          <button
+            v-for="item in legend"
+            :key="item.value"
+            type="button"
+            :aria-pressed="filter === item.value"
+            :title="`${item.hint}. Cliquez pour ${filter === item.value ? 'tout afficher' : 'filtrer'}.`"
+            @click="filter = filter === item.value ? null : item.value"
+          >
+            <span :class="['dot', `dot--${item.value}`]" aria-hidden="true" />
+            <span class="status-legend__count">{{ counts[item.value] }}</span>
+            <span class="status-legend__label">{{ item.short }}</span>
+          </button>
+        </div>
       </div>
-      <p v-if="filter" class="sidenav__filter-note">
-        {{ legend.find((item) => item.value === filter)?.label }} uniquement ·
-        <button type="button" class="link-button" @click="filter = null">tout afficher</button>
-      </p>
 
       <div v-for="group in groups" :key="group.key" class="sidenav__group">
         <h3>
@@ -153,26 +190,28 @@ const visibleCount = computed(() =>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
             <span class="sidenav__group-title">{{ group.title }}</span>
             <span
-              class="sidenav__group-count"
+              :class="['sidenav__group-count', { 'is-started': group.done > 0 }]"
               :title="`${group.done} disponible(s) sur ${group.total}`"
             >
               {{ group.done }}/{{ group.total }}
             </span>
           </button>
         </h3>
-        <a
-          v-for="contract in isOpen(group.key) ? group.items : []"
-          :key="contract.id"
-          :href="`#/${contract.id}`"
-          :aria-current="state.page === contract.id ? 'page' : undefined"
-          @click.prevent="openPage(contract.id)"
-        >
-          <span :class="['dot', `dot--${statusOf(contract)}`]" aria-hidden="true" />
-          {{ contract.name }}
-        </a>
+        <div v-if="isOpen(group.key)" class="sidenav__items">
+          <a
+            v-for="contract in group.items"
+            :key="contract.id"
+            :href="`#/${contract.id}`"
+            :aria-current="state.page === contract.id ? 'page' : undefined"
+            @click.prevent="openPage(contract.id)"
+          >
+            <span :class="['dot', `dot--${statusOf(contract)}`]" aria-hidden="true" />
+            {{ contract.name }}
+          </a>
+        </div>
       </div>
       <p v-if="visibleCount === 0" class="sidenav__empty">
-        Aucun composant ne correspond à cette recherche.
+        Aucun composant ne correspond à ce filtre.
       </p>
     </section>
   </nav>

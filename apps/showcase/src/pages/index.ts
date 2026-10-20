@@ -18,6 +18,18 @@ export type NavItem = {
 
 export type NavSection = { id: string; label: string; items: readonly NavItem[] };
 
+/** Sections of the Tokens page, each with its own URL (`tokens/<id>`). */
+export const tokenSections = [
+  { id: "colors", label: "Couleurs" },
+  { id: "typography", label: "Typographie" },
+  { id: "spacing", label: "Espacements" },
+  { id: "sizing", label: "Tailles" },
+  { id: "shape", label: "Formes" },
+  { id: "elevation", label: "Élévation" },
+  { id: "motion", label: "Mouvement" },
+  { id: "system", label: "Système" }
+] as const;
+
 const icons = {
   home: "m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z",
   download: "M12 3v12m0 0-4-4m4 4 4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2",
