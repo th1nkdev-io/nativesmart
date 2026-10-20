@@ -10,9 +10,11 @@ import TechRail from "./components/TechRail.vue";
 import TokensPage from "./components/TokensPage.vue";
 import TopBar from "./components/TopBar.vue";
 import { brandName } from "./brand";
+import { findDocPage } from "./pages";
 import { state } from "./state";
 
 const contract = computed(() => getComponentContract(state.page));
+const docPage = computed(() => findDocPage(state.page));
 const menuOpen = ref(false);
 const canvas = ref<HTMLElement>();
 
@@ -29,7 +31,13 @@ watch(
 const tocKey = computed(() => `${state.page}:${state.tab}`);
 
 watchEffect(() => {
-  const title = contract.value?.name ?? (state.page.startsWith("tokens") ? "Tokens" : "");
+  const title =
+    contract.value?.name ??
+    (state.page.startsWith("tokens")
+      ? "Tokens"
+      : docPage.value?.component
+        ? docPage.value.label
+        : "");
   document.title = title ? `${title} · ${brandName} Lab` : `${brandName} Lab`;
 });
 </script>
@@ -52,6 +60,7 @@ watchEffect(() => {
         <div ref="canvas" class="lab__canvas" data-toc-root>
           <ComponentPage v-if="contract" :key="contract.id" :contract="contract" />
           <TokensPage v-else-if="state.page.startsWith('tokens')" />
+          <component :is="docPage.component" v-else-if="docPage?.component" :key="docPage.id" />
           <HomePage v-else />
         </div>
       </div>

@@ -9,6 +9,7 @@ import { computed, ref } from "vue";
 import { categoryNames } from "../labels";
 import { state, type ComponentTab } from "../state";
 import { getTechnology, technologies } from "../technologies";
+import CodePanel from "./CodePanel.vue";
 import ComingSoon from "./ComingSoon.vue";
 import ContractPanel from "./ContractPanel.vue";
 import OnThisPage from "./OnThisPage.vue";
@@ -101,13 +102,16 @@ function reset() {
     </div>
 
     <ContractPanel v-if="tab === 'contract'" :contract="contract" />
-    <ComingSoon v-else-if="!implemented" :contract="contract" :technology="technology" />
-    <RendererFrame
-      v-else-if="technology.url"
-      :url="technology.url"
-      :request="request"
-      @event="logEvent"
-    />
+    <template v-else>
+      <ComingSoon v-if="!implemented" :contract="contract" :technology="technology" />
+      <RendererFrame
+        v-else-if="technology.url"
+        :url="technology.url"
+        :request="request"
+        @event="logEvent"
+      />
+      <CodePanel v-if="tab === 'playground'" :contract="contract" :values="values" />
+    </template>
 
     <Teleport defer to="#lab-aside">
       <div class="aside-stack">
