@@ -2,10 +2,6 @@
 import { state } from "../state";
 import { getTechnology, technologyFamilies, type Technology } from "../technologies";
 
-function select(technology: Technology) {
-  if (technology.url) state.tech = technology.id;
-}
-
 /** Brand color of the logo, or the text color when the brand color is too dark to read. */
 function iconColor(technology: Technology) {
   const hex = technology.icon?.hex ?? "";
@@ -17,7 +13,7 @@ function iconColor(technology: Technology) {
 
 function label(technology: Technology) {
   if (technology.url) return `${technology.name} · ${technology.implemented.size} composants`;
-  return `${technology.name} · bientôt dans le Lab`;
+  return `${technology.name} · aperçu bientôt, API prévue consultable`;
 }
 </script>
 
@@ -29,11 +25,10 @@ function label(technology: Technology) {
         v-for="technology in group.items"
         :key="technology.id"
         type="button"
-        class="rail__item"
+        :class="['rail__item', { 'rail__item--soon': !technology.url }]"
         :aria-pressed="getTechnology(state.tech).id === technology.id"
-        :aria-disabled="!technology.url || undefined"
         :aria-label="label(technology)"
-        @click="select(technology)"
+        @click="state.tech = technology.id"
       >
         <svg
           v-if="technology.icon"

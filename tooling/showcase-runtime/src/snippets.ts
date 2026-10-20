@@ -2,6 +2,7 @@ import type { ComponentContract, ComponentProperty } from "@nativesmart/contract
 import type { ShowcaseProps, ShowcasePropValue } from "./protocol";
 
 export type SnippetLanguage =
+  | "nuxt"
   | "vue"
   | "react"
   | "html"
@@ -10,27 +11,50 @@ export type SnippetLanguage =
   | "react-native"
   | "flutter"
   | "compose"
-  | "swiftui";
+  | "swiftui"
+  | "maui";
 
-export type SnippetTarget = {
-  language: SnippetLanguage;
-  /** Platform registry renderer that ships this API. */
-  renderer: string;
-  label: string;
-  /** Syntax used to highlight the snippet. */
-  syntax: "markup" | "tsx" | "dart" | "kotlin" | "swift";
+/** One way of writing a component in a technology, for example Nuxt or plain Vue. */
+export type SnippetVariant = { language: SnippetLanguage; label: string };
+
+const webComponents: readonly SnippetVariant[] = [{ language: "html", label: "Web Components" }];
+
+const rendererSnippets: Readonly<Record<string, readonly SnippetVariant[]>> = {
+  vue: [
+    { language: "nuxt", label: "Nuxt" },
+    { language: "vue", label: "Vue" }
+  ],
+  "react-web": [{ language: "react", label: "React" }],
+  "html-css": [{ language: "html", label: "HTML" }],
+  svelte: [{ language: "svelte", label: "Svelte" }],
+  angular: [{ language: "angular", label: "Angular" }],
+  "react-native": [{ language: "react-native", label: "React Native" }],
+  "react-native-nativewind": [{ language: "react-native", label: "React Native" }],
+  flutter: [{ language: "flutter", label: "Dart" }],
+  compose: [{ language: "compose", label: "Kotlin" }],
+  swiftui: [{ language: "swiftui", label: "Swift" }],
+  maui: [{ language: "maui", label: "XAML" }],
+  "ionic-capacitor": webComponents,
+  "desktop-web": webComponents
 };
 
-export const snippetTargets: readonly SnippetTarget[] = [
-  { language: "vue", renderer: "vue", label: "Vue", syntax: "markup" },
-  { language: "react", renderer: "react-web", label: "React", syntax: "tsx" },
-  { language: "html", renderer: "html-css", label: "Web Components", syntax: "markup" },
-  { language: "svelte", renderer: "svelte", label: "Svelte", syntax: "markup" },
-  { language: "angular", renderer: "angular", label: "Angular", syntax: "markup" },
-  { language: "react-native", renderer: "react-native", label: "React Native", syntax: "tsx" },
-  { language: "flutter", renderer: "flutter", label: "Flutter", syntax: "dart" },
-  { language: "compose", renderer: "compose", label: "Compose", syntax: "kotlin" },
-  { language: "swiftui", renderer: "swiftui", label: "SwiftUI", syntax: "swift" }
+/** Ways of writing a component for one renderer of the platform registry, preferred first. */
+export function snippetVariantsFor(renderer: string): readonly SnippetVariant[] {
+  return rendererSnippets[renderer] ?? webComponents;
+}
+
+export const snippetLanguages: readonly SnippetLanguage[] = [
+  "nuxt",
+  "vue",
+  "react",
+  "html",
+  "svelte",
+  "angular",
+  "react-native",
+  "flutter",
+  "compose",
+  "swiftui",
+  "maui"
 ];
 
 const pascal = (id: string) =>
@@ -62,6 +86,12 @@ function lines(items: readonly string[], indent: string, open: string, close: st
   return `${open}\n${items.map((item) => `${indent}  ${item}`).join("\n")}\n${indent}${close.trimStart()}`;
 }
 
+const indent = (text: string, prefix: string) =>
+  text
+    .split("\n")
+    .map((line) => (line ? `${prefix}${line}` : line))
+    .join("\n");
+
 type Attribute = (property: ComponentProperty, value: ShowcasePropValue) => string;
 
 function markupTag(
@@ -69,184 +99,238 @@ function markupTag(
   contract: ComponentContract,
   props: ShowcaseProps,
   attribute: Attribute,
-  event: (name: string) => string,
-  selfClosing: boolean,
-  indent = ""
+  event: ((name: string) => string) | null,
+  selfClosing: boolean
 ) {
   const items = [
     ...changedProps(contract, props).map(({ property, value }) => attribute(property, value)),
-    ...contract.events.slice(0, 1).map(event)
+    ...(event ? contract.events.slice(0, 1).map(event) : [])
   ];
   const close = selfClosing ? " />" : `></${tag}>`;
-  return lines(items, indent, `${indent}<${tag}`, close).trimEnd();
+  return lines(items, "", `<${tag}`, close).trimEnd();
 }
 
-function vue(contract: ComponentContract, props: ShowcaseProps) {
-  const name = `Ns${pascal(contract.id)}`;
-  const tag = markupTag(
-    name,
-    contract,
-    props,
-    (property, value) => {
-      if (property.kind === "boolean") return property.name;
-      if (property.kind === "number") return `:${property.name}="${value}"`;
-      if (Array.isArray(value)) return `:${property.name}='${listLiteral(value)}'`;
-      return `${property.name}=${quote(String(value))}`;
-    },
-    (event) => `@${event}="${handler(event)}"`,
-    true,
-    "  "
-  );
-  const script = contract.events.length
-    ? `\n\nfunction ${handler(contract.events[0])}() {\n  // ...\n}`
-    : "";
-  return `<script setup lang="ts">\nimport { ${name} } from "@nativesmart/vue";${script}\n</script>\n\n<template>\n${tag}\n</template>`;
+/** How one language writes a single usage, and the file around one or several usages. */
+type Language = {
+  usage: (contract: ComponentContract, props: ShowcaseProps, events: boolean) => string;
+  wrap: (contract: ComponentContract, usages: readonly string[], events: boolean) => string;
+};
+
+const firstEvent = (contract: ComponentContract, events: boolean) =>
+  events ? contract.events[0] : undefined;
+
+function vueLanguage(withImport: boolean): Language {
+  return {
+    usage: (contract, props, events) =>
+      markupTag(
+        `Ns${pascal(contract.id)}`,
+        contract,
+        props,
+        (property, value) => {
+          if (property.kind === "boolean") return property.name;
+          if (property.kind === "number") return `:${property.name}="${value}"`;
+          if (Array.isArray(value)) return `:${property.name}='${listLiteral(value)}'`;
+          return `${property.name}=${quote(String(value))}`;
+        },
+        events ? (event) => `@${event}="${handler(event)}"` : null,
+        true
+      ),
+    wrap: (contract, usages, events) => {
+      const event = firstEvent(contract, events);
+      const script = [
+        withImport ? `import { Ns${pascal(contract.id)} } from "@nativesmart/vue";` : "",
+        event ? `function ${handler(event)}() {\n  // ...\n}` : ""
+      ].filter(Boolean);
+      const head = script.length
+        ? `<script setup lang="ts">\n${script.join("\n\n")}\n</script>\n\n`
+        : "";
+      return `${head}<template>\n${indent(usages.join("\n"), "  ")}\n</template>`;
+    }
+  };
 }
 
-function jsx(contract: ComponentContract, props: ShowcaseProps, from: string) {
-  const name = pascal(contract.id);
-  const tag = markupTag(
-    name,
-    contract,
-    props,
-    (property, value) => {
-      if (property.kind === "boolean") return property.name;
-      if (property.kind === "number") return `${property.name}={${value}}`;
-      if (Array.isArray(value)) return `${property.name}={${listLiteral(value)}}`;
-      return `${property.name}=${quote(String(value))}`;
-    },
-    (event) => `${handler(event)}={() => {}}`,
-    true,
-    "    "
-  );
-  return `import { ${name} } from "${from}";\n\nexport function Example() {\n  return (\n${tag}\n  );\n}`;
+function jsxLanguage(from: string): Language {
+  return {
+    usage: (contract, props, events) =>
+      markupTag(
+        pascal(contract.id),
+        contract,
+        props,
+        (property, value) => {
+          if (property.kind === "boolean") return property.name;
+          if (property.kind === "number") return `${property.name}={${value}}`;
+          if (Array.isArray(value)) return `${property.name}={${listLiteral(value)}}`;
+          return `${property.name}=${quote(String(value))}`;
+        },
+        events ? (event) => `${handler(event)}={() => {}}` : null,
+        true
+      ),
+    wrap: (contract, usages) => {
+      const body =
+        usages.length === 1
+          ? indent(usages[0], "    ")
+          : `    <>\n${indent(usages.join("\n"), "      ")}\n    </>`;
+      return `import { ${pascal(contract.id)} } from "${from}";\n\nexport function Example() {\n  return (\n${body}\n  );\n}`;
+    }
+  };
 }
 
-function webComponent(contract: ComponentContract, props: ShowcaseProps) {
-  const tag = `ns-${contract.id}`;
-  const element = markupTag(
-    tag,
-    contract,
-    props,
-    (property, value) => {
-      const attribute = property.name.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
-      if (property.kind === "boolean") return attribute;
-      if (Array.isArray(value)) return `${attribute}='${JSON.stringify(value)}'`;
-      return `${attribute}=${quote(String(value))}`;
-    },
-    () => "",
-    false
-  ).replace(/ +>/, ">");
-  const listener = contract.events.length
-    ? `\n\n<script type="module">\n  import "@nativesmart/elements";\n  document.querySelector("${tag}").addEventListener("ns-${contract.events[0]}", () => {});\n</script>`
-    : `\n\n<script type="module">\n  import "@nativesmart/elements";\n</script>`;
-  return `${element}${listener}`;
-}
+const html: Language = {
+  usage: (contract, props) =>
+    markupTag(
+      `ns-${contract.id}`,
+      contract,
+      props,
+      (property, value) => {
+        const attribute = property.name.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
+        if (property.kind === "boolean") return attribute;
+        if (Array.isArray(value)) return `${attribute}='${JSON.stringify(value)}'`;
+        return `${attribute}=${quote(String(value))}`;
+      },
+      null,
+      false
+    ),
+  wrap: (contract, usages, events) => {
+    const event = firstEvent(contract, events);
+    const listener = event
+      ? `\n  document.querySelector("ns-${contract.id}").addEventListener("ns-${event}", () => {});`
+      : "";
+    return `${usages.join("\n")}\n\n<script type="module">\n  import "@nativesmart/elements";${listener}\n</script>`;
+  }
+};
 
-function svelte(contract: ComponentContract, props: ShowcaseProps) {
-  const name = pascal(contract.id);
-  const tag = markupTag(
-    name,
-    contract,
-    props,
-    (property, value) => {
-      if (property.kind === "boolean") return property.name;
-      if (property.kind === "number" || Array.isArray(value)) {
-        return `${property.name}={${Array.isArray(value) ? listLiteral(value) : value}}`;
-      }
-      return `${property.name}=${quote(String(value))}`;
-    },
-    (event) => `on${event}={() => {}}`,
-    true
-  );
-  return `<script lang="ts">\n  import { ${name} } from "@nativesmart/svelte";\n</script>\n\n${tag}`;
-}
+const svelte: Language = {
+  usage: (contract, props, events) =>
+    markupTag(
+      pascal(contract.id),
+      contract,
+      props,
+      (property, value) => {
+        if (property.kind === "boolean") return property.name;
+        if (property.kind === "number" || Array.isArray(value)) {
+          return `${property.name}={${Array.isArray(value) ? listLiteral(value) : value}}`;
+        }
+        return `${property.name}=${quote(String(value))}`;
+      },
+      events ? (event) => `on${event}={() => {}}` : null,
+      true
+    ),
+  wrap: (contract, usages) =>
+    `<script lang="ts">\n  import { ${pascal(contract.id)} } from "@nativesmart/svelte";\n</script>\n\n${usages.join("\n")}`
+};
 
-function angular(contract: ComponentContract, props: ShowcaseProps) {
-  return markupTag(
-    `ns-${contract.id}`,
-    contract,
-    props,
-    (property, value) => {
-      if (property.kind === "boolean") return `[${property.name}]="true"`;
-      if (property.kind === "number") return `[${property.name}]="${value}"`;
-      if (Array.isArray(value)) return `[${property.name}]="${listLiteral(value, "'")}"`;
-      return `${property.name}=${quote(String(value))}`;
-    },
-    (event) => `(${event})="${handler(event)}()"`,
-    false
-  );
-}
+const angular: Language = {
+  usage: (contract, props, events) =>
+    markupTag(
+      `ns-${contract.id}`,
+      contract,
+      props,
+      (property, value) => {
+        if (property.kind === "boolean") return `[${property.name}]="true"`;
+        if (property.kind === "number") return `[${property.name}]="${value}"`;
+        if (Array.isArray(value)) return `[${property.name}]="${listLiteral(value, "'")}"`;
+        return `${property.name}=${quote(String(value))}`;
+      },
+      events ? (event) => `(${event})="${handler(event)}()"` : null,
+      false
+    ),
+  wrap: (_, usages) => usages.join("\n")
+};
 
 /** Dart, Kotlin and Swift share a "name: value" call syntax with their own literals. */
-function nativeCall(
-  contract: ComponentContract,
-  props: ShowcaseProps,
-  options: {
-    name: string;
-    separator: string;
-    string: (value: string) => string;
-    enumValue: (property: ComponentProperty, value: string) => string;
-    list: (value: readonly string[]) => string;
-    callback: string;
-  }
-) {
-  const args = changedProps(contract, props).map(({ property, value }) => {
-    const literal =
-      property.kind === "enum"
-        ? options.enumValue(property, String(value))
-        : Array.isArray(value)
-          ? options.list(value)
-          : typeof value === "string"
-            ? options.string(value)
-            : String(value);
-    return `${property.name}${options.separator}${literal}`;
-  });
-  if (contract.events.length) {
-    args.push(`${handler(contract.events[0])}${options.separator}${options.callback}`);
-  }
-  if (args.length === 0) return `${options.name}()`;
-  return `${options.name}(\n${args.map((arg) => `  ${arg},`).join("\n")}\n)`;
+type NativeOptions = {
+  separator: string;
+  string: (value: string) => string;
+  enumValue: (name: string, property: ComponentProperty, value: string) => string;
+  list: (value: readonly string[]) => string;
+  callback: string;
+  trailingComma: boolean;
+  header: (name: string) => string;
+};
+
+function nativeLanguage(options: NativeOptions): Language {
+  return {
+    usage: (contract, props, events) => {
+      const name = `Ns${pascal(contract.id)}`;
+      const args = changedProps(contract, props).map(({ property, value }) => {
+        const literal =
+          property.kind === "enum"
+            ? options.enumValue(name, property, String(value))
+            : Array.isArray(value)
+              ? options.list(value)
+              : typeof value === "string"
+                ? options.string(value)
+                : String(value);
+        return `${property.name}${options.separator}${literal}`;
+      });
+      const event = firstEvent(contract, events);
+      if (event) args.push(`${handler(event)}${options.separator}${options.callback}`);
+      if (args.length === 0) return `${name}()`;
+      const body = args.map((arg) => `  ${arg},`).join("\n");
+      return `${name}(\n${options.trailingComma ? body : body.replace(/,$/, "")}\n)`;
+    },
+    wrap: (contract, usages) =>
+      `${options.header(`Ns${pascal(contract.id)}`)}\n\n${usages.join("\n\n")}`
+  };
 }
 
-function flutter(contract: ComponentContract, props: ShowcaseProps) {
-  const name = `Ns${pascal(contract.id)}`;
-  const call = nativeCall(contract, props, {
-    name,
+const maui: Language = {
+  usage: (contract, props, events) =>
+    markupTag(
+      `ns:Ns${pascal(contract.id)}`,
+      contract,
+      props,
+      (property, value) => {
+        const name = pascal(property.name);
+        if (property.kind === "boolean") return `${name}="True"`;
+        if (Array.isArray(value)) return `${name}="{Binding ${name}}"`;
+        if (property.kind === "enum") return `${name}="${pascal(String(value))}"`;
+        return `${name}=${quote(String(value))}`;
+      },
+      events ? (event) => `${pascal(event)}="${pascal(handler(event))}"` : null,
+      true
+    ),
+  wrap: (_, usages) =>
+    `<!-- xmlns:ns="clr-namespace:NativeSmart.Maui;assembly=NativeSmart.Maui" -->\n${usages.join("\n")}`
+};
+
+const languages: Readonly<Record<SnippetLanguage, Language>> = {
+  nuxt: vueLanguage(false),
+  vue: vueLanguage(true),
+  react: jsxLanguage("@nativesmart/react"),
+  "react-native": jsxLanguage("@nativesmart/react-native"),
+  html,
+  svelte,
+  angular,
+  flutter: nativeLanguage({
     separator: ": ",
     string: (value) => quote(value, "'"),
-    enumValue: (property, value) => `${name}${pascal(property.name)}.${camel(value)}`,
+    enumValue: (name, property, value) => `${name}${pascal(property.name)}.${camel(value)}`,
     list: (value) => listLiteral(value, "'"),
-    callback: "() {}"
-  });
-  return `import 'package:nativesmart_flutter/nativesmart_flutter.dart';\n\n${call}`;
-}
-
-function compose(contract: ComponentContract, props: ShowcaseProps) {
-  const name = `Ns${pascal(contract.id)}`;
-  const call = nativeCall(contract, props, {
-    name,
+    callback: "() {}",
+    trailingComma: true,
+    header: () => "import 'package:nativesmart_flutter/nativesmart_flutter.dart';"
+  }),
+  compose: nativeLanguage({
     separator: " = ",
     string: (value) => quote(value),
-    enumValue: (property, value) => `${name}${pascal(property.name)}.${pascal(value)}`,
+    enumValue: (name, property, value) => `${name}${pascal(property.name)}.${pascal(value)}`,
     list: (value) => `listOf(${value.map((item) => quote(item)).join(", ")})`,
-    callback: "{ }"
-  });
-  return `import com.thinkdev.nativesmart.compose.${name}\n\n${call.replace(/,\n\)$/, "\n)")}`;
-}
-
-function swiftui(contract: ComponentContract, props: ShowcaseProps) {
-  const name = `Ns${pascal(contract.id)}`;
-  const call = nativeCall(contract, props, {
-    name,
+    callback: "{ }",
+    trailingComma: false,
+    header: (name) => `import com.thinkdev.nativesmart.compose.${name}`
+  }),
+  swiftui: nativeLanguage({
     separator: ": ",
     string: (value) => quote(value),
-    enumValue: (_, value) => `.${camel(value)}`,
+    enumValue: (_, __, value) => `.${camel(value)}`,
     list: (value) => listLiteral(value),
-    callback: "{ }"
-  });
-  return `import NativesmartSwiftUI\n\n${call.replace(/,\n\)$/, "\n)")}`;
-}
+    callback: "{ }",
+    trailingComma: false,
+    header: () => "import NativesmartSwiftUI"
+  }),
+  maui
+};
 
 /** Usage code of a component with the given props, for one language. */
 export function componentSnippet(
@@ -254,24 +338,20 @@ export function componentSnippet(
   contract: ComponentContract,
   props: ShowcaseProps
 ) {
-  switch (language) {
-    case "vue":
-      return vue(contract, props);
-    case "react":
-      return jsx(contract, props, "@nativesmart/react");
-    case "react-native":
-      return jsx(contract, props, "@nativesmart/react-native");
-    case "html":
-      return webComponent(contract, props);
-    case "svelte":
-      return svelte(contract, props);
-    case "angular":
-      return angular(contract, props);
-    case "flutter":
-      return flutter(contract, props);
-    case "compose":
-      return compose(contract, props);
-    case "swiftui":
-      return swiftui(contract, props);
-  }
+  const { usage, wrap } = languages[language];
+  return wrap(contract, [usage(contract, props, true)], true);
+}
+
+/** Usage code of several examples of a component side by side, without event handlers. */
+export function examplesSnippet(
+  language: SnippetLanguage,
+  contract: ComponentContract,
+  examples: readonly ShowcaseProps[]
+) {
+  const { usage, wrap } = languages[language];
+  return wrap(
+    contract,
+    examples.map((props) => usage(contract, props, false)),
+    false
+  );
 }

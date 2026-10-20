@@ -13,6 +13,7 @@ const priorities: Record<string, string> = {
 };
 
 const specified = computed(() => props.contract.status !== "draft");
+const coded = computed(() => props.technology.implemented.has(props.contract.id));
 const elsewhere = computed(() =>
   technologies.filter(
     (item) => item.id !== props.technology.id && item.implemented.has(props.contract.id)
@@ -33,11 +34,13 @@ const steps = computed(() => [
       : "Propriétés, états et accessibilité restent à écrire."
   },
   {
-    done: false,
+    done: coded.value,
     label: `Implémenté en ${props.technology.name}`,
-    detail: specified.value
-      ? "Prêt à être codé : le contrat est complet."
-      : "Possible une fois le contrat spécifié."
+    detail: coded.value
+      ? "Codé, l'API s'aligne encore sur le contrat."
+      : specified.value
+        ? "Prêt à être codé : le contrat est complet."
+        : "Possible une fois le contrat spécifié."
   },
   {
     done: false,
@@ -55,11 +58,19 @@ const steps = computed(() => [
       <span />
     </div>
     <h2 class="coming-soon__title">
-      {{ contract.name }} n'est pas encore disponible en {{ technology.name }}
+      {{
+        coded
+          ? `${contract.name} est codé en ${technology.name}, l'aperçu arrive bientôt`
+          : `${contract.name} n'est pas encore disponible en ${technology.name}`
+      }}
     </h2>
     <p class="coming-soon__lead">
-      {{ priorities[contract.priority] }}. L'aperçu apparaîtra ici dès que le composant sera
-      implémenté.
+      {{
+        coded
+          ? `${technology.name} n'est pas encore branché au Lab.`
+          : `${priorities[contract.priority]}. L'aperçu apparaîtra ici dès que le composant sera implémenté.`
+      }}
+      Le code ci-dessous montre l'API prévue par le contrat.
     </p>
 
     <ol class="coming-soon__steps">
@@ -79,8 +90,8 @@ const steps = computed(() => [
       Déjà codé en {{ elsewhere.map((item) => item.name).join(", ") }}.
     </p>
 
-    <button type="button" class="secondary-button" @click="state.tab = 'contract'">
-      {{ specified ? "Lire le contrat" : "Voir le contrat réservé" }}
+    <button type="button" class="secondary-button" @click="state.tab = 'api'">
+      {{ specified ? "Voir l'API" : "Voir le contrat réservé" }}
     </button>
   </div>
 </template>

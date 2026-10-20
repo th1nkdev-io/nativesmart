@@ -302,6 +302,8 @@ svg {
 }
 
 .topbar__controls {
+  /* Contains the visually hidden labels, which would otherwise widen the page. */
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--ns-space-2);
@@ -446,11 +448,14 @@ svg {
   content: "";
 }
 
-.rail__item[aria-disabled="true"] {
+.rail__item--soon:not([aria-pressed="true"]) {
   color: var(--ns-color-text-disabled);
   opacity: 0.55;
-  cursor: not-allowed;
   filter: grayscale(1);
+}
+
+.rail__item--soon:not([aria-pressed="true"]):hover {
+  opacity: 0.85;
 }
 
 .rail__tooltip {
@@ -973,40 +978,96 @@ svg {
 
 /* Component page */
 
-.tabs {
+/* Component tabs: stay visible under the top bar while scrolling. */
+
+.component-tabs {
+  position: sticky;
+  top: var(--lab-top);
+  z-index: var(--ns-z-sticky);
   display: flex;
-  gap: var(--ns-space-1);
+  gap: var(--ns-space-6);
+  margin-block-end: calc(var(--ns-space-2) * -1);
   overflow-x: auto;
   overflow-y: hidden;
   border-block-end: 1px solid var(--ns-color-border);
+  background: var(--ns-color-background);
+  scrollbar-width: none;
 }
 
-.tabs button {
+.component-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.component-tabs button {
+  display: inline-flex;
   flex: none;
-  padding: var(--ns-space-2) var(--ns-space-4);
+  align-items: center;
+  gap: var(--ns-space-2);
+  min-block-size: 44px;
+  padding: 0 2px;
   border: 0;
   border-block-end: 2px solid transparent;
+  margin-block-end: -1px;
   background: none;
   color: var(--ns-color-text-muted);
+  font: inherit;
+  font-size: var(--ns-text-label-md-size);
   font-weight: var(--ns-font-weight-medium);
   cursor: pointer;
+  transition:
+    color var(--ns-duration-fast) var(--ns-easing-standard),
+    border-color var(--ns-duration-fast) var(--ns-easing-standard);
 }
 
-.tabs button[aria-selected="true"] {
-  border-color: var(--ns-color-primary);
+.component-tabs button:hover {
   color: var(--ns-color-text);
 }
 
-.tabs button:disabled {
-  opacity: var(--ns-opacity-disabled);
-  cursor: not-allowed;
+.component-tabs button[aria-selected="true"] {
+  border-color: var(--ns-color-primary);
+  color: var(--ns-color-text);
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.component-tabs svg {
+  inline-size: 16px;
+  block-size: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.component-tabs__count {
+  min-inline-size: 20px;
+  padding: 0 6px;
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-surface-muted);
+  color: var(--ns-color-text-muted);
+  font-family: var(--ns-font-mono);
+  font-size: var(--ns-font-size-xs);
+  font-weight: var(--ns-font-weight-medium);
+  line-height: 18px;
+  text-align: center;
+}
+
+button[aria-selected="true"] .component-tabs__count {
+  background: var(--ns-color-primary-muted);
+  color: var(--ns-color-on-primary-muted);
+}
+
+/* Preview card: the component on top, its code below, in one block. */
+
+.showcase {
+  overflow: hidden;
+  border: 1px solid var(--ns-color-border);
+  border-radius: var(--ns-radius-card);
+  background: var(--ns-color-surface);
 }
 
 .frame {
-  overflow: hidden;
   padding: var(--ns-space-4);
-  border: 1px solid var(--ns-color-border);
-  border-radius: var(--ns-radius-card);
   background-color: var(--ns-color-surface-muted);
   background-image: radial-gradient(var(--ns-color-border) 1px, transparent 1px);
   background-size: 16px 16px;
@@ -1149,6 +1210,8 @@ tr:last-child td {
     inset-inline-start: 64px;
     inline-size: min(280px, calc(100vw - 64px));
     box-shadow: var(--ns-elevation-4);
+    /* Also moves past the rail it sits next to, and its shadow. */
+    transform: translateX(calc(-100% - 64px - 24px));
   }
 
   .lab--menu-open .lab__rail,

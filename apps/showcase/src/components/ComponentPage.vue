@@ -2,6 +2,7 @@
 import type { ComponentContract } from "@nativesmart/contracts";
 import {
   defaultProps,
+  variationsFor,
   type RenderRequest,
   type ShowcasePropValue
 } from "@nativesmart/showcase-runtime";
@@ -9,10 +10,10 @@ import { computed, ref } from "vue";
 import { categoryNames } from "../labels";
 import { state, type ComponentTab } from "../state";
 import { getTechnology, technologies } from "../technologies";
-import CodePanel from "./CodePanel.vue";
 import ComingSoon from "./ComingSoon.vue";
 import ContractPanel from "./ContractPanel.vue";
 import OnThisPage from "./OnThisPage.vue";
+import PreviewCode from "./PreviewCode.vue";
 import PropControls from "./PropControls.vue";
 import RendererFrame from "./RendererFrame.vue";
 
@@ -24,6 +25,7 @@ const technology = computed(() => getTechnology(state.tech));
 const implemented = computed(
   () => technology.value.url !== null && technology.value.implemented.has(props.contract.id)
 );
+const coded = computed(() => technology.value.implemented.has(props.contract.id));
 const tab = computed<ComponentTab>(() => state.tab);
 const availability = computed(() =>
   technologies.map((item) => ({
@@ -41,11 +43,23 @@ const statusLabels: Record<string, string> = {
   deprecated: "Déprécié"
 };
 
-const tabs: { id: ComponentTab; label: string }[] = [
-  { id: "playground", label: "Playground" },
-  { id: "variations", label: "Variations" },
-  { id: "contract", label: "Contrat" }
-];
+const groups = computed(() => variationsFor(props.contract));
+
+const tabs = computed<{ id: ComponentTab; label: string; icon: string; count?: number }[]>(() => [
+  { id: "playground", label: "Aperçu", icon: "M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" },
+  {
+    id: "variations",
+    label: "Variations",
+    icon: "M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z",
+    count: groups.value.reduce((total, group) => total + group.items.length, 0)
+  },
+  {
+    id: "api",
+    label: "API",
+    icon: "M8 4H7a2 2 0 0 0-2 2v4l-2 2 2 2v4a2 2 0 0 0 2 2h1M16 4h1a2 2 0 0 1 2 2v4l2 2-2 2v4a2 2 0 0 1-2 2h-1",
+    count: props.contract.properties.length
+  }
+]);
 
 const request = computed<RenderRequest>(() => ({
   component: props.contract.id,
@@ -80,15 +94,19 @@ function reset() {
       <p class="chips">
         <span class="tag">{{ contract.priority }}</span>
         <span :class="['tag', `tag--${contract.status}`]">{{ statusLabels[contract.status] }}</span>
-        <span :class="['tag', implemented ? 'tag--implemented' : 'tag--missing']">
+        <span :class="['tag', coded ? 'tag--implemented' : 'tag--missing']">
           {{
-            implemented ? `Disponible en ${technology.name}` : `Pas encore en ${technology.name}`
+            implemented
+              ? `Disponible en ${technology.name}`
+              : coded
+                ? `Codé en ${technology.name}`
+                : `Pas encore en ${technology.name}`
           }}
         </span>
       </p>
     </header>
 
-    <div class="tabs scroll-hidden" role="tablist">
+    <div class="component-tabs" role="tablist" aria-label="Sections du composant">
       <button
         v-for="item in tabs"
         :key="item.id"
@@ -97,12 +115,17 @@ function reset() {
         :aria-selected="tab === item.id"
         @click="state.tab = item.id"
       >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path :d="item.icon" />
+          <circle v-if="item.id === 'playground'" cx="12" cy="12" r="3" />
+        </svg>
         {{ item.label }}
+        <span v-if="item.count" class="component-tabs__count">{{ item.count }}</span>
       </button>
     </div>
 
-    <ContractPanel v-if="tab === 'contract'" :contract="contract" />
-    <template v-else>
+    <ContractPanel v-if="tab === 'api'" :contract="contract" />
+    <section v-else class="showcase">
       <ComingSoon v-if="!implemented" :contract="contract" :technology="technology" />
       <RendererFrame
         v-else-if="technology.url"
@@ -110,8 +133,9 @@ function reset() {
         :request="request"
         @event="logEvent"
       />
-      <CodePanel v-if="tab === 'playground'" :contract="contract" :values="values" />
-    </template>
+      <PreviewCode v-if="tab === 'playground'" :contract="contract" :values="values" />
+      <PreviewCode v-else :contract="contract" :groups="groups" />
+    </section>
 
     <Teleport defer to="#lab-aside">
       <div class="aside-stack">
@@ -144,7 +168,7 @@ function reset() {
           </div>
         </section>
 
-        <OnThisPage v-if="tab === 'contract'" :key="`${contract.id}-contract`" />
+        <OnThisPage v-if="tab === 'api'" :key="`${contract.id}-api`" />
 
         <section class="aside-card">
           <header class="aside-card__head">

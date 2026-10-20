@@ -8,7 +8,7 @@ import { defaultBrandThemeId, type BrandThemeId } from "@nativesmart/tokens";
 import { reactive, watch } from "vue";
 
 export type Viewport = "mobile" | "tablet" | "desktop";
-export type ComponentTab = "playground" | "variations" | "contract";
+export type ComponentTab = "playground" | "variations" | "api";
 
 /** Everything the page shows lives in the URL hash, so any view can be shared as a link. */
 export type ShowcaseState = {
@@ -49,7 +49,7 @@ function fromHash(hash: string): ShowcaseState {
     dir: oneOf(params.get("dir"), ["ltr", "rtl"], defaults.dir),
     density: oneOf(params.get("density"), ["compact", "comfortable", "spacious"], defaults.density),
     viewport: oneOf(params.get("viewport"), ["mobile", "tablet", "desktop"], defaults.viewport),
-    tab: oneOf(params.get("tab"), ["playground", "variations", "contract"], defaults.tab)
+    tab: oneOf(params.get("tab"), ["playground", "variations", "api"], defaults.tab)
   };
 }
 

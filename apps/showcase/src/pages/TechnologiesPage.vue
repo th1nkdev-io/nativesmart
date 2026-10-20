@@ -75,15 +75,9 @@ const core = componentContracts.filter((contract) => contract.priority === "P0")
                 <code>{{ row.packageName }}</code>
               </td>
               <td>
-                <button
-                  v-if="row.url"
-                  type="button"
-                  class="ghost-button"
-                  @click="state.tech = row.id"
-                >
+                <button type="button" class="ghost-button" @click="state.tech = row.id">
                   {{ state.tech === row.id ? "Active" : "Activer" }}
                 </button>
-                <span v-else class="muted">Bientôt</span>
               </td>
             </tr>
           </tbody>

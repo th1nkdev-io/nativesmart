@@ -10,7 +10,14 @@ const releases = [
       { kind: "Nouveau", text: "Logo officiel dans le Lab et les Kitchen Sink mobiles" },
       { kind: "Nouveau", text: "Kit de contrôles du Lab : listes, interrupteurs, segments" },
       { kind: "Nouveau", text: "Les 193 composants listés, avec un état « bientôt »" },
-      { kind: "Nouveau", text: "Code dans 9 langages et pages de documentation" },
+      { kind: "Nouveau", text: "Pages de documentation" },
+      { kind: "Nouveau", text: "Aperçu et code réunis, onglets Aperçu, Variations et API" },
+      { kind: "Nouveau", text: "Code de la technologie active, avec ses syntaxes (Nuxt, Vue…)" },
+      { kind: "Nouveau", text: "Toutes les technologies sélectionnables, avec leur API prévue" },
+      {
+        kind: "Corrigé",
+        text: "Le Lab garde l'identité NativeSmart, l'identité choisie habille les composants"
+      },
       { kind: "Corrigé", text: "Barres de défilement cohérentes dans tout le Lab" }
     ]
   },

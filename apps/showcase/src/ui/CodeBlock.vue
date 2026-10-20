@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed } from "vue";
+import { useCopy } from "../lib/clipboard";
 import { highlight } from "../lib/highlight";
 
 const props = withDefaults(defineProps<{ code: string; language?: string }>(), {
@@ -7,19 +8,7 @@ const props = withDefaults(defineProps<{ code: string; language?: string }>(), {
 });
 
 const tokens = computed(() => highlight(props.code));
-const copied = ref(false);
-let timer: ReturnType<typeof setTimeout> | undefined;
-
-async function copy() {
-  try {
-    await navigator.clipboard.writeText(props.code);
-  } catch {
-    return;
-  }
-  copied.value = true;
-  clearTimeout(timer);
-  timer = setTimeout(() => (copied.value = false), 1400);
-}
+const { copied, copy } = useCopy();
 </script>
 
 <template>
@@ -27,7 +16,7 @@ async function copy() {
     <div class="code-block__bar">
       <span class="code-block__language">{{ language }}</span>
       <slot name="actions" />
-      <button type="button" class="ghost-button" @click="copy">
+      <button type="button" class="ghost-button" @click="copy(code)">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path v-if="copied" d="M20 6 9 17l-5-5" />
           <template v-else>

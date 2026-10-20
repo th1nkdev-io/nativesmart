@@ -1,6 +1,11 @@
 import { getComponentContract } from "@nativesmart/contracts";
 import { describe, expect, it } from "vitest";
-import { componentSnippet, snippetTargets } from "./snippets";
+import {
+  componentSnippet,
+  examplesSnippet,
+  snippetLanguages,
+  snippetVariantsFor
+} from "./snippets";
 import { defaultProps } from "./variations";
 
 const button = getComponentContract("button")!;
@@ -32,8 +37,28 @@ describe("snippets", () => {
   });
 
   it("covers every target", () => {
-    for (const target of snippetTargets) {
-      expect(componentSnippet(target.language, button, props).length).toBeGreaterThan(20);
+    for (const language of snippetLanguages) {
+      expect(componentSnippet(language, button, props).length).toBeGreaterThan(20);
     }
+  });
+
+  it("offers the variants of each technology, preferred first", () => {
+    expect(snippetVariantsFor("vue").map((variant) => variant.label)).toEqual(["Nuxt", "Vue"]);
+    expect(snippetVariantsFor("unknown")[0].language).toBe("html");
+    const nuxt = componentSnippet("nuxt", button, props);
+    expect(nuxt).not.toContain("import");
+    expect(nuxt).toContain("function onPress()");
+  });
+
+  it("writes several examples without event handlers", () => {
+    const code = examplesSnippet("vue", button, [
+      { ...defaultProps(button), variant: "solid" },
+      { ...defaultProps(button), variant: "ghost" }
+    ]);
+    expect(code).toContain(
+      '  <NsButton label="Button" />\n  <NsButton label="Button" variant="ghost" />'
+    );
+    expect(code).not.toContain("onPress");
+    expect(examplesSnippet("react", button, [props, props])).toContain("    <>");
   });
 });

@@ -17,7 +17,7 @@ const steps = [
   },
   {
     title: "Vérification dans le Lab",
-    text: "Contrôler le Playground, les variations, les identités, le mode sombre, le RTL, la densité et le clavier."
+    text: "Contrôler l'aperçu, les variations, les identités, le mode sombre, le RTL, la densité et le clavier."
   }
 ];
 

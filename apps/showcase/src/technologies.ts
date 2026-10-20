@@ -80,9 +80,10 @@ export const technologyFamilies = familyOrder.map((family) => ({
   items: technologies.filter((technology) => technology.family === family)
 }));
 
+/** Any technology can be selected: those outside the Lab still show their planned API. */
 export function getTechnology(id: string) {
   return (
-    technologies.find((technology) => technology.id === id && technology.url !== null) ??
+    technologies.find((technology) => technology.id === id) ??
     technologies.find((technology) => technology.url !== null) ??
     technologies[0]
   );
