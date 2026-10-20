@@ -72,6 +72,44 @@ svg {
   outline-offset: var(--ns-focus-ring-offset);
 }
 
+/*
+ * Scrollbars: thin and tinted with the theme everywhere. Firefox and Chromium read the standard
+ * properties; the -webkit- rules cover Safari. `.scroll-hidden` keeps scrolling but hides the bar
+ * on strips where a bar would only add noise (tabs, rail, top bar).
+ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ns-color-border-strong) transparent;
+}
+
+::-webkit-scrollbar {
+  inline-size: 10px;
+  block-size: 10px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-border-strong) padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--ns-color-text-muted);
+}
+
+.scroll-hidden {
+  scrollbar-width: none;
+}
+
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+
 .sr-only {
   position: absolute;
   inline-size: 1px;
@@ -128,7 +166,16 @@ svg {
   block-size: calc(100vh - var(--lab-top));
   overflow-y: auto;
   overscroll-behavior: contain;
-  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+}
+
+.lab__rail {
+  scrollbar-width: none;
+  scrollbar-gutter: auto;
+}
+
+.lab__rail::-webkit-scrollbar {
+  display: none;
 }
 
 .lab__scrim {
@@ -255,7 +302,6 @@ svg {
   min-inline-size: 0;
   margin-inline-start: auto;
   overflow-x: auto;
-  scrollbar-width: none;
 }
 
 .control {
@@ -831,12 +877,12 @@ input[type="search"] {
   display: flex;
   gap: var(--ns-space-1);
   overflow-x: auto;
+  overflow-y: hidden;
   border-block-end: 1px solid var(--ns-color-border);
 }
 
 .tabs button {
   flex: none;
-  margin-block-end: -1px;
   padding: var(--ns-space-2) var(--ns-space-4);
   border: 0;
   border-block-end: 2px solid transparent;

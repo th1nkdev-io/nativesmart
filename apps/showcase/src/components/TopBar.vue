@@ -34,7 +34,7 @@ const viewports = [
       {{ technology.name }}
     </span>
 
-    <div class="topbar__controls">
+    <div class="topbar__controls scroll-hidden">
       <label class="control" title="Identité visuelle">
         <span class="control__label">Identité</span>
         <select v-model="state.brand">
