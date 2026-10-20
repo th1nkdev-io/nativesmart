@@ -2,11 +2,12 @@
 import { brandThemes } from "@nativesmart/tokens";
 import { computed } from "vue";
 import { openPage, state } from "../state";
+import { brandName, logoImage } from "../brand";
 import { getTechnology } from "../technologies";
 
 defineEmits<{ toggleMenu: [] }>();
 
-const logoUrl = `${import.meta.env.BASE_URL}brand/icon-64.png`;
+const logo = logoImage(32);
 
 const technology = computed(() => getTechnology(state.tech));
 
@@ -28,9 +29,14 @@ const viewports = [
     <button class="topbar__menu" type="button" aria-label="Menu" @click="$emit('toggleMenu')">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
     </button>
-    <a class="topbar__brand" href="#/" @click.prevent="openPage('')">
-      <img class="topbar__logo" :src="logoUrl" alt="" width="32" height="32" />
-      <span class="topbar__name">Nativesmart <strong>Lab</strong></span>
+    <a
+      class="topbar__brand"
+      href="#/"
+      :aria-label="`${brandName} Lab, accueil`"
+      @click.prevent="openPage('')"
+    >
+      <img class="topbar__logo" v-bind="logo" alt="" />
+      <span class="topbar__name">{{ brandName }} <strong>Lab</strong></span>
     </a>
     <span class="topbar__tech" :title="`Technologie active : ${technology.name}`">
       {{ technology.name }}

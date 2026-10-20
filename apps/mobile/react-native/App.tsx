@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SafeAreaView, ScrollView, View } from "react-native";
+import { Image, SafeAreaView, ScrollView, View } from "react-native";
 import {
   AmountInput,
   Avatar,
@@ -83,7 +83,13 @@ function DemoContent({
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <ScrollView contentContainerStyle={{ padding: theme.spacing[4], gap: theme.spacing[4] }}>
         <Box>
-          <Text variant="title">Nativesmart Kitchen Sink</Text>
+          <Image
+            source={require("../../../public/brand/icon-128.png")}
+            style={{ width: 48, height: 48 }}
+            resizeMode="contain"
+            accessible={false}
+          />
+          <Text variant="title">NativeSmart Kitchen Sink</Text>
           <Text muted>
             React Native / Expo demo for UI, forms, payments and transaction states.
           </Text>

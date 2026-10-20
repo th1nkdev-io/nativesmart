@@ -12,6 +12,10 @@ dependencies:
   nativesmart_flutter:
     path: ../../../packages/mobile/flutter
 
+flutter:
+  assets:
+    - assets/brand/nativesmart-logo.png
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -45,10 +45,19 @@ Apple icon, manifest and visible logo URLs respect Vite's base path. The generat
 documentation site copies the brand assets and manifest into its build output.
 Manifest paths are relative so deployments in a subdirectory remain valid.
 
+The Lab shows the logo in its top bar (32 px) and in the home page header (128 px, 72 px on
+narrow screens), with `srcset` so it stays sharp on dense screens. It always keeps its own colors,
+whatever brand theme or color mode is active.
+
+The React Native and Flutter Kitchen Sink screens show the logo above their title. React Native
+reads `public/brand/icon-128.png` directly; Flutter bundles
+`apps/mobile/flutter/assets/brand/nativesmart-logo.png`, a copy of `icon-256.png` written by
+`pnpm brand:generate`, because Flutter only bundles assets from inside its own package.
+
 The Expo demo uses the official app icon, Android adaptive foreground, splash
 symbol and web favicon through `apps/mobile/react-native/app.json`. Native icon
 changes require a new native build; they are not visible as an Expo Go launcher
-icon. Flutter and desktop exports are available for future platform projects;
+icon. Flutter launcher and desktop exports are available for future platform projects;
 their current scaffolds do not contain native launcher targets to configure.
 
 The web manifest supplies application identity and launcher icons. It does not

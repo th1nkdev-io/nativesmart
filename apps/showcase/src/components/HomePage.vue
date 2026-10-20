@@ -2,6 +2,7 @@
 import { componentContracts } from "@nativesmart/contracts";
 import { brandThemes } from "@nativesmart/tokens";
 import { computed } from "vue";
+import { brandName, logoImage } from "../brand";
 import { openPage, state } from "../state";
 import { getTechnology, technologies } from "../technologies";
 
@@ -21,6 +22,8 @@ const stats = computed(() => [
   { value: Object.keys(brandThemes).length, label: "identités visuelles" }
 ]);
 
+const heroLogo = logoImage(128);
+
 const firstImplemented = computed(
   () => componentContracts.find((contract) => technology.value.implemented.has(contract.id))?.id
 );
@@ -28,9 +31,10 @@ const firstImplemented = computed(
 
 <template>
   <article class="page home">
-    <header class="page__header">
-      <p class="eyebrow">Nativesmart · Th1nkdev</p>
-      <h1>Le laboratoire des composants</h1>
+    <header class="page__header home-hero">
+      <img class="home-hero__logo" v-bind="heroLogo" alt="" />
+      <p class="eyebrow">{{ brandName }} · Th1nkdev</p>
+      <h1 class="ns-text-h1">Le laboratoire des composants</h1>
       <p class="lead">
         Testez chaque composant en direct : changez de technologie, d'identité visuelle, de mode
         clair ou sombre, de sens d'écriture et de largeur d'écran. Tout est généré depuis les

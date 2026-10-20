@@ -28,7 +28,17 @@ class _NativesmartAppState extends State<NativesmartApp> {
           child: ListView(
             padding: const EdgeInsets.all(16),
             children: [
-              Text('Nativesmart Kitchen Sink', style: Theme.of(context).textTheme.headlineSmall),
+              Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Image.asset(
+                  'assets/brand/nativesmart-logo.png',
+                  width: 48,
+                  height: 48,
+                  excludeFromSemantics: true,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text('NativeSmart Kitchen Sink', style: Theme.of(context).textTheme.headlineSmall),
               const Text('Flutter demo for UI, forms, payments and transaction states.'),
               const SizedBox(height: 16),
               NsCard(

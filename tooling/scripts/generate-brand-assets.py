@@ -81,6 +81,10 @@ def main():
     )
     icon(symbol, 1024).save(OUTPUT / "nativesmart.icns")
     (ROOT / "public/favicon.ico").write_bytes((OUTPUT / "favicon.ico").read_bytes())
+    # Flutter only bundles assets from inside its own package.
+    flutter_logo = ROOT / "apps/mobile/flutter/assets/brand/nativesmart-logo.png"
+    flutter_logo.parent.mkdir(parents=True, exist_ok=True)
+    flutter_logo.write_bytes((OUTPUT / "icon-256.png").read_bytes())
     manifest = {
         "id": "./",
         "name": "NativeSmart",

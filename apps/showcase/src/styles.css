@@ -1,4 +1,4 @@
-/* Nativesmart Lab chrome. Every value comes from the active brand theme tokens. */
+/* NativeSmart Lab chrome. Every value comes from the active brand theme tokens. */
 
 *,
 *::before,
@@ -839,6 +839,38 @@ input[type="search"] {
 }
 
 /* Home */
+
+.home-hero {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.home-hero > :not(.home-hero__logo) {
+  grid-column: 1;
+}
+
+/* The official logo keeps its own colors on every theme (docs/brand.md). */
+.home-hero__logo {
+  grid-row: 1 / span 4;
+  grid-column: 2;
+  align-self: center;
+  inline-size: 128px;
+  block-size: 128px;
+  object-fit: contain;
+}
+
+@container content (max-width: 640px) {
+  .home-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-hero__logo {
+    grid-row: auto;
+    grid-column: 1;
+    order: -1;
+    inline-size: 72px;
+    block-size: 72px;
+  }
+}
 
 .stats {
   display: grid;

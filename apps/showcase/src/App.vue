@@ -9,6 +9,7 @@ import SideNav from "./components/SideNav.vue";
 import TechRail from "./components/TechRail.vue";
 import TokensPage from "./components/TokensPage.vue";
 import TopBar from "./components/TopBar.vue";
+import { brandName } from "./brand";
 import { state } from "./state";
 
 const contract = computed(() => getComponentContract(state.page));
@@ -26,6 +27,11 @@ watch(
 );
 
 const tocKey = computed(() => `${state.page}:${state.tab}`);
+
+watchEffect(() => {
+  const title = contract.value?.name ?? (state.page.startsWith("tokens") ? "Tokens" : "");
+  document.title = title ? `${title} · ${brandName} Lab` : `${brandName} Lab`;
+});
 </script>
 
 <template>

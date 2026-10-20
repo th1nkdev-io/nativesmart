@@ -34,7 +34,7 @@ const current = computed(
       <p class="ns-text-overline eyebrow">Fondations · {{ theme.name }}</p>
       <h1 class="ns-text-h1">Tokens</h1>
       <p class="lead">
-        Les décisions visuelles de Nativesmart : {{ semanticColorRoles.length }} rôles de couleur,
+        Les décisions visuelles de NativeSmart : {{ semanticColorRoles.length }} rôles de couleur,
         {{ Object.keys(textStyles).length }} styles de texte, des échelles d'espacement, de taille,
         de forme, d'élévation et de mouvement. Changez d'identité ou de mode dans la barre du haut :
         toute la page suit.
