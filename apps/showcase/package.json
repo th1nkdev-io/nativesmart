@@ -16,6 +16,7 @@
     "@nativesmart/platform-registry": "workspace:*",
     "@nativesmart/showcase-runtime": "workspace:*",
     "@nativesmart/tokens": "workspace:*",
+    "simple-icons": "^13",
     "vue": "^3.5.13"
   },
   "devDependencies": {

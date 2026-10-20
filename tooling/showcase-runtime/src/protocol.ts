@@ -3,6 +3,7 @@ import type { BrandThemeId } from "@nativesmart/tokens";
 export type ShowcaseView = "playground" | "variations";
 export type ShowcaseColorMode = "light" | "dark";
 export type ShowcaseDirection = "ltr" | "rtl";
+export type ShowcaseDensity = "compact" | "comfortable" | "spacious";
 export type ShowcasePropValue = string | number | boolean | readonly string[];
 export type ShowcaseProps = Readonly<Record<string, ShowcasePropValue>>;
 
@@ -14,6 +15,7 @@ export type RenderRequest = {
   brand: BrandThemeId;
   mode: ShowcaseColorMode;
   dir: ShowcaseDirection;
+  density: ShowcaseDensity;
 };
 
 export type ShellMessage = { type: "ns:render"; request: RenderRequest };
@@ -39,7 +41,8 @@ export const defaultRequest: RenderRequest = {
   props: {},
   brand: "thinkdev",
   mode: "light",
-  dir: "ltr"
+  dir: "ltr",
+  density: "comfortable"
 };
 
 /** Encodes a request in a query string so a renderer URL can be opened on its own. */
@@ -50,6 +53,7 @@ export function requestToSearch(request: RenderRequest) {
     brand: request.brand,
     mode: request.mode,
     dir: request.dir,
+    density: request.density,
     props: JSON.stringify(request.props)
   });
   return `?${params.toString()}`;
@@ -69,6 +73,10 @@ export function requestFromSearch(search: string): RenderRequest {
     brand: (params.get("brand") as BrandThemeId | null) ?? defaultRequest.brand,
     mode: params.get("mode") === "dark" ? "dark" : "light",
     dir: params.get("dir") === "rtl" ? "rtl" : "ltr",
+    density:
+      params.get("density") === "compact" || params.get("density") === "spacious"
+        ? (params.get("density") as ShowcaseDensity)
+        : "comfortable",
     props
   };
 }

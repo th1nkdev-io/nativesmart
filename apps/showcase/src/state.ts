@@ -1,6 +1,7 @@
 import {
   isBrandThemeId,
   type ShowcaseColorMode,
+  type ShowcaseDensity,
   type ShowcaseDirection
 } from "@nativesmart/showcase-runtime";
 import type { BrandThemeId } from "@nativesmart/tokens";
@@ -16,6 +17,7 @@ export type ShowcaseState = {
   brand: BrandThemeId;
   mode: ShowcaseColorMode;
   dir: ShowcaseDirection;
+  density: ShowcaseDensity;
   viewport: Viewport;
   tab: ComponentTab;
 };
@@ -26,6 +28,7 @@ const defaults: ShowcaseState = {
   brand: "cv-action",
   mode: "light",
   dir: "ltr",
+  density: "comfortable",
   viewport: "desktop",
   tab: "playground"
 };
@@ -44,6 +47,7 @@ function fromHash(hash: string): ShowcaseState {
     brand: isBrandThemeId(brand) ? brand : defaults.brand,
     mode: oneOf(params.get("mode"), ["light", "dark"], defaults.mode),
     dir: oneOf(params.get("dir"), ["ltr", "rtl"], defaults.dir),
+    density: oneOf(params.get("density"), ["compact", "comfortable", "spacious"], defaults.density),
     viewport: oneOf(params.get("viewport"), ["mobile", "tablet", "desktop"], defaults.viewport),
     tab: oneOf(params.get("tab"), ["playground", "variations", "contract"], defaults.tab)
   };
@@ -51,7 +55,7 @@ function fromHash(hash: string): ShowcaseState {
 
 function toHash(state: ShowcaseState) {
   const params = new URLSearchParams();
-  for (const key of ["tech", "brand", "mode", "dir", "viewport", "tab"] as const) {
+  for (const key of ["tech", "brand", "mode", "dir", "density", "viewport", "tab"] as const) {
     if (state[key] !== defaults[key]) params.set(key, state[key]);
   }
   const query = params.toString();

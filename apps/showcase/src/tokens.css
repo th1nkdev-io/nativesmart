@@ -6,13 +6,14 @@
 
 .subnav {
   position: sticky;
-  top: 57px;
+  top: var(--lab-top, 0);
   z-index: var(--ns-z-raised);
   display: flex;
   gap: var(--ns-space-1);
   overflow-x: auto;
-  margin-inline: calc(var(--ns-space-8) * -1);
-  padding: var(--ns-space-2) var(--ns-space-8);
+  margin-inline: calc(var(--lab-gutter, 0px) * -1);
+  padding: var(--ns-space-2) var(--lab-gutter, 0px);
+  scrollbar-width: none;
   border-block-end: 1px solid var(--ns-color-border);
   background: color-mix(in srgb, var(--ns-color-background) 92%, transparent);
   backdrop-filter: blur(8px);
@@ -774,13 +775,7 @@
   background: var(--ns-color-primary);
 }
 
-@media (max-width: 900px) {
-  .subnav {
-    top: 0;
-    margin-inline: calc(var(--ns-space-4) * -1);
-    padding-inline: var(--ns-space-4);
-  }
-
+@container content (max-width: 720px) {
   .type-row,
   .motion-row {
     grid-template-columns: minmax(0, 1fr);
@@ -797,5 +792,9 @@
 
   .container-demo__row .token-code {
     display: none;
+  }
+
+  .family {
+    flex-direction: column;
   }
 }

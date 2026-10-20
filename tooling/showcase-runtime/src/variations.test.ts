@@ -37,7 +37,8 @@ describe("protocol", () => {
       props: { label: "New", intent: "success" },
       brand: "cv-action",
       mode: "dark",
-      dir: "rtl"
+      dir: "rtl",
+      density: "compact"
     };
     expect(requestFromSearch(requestToSearch(request))).toEqual(request);
   });

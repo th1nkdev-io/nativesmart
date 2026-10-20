@@ -6,9 +6,11 @@ import {
   type ShowcasePropValue
 } from "@nativesmart/showcase-runtime";
 import { computed, ref } from "vue";
+import { categoryNames } from "../labels";
 import { state, type ComponentTab } from "../state";
-import { getTechnology } from "../technologies";
+import { getTechnology, technologies } from "../technologies";
 import ContractPanel from "./ContractPanel.vue";
+import OnThisPage from "./OnThisPage.vue";
 import PropControls from "./PropControls.vue";
 import RendererFrame from "./RendererFrame.vue";
 
@@ -21,6 +23,21 @@ const implemented = computed(
   () => technology.value.url !== null && technology.value.implemented.has(props.contract.id)
 );
 const tab = computed<ComponentTab>(() => (implemented.value ? state.tab : "contract"));
+const availability = computed(() =>
+  technologies.map((item) => ({
+    id: item.id,
+    name: item.name,
+    available: item.implemented.has(props.contract.id),
+    inLab: item.url !== null
+  }))
+);
+
+const statusLabels: Record<string, string> = {
+  draft: "Prévu",
+  preview: "Contrat prêt",
+  stable: "Stable",
+  deprecated: "Déprécié"
+};
 
 const tabs: { id: ComponentTab; label: string }[] = [
   { id: "playground", label: "Playground" },
@@ -34,7 +51,8 @@ const request = computed<RenderRequest>(() => ({
   props: values.value,
   brand: state.brand,
   mode: state.mode,
-  dir: state.dir
+  dir: state.dir,
+  density: state.density
 }));
 
 let nextId = 0;
@@ -53,16 +71,16 @@ function reset() {
     <header class="page__header">
       <p class="eyebrow">
         {{ contract.layer === "business" ? "Composant métier" : "Composant de base" }} ·
-        {{ contract.category }}
+        {{ categoryNames[contract.category] ?? contract.category }}
       </p>
-      <h1>{{ contract.name }}</h1>
+      <h1 class="ns-text-h1">{{ contract.name }}</h1>
       <p class="lead">{{ contract.description }}</p>
       <p class="chips">
         <span class="tag">{{ contract.priority }}</span>
-        <span :class="['tag', `tag--${contract.status}`]">contrat {{ contract.status }}</span>
+        <span :class="['tag', `tag--${contract.status}`]">{{ statusLabels[contract.status] }}</span>
         <span :class="['tag', implemented ? 'tag--implemented' : 'tag--missing']">
           {{
-            implemented ? `implémenté en ${technology.name}` : `pas encore en ${technology.name}`
+            implemented ? `Disponible en ${technology.name}` : `Pas encore en ${technology.name}`
           }}
         </span>
       </p>
@@ -83,29 +101,54 @@ function reset() {
     </div>
 
     <ContractPanel v-if="tab === 'contract'" :contract="contract" />
+    <RendererFrame
+      v-else-if="technology.url"
+      :url="technology.url"
+      :request="request"
+      @event="logEvent"
+    />
 
-    <div v-else-if="technology.url" :class="['workbench', `workbench--${tab}`]">
-      <div class="workbench__stage">
-        <RendererFrame :url="technology.url" :request="request" @event="logEvent" />
-        <div v-if="tab === 'playground'" class="events">
-          <h3>Événements</h3>
+    <Teleport defer to="#lab-aside">
+      <div class="aside-stack">
+        <PropControls
+          v-if="tab === 'playground'"
+          v-model="values"
+          :contract="contract"
+          @reset="reset"
+        />
+
+        <section v-if="tab === 'playground'" class="aside-card">
+          <h2 class="aside__title">Événements</h2>
           <p v-if="events.length === 0" class="muted">
-            Interagissez avec le composant : {{ contract.events.join(", ") || "aucun événement" }}.
+            {{
+              contract.events.length
+                ? `Interagissez avec l'aperçu : ${contract.events.join(", ")}.`
+                : "Ce composant n'émet pas d'événement."
+            }}
           </p>
-          <ol v-else>
+          <ol v-else class="event-log">
             <li v-for="event in events" :key="event.id">
-              <code>{{ event.name }}</code> <span class="muted">{{ event.time }}</span>
+              <code>{{ event.name }}</code>
+              <span class="muted">{{ event.time }}</span>
             </li>
           </ol>
-        </div>
+        </section>
+
+        <OnThisPage v-if="tab === 'contract'" :key="`${contract.id}-contract`" />
+
+        <section class="aside-card">
+          <h2 class="aside__title">Disponibilité</h2>
+          <ul class="availability">
+            <li v-for="item in availability" :key="item.id">
+              <span :class="['dot', item.available ? 'dot--available' : 'dot--planned']" />
+              <span>{{ item.name }}</span>
+              <small class="muted">
+                {{ item.available ? (item.inLab ? "Dans le Lab" : "Codé") : "—" }}
+              </small>
+            </li>
+          </ul>
+        </section>
       </div>
-      <PropControls
-        v-if="tab === 'playground'"
-        v-model="values"
-        :contract="contract"
-        class="workbench__controls"
-        @reset="reset"
-      />
-    </div>
+    </Teleport>
   </article>
 </template>

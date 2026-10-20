@@ -12,14 +12,14 @@ defineProps<{ contract: ComponentContract }>();
     </p>
 
     <section>
-      <h3>Anatomie</h3>
+      <h3 data-toc>Anatomie</h3>
       <p class="chips">
         <code v-for="part in contract.anatomy" :key="part">{{ part }}</code>
       </p>
     </section>
 
     <section>
-      <h3>Propriétés</h3>
+      <h3 data-toc>Propriétés</h3>
       <p v-if="contract.properties.length === 0" class="muted">Aucune propriété spécifiée.</p>
       <div v-else class="table-wrap">
         <table>
@@ -53,13 +53,13 @@ defineProps<{ contract: ComponentContract }>();
 
     <div class="contract__columns">
       <section>
-        <h3>États</h3>
+        <h3 data-toc>États</h3>
         <p class="chips">
           <code v-for="item in contract.states" :key="item">{{ item }}</code>
         </p>
       </section>
       <section>
-        <h3>Événements</h3>
+        <h3 data-toc>Événements</h3>
         <p v-if="contract.events.length === 0" class="muted">Aucun.</p>
         <p v-else class="chips">
           <code v-for="item in contract.events" :key="item">{{ item }}</code>
@@ -68,7 +68,7 @@ defineProps<{ contract: ComponentContract }>();
     </div>
 
     <section>
-      <h3>Accessibilité</h3>
+      <h3 data-toc>Accessibilité</h3>
       <p v-if="contract.accessibility.role">
         Rôle : <code>{{ contract.accessibility.role }}</code>
       </p>
@@ -82,7 +82,7 @@ defineProps<{ contract: ComponentContract }>();
     </section>
 
     <section>
-      <h3>Tokens du composant</h3>
+      <h3 data-toc>Tokens du composant</h3>
       <p v-if="contract.semanticTokens.length === 0" class="muted">Aucun.</p>
       <p v-else class="chips">
         <code v-for="token in contract.semanticTokens" :key="token">{{ token }}</code>

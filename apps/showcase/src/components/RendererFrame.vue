@@ -5,15 +5,13 @@ import {
   sendRenderRequest,
   type RenderRequest
 } from "@nativesmart/showcase-runtime";
-import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
-import { state } from "../state";
+import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 
 const props = defineProps<{ url: string; request: RenderRequest }>();
 const emit = defineEmits<{ event: [name: string] }>();
 
 const frame = ref<HTMLIFrameElement>();
 const height = ref(240);
-const widths = { mobile: "375px", tablet: "768px", desktop: "100%" } as const;
 
 // The URL only carries the first request; later changes go through postMessage without reload.
 const src = ref(props.url + requestToSearch(props.request));
@@ -39,17 +37,10 @@ onMounted(() => {
   );
 });
 onBeforeUnmount(() => stop?.());
-
-const width = computed(() => widths[state.viewport]);
 </script>
 
 <template>
   <div class="frame">
-    <iframe
-      ref="frame"
-      :src="src"
-      :style="{ width, height: `${height}px` }"
-      title="Aperçu du composant"
-    />
+    <iframe ref="frame" :src="src" :style="{ height: `${height}px` }" title="Aperçu du composant" />
   </div>
 </template>
