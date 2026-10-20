@@ -1,15 +1,20 @@
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, onMounted, ref } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 
 type Heading = { id: string; text: string; level: number; element: HTMLElement };
 
 const props = withDefaults(defineProps<{ title?: string }>(), { title: "Sur cette page" });
+const emit = defineEmits<{ visible: [boolean] }>();
 
 const headings = ref<Heading[]>([]);
 const active = ref("");
 let observer: IntersectionObserver | undefined;
 let mutations: MutationObserver | undefined;
 let frame = 0;
+
+// A single heading is not worth a summary.
+const visible = computed(() => headings.value.length > 1);
+watch(visible, (value) => emit("visible", value), { immediate: true });
 
 function slug(text: string) {
   return (
@@ -79,7 +84,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <nav v-if="headings.length > 1" class="toc" :aria-label="props.title">
+  <nav v-if="visible" class="toc" :aria-label="props.title">
     <h2 class="aside__title">{{ props.title }}</h2>
     <a
       v-for="heading in headings"

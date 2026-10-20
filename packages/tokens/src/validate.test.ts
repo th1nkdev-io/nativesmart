@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { brandThemes, defaultBrandThemeId } from "./brands";
-import { cssColorVariable, toCss } from "./css";
+import { cssColorVariable, toCss, toScopedCss } from "./css";
 import { primitives, palette } from "./primitives";
 import { contrastRatio } from "./semantic/contrast";
 import { semanticColorRoles } from "./semantic/roles";
@@ -91,5 +91,13 @@ describe("css output", () => {
     );
     expect(css).toContain("--ns-elevation-0: none;");
     expect(css).toMatch(/\[data-ns-density="compact"\] \{\n {2}--ns-control-height-xs: 22px;/);
+  });
+
+  it("scopes brand variables without redefining foundations", () => {
+    const scoped = toScopedCss(brandThemes["cv-action"], ".preview");
+    expect(scoped).toContain(".preview {");
+    expect(scoped).toContain(".dark .preview,");
+    expect(scoped).toContain("--ns-palette-primary-700: #4b14a3;");
+    expect(scoped).not.toContain("--ns-space-4:");
   });
 });

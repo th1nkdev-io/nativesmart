@@ -36,8 +36,8 @@ const current = computed(
       <p class="lead">
         Les décisions visuelles de NativeSmart : {{ semanticColorRoles.length }} rôles de couleur,
         {{ Object.keys(textStyles).length }} styles de texte, des échelles d'espacement, de taille,
-        de forme, d'élévation et de mouvement. Changez d'identité ou de mode dans la barre du haut :
-        toute la page suit.
+        de forme, d'élévation et de mouvement. Les aperçus suivent l'identité et le mode choisis
+        dans la barre du haut ; le Lab, lui, garde l'identité NativeSmart.
       </p>
     </header>
 

@@ -68,7 +68,8 @@ const override = `/* Un seul composant, sans toucher au reste du thème */
         </button>
       </div>
       <p>
-        Cliquez sur une identité pour l'appliquer à tout le Lab, ou ouvrez la page
+        Cliquez sur une identité pour l'appliquer aux composants et aux aperçus. Le Lab lui-même
+        garde toujours l'identité NativeSmart. Ouvrez la page
         <a href="#/tokens" @click.prevent="openPage('tokens')">Tokens</a> pour voir toutes ses
         valeurs.
       </p>

@@ -63,12 +63,15 @@ function spec(name: TextStyleName) {
       </header>
       <div class="family-grid">
         <article v-for="family in families" :key="family.key" class="family">
-          <span class="family__specimen" :style="{ fontFamily: `var(--ns-font-${family.key})` }">
+          <span
+            class="family__specimen lab-preview"
+            :style="{ fontFamily: `var(--ns-font-${family.key})` }"
+          >
             Aa
           </span>
           <div class="family__meta">
             <small>{{ family.label }}</small>
-            <strong :style="{ fontFamily: `var(--ns-font-${family.key})` }">
+            <strong class="lab-preview" :style="{ fontFamily: `var(--ns-font-${family.key})` }">
               {{ family.stack[0] }}
             </strong>
             <span class="muted">{{ family.stack.slice(1).join(", ") }}</span>
@@ -89,7 +92,7 @@ function spec(name: TextStyleName) {
       </header>
       <div class="type-list">
         <article v-for="[name, style] in styles" :key="name" class="type-row">
-          <div class="type-row__sample">
+          <div class="type-row__sample lab-preview">
             <p :class="`ns-text-${name}`">{{ samples[name] ?? "Paiement reçu de 25 000 FCFA" }}</p>
           </div>
           <div class="type-row__meta">

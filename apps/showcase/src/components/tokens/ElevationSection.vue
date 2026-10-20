@@ -28,7 +28,7 @@ const usages: Record<string, string> = {
         <article
           v-for="level in levels"
           :key="level"
-          class="elevation"
+          class="elevation lab-preview"
           :style="{ boxShadow: `var(--ns-elevation-${level})` }"
         >
           <strong>{{ level }}</strong>

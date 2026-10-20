@@ -157,6 +157,17 @@ svg {
   grid-area: aside;
 }
 
+.lab--no-aside {
+  grid-template-areas:
+    "top top top"
+    "rail nav main";
+  grid-template-columns: 64px 256px minmax(0, 1fr);
+}
+
+.lab--no-aside .lab__aside {
+  display: none;
+}
+
 .lab__rail,
 .lab__nav,
 .lab__aside {
@@ -777,6 +788,7 @@ svg {
   display: grid;
   gap: var(--ns-space-6);
   max-inline-size: 1180px;
+  margin-inline: auto;
 }
 
 .page__header {

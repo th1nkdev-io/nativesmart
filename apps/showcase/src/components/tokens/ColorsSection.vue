@@ -171,7 +171,7 @@ const brandScales = computed(() => [
         <div class="role-grid">
           <article v-for="role in group.roles" :key="role" class="role">
             <div
-              class="role__preview"
+              class="role__preview lab-preview"
               :style="{
                 background: `var(${cssColorVariable(pairedBackground[role] ?? role)})`,
                 color: pairedBackground[role] ? `var(${cssColorVariable(role)})` : undefined

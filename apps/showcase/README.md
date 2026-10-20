@@ -1,7 +1,8 @@
 # Nativesmart Lab
 
 Public page to try every Nativesmart component live: switch technology, brand theme, light or
-dark mode, text direction and screen width. Published on GitHub Pages from `dev`:
+dark mode, text direction and screen width. The Lab itself always uses the NativeSmart theme;
+the chosen brand theme only applies to the components and token previews. Published on GitHub Pages from `dev`:
 https://th1nkdev-io.github.io/nativesmart/
 
 ## Run locally

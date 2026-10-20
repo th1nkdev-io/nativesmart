@@ -198,3 +198,28 @@ export function toCss(theme: BrandTheme) {
     ""
   ].join("\n\n");
 }
+
+/**
+ * Builds the brand-dependent variables of one theme for the elements matching `scope` only, for
+ * example to preview an identity inside a page styled with another one. Foundation scales and
+ * density stay inherited from the page; the color mode follows `.dark` or `data-ns-theme` on an
+ * ancestor.
+ */
+export function toScopedCss(theme: BrandTheme, scope: string) {
+  const light = {
+    ...colorVariables(theme.colors.light),
+    ...elevationVariables(theme.shadowTint.light)
+  };
+  const dark = {
+    ...colorVariables(theme.colors.dark),
+    ...elevationVariables(theme.shadowTint.dark, darkShadowStrength)
+  };
+
+  return [
+    `/* "${theme.id}" theme scoped to ${scope}. */`,
+    block(scope, { ...brandVariables(theme), ...light }),
+    block(`[data-ns-theme="light"] ${scope}`, light),
+    block(`.dark ${scope},\n[data-ns-theme="dark"] ${scope}`, dark),
+    ""
+  ].join("\n\n");
+}

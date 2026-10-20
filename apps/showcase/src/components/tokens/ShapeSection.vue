@@ -31,7 +31,7 @@ const usages = computed(() =>
       </header>
       <div class="usage-grid">
         <article v-for="usage in usages" :key="usage.key" class="usage">
-          <div class="usage__demo">
+          <div class="usage__demo lab-preview">
             <span
               v-if="usage.key === 'control'"
               class="usage__control"
