@@ -9,6 +9,7 @@ import { computed, ref } from "vue";
 import { categoryNames } from "../labels";
 import { state, type ComponentTab } from "../state";
 import { getTechnology, technologies } from "../technologies";
+import ComingSoon from "./ComingSoon.vue";
 import ContractPanel from "./ContractPanel.vue";
 import OnThisPage from "./OnThisPage.vue";
 import PropControls from "./PropControls.vue";
@@ -22,7 +23,7 @@ const technology = computed(() => getTechnology(state.tech));
 const implemented = computed(
   () => technology.value.url !== null && technology.value.implemented.has(props.contract.id)
 );
-const tab = computed<ComponentTab>(() => (implemented.value ? state.tab : "contract"));
+const tab = computed<ComponentTab>(() => state.tab);
 const availability = computed(() =>
   technologies.map((item) => ({
     id: item.id,
@@ -93,7 +94,6 @@ function reset() {
         type="button"
         role="tab"
         :aria-selected="tab === item.id"
-        :disabled="!implemented && item.id !== 'contract'"
         @click="state.tab = item.id"
       >
         {{ item.label }}
@@ -101,6 +101,7 @@ function reset() {
     </div>
 
     <ContractPanel v-if="tab === 'contract'" :contract="contract" />
+    <ComingSoon v-else-if="!implemented" :contract="contract" :technology="technology" />
     <RendererFrame
       v-else-if="technology.url"
       :url="technology.url"
@@ -111,13 +112,13 @@ function reset() {
     <Teleport defer to="#lab-aside">
       <div class="aside-stack">
         <PropControls
-          v-if="tab === 'playground'"
+          v-if="tab === 'playground' && implemented"
           v-model="values"
           :contract="contract"
           @reset="reset"
         />
 
-        <section v-if="tab === 'playground'" class="aside-card">
+        <section v-if="tab === 'playground' && implemented" class="aside-card">
           <header class="aside-card__head">
             <h2 class="aside__title">Événements</h2>
             <span class="aside-card__count">{{ events.length }}</span>

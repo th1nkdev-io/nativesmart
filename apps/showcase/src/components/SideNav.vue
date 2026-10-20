@@ -9,7 +9,8 @@ type Status = "available" | "specified" | "planned";
 type Filter = Status | "all";
 
 const query = ref("");
-const filter = ref<Filter>("available");
+const filter = ref<Filter>("all");
+const collapsed = ref(new Set<string>());
 const technology = computed(() => getTechnology(state.tech));
 
 function statusOf(contract: ComponentContract): Status {
@@ -47,13 +48,31 @@ const groups = computed(() => {
   }
   return [...byCategory.entries()].map(([key, items]) => {
     const [layer, category] = key.split(":");
+    const all = componentContracts.filter(
+      (contract) => `${contract.layer}:${contract.category}` === key
+    );
     return {
       key,
+      done: all.filter((contract) => statusOf(contract) === "available").length,
+      total: all.length,
       title: `${layer === "business" ? "Métier · " : ""}${categoryNames[category] ?? category}`,
       items: [...items].sort((a, b) => a.name.localeCompare(b.name))
     };
   });
 });
+
+function isOpen(key: string, items: readonly ComponentContract[]) {
+  if (query.value.trim()) return true;
+  if (items.some((contract) => contract.id === state.page)) return true;
+  return !collapsed.value.has(key);
+}
+
+function toggle(key: string) {
+  const next = new Set(collapsed.value);
+  if (next.has(key)) next.delete(key);
+  else next.add(key);
+  collapsed.value = next;
+}
 
 const visibleCount = computed(() =>
   groups.value.reduce((total, group) => total + group.items.length, 0)
@@ -117,9 +136,25 @@ const visibleCount = computed(() =>
     </div>
 
     <section v-for="group in groups" :key="group.key" class="sidenav__group">
-      <h3>{{ group.title }}</h3>
+      <h3>
+        <button
+          type="button"
+          class="sidenav__group-toggle"
+          :aria-expanded="isOpen(group.key, group.items)"
+          @click="toggle(group.key)"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
+          <span class="sidenav__group-title">{{ group.title }}</span>
+          <span
+            class="sidenav__group-count"
+            :title="`${group.done} disponible(s) sur ${group.total}`"
+          >
+            {{ group.done }}/{{ group.total }}
+          </span>
+        </button>
+      </h3>
       <a
-        v-for="contract in group.items"
+        v-for="contract in isOpen(group.key, group.items) ? group.items : []"
         :key="contract.id"
         :href="`#/${contract.id}`"
         :aria-current="state.page === contract.id ? 'page' : undefined"

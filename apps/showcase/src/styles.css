@@ -573,16 +573,64 @@ svg {
 }
 
 .sidenav__group {
-  margin-block-start: var(--ns-space-4);
+  margin-block-start: var(--ns-space-2);
 }
 
 .sidenav__group h3 {
-  margin-block-end: var(--ns-space-1);
-  padding-inline: var(--ns-space-2);
-  color: var(--ns-color-text);
+  margin: 0;
   font-family: var(--ns-font-sans);
   font-size: var(--ns-text-label-sm-size);
+}
+
+.sidenav__group-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--ns-space-1);
+  inline-size: 100%;
+  min-block-size: 30px;
+  padding: 0 var(--ns-space-2) 0 var(--ns-space-1);
+  border: 0;
+  border-radius: var(--ns-radius-control);
+  background: transparent;
+  color: var(--ns-color-text);
+  font: inherit;
   font-weight: var(--ns-font-weight-semibold);
+  text-align: start;
+  cursor: pointer;
+}
+
+.sidenav__group-toggle:hover {
+  background: var(--ns-color-surface-muted);
+}
+
+.sidenav__group-toggle svg {
+  inline-size: 14px;
+  block-size: 14px;
+  color: var(--ns-color-text-muted);
+  transition: transform var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.sidenav__group-toggle[aria-expanded="true"] svg {
+  transform: rotate(90deg);
+}
+
+[dir="rtl"] .sidenav__group-toggle[aria-expanded="false"] svg {
+  transform: rotate(180deg);
+}
+
+.sidenav__group-title {
+  flex: 1;
+}
+
+.sidenav__group-count {
+  color: var(--ns-color-text-muted);
+  font-family: var(--ns-font-mono);
+  font-size: var(--ns-font-size-xs);
+  font-weight: var(--ns-font-weight-regular);
+}
+
+.sidenav__group > a {
+  padding-inline-start: var(--ns-space-6);
 }
 
 .sidenav__empty {
