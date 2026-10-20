@@ -149,8 +149,46 @@ svg {
 }
 
 .lab__main {
+  display: flex;
+  flex-direction: column;
   grid-area: main;
   min-inline-size: 0;
+  min-block-size: calc(100vh - var(--lab-top));
+}
+
+.lab__viewport {
+  flex: 1;
+}
+
+/* Discreet credit, at the end of every page. */
+.lab-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--ns-space-1) var(--ns-space-4);
+  padding: var(--ns-space-4) var(--ns-space-8);
+  border-block-start: 1px solid var(--ns-color-border);
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-text-caption-size);
+  line-height: var(--ns-text-caption-line-height);
+}
+
+.lab-footer a {
+  color: var(--ns-color-text);
+  font-weight: var(--ns-font-weight-medium);
+  text-decoration: none;
+}
+
+.lab-footer a:hover {
+  color: var(--ns-color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 899px) {
+  .lab-footer {
+    padding-inline: var(--ns-space-4);
+  }
 }
 
 .lab__aside {
@@ -448,14 +486,16 @@ svg {
   content: "";
 }
 
-.rail__item--soon:not([aria-pressed="true"]) {
-  color: var(--ns-color-text-disabled);
-  opacity: 0.55;
-  filter: grayscale(1);
-}
-
-.rail__item--soon:not([aria-pressed="true"]):hover {
-  opacity: 0.85;
+/* Not in the Lab yet: a small hollow dot, the logo keeps its colors. */
+.rail__soon {
+  position: absolute;
+  inset-block-start: 3px;
+  inset-inline-end: 3px;
+  inline-size: 7px;
+  block-size: 7px;
+  border: 1.5px solid var(--ns-color-text-muted);
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-surface);
 }
 
 .rail__tooltip {

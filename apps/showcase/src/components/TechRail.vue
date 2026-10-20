@@ -25,7 +25,7 @@ function label(technology: Technology) {
         v-for="technology in group.items"
         :key="technology.id"
         type="button"
-        :class="['rail__item', { 'rail__item--soon': !technology.url }]"
+        class="rail__item"
         :aria-pressed="getTechnology(state.tech).id === technology.id"
         :aria-label="label(technology)"
         @click="state.tech = technology.id"
@@ -34,11 +34,12 @@ function label(technology: Technology) {
           v-if="technology.icon"
           viewBox="0 0 24 24"
           aria-hidden="true"
-          :style="{ fill: technology.url ? iconColor(technology) : undefined }"
+          :style="{ fill: iconColor(technology) }"
         >
           <path :d="technology.icon.path" />
         </svg>
         <span v-else aria-hidden="true">{{ technology.name.slice(0, 2) }}</span>
+        <span v-if="!technology.url" class="rail__soon" aria-hidden="true" />
         <span class="rail__tooltip" aria-hidden="true">{{ label(technology) }}</span>
       </button>
     </section>

@@ -5,6 +5,7 @@ import { defaultBrandThemeId } from "@nativesmart/tokens";
 import { computed, ref, watch, watchEffect } from "vue";
 import ComponentPage from "./components/ComponentPage.vue";
 import HomePage from "./components/HomePage.vue";
+import LabFooter from "./components/LabFooter.vue";
 import OnThisPage from "./components/OnThisPage.vue";
 import SideNav from "./components/SideNav.vue";
 import TechRail from "./components/TechRail.vue";
@@ -73,6 +74,7 @@ watchEffect(() => {
           <HomePage v-else />
         </div>
       </div>
+      <LabFooter />
     </main>
 
     <aside class="lab__aside" aria-label="Panneau contextuel">

@@ -50,7 +50,7 @@ const tabs = computed<{ id: ComponentTab; label: string; icon: string; count?: n
   {
     id: "variations",
     label: "Variations",
-    icon: "M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z",
+    icon: "M8.3 10a.7.7 0 0 1-.63-1.08L11.4 3a.7.7 0 0 1 1.2-.04l3.7 5.94a.7.7 0 0 1-.57 1.1ZM4 14h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1Zm17 3.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z",
     count: groups.value.reduce((total, group) => total + group.items.length, 0)
   },
   {
