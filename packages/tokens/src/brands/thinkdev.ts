@@ -5,7 +5,7 @@ import { defineBrandTheme } from "./types";
 export const thinkdevTheme = defineBrandTheme({
   id: "thinkdev",
   name: "Thinkdev",
-  description: "Default Nativesmart theme: emerald primary, blue secondary, slate neutrals.",
+  description: "Thinkdev company theme: emerald primary, blue secondary, slate neutrals.",
   palette: {
     primary: palette.emerald,
     secondary: palette.blue,

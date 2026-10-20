@@ -3,7 +3,9 @@ import { brandThemes } from "@nativesmart/tokens";
 import { computed } from "vue";
 import { openPage, state } from "../state";
 import { brandName, logoImage } from "../brand";
+import { brandDescriptions } from "../labels";
 import { getTechnology } from "../technologies";
+import LabSelect from "../ui/LabSelect.vue";
 
 defineEmits<{ toggleMenu: [] }>();
 
@@ -11,10 +13,17 @@ const logo = logoImage(32);
 
 const technology = computed(() => getTechnology(state.tech));
 
+const brandOptions = Object.values(brandThemes).map((theme) => ({
+  value: theme.id,
+  label: theme.name,
+  description: brandDescriptions[theme.id] ?? theme.description,
+  swatches: [theme.colors.light.primary, theme.colors.light.secondary]
+}));
+
 const densities = [
-  { value: "compact", label: "Compacte" },
-  { value: "comfortable", label: "Confortable" },
-  { value: "spacious", label: "Spacieuse" }
+  { value: "compact", label: "Compacte", description: "Tableaux de bord, écrans denses" },
+  { value: "comfortable", label: "Confortable", description: "Réglage par défaut" },
+  { value: "spacious", label: "Spacieuse", description: "Tactile et accessibilité" }
 ] as const;
 
 const viewports = [
@@ -43,14 +52,15 @@ const viewports = [
     </span>
 
     <div class="topbar__controls scroll-hidden">
-      <label class="control" title="Identité visuelle">
-        <span class="control__label">Identité</span>
-        <select v-model="state.brand">
-          <option v-for="theme in Object.values(brandThemes)" :key="theme.id" :value="theme.id">
-            {{ theme.name }}
-          </option>
-        </select>
-      </label>
+      <LabSelect
+        v-model="state.brand"
+        class="topbar__select"
+        label="Identité"
+        inline-label
+        size="sm"
+        :options="brandOptions"
+      />
+      <span class="toolbar__sep" aria-hidden="true" />
 
       <div class="segmented" role="group" aria-label="Mode de couleur">
         <button
@@ -79,15 +89,17 @@ const viewports = [
           <span class="sr-only">Sombre</span>
         </button>
       </div>
+      <span class="toolbar__sep" aria-hidden="true" />
 
-      <label class="control" title="Densité des contrôles">
-        <span class="control__label">Densité</span>
-        <select v-model="state.density">
-          <option v-for="item in densities" :key="item.value" :value="item.value">
-            {{ item.label }}
-          </option>
-        </select>
-      </label>
+      <LabSelect
+        v-model="state.density"
+        class="topbar__select"
+        label="Densité"
+        inline-label
+        size="sm"
+        :options="densities"
+      />
+      <span class="toolbar__sep" aria-hidden="true" />
 
       <div class="segmented" role="group" aria-label="Sens d'écriture">
         <button
@@ -107,6 +119,7 @@ const viewports = [
           RTL
         </button>
       </div>
+      <span class="toolbar__sep" aria-hidden="true" />
 
       <div class="segmented" role="group" aria-label="Largeur d'écran">
         <button

@@ -1,0 +1,421 @@
+/*
+ * Lab UI kit: the controls of the Lab chrome. They share one height, one radius and one focus
+ * treatment, and every value comes from the active brand theme.
+ */
+
+:root {
+  --lab-control-sm: 32px;
+  --lab-control-md: 36px;
+  --lab-ring: 0 0 0 3px color-mix(in srgb, var(--ns-color-focus-ring) 28%, transparent);
+}
+
+/* Text input */
+
+.lab-input {
+  inline-size: 100%;
+  min-block-size: var(--lab-control-md);
+  padding: 0 var(--ns-space-3);
+  border: 1px solid var(--ns-color-border-strong);
+  border-radius: var(--ns-radius-control);
+  background: var(--ns-color-surface);
+  color: var(--ns-color-text);
+  font: inherit;
+  transition:
+    border-color var(--ns-duration-fast) var(--ns-easing-standard),
+    box-shadow var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.lab-input::placeholder {
+  color: var(--ns-color-text-disabled);
+}
+
+.lab-input:hover {
+  border-color: var(--ns-color-text-muted);
+}
+
+.lab-input:focus-visible {
+  border-color: var(--ns-color-focus-ring);
+  outline: none;
+  box-shadow: var(--lab-ring);
+}
+
+.lab-input--search {
+  padding-inline-start: var(--ns-space-8);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E");
+  background-position: 10px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+
+/* Select */
+
+.lab-select {
+  position: relative;
+  min-inline-size: 0;
+}
+
+.lab-select__trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--ns-space-2);
+  inline-size: 100%;
+  min-block-size: var(--lab-control-md);
+  padding: 0 var(--ns-space-2) 0 var(--ns-space-3);
+  border: 1px solid var(--ns-color-border-strong);
+  border-radius: var(--ns-radius-control);
+  background: var(--ns-color-surface);
+  color: var(--ns-color-text);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition:
+    border-color var(--ns-duration-fast) var(--ns-easing-standard),
+    box-shadow var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.lab-select--sm .lab-select__trigger {
+  min-block-size: var(--lab-control-sm);
+  font-size: var(--ns-text-label-md-size);
+}
+
+.lab-select__trigger:hover {
+  border-color: var(--ns-color-text-muted);
+}
+
+.lab-select__trigger:focus-visible,
+.lab-select__trigger[aria-expanded="true"] {
+  border-color: var(--ns-color-focus-ring);
+  outline: none;
+  box-shadow: var(--lab-ring);
+}
+
+.lab-select__label {
+  color: var(--ns-color-text-muted);
+  white-space: nowrap;
+}
+
+.lab-select__value {
+  flex: 1;
+  overflow: hidden;
+  font-weight: var(--ns-font-weight-medium);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lab-select__value--empty {
+  color: var(--ns-color-text-disabled);
+  font-weight: var(--ns-font-weight-regular);
+}
+
+.lab-select__chevron {
+  inline-size: 16px;
+  block-size: 16px;
+  color: var(--ns-color-text-muted);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.lab-select__trigger[aria-expanded="true"] .lab-select__chevron {
+  transform: rotate(180deg);
+}
+
+.lab-select__swatches {
+  display: inline-flex;
+  flex: none;
+}
+
+.lab-select__swatches span {
+  inline-size: 14px;
+  block-size: 14px;
+  border: 2px solid var(--ns-color-surface-raised);
+  border-radius: var(--ns-radius-full);
+}
+
+.lab-select__swatches span + span {
+  margin-inline-start: -5px;
+}
+
+/* Listbox, rendered at the end of <body> so no container can clip it. */
+
+.lab-listbox {
+  position: fixed;
+  z-index: var(--ns-z-popover);
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: var(--ns-space-1);
+  overflow-y: auto;
+  border: 1px solid var(--ns-color-border);
+  border-radius: calc(var(--ns-radius-control) + 4px);
+  background: var(--ns-color-surface-raised);
+  box-shadow: var(--ns-elevation-3);
+  color: var(--ns-color-text);
+  font-family: var(--ns-font-sans);
+  font-size: var(--ns-text-label-md-size);
+  list-style: none;
+}
+
+.lab-option {
+  display: flex;
+  align-items: center;
+  gap: var(--ns-space-3);
+  min-block-size: 34px;
+  padding: var(--ns-space-2) var(--ns-space-3);
+  border-radius: var(--ns-radius-control);
+  cursor: pointer;
+  user-select: none;
+}
+
+.lab-option--active {
+  background: var(--ns-color-surface-muted);
+}
+
+.lab-option[aria-selected="true"] .lab-option__label {
+  color: var(--ns-color-primary);
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.lab-option__text {
+  display: grid;
+  flex: 1;
+  gap: 2px;
+}
+
+.lab-option__description {
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-text-caption-size);
+  line-height: var(--ns-text-caption-line-height);
+}
+
+.lab-option__check {
+  inline-size: 16px;
+  block-size: 16px;
+  color: var(--ns-color-primary);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lab-pop-enter-active,
+.lab-pop-leave-active {
+  transition:
+    opacity var(--ns-duration-fast) var(--ns-easing-decelerate),
+    transform var(--ns-duration-fast) var(--ns-easing-decelerate);
+}
+
+.lab-pop-enter-from,
+.lab-pop-leave-to {
+  opacity: 0;
+  transform: translateY(-4px) scale(0.98);
+}
+
+/* Switch */
+
+.lab-switch {
+  position: relative;
+  flex: none;
+  inline-size: 36px;
+  block-size: 20px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-border-strong);
+  cursor: pointer;
+  transition: background-color var(--ns-duration-normal) var(--ns-easing-standard);
+}
+
+.lab-switch[aria-checked="true"] {
+  background: var(--ns-color-primary);
+}
+
+.lab-switch__thumb {
+  position: absolute;
+  inset-block-start: 2px;
+  inset-inline-start: 2px;
+  inline-size: 16px;
+  block-size: 16px;
+  border-radius: var(--ns-radius-full);
+  background: #ffffff;
+  box-shadow: var(--ns-elevation-1);
+  transition: transform var(--ns-duration-normal) var(--ns-easing-emphasized);
+}
+
+.lab-switch[aria-checked="true"] .lab-switch__thumb {
+  transform: translateX(16px);
+}
+
+[dir="rtl"] .lab-switch[aria-checked="true"] .lab-switch__thumb {
+  transform: translateX(-16px);
+}
+
+.lab-switch:focus-visible {
+  outline: none;
+  box-shadow: var(--lab-ring);
+}
+
+/* Segmented control */
+
+.lab-segmented {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: calc(var(--ns-radius-control) + 3px);
+  background: var(--ns-color-surface-muted);
+}
+
+.lab-segmented button {
+  flex: 1 1 auto;
+  min-block-size: 28px;
+  padding: 0 var(--ns-space-2);
+  border: 0;
+  border-radius: var(--ns-radius-control);
+  background: transparent;
+  color: var(--ns-color-text-muted);
+  font: inherit;
+  font-size: var(--ns-text-label-md-size);
+  font-weight: var(--ns-font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--ns-duration-fast) var(--ns-easing-standard),
+    color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.lab-segmented button:hover {
+  color: var(--ns-color-text);
+}
+
+.lab-segmented button[aria-checked="true"] {
+  background: var(--ns-color-surface);
+  box-shadow: var(--ns-elevation-1);
+  color: var(--ns-color-text);
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.lab-segmented button:focus-visible {
+  outline: none;
+  box-shadow: var(--lab-ring);
+}
+
+/* Small text button */
+
+.ghost-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ns-space-1);
+  min-block-size: 28px;
+  padding: 0 var(--ns-space-2);
+  border: 0;
+  border-radius: var(--ns-radius-control);
+  background: transparent;
+  color: var(--ns-color-text-muted);
+  font: inherit;
+  font-size: var(--ns-text-label-sm-size);
+  font-weight: var(--ns-font-weight-medium);
+  cursor: pointer;
+}
+
+.ghost-button svg {
+  inline-size: 14px;
+  block-size: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ghost-button:hover {
+  background: var(--ns-color-surface-muted);
+  color: var(--ns-color-text);
+}
+
+/* Properties panel */
+
+.props-panel {
+  gap: 0;
+  padding: 0;
+}
+
+.aside-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--ns-space-3) var(--ns-space-3) var(--ns-space-3) var(--ns-space-4);
+  border-block-end: 1px solid var(--ns-color-border);
+}
+
+.props-panel > .muted {
+  margin: 0;
+  padding: var(--ns-space-4);
+}
+
+.props-list {
+  display: grid;
+}
+
+.prop {
+  display: grid;
+  gap: var(--ns-space-2);
+  padding: var(--ns-space-4);
+}
+
+.prop + .prop {
+  border-block-start: 1px solid var(--ns-color-border);
+}
+
+.prop--inline {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: var(--ns-space-4);
+}
+
+.prop--inline .prop__head,
+.prop--inline .prop__description {
+  grid-column: 1;
+}
+
+.prop--inline .prop__control {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+}
+
+.prop__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--ns-space-2);
+}
+
+.prop__name {
+  font-family: var(--ns-font-mono);
+  font-size: var(--ns-text-code-size);
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.prop__required {
+  margin-inline-start: 2px;
+  color: var(--ns-color-danger);
+}
+
+.prop__kind {
+  color: var(--ns-color-text-disabled);
+  font-size: var(--ns-text-caption-size);
+}
+
+.prop--inline .prop__kind {
+  display: none;
+}
+
+.prop__description {
+  margin: 0;
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-text-caption-size);
+  line-height: var(--ns-text-caption-line-height);
+}

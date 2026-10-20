@@ -118,27 +118,37 @@ function reset() {
         />
 
         <section v-if="tab === 'playground'" class="aside-card">
-          <h2 class="aside__title">Événements</h2>
-          <p v-if="events.length === 0" class="muted">
-            {{
-              contract.events.length
-                ? `Interagissez avec l'aperçu : ${contract.events.join(", ")}.`
-                : "Ce composant n'émet pas d'événement."
-            }}
-          </p>
-          <ol v-else class="event-log">
-            <li v-for="event in events" :key="event.id">
-              <code>{{ event.name }}</code>
-              <span class="muted">{{ event.time }}</span>
-            </li>
-          </ol>
+          <header class="aside-card__head">
+            <h2 class="aside__title">Événements</h2>
+            <span class="aside-card__count">{{ events.length }}</span>
+          </header>
+          <div class="aside-card__body">
+            <p v-if="events.length === 0" class="muted">
+              {{
+                contract.events.length
+                  ? `Interagissez avec l'aperçu : ${contract.events.join(", ")}.`
+                  : "Ce composant n'émet pas d'événement."
+              }}
+            </p>
+            <ol v-else class="event-log">
+              <li v-for="event in events" :key="event.id">
+                <code>{{ event.name }}</code>
+                <span class="muted">{{ event.time }}</span>
+              </li>
+            </ol>
+          </div>
         </section>
 
         <OnThisPage v-if="tab === 'contract'" :key="`${contract.id}-contract`" />
 
         <section class="aside-card">
-          <h2 class="aside__title">Disponibilité</h2>
-          <ul class="availability">
+          <header class="aside-card__head">
+            <h2 class="aside__title">Disponibilité</h2>
+            <span class="aside-card__count">
+              {{ availability.filter((item) => item.available).length }}/{{ availability.length }}
+            </span>
+          </header>
+          <ul class="availability aside-card__body">
             <li v-for="item in availability" :key="item.id">
               <span :class="['dot', item.available ? 'dot--available' : 'dot--planned']" />
               <span>{{ item.name }}</span>

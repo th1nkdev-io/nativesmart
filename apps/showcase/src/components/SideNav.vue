@@ -94,9 +94,9 @@ const visibleCount = computed(() =>
     <h2 class="sidenav__heading">Composants</h2>
     <input
       v-model="query"
-      class="sidenav__search"
+      class="lab-input lab-input--search sidenav__search"
       type="search"
-      placeholder="Rechercher un composant…"
+      placeholder="Rechercher…"
       aria-label="Rechercher un composant"
     />
 
