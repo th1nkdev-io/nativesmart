@@ -1,4 +1,4 @@
-import { brandThemes, toCss, type BrandThemeId } from "@nativesmart/tokens";
+import { brandThemes, defaultBrandThemeId, toCss, type BrandThemeId } from "@nativesmart/tokens";
 import type { ShowcaseColorMode, ShowcaseDensity, ShowcaseDirection } from "./protocol";
 
 const styleId = "ns-showcase-theme";
@@ -33,7 +33,7 @@ export function applyTheme(
     density?: ShowcaseDensity;
   }
 ) {
-  const theme = brandThemes[isBrandThemeId(options.brand) ? options.brand : "thinkdev"];
+  const theme = brandThemes[isBrandThemeId(options.brand) ? options.brand : defaultBrandThemeId];
   let style = doc.getElementById(styleId) as HTMLStyleElement | null;
   if (!style) {
     style = doc.createElement("style");

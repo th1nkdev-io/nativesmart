@@ -1,4 +1,4 @@
-import type { BrandThemeId } from "@nativesmart/tokens";
+import { defaultBrandThemeId, type BrandThemeId } from "@nativesmart/tokens";
 
 export type ShowcaseView = "playground" | "variations";
 export type ShowcaseColorMode = "light" | "dark";
@@ -39,7 +39,7 @@ export const defaultRequest: RenderRequest = {
   component: "button",
   view: "playground",
   props: {},
-  brand: "thinkdev",
+  brand: defaultBrandThemeId,
   mode: "light",
   dir: "ltr",
   density: "comfortable"

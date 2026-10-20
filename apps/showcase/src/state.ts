@@ -4,7 +4,7 @@ import {
   type ShowcaseDensity,
   type ShowcaseDirection
 } from "@nativesmart/showcase-runtime";
-import type { BrandThemeId } from "@nativesmart/tokens";
+import { defaultBrandThemeId, type BrandThemeId } from "@nativesmart/tokens";
 import { reactive, watch } from "vue";
 
 export type Viewport = "mobile" | "tablet" | "desktop";
@@ -25,7 +25,7 @@ export type ShowcaseState = {
 const defaults: ShowcaseState = {
   page: "",
   tech: "vue",
-  brand: "cv-action",
+  brand: defaultBrandThemeId,
   mode: "light",
   dir: "ltr",
   density: "comfortable",

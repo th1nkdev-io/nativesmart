@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { brandThemes } from "./brands";
+import { brandThemes, defaultBrandThemeId } from "./brands";
 import { cssColorVariable, toCss } from "./css";
 import { primitives, palette } from "./primitives";
 import { contrastRatio } from "./semantic/contrast";
@@ -24,6 +24,12 @@ describe("tokens", () => {
     expect(brandThemes.thinkdev.colors.light).toEqual(themes.light.colors);
     expect(brandThemes.thinkdev.colors.dark).toEqual(themes.dark.colors);
     expect(themes.light.colors.primary).toBe(palette.emerald[700]);
+  });
+
+  it("defaults to the NativeSmart identity built from the logo", () => {
+    expect(defaultBrandThemeId).toBe("nativesmart");
+    expect(Object.keys(brandThemes)[0]).toBe("nativesmart");
+    expect(brandThemes.nativesmart.palette.primary[600]).toBe("#087fe8");
   });
 
   it("carries the CV Action identity", () => {

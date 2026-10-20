@@ -44,10 +44,17 @@ packages/tokens/src/
 
 ## Brand themes
 
-| Theme     | Id          | Primary          | Secondary       | Neutral    | Fonts                       | Control radius |
-| --------- | ----------- | ---------------- | --------------- | ---------- | --------------------------- | -------------- |
-| Thinkdev  | `thinkdev`  | emerald          | blue            | slate      | Inter                       | 8px            |
-| CV Action | `cv-action` | violet `#4b14a3` | coral `#ff764d` | night blue | Dosis, TT Commons (heading) | 6px            |
+| Theme       | Id            | Primary              | Secondary       | Neutral    | Fonts                       | Control radius |
+| ----------- | ------------- | -------------------- | --------------- | ---------- | --------------------------- | -------------- |
+| NativeSmart | `nativesmart` | brand blue `#087fe8` | turquoise       | slate      | Inter                       | 8px            |
+| Thinkdev    | `thinkdev`    | emerald              | blue            | slate      | Inter                       | 8px            |
+| CV Action   | `cv-action`   | violet `#4b14a3`     | coral `#ff764d` | night blue | Dosis, TT Commons (heading) | 6px            |
+
+NativeSmart is the default brand theme (`defaultBrandThemeId`): the Lab and the renderer
+playgrounds open with it. Its scales come from the official logo (see [Brand](brand.md)); the
+`primary` role uses the darker step `700` so white text keeps a 5.5:1 contrast, and the logo blue
+`#087fe8` is step `600`, used for the focus ring. The React Native and Flutter default `themes`
+still map to Thinkdev until those renderers support brand themes.
 
 A brand theme defines:
 
