@@ -218,7 +218,7 @@ svg {
   top: var(--lab-top);
   align-self: start;
   block-size: calc(100vh - var(--lab-top));
-  overflow-y: auto;
+  overflow: hidden auto;
   overscroll-behavior: contain;
   scrollbar-gutter: stable;
 }
@@ -237,10 +237,6 @@ svg {
 }
 
 /* Viewport frame: the content reflows exactly as on the chosen screen width. */
-
-.lab__viewport {
-  min-block-size: 100%;
-}
 
 .lab__canvas {
   --lab-gutter: var(--ns-space-8);
