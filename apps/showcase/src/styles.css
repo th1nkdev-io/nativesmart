@@ -1055,6 +1055,8 @@ kbd {
   top: calc(var(--ns-space-4) * -1);
   z-index: 2;
   display: grid;
+  /* Never wider than the nav, whatever the font makes the legend measure. */
+  grid-template-columns: minmax(0, 1fr);
   gap: 10px;
   padding: var(--ns-space-4) var(--ns-space-3) var(--ns-space-3);
   background: var(--ns-color-surface);
@@ -1178,6 +1180,7 @@ kbd {
 
 .status-legend {
   display: flex;
+  min-inline-size: 0;
   gap: 2px;
   padding: 2px;
   border-radius: 9px;
@@ -1186,6 +1189,7 @@ kbd {
 
 .status-legend button {
   display: inline-grid;
+  grid-template-columns: minmax(0, 1fr);
   flex: 1 1 0;
   justify-items: center;
   gap: 1px;
