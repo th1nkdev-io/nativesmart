@@ -5,9 +5,11 @@ import TokenFlowArt from "../editorial/art/TokenFlowArt.vue";
 import PageHero from "../editorial/PageHero.vue";
 import { tokenSections } from "../pages";
 import { openPage, state } from "../state";
+import AccessibilitySection from "./tokens/AccessibilitySection.vue";
 import ColorsSection from "./tokens/ColorsSection.vue";
 import DataSection from "./tokens/DataSection.vue";
 import ElevationSection from "./tokens/ElevationSection.vue";
+import IconsSection from "./tokens/IconsSection.vue";
 import LayoutSection from "./tokens/LayoutSection.vue";
 import MotionSection from "./tokens/MotionSection.vue";
 import ShapeSection from "./tokens/ShapeSection.vue";
@@ -28,6 +30,8 @@ const components: Record<(typeof tokenSections)[number]["id"], Component> = {
   shape: ShapeSection,
   elevation: ElevationSection,
   motion: MotionSection,
+  icons: IconsSection,
+  accessibility: AccessibilitySection,
   system: SystemSection
 };
 const sections = tokenSections.map((section) => ({

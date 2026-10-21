@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { brandThemes, defaultBrandThemeId } from "./brands";
-import { cssColorVariable, toCss, toScopedCss } from "./css";
+import { cssColorVariable, forcedColor, toCss, toScopedCss } from "./css";
 import { primitives, palette } from "./primitives";
 import { mix } from "./semantic/color-math";
 import { contrastRatio } from "./semantic/contrast";
@@ -191,5 +191,60 @@ describe("type, space, layout and shape", () => {
     expect(css).toMatch(/\.ns-text-price \{[^}]*font-variant-numeric: tabular-nums;/);
     expect(css).toMatch(/\.ns-text-quote \{[^}]*font-style: italic;/);
     expect(css).toMatch(/\.ns-text-link \{[^}]*text-decoration-line: underline;/);
+  });
+});
+
+describe("elevation, motion and preferences", () => {
+  const css = toCss(brandThemes.nativesmart);
+
+  it("samples springs into a CSS linear() easing that overshoots and settles", () => {
+    const line = css.split("\n").find((entry) => entry.includes("--ns-spring-bouncy:")) ?? "";
+    const values = line
+      .slice(line.indexOf("(") + 1, line.lastIndexOf(")"))
+      .split(", ")
+      .map(Number);
+    expect(values[0]).toBe(0);
+    expect(values.at(-1)).toBe(1);
+    expect(Math.max(...values)).toBeGreaterThan(1.1);
+  });
+
+  it("writes transitions from duration and easing variables", () => {
+    expect(css).toContain(
+      "--ns-transition-enter: var(--ns-duration-normal) var(--ns-easing-decelerate);"
+    );
+    expect(css).toContain("--ns-elevation-modal: var(--ns-elevation-5);");
+    expect(css).toContain("--ns-shadow-inset-sm: inset 0 1px 2px 0 rgba(15, 23, 42, 0.06);");
+  });
+
+  it("lightens raised surfaces in dark mode only", () => {
+    const dark = css.slice(css.indexOf('.dark,\n[data-ns-theme="dark"]'));
+    expect(css).toContain("--ns-surface-level-5: #ffffff;");
+    expect(dark).toContain("--ns-surface-level-0: #0f172a;");
+    expect(dark).not.toContain("--ns-surface-level-5: #ffffff;");
+  });
+
+  it("follows system preferences and lets an element force them", () => {
+    expect(css).toMatch(
+      /@media \(prefers-reduced-motion: reduce\) \{\n {2}:root:not\(\[data-ns-motion="full"\]\) \{\n {4}--ns-duration-moderate: 120ms;/
+    );
+    expect(css).toContain('[data-ns-transparency="reduce"] {');
+    expect(css).toContain('[data-ns-contrast="more"] {');
+    expect(css).toContain("--ns-color-text-link-visited: VisitedText;");
+  });
+
+  it("maps every role to a system color in forced colors mode", () => {
+    expect(forcedColor("primary")).toBe("Highlight");
+    expect(forcedColor("onPrimary")).toBe("HighlightText");
+    expect(forcedColor("onDangerMuted")).toBe("CanvasText");
+    expect(forcedColor("dangerMuted")).toBe("Canvas");
+    expect(forcedColor("surfaceDisabled")).toBe("GrayText");
+    expect(forcedColor("borderInput")).toBe("CanvasText");
+  });
+
+  it("ships named animations", () => {
+    expect(css).toContain("@keyframes ns-slide-up {");
+    expect(css).toContain(
+      ".ns-animate-fade-in {\n  animation: ns-fade-in var(--ns-transition-enter) both;"
+    );
   });
 });

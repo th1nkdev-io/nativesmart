@@ -1,4 +1,7 @@
 import {
+  animations,
+  animationValue,
+  type AnimationName,
   colorSteps,
   cssColorVariable,
   cssPrefix,
@@ -144,15 +147,47 @@ export const nativesmartPreset = {
       boxShadow: {
         ...variableScale("shadow", Object.keys(primitives.shadows)),
         ...Object.fromEntries(
-          elevationLevels.map((level) => [
+          [...elevationLevels, ...Object.keys(primitives.elevationUsages)].map((level) => [
             `ns-elevation-${level}`,
             `var(${cssPrefix}-elevation-${level})`
           ])
+        ),
+        ...Object.fromEntries(
+          Object.keys(primitives.insetShadows).map((key) => [
+            `ns-inset-${key}`,
+            `var(${cssPrefix}-shadow-inset-${key})`
+          ])
+        ),
+        ...Object.fromEntries(
+          Object.keys(primitives.glows).map((key) => [
+            `ns-glow-${key}`,
+            `var(${cssPrefix}-glow-${key})`
+          ])
         )
       },
+      backdropBlur: variableScale("blur", Object.keys(primitives.blur)),
+      animation: Object.fromEntries(
+        (Object.keys(animations) as AnimationName[]).map((name) => [
+          `ns-${name}`,
+          animationValue(name)
+        ])
+      ),
       zIndex: variableScale("z", Object.keys(primitives.zIndex)),
       transitionDuration: variableScale("duration", Object.keys(primitives.motion.duration)),
-      transitionTimingFunction: variableScale("easing", Object.keys(primitives.motion.easing))
+      transitionTimingFunction: {
+        ...Object.fromEntries(
+          Object.keys(primitives.motion.easing).map((key) => [
+            `ns-${kebab(key)}`,
+            `var(${cssPrefix}-easing-${kebab(key)})`
+          ])
+        ),
+        ...Object.fromEntries(
+          Object.keys(primitives.motion.spring).map((name) => [
+            `ns-spring-${name}`,
+            `var(${cssPrefix}-spring-${name})`
+          ])
+        )
+      }
     }
   }
 } as const;

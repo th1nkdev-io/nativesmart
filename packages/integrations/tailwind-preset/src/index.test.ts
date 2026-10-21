@@ -35,5 +35,9 @@ describe("tailwind preset", () => {
     expect(extend.aspectRatio["ns-video"]).toBe("var(--ns-aspect-video)");
     expect(extend.borderRadius["ns-sheet"]).toBe("var(--ns-radius-sheet)");
     expect(extend.fontFamily["ns-serif"]).toBe("var(--ns-font-serif)");
+    expect(extend.boxShadow["ns-elevation-modal"]).toBe("var(--ns-elevation-modal)");
+    expect(extend.backdropBlur["ns-md"]).toBe("var(--ns-blur-md)");
+    expect(extend.transitionTimingFunction["ns-spring-bouncy"]).toBe("var(--ns-spring-bouncy)");
+    expect(extend.animation["ns-fade-in"]).toBe("ns-fade-in var(--ns-transition-enter) both");
   });
 });

@@ -1,7 +1,10 @@
 import { borders } from "./borders";
 import { breakpoints } from "./breakpoints";
 import { colors } from "./colors";
-import { elevation } from "./elevation";
+import { accessibility } from "./accessibility";
+import { darkSurfaceLift, elevation, elevationUsages, glows, insetShadows } from "./elevation";
+import { iconography } from "./icons";
+import { blur, materials } from "./materials";
 import { motion } from "./motion";
 import { alpha, opacity } from "./opacity";
 import { chrome, grid } from "./layout";
@@ -15,6 +18,8 @@ import { zIndex } from "./zIndex";
 export { colorSteps, palette, type ColorScale, type ColorStep, type PaletteName } from "./colors";
 export type { ElevationLevel, ShadowLayer } from "./elevation";
 export { darkShadowStrength } from "./elevation";
+export { sampleSpring, type DurationKey, type EasingKey, type SpringName } from "./motion";
+export type { MaterialName } from "./materials";
 export { stateLayers, type StateLayer } from "./opacity";
 export type { RadiusKey } from "./radius";
 export type { SpacingKey } from "./spacing";
@@ -39,6 +44,15 @@ export const primitives = {
   chrome,
   borders,
   elevation,
+  /** Elevation level per kind of surface. */
+  elevationUsages,
+  insetShadows,
+  darkSurfaceLift,
+  glows,
+  blur,
+  materials,
+  iconography,
+  accessibility,
   /** Single-layer shadows used by the React Native and Flutter renderers. */
   shadows,
   opacity,

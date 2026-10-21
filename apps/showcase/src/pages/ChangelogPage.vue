@@ -6,6 +6,23 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "21 octobre 2026",
+    title: "Élévation, mouvement et accessibilité",
+    changes: [
+      { kind: "Nouveau", text: "Élévation par usage, ombres internes, halos et surfaces sombres" },
+      { kind: "Nouveau", text: "Matières translucides et quatre niveaux de flou" },
+      {
+        kind: "Nouveau",
+        text: "Ressorts physiques, transitions prêtes à l'emploi, huit animations"
+      },
+      { kind: "Nouveau", text: "Iconographie : grille, épaisseurs et accords avec le texte" },
+      {
+        kind: "Nouveau",
+        text: "Contraste élevé, transparence et mouvement réduits, couleurs forcées"
+      }
+    ]
+  },
+  {
+    date: "21 octobre 2026",
     title: "Typographie, espace et formes",
     changes: [
       { kind: "Nouveau", text: "30 styles de texte, titres fluides et familles display et serif" },
