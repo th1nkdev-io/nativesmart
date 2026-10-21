@@ -1231,6 +1231,7 @@
 
 .terminal-art__body {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 8px;
   min-block-size: 210px;
   padding: 18px 20px 22px;
@@ -1240,6 +1241,7 @@
 
 .terminal-art__body p {
   margin: 0;
+  overflow-wrap: anywhere;
   opacity: 0;
   white-space: nowrap;
   animation: terminal-line 400ms ease-out forwards;

@@ -38,6 +38,53 @@
   color: var(--ns-color-on-primary-muted);
 }
 
+/*
+ * Single-column grids size their column to the widest child by default, so a long variable name
+ * would push a card past its neighbours. Every stacked card keeps its column within its own width.
+ */
+:is(
+  .token-section,
+  .token-group,
+  .role,
+  .scale,
+  .family__meta,
+  .type-row__meta,
+  .usage,
+  .anatomy,
+  .anatomy__tier,
+  .specimen,
+  .gradient-card,
+  .tester,
+  .tester__field,
+  .leading-card,
+  .usage-column,
+  .target,
+  .ratio,
+  .ratio figcaption,
+  .phone-frame__notes li,
+  .field,
+  .avatar-try__field,
+  .readability-grid figure,
+  .specimen__grid figure,
+  .measure-row__label,
+  .container-demo,
+  .floating-list,
+  .space-ruler,
+  .chart-card,
+  .grid-frame,
+  .avatar-board,
+  .reading-demo,
+  .tracking-list,
+  .measure-list,
+  .space-anatomy,
+  .elevation,
+  .density,
+  .opacity,
+  .motion-row__meta
+) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .token-sections {
   display: grid;
   gap: var(--ns-space-12);
@@ -132,7 +179,7 @@
 
 .role-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(224px, 100%), 1fr));
   gap: var(--ns-space-3);
 }
 
@@ -160,12 +207,23 @@
   font-weight: var(--ns-font-weight-semibold);
 }
 
+.role__meta strong {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .role__meta {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: var(--ns-space-2);
   padding-inline: var(--ns-space-1);
+}
+
+.role__hex {
+  flex: none;
 }
 
 .role__hex,
@@ -1357,7 +1415,7 @@ button.intent-matrix__row:hover {
   grid-template-columns: 140px repeat(6, minmax(64px, 1fr));
   align-items: center;
   gap: var(--ns-space-2);
-  min-inline-size: 560px;
+  min-inline-size: 580px;
 }
 
 .layer-board__row strong {
@@ -2037,6 +2095,7 @@ button.intent-matrix__row:hover {
 
 .tester__field input[type="range"] {
   inline-size: 100%;
+  margin: 0;
   accent-color: var(--ns-color-primary);
 }
 
