@@ -25,6 +25,7 @@ export const tokenSections = [
   { id: "data", label: "Données" },
   { id: "typography", label: "Typographie" },
   { id: "spacing", label: "Espacements" },
+  { id: "layout", label: "Mise en page" },
   { id: "sizing", label: "Tailles" },
   { id: "shape", label: "Formes" },
   { id: "elevation", label: "Élévation" },

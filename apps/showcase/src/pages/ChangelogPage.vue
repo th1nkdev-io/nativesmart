@@ -6,6 +6,20 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "21 octobre 2026",
+    title: "Typographie, espace et formes",
+    changes: [
+      { kind: "Nouveau", text: "30 styles de texte, titres fluides et familles display et serif" },
+      { kind: "Nouveau", text: "Espacements par intention : inset, stack, inline et section" },
+      { kind: "Nouveau", text: "Grille responsive, cadre d'application et zones sûres" },
+      {
+        kind: "Nouveau",
+        text: "Avatars, zones tactiles, dialogues, ratios et onze rayons par usage"
+      },
+      { kind: "Nouveau", text: "Page Mise en page et testeur typographique dans le Lab" }
+    ]
+  },
+  {
+    date: "21 octobre 2026",
     title: "Système de couleurs complet",
     changes: [
       {

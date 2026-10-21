@@ -40,7 +40,37 @@ const dataColors = Object.fromEntries(
   )
 );
 
-const shapeUsages = ["control", "card", "overlay", "badge"];
+const shapeUsages = [
+  "control",
+  "card",
+  "overlay",
+  "badge",
+  "button",
+  "input",
+  "chip",
+  "avatar",
+  "image",
+  "tooltip",
+  "sheet"
+];
+
+/** Spacing by intent (`p-ns-inset-md`, `gap-ns-stack-lg`) and the raw steps (`p-ns-0-5`). */
+const spacingScale = {
+  ...Object.fromEntries(
+    Object.keys(primitives.spacing).map((key) => {
+      const name = key.replace(".", "-");
+      return [`ns-${name}`, `var(${cssPrefix}-space-${name})`];
+    })
+  ),
+  ...Object.fromEntries(
+    Object.entries(primitives.spaceUsages).flatMap(([usage, steps]) =>
+      Object.keys(steps).map((size) => [
+        `ns-${usage}-${size}`,
+        `var(${cssPrefix}-${usage}-${size})`
+      ])
+    )
+  )
+};
 const elevationLevels = Object.keys(primitives.elevation);
 
 /**
@@ -73,11 +103,26 @@ export const nativesmartPreset = {
         ])
       ),
       borderRadius: variableScale("radius", [...Object.keys(primitives.radius), ...shapeUsages]),
-      fontFamily: {
-        "ns-sans": `var(${cssPrefix}-font-sans)`,
-        "ns-heading": `var(${cssPrefix}-font-heading)`,
-        "ns-mono": `var(${cssPrefix}-font-mono)`
+      fontFamily: Object.fromEntries(
+        ["sans", "heading", "display", "serif", "mono"].map((family) => [
+          `ns-${family}`,
+          `var(${cssPrefix}-font-${family})`
+        ])
+      ),
+      spacing: spacingScale,
+      lineHeight: variableScale("leading", Object.keys(primitives.typography.leading)),
+      maxWidth: {
+        ...variableScale("measure", Object.keys(primitives.typography.measure)),
+        ...variableScale("container", Object.keys(primitives.sizing.container)),
+        ...Object.fromEntries(
+          Object.keys(primitives.sizing.dialog).map((key) => [
+            `ns-dialog-${key}`,
+            `var(${cssPrefix}-dialog-${key})`
+          ])
+        )
       },
+      aspectRatio: variableScale("aspect", Object.keys(primitives.aspectRatios)),
+      size: variableScale("avatar-size", Object.keys(primitives.sizing.avatar)),
       fontSize: Object.fromEntries(
         Object.keys(textStyles).map((name) => {
           const prefix = `${cssPrefix}-text-${name}`;

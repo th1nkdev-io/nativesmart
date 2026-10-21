@@ -2,8 +2,34 @@
 import { primitives } from "@nativesmart/tokens";
 import TokenCode from "./TokenCode.vue";
 
-const { control, icon, touchTarget, container } = primitives.sizing;
-const widest = Math.max(...Object.values(container));
+const { control, icon, avatar, touchTargets, dialog, floating } = primitives.sizing;
+const ratios = primitives.aspectRatios;
+
+const targetText: Record<keyof typeof touchTargets, { label: string; source: string }> = {
+  minimum: { label: "Minimum", source: "WCAG 2.2 AA · 2.5.8" },
+  comfortable: { label: "Confortable", source: "Apple HIG · WCAG AAA" },
+  android: { label: "Android", source: "Material Design" }
+};
+
+const floatingText: Record<keyof typeof floating, string> = {
+  tooltip: "Infobulle",
+  popover: "Popover",
+  menu: "Menu",
+  toast: "Notification"
+};
+
+const ratioText: Record<keyof typeof ratios, string> = {
+  square: "Carré · avatars, vignettes",
+  photo: "Photo · cartes produit",
+  video: "Vidéo · lecteurs, bannières",
+  wide: "Panoramique · héros",
+  portrait: "Portrait · profils",
+  story: "Story · formats verticaux"
+};
+
+/** Dialog widths drawn inside a 1280px screen. */
+const screen = 1280;
+const people = ["AN", "BP", "CW", "DR", "EM", "FA"];
 </script>
 
 <template>
@@ -11,7 +37,10 @@ const widest = Math.max(...Object.values(container));
     <section class="token-section">
       <header class="token-section__header">
         <h2>Hauteur des contrôles</h2>
-        <p>Boutons, champs, listes déroulantes et onglets partagent les mêmes hauteurs.</p>
+        <p>
+          Boutons, champs, listes déroulantes et onglets partagent les mêmes hauteurs, ajustées par
+          la densité.
+        </p>
       </header>
       <div class="controls-demo">
         <div v-for="(value, key) in control" :key="key" class="controls-demo__item">
@@ -29,8 +58,8 @@ const widest = Math.max(...Object.values(container));
 
     <section class="token-section">
       <header class="token-section__header">
-        <h2>Icônes</h2>
-        <p>Tailles d'icônes, alignées sur les hauteurs de texte et de contrôles.</p>
+        <h2>Icônes et avatars</h2>
+        <p>Huit tailles d'icônes et six d'avatars, alignées sur le texte et les contrôles.</p>
       </header>
       <div class="icon-demo">
         <div v-for="(value, key) in icon" :key="key" class="icon-demo__item">
@@ -52,42 +81,92 @@ const widest = Math.max(...Object.values(container));
           <TokenCode :value="`--ns-icon-size-${key}`" />
         </div>
       </div>
-    </section>
-
-    <section class="token-section">
-      <header class="token-section__header">
-        <h2>Zone tactile</h2>
-        <p>
-          Toute zone interactive mesure au moins {{ touchTarget }} × {{ touchTarget }} px (Apple
-          HIG, WCAG 2.2), même si son dessin est plus petit.
-        </p>
-      </header>
-      <div class="touch-demo">
-        <span class="touch-demo__area">
-          <span class="touch-demo__icon" />
-        </span>
-        <div>
-          <strong>{{ touchTarget }} px</strong>
-          <p class="muted">Zone pointillée : surface cliquable. Carré plein : icône de 20 px.</p>
-          <TokenCode value="--ns-touch-target" />
+      <div class="avatar-sizes lab-preview">
+        <div v-for="(value, key, index) in avatar" :key="key" class="avatar-sizes__item">
+          <span
+            class="avatar"
+            :style="{
+              inlineSize: `${value}px`,
+              blockSize: `${value}px`,
+              fontSize: `${Math.max(10, value * 0.38)}px`,
+              background: `var(--ns-avatar-${index + 1}-bg)`,
+              color: `var(--ns-avatar-${index + 1}-fg)`
+            }"
+          >
+            {{ people[index] }}
+          </span>
+          <strong>{{ key }}</strong>
+          <small>{{ value }}px</small>
+          <TokenCode :value="`--ns-avatar-size-${key}`" />
         </div>
       </div>
     </section>
 
     <section class="token-section">
       <header class="token-section__header">
-        <h2>Conteneurs</h2>
-        <p>Largeurs maximales du contenu selon la taille d'écran.</p>
+        <h2>Zones tactiles</h2>
+        <p>
+          La zone qu'on peut toucher compte plus que le dessin. Pointillés : surface active ; carré
+          plein : icône de 20 px.
+        </p>
       </header>
-      <div class="container-demo">
-        <div v-for="(value, key) in container" :key="key" class="container-demo__row">
-          <strong>{{ key }}</strong>
-          <span class="container-demo__track">
-            <span :style="{ inlineSize: `${(value / widest) * 100}%` }" />
+      <div class="target-grid">
+        <article v-for="(value, key) in touchTargets" :key="key" class="target">
+          <span class="target__area" :style="{ inlineSize: `${value}px`, blockSize: `${value}px` }">
+            <span class="target__icon" />
           </span>
-          <small class="numeric">{{ value }}px</small>
-          <TokenCode :value="`--ns-container-${key}`" />
+          <strong>{{ targetText[key].label }} · {{ value }} px</strong>
+          <small class="muted">{{ targetText[key].source }}</small>
+          <TokenCode :value="`--ns-touch-target-${key}`" />
+        </article>
+      </div>
+    </section>
+
+    <section class="token-section">
+      <header class="token-section__header">
+        <h2>Dialogues et contenus flottants</h2>
+        <p>
+          Quatre largeurs de dialogue, dessinées ici dans un écran de {{ screen }} px. Sur
+          téléphone, un dialogue prend toute la largeur.
+        </p>
+      </header>
+      <div class="dialog-stage">
+        <span
+          v-for="(value, key) in dialog"
+          :key="key"
+          class="dialog-stage__box"
+          :style="{ inlineSize: `${(value / screen) * 100}%` }"
+        >
+          <span>{{ key }} · {{ value }} px</span>
+        </span>
+      </div>
+      <div class="floating-list">
+        <div v-for="(value, key) in floating" :key="key" class="floating-row">
+          <strong>{{ floatingText[key] }}</strong>
+          <span class="floating-row__track">
+            <span :style="{ inlineSize: `${(value / 400) * 100}%` }">{{ value }} px max</span>
+          </span>
+          <TokenCode :value="`--ns-${key}-max-width`" />
         </div>
+      </div>
+    </section>
+
+    <section class="token-section">
+      <header class="token-section__header">
+        <h2>Ratios</h2>
+        <p>Six formats pour les images et les vidéos, en CSS <code>aspect-ratio</code>.</p>
+      </header>
+      <div class="ratio-grid lab-preview">
+        <figure v-for="(value, key) in ratios" :key="key" class="ratio">
+          <span class="ratio__box" :style="{ aspectRatio: `var(--ns-aspect-${key})` }">
+            {{ value.replace(/ /g, "") }}
+          </span>
+          <figcaption>
+            <strong>{{ key }}</strong>
+            <small class="muted">{{ ratioText[key] }}</small>
+            <TokenCode :value="`--ns-aspect-${key}`" />
+          </figcaption>
+        </figure>
       </div>
     </section>
   </div>

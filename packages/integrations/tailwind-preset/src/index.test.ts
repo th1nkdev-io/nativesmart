@@ -29,5 +29,11 @@ describe("tailwind preset", () => {
     expect(extend.backgroundImage["ns-brand-soft"]).toBe("var(--ns-gradient-brand-soft)");
     expect(extend.colors.ns["data-cat-10"]).toBe("var(--ns-data-cat-10)");
     expect(extend.colors.ns["state-hover"]).toBe("var(--ns-state-hover)");
+    expect(extend.spacing["ns-0-5"]).toBe("var(--ns-space-0-5)");
+    expect(extend.spacing["ns-inset-md"]).toBe("var(--ns-inset-md)");
+    expect(extend.maxWidth["ns-normal"]).toBe("var(--ns-measure-normal)");
+    expect(extend.aspectRatio["ns-video"]).toBe("var(--ns-aspect-video)");
+    expect(extend.borderRadius["ns-sheet"]).toBe("var(--ns-radius-sheet)");
+    expect(extend.fontFamily["ns-serif"]).toBe("var(--ns-font-serif)");
   });
 });

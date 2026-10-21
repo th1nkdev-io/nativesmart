@@ -4,10 +4,11 @@ import { colors } from "./colors";
 import { elevation } from "./elevation";
 import { motion } from "./motion";
 import { alpha, opacity } from "./opacity";
-import { radius } from "./radius";
+import { chrome, grid } from "./layout";
+import { cornerSmoothing, radius } from "./radius";
 import { shadows } from "./shadows";
-import { density, sizing } from "./sizing";
-import { spacing } from "./spacing";
+import { aspectRatios, density, sizing } from "./sizing";
+import { spaceUsages, spacing } from "./spacing";
 import { typography } from "./typography";
 import { zIndex } from "./zIndex";
 
@@ -16,16 +17,26 @@ export type { ElevationLevel, ShadowLayer } from "./elevation";
 export { darkShadowStrength } from "./elevation";
 export { stateLayers, type StateLayer } from "./opacity";
 export type { RadiusKey } from "./radius";
+export type { SpacingKey } from "./spacing";
+export { safeAreas, type GridBreakpoint } from "./layout";
 export type { DensityKey } from "./sizing";
-export type { FontSizeKey, FontWeightKey, LetterSpacingKey } from "./typography";
+export type { FontSizeKey, FontWeightKey, LeadingKey, LetterSpacingKey } from "./typography";
 
 export const primitives = {
   colors,
   spacing,
+  /** Spacing by intent: inset, stack, inline and section. */
+  spaceUsages,
   radius,
+  cornerSmoothing,
   typography,
   sizing,
   density,
+  aspectRatios,
+  /** Responsive grid per breakpoint. */
+  grid,
+  /** Sizes of the application frame. */
+  chrome,
   borders,
   elevation,
   /** Single-layer shadows used by the React Native and Flutter renderers. */

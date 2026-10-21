@@ -155,3 +155,41 @@ describe("color system", () => {
     expect(semanticColorRoles.length).toBeGreaterThan(100);
   });
 });
+
+describe("type, space, layout and shape", () => {
+  const css = toCss(brandThemes.nativesmart);
+
+  it("makes display and page titles fluid between 375px and 1440px", () => {
+    expect(css).toContain("--ns-text-display-xl-size: clamp(48px, 31.10px + 4.507vw, 96px);");
+    expect(css).toContain("--ns-text-h1-line-height: var(--ns-leading-snug);");
+    expect(css).toContain("--ns-text-body-md-line-height: var(--ns-line-height-md);");
+  });
+
+  it("writes half spacing steps with a dash and spacing by intent", () => {
+    expect(css).toContain("--ns-space-0-5: 2px;");
+    expect(css).toContain("--ns-inset-md: var(--ns-space-3);");
+    expect(css).toContain("--ns-section-xl: var(--ns-space-32);");
+  });
+
+  it("changes the grid at each breakpoint", () => {
+    expect(css).toContain("--ns-grid-columns: 4;");
+    expect(css).toMatch(
+      /@media \(min-width: 1024px\) \{\n {2}:root \{\n {4}--ns-grid-columns: 12;/
+    );
+  });
+
+  it("completes the fonts and shapes a brand does not set", () => {
+    const theme = brandThemes["cv-action"];
+    expect(theme.typography.fontFamily.display).toEqual(theme.typography.fontFamily.heading);
+    expect(theme.typography.fontFamily.serif.at(-1)).toBe("serif");
+    expect(theme.shape.input).toBe(theme.shape.control);
+    expect(theme.shape.avatar).toBe("full");
+    expect(css).toContain("--ns-radius-sheet: var(--ns-radius-xl);");
+  });
+
+  it("adds a class modifier for tabular, italic and underlined styles", () => {
+    expect(css).toMatch(/\.ns-text-price \{[^}]*font-variant-numeric: tabular-nums;/);
+    expect(css).toMatch(/\.ns-text-quote \{[^}]*font-style: italic;/);
+    expect(css).toMatch(/\.ns-text-link \{[^}]*text-decoration-line: underline;/);
+  });
+});
