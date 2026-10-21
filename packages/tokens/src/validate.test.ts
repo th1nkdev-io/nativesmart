@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { brandThemes, defaultBrandThemeId } from "./brands";
+import { brandThemes, defaultBrandThemeId, defineBrandTheme } from "./brands";
 import { cssColorVariable, forcedColor, toCss, toScopedCss } from "./css";
+import { toDart } from "./formats/dart";
+import { toDesignTokens } from "./formats/dtcg";
+import { toKotlin } from "./formats/kotlin";
+import { tokenReference } from "./formats/reference";
+import { toSwift } from "./formats/swift";
 import { primitives, palette } from "./primitives";
 import { mix } from "./semantic/color-math";
 import { contrastRatio } from "./semantic/contrast";
@@ -217,7 +222,8 @@ describe("elevation, motion and preferences", () => {
   });
 
   it("lightens raised surfaces in dark mode only", () => {
-    const dark = css.slice(css.indexOf('.dark,\n[data-ns-theme="dark"]'));
+    const start = css.indexOf('.dark,\n[data-ns-theme="dark"]');
+    const dark = css.slice(start, css.indexOf("}", start));
     expect(css).toContain("--ns-surface-level-5: #ffffff;");
     expect(dark).toContain("--ns-surface-level-0: #0f172a;");
     expect(dark).not.toContain("--ns-surface-level-5: #ffffff;");
@@ -246,5 +252,80 @@ describe("elevation, motion and preferences", () => {
     expect(css).toContain(
       ".ns-animate-fade-in {\n  animation: ns-fade-in var(--ns-transition-enter) both;"
     );
+  });
+});
+
+describe("personality and high contrast", () => {
+  it("builds shapes from the personality unless the brand sets them", () => {
+    expect(brandThemes.nativesmart.personality.shape).toBe("soft");
+    expect(brandThemes.nativesmart.shape.control).toBe("md");
+    expect(brandThemes["cv-action"].shape.control).toBe("sm");
+  });
+
+  it("writes motion, weights and density only for non standard traits", () => {
+    const base = brandThemes.nativesmart;
+    const calm = defineBrandTheme({
+      ...base,
+      personality: { motion: "calm", headings: "light", density: "compact" },
+      shape: undefined
+    });
+    const css = toCss(calm);
+    expect(css).toContain("--ns-duration-normal: 225ms;");
+    expect(css).toContain("--ns-text-h1-weight: var(--ns-font-weight-medium);");
+    expect(toCss(base)).toContain("--ns-text-h1-weight: var(--ns-font-weight-bold);");
+    expect(css.slice(0, css.indexOf("[data-ns-theme"))).toContain("--ns-control-height-md: 36px;");
+  });
+
+  it("reaches AAA in the high contrast themes", () => {
+    for (const theme of Object.values(brandThemes)) {
+      for (const result of checkContrast(theme, true)) {
+        expect(result.ratio).toBeGreaterThanOrEqual(result.minimum);
+      }
+    }
+    expect(toCss(brandThemes.nativesmart)).toContain('[data-ns-theme="dark-hc"] {');
+  });
+});
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+describe("platform exports", () => {
+  it("writes every role and scale in Swift, Kotlin and Dart", () => {
+    const swift = toSwift();
+    const kotlin = toKotlin();
+    const dart = toDart();
+    for (const role of semanticColorRoles) {
+      expect(swift).toContain(`public let ${role}: Color`);
+      expect(kotlin).toContain(`val ${role}: Color`);
+      expect(dart).toContain(`final Color ${role};`);
+    }
+    expect(swift).toContain("public static let s0_5: CGFloat = 2");
+    expect(swift).toContain(
+      "public static let bouncy = Animation.interpolatingSpring(mass: 1, stiffness: 200, damping: 12)"
+    );
+    expect(kotlin).toContain("primary = Color(0xFF0A66CC)");
+    expect(kotlin).toContain("val xl2 = 24.dp");
+    expect(dart).toContain("static const fast = Duration(milliseconds: 120);");
+    expect(dart).toContain("static const nativesmartDarkHighContrast = NsThemeData(");
+  });
+
+  it("writes W3C design tokens with references between text styles and scales", () => {
+    const tokens = toDesignTokens(brandThemes.nativesmart, "light") as Record<string, any>;
+    expect(tokens.color.primary).toEqual({ $type: "color", $value: "#0a66cc" });
+    expect(tokens.space["4"].$value).toEqual({ value: 16, unit: "px" });
+    expect(tokens.radius.card.$value).toBe("{radius.lg}");
+    expect(tokens.typography.h1.$value.fontSize).toBe("{fontSize.4xl}");
+    expect(tokens.easing.standard.$value).toEqual([0.2, 0, 0, 1]);
+  });
+
+  it("gives the reference of a token in each platform", () => {
+    expect(tokenReference("--ns-color-on-primary", "kotlin")).toBe("NsTheme.colors.onPrimary");
+    expect(tokenReference("--ns-color-on-primary", "dart")).toBe(
+      "NsTheme.of(context).colors.onPrimary"
+    );
+    expect(tokenReference("--ns-space-0-5", "swift")).toBe("NsTokens.Space.s0_5");
+    expect(tokenReference("--ns-radius-2xl", "kotlin")).toBe("NsTokens.Radius.xl2");
+    expect(tokenReference("--ns-radius-card", "swift")).toBe("theme.shape.card");
+    expect(tokenReference("ns-text-display-lg", "dart")).toBe("NsTextStyles.displayLg");
+    expect(tokenReference("--ns-space-4", "react-native")).toBe('theme.spacing["4"]');
+    expect(tokenReference("--ns-gradient-brand", "swift")).toBeNull();
   });
 });

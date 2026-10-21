@@ -14,6 +14,10 @@
     "./json/themes": "./dist/json/themes.json",
     "./json/brands": "./dist/json/brands.json",
     "./css/*": "./dist/css/*",
+    "./dtcg/*": "./dist/dtcg/*",
+    "./swift/*": "./dist/swift/*",
+    "./compose/*": "./dist/compose/*",
+    "./flutter/*": "./dist/flutter/*",
     "./react-native": {
       "types": "./dist/react-native/tokens.d.ts",
       "default": "./dist/react-native/tokens.ts"

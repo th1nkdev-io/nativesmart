@@ -19,11 +19,11 @@ export const thinkdevTheme = defineBrandTheme({
       mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"]
     }
   },
-  shape: {
-    control: "md",
-    card: "lg",
-    overlay: "xl",
-    badge: "full"
+  personality: {
+    shape: "soft",
+    motion: "standard",
+    headings: "balanced",
+    density: "comfortable"
   },
   shadowTint: {
     light: palette.slate[900],

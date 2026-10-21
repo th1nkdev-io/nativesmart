@@ -2,6 +2,10 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { brandThemes } from "./brands";
 import { toCss } from "./css";
+import { toDart } from "./formats/dart";
+import { toDesignTokens } from "./formats/dtcg";
+import { toKotlin } from "./formats/kotlin";
+import { toSwift } from "./formats/swift";
 import { primitives } from "./tokens";
 import { themes } from "./themes";
 import { validateTokens } from "./validate";
@@ -32,7 +36,26 @@ async function main() {
     await writeFile(resolve(packageRoot, `dist/css/${theme.id}.css`), toCss(theme));
   }
 
+  for (const theme of Object.values(brandThemes)) {
+    for (const mode of ["light", "dark"] as const) {
+      await writeJson(
+        resolve(packageRoot, `dist/dtcg/${theme.id}.${mode}.tokens.json`),
+        toDesignTokens(theme, mode)
+      );
+      await writeJson(
+        resolve(packageRoot, `dist/dtcg/${theme.id}.${mode}-hc.tokens.json`),
+        toDesignTokens(theme, mode, true)
+      );
+    }
+  }
+
+  await mkdir(resolve(packageRoot, "dist/swift"), { recursive: true });
+  await writeFile(resolve(packageRoot, "dist/swift/NativesmartTokens.swift"), toSwift());
+  await mkdir(resolve(packageRoot, "dist/compose"), { recursive: true });
+  await writeFile(resolve(packageRoot, "dist/compose/NativesmartTokens.kt"), toKotlin());
+
   await mkdir(resolve(packageRoot, "dist/flutter"), { recursive: true });
+  await writeFile(resolve(packageRoot, "dist/flutter/nativesmart_theme.g.dart"), toDart());
   await writeFile(
     resolve(packageRoot, "dist/flutter/nativesmart_tokens.g.dart"),
     [

@@ -1,0 +1,128 @@
+import { brandThemes, type BrandTheme } from "../brands";
+import { primitives } from "../primitives";
+import { semanticColorRoles, type SemanticColors } from "../semantic/roles";
+import { textStyles, type TextStyle } from "../semantic/text-styles";
+
+/**
+ * A token key as an identifier valid in Swift, Kotlin and Dart: `4` becomes `s4`, `0.5` becomes
+ * `s0_5`, `2xl` becomes `xl2` and `display-lg` becomes `displayLg`.
+ */
+export function identifier(key: string | number, numericPrefix = "s") {
+  const value = String(key);
+  const sized = value.match(/^(\d+)(x[sl])$/);
+  if (sized) return `${sized[2]}${sized[1]}`;
+  if (/^\d/.test(value)) return `${numericPrefix}${value.replace(".", "_")}`;
+  return value.replace(/-([a-z0-9])/g, (_, letter: string) => letter.toUpperCase());
+}
+
+/** `cv-action` becomes `CvAction`. */
+export function typeName(value: string) {
+  const name = identifier(value);
+  return `${name.charAt(0).toUpperCase()}${name.slice(1)}`;
+}
+
+export type NativeScale = {
+  /** Type name in Swift and Kotlin (`NsTokens.Space`), with `Ns` in Dart (`NsSpace`). */
+  name: string;
+  /** Unit of the values: points/dp/logical pixels, scaled pixels, milliseconds or a raw number. */
+  unit: "dimension" | "font" | "duration" | "number" | "em";
+  values: Readonly<Record<string, number>>;
+  /** Prefix for numeric keys. */
+  prefix?: string;
+};
+
+/** Numeric scales shared by every brand, written once in each native language. */
+export const nativeScales: readonly NativeScale[] = [
+  { name: "Space", unit: "dimension", values: primitives.spacing },
+  { name: "Radius", unit: "dimension", values: primitives.radius },
+  { name: "FontSize", unit: "font", values: primitives.typography.fontSize },
+  { name: "LineHeight", unit: "font", values: primitives.typography.lineHeight },
+  { name: "LetterSpacing", unit: "em", values: primitives.typography.letterSpacing },
+  { name: "Duration", unit: "duration", values: primitives.motion.duration },
+  { name: "ControlHeight", unit: "dimension", values: primitives.sizing.control },
+  { name: "IconSize", unit: "dimension", values: primitives.sizing.icon },
+  { name: "AvatarSize", unit: "dimension", values: primitives.sizing.avatar },
+  { name: "TouchTarget", unit: "dimension", values: primitives.sizing.touchTargets },
+  { name: "Opacity", unit: "number", values: primitives.opacity },
+  {
+    name: "Elevation",
+    unit: "dimension",
+    prefix: "level",
+    values: { 0: 0, 1: 1, 2: 3, 3: 6, 4: 8, 5: 12 }
+  }
+];
+
+export const fontWeights = Object.fromEntries(
+  Object.entries(primitives.typography.fontWeight).map(([key, value]) => [key, Number(value)])
+);
+
+export function bezier(value: string): [number, number, number, number] {
+  const match = value.match(/cubic-bezier\(([^)]+)\)/);
+  if (!match) return [0, 0, 1, 1];
+  const [x1, y1, x2, y2] = match[1].split(",").map(Number);
+  return [x1, y1, x2, y2];
+}
+
+/** Damping ratio of a spring, the parameter Compose and SwiftUI ask for. */
+export function dampingRatio(spring: { stiffness: number; damping: number; mass: number }) {
+  return (
+    Math.round((spring.damping / (2 * Math.sqrt(spring.stiffness * spring.mass))) * 1000) / 1000
+  );
+}
+
+export type NativeTextStyle = {
+  name: string;
+  size: number;
+  lineHeight: number;
+  weight: number;
+  tracking: number;
+  family: TextStyle["family"];
+  italic: boolean;
+};
+
+/** Text styles at their largest size; native platforms scale them with the system text size. */
+export const nativeTextStyles: readonly NativeTextStyle[] = Object.entries(textStyles).map(
+  ([name, value]) => {
+    const style = value as TextStyle;
+    const size = primitives.typography.fontSize[style.size];
+    const relative = style.fluid?.leading ?? style.leading;
+    return {
+      name: identifier(name),
+      size,
+      lineHeight: relative
+        ? Math.round(size * primitives.typography.leading[relative])
+        : primitives.typography.lineHeight[style.size],
+      weight: Number(primitives.typography.fontWeight[style.weight]),
+      tracking: primitives.typography.letterSpacing[style.tracking],
+      family: style.family,
+      italic: Boolean(style.italic)
+    };
+  }
+);
+
+export type NativeThemeVariant = {
+  /** `light`, `dark`, `lightHighContrast`, `darkHighContrast`. */
+  name: string;
+  colors: SemanticColors;
+};
+
+export function themeVariants(theme: BrandTheme): readonly NativeThemeVariant[] {
+  return [
+    { name: "light", colors: theme.colors.light },
+    { name: "dark", colors: theme.colors.dark },
+    { name: "lightHighContrast", colors: theme.highContrast.light },
+    { name: "darkHighContrast", colors: theme.highContrast.dark }
+  ];
+}
+
+export const brands = Object.values(brandThemes) as BrandTheme[];
+export const colorRoles = semanticColorRoles;
+
+/** Radius in pixels of each shape usage of a brand. */
+export function shapeValues(theme: BrandTheme) {
+  return Object.fromEntries(
+    Object.entries(theme.shape).map(([usage, key]) => [usage, primitives.radius[key]])
+  );
+}
+
+export const header = "Generated by @nativesmart/tokens. Do not edit by hand.";

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   brandThemes,
+  checkContrast,
   contrastRatio,
   cssColorVariable,
   forcedColor,
@@ -32,6 +33,23 @@ const thresholds = computed(() =>
     return { ...item, minimum, color, ratio: contrastRatio(color, surface) };
   })
 );
+
+/* High contrast themes, next to the standard one of the current mode. */
+const hcVariants = computed(() => [
+  { label: "Standard", detail: "AA : 4,5:1 pour le texte", theme: undefined },
+  {
+    label: "Contraste élevé",
+    detail: "AAA : 7:1 pour le texte, 4,5:1 pour les bordures",
+    theme: state.mode === "dark" ? "dark-hc" : "light-hc"
+  }
+]);
+const hcSummary = computed(() => {
+  const results = Object.values(brandThemes).flatMap((theme) => checkContrast(theme, true));
+  return {
+    total: results.length,
+    pass: results.filter((result) => result.ratio >= result.minimum).length
+  };
+});
 
 /* System preferences, simulated on the preview below. */
 const prefs = reactive({ contrast: false, transparency: false, motion: false, forced: false });
@@ -240,6 +258,43 @@ const attributes = [
           </tbody>
         </table>
       </div>
+    </section>
+
+    <section class="token-section">
+      <header class="token-section__header">
+        <h2>Thèmes contraste élevé</h2>
+        <p>
+          Chaque identité a aussi une version contraste élevé, en clair et en sombre : fond pur,
+          texte à 7:1 (AAA), bordures à 4,5:1, teintes de la marque conservées. Activez-la avec
+          <code>data-ns-theme="light-hc"</code> ou <code>"dark-hc"</code>, par exemple depuis un
+          réglage de l'app.
+        </p>
+      </header>
+      <div class="hc-compare lab-preview">
+        <figure v-for="variant in hcVariants" :key="variant.label">
+          <div class="hc-sample" :data-ns-theme="variant.theme">
+            <header>
+              <strong>Virement programmé</strong>
+              <span class="hc-sample__badge">Actif</span>
+            </header>
+            <p>Chaque mois, le 5, vers le compte épargne.</p>
+            <span class="hc-sample__field">Montant · 25 000 FCFA</span>
+            <div class="hc-sample__actions">
+              <span class="hc-sample__button">Modifier</span>
+              <span class="hc-sample__soft">Plus tard</span>
+              <span class="hc-sample__link">Historique</span>
+            </div>
+          </div>
+          <figcaption>
+            <strong>{{ variant.label }}</strong>
+            <small class="muted">{{ variant.detail }}</small>
+          </figcaption>
+        </figure>
+      </div>
+      <p class="token-note">
+        {{ hcSummary.pass }} paires sur {{ hcSummary.total }} atteignent leur cible en contraste
+        élevé, sans exception, pour les trois identités et les deux modes.
+      </p>
     </section>
 
     <section class="token-section">

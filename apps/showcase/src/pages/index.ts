@@ -32,6 +32,8 @@ export const tokenSections = [
   { id: "motion", label: "Mouvement" },
   { id: "icons", label: "Iconographie" },
   { id: "accessibility", label: "Accessibilité" },
+  { id: "personality", label: "Personnalité" },
+  { id: "exports", label: "Exports" },
   { id: "system", label: "Système" }
 ] as const;
 

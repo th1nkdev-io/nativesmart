@@ -6,6 +6,23 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "21 octobre 2026",
+    title: "Personnalités, contraste élevé et exports natifs",
+    changes: [
+      { kind: "Nouveau", text: "Personnalité d'identité : formes, mouvement, titres et densité" },
+      {
+        kind: "Nouveau",
+        text: "Thèmes contraste élevé AAA en clair et en sombre pour chaque identité"
+      },
+      { kind: "Nouveau", text: "Exports W3C Design Tokens, SwiftUI, Jetpack Compose et Flutter" },
+      {
+        kind: "Nouveau",
+        text: "Les tokens du Lab s'affichent dans le langage de la technologie active"
+      },
+      { kind: "Nouveau", text: "Pages Personnalité et Exports dans le Lab" }
+    ]
+  },
+  {
+    date: "21 octobre 2026",
     title: "Élévation, mouvement et accessibilité",
     changes: [
       { kind: "Nouveau", text: "Élévation par usage, ombres internes, halos et surfaces sombres" },

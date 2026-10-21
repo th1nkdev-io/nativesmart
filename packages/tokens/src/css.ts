@@ -12,6 +12,7 @@ import {
 import type { AvatarColors, ColorMode, DataVizColors } from "./semantic/derive";
 import { gradients } from "./semantic/gradients";
 import { mix } from "./semantic/color-math";
+import { headingShift, motionPresets, shiftWeight, type Personality } from "./semantic/personality";
 import {
   colorIntents,
   semanticColorRoles,
@@ -205,6 +206,28 @@ export function foundationVariables(): Record<string, string> {
   return variables;
 }
 
+/** Motion and density of a personality. Standard traits write nothing, so the scales apply. */
+function personalityVariables(personality: Personality) {
+  const variables: Record<string, string> = {};
+  const preset = motionPresets[personality.motion];
+  if (personality.motion !== "standard") {
+    for (const [key, value] of entries(primitives.motion.duration)) {
+      variables[`${cssPrefix}-duration-${key}`] = `${Math.round(value * preset.durationFactor)}ms`;
+    }
+    variables[`${cssPrefix}-easing-standard`] = preset.standard;
+    variables[`${cssPrefix}-easing-emphasized`] = preset.emphasized;
+    // Re-declared so they read the brand's durations and curves.
+    for (const [name, transition] of entries(primitives.motion.transition)) {
+      variables[`${cssPrefix}-transition-${name}`] =
+        `var(${cssPrefix}-duration-${transition.duration}) var(${cssPrefix}-easing-${kebab(transition.easing)})`;
+    }
+  }
+  if (personality.density !== "comfortable") {
+    Object.assign(variables, densityVariables(primitives.density[personality.density]));
+  }
+  return variables;
+}
+
 /** A spring curve as a CSS `linear()` easing, about forty evenly spaced points. */
 function springEasing(samples: readonly number[]) {
   const count = 40;
@@ -242,7 +265,11 @@ export function brandVariables(theme: BrandTheme): Record<string, string> {
       fluid || leading
         ? `var(${cssPrefix}-leading-${fluid?.leading ?? leading})`
         : `var(${cssPrefix}-line-height-${style.size})`;
-    variables[`${prefix}-weight`] = `var(${cssPrefix}-font-weight-${style.weight})`;
+    const weight =
+      style.category === "display" || style.category === "heading"
+        ? shiftWeight(style.weight, headingShift[theme.personality.headings])
+        : style.weight;
+    variables[`${prefix}-weight`] = `var(${cssPrefix}-font-weight-${weight})`;
     variables[`${prefix}-tracking`] = `var(${cssPrefix}-tracking-${style.tracking})`;
   }
 
@@ -251,6 +278,8 @@ export function brandVariables(theme: BrandTheme): Record<string, string> {
     variables[`${cssPrefix}-gradient-${kebab(name)}`] =
       `linear-gradient(${gradient.angle}deg, ${stops})`;
   }
+
+  Object.assign(variables, personalityVariables(theme.personality));
 
   // Effects that read brand colors are declared with the brand, so a scoped identity gets its own.
   // A two-tone ring drawn with box-shadow: it follows the corner radius and survives
@@ -309,13 +338,13 @@ export function dataVariables(dataviz: DataVizColors, avatars: AvatarColors) {
 }
 
 /** Every variable of a brand theme that changes with the color mode. */
-function modeVariables(theme: BrandTheme, mode: ColorMode) {
+function modeVariables(theme: BrandTheme, mode: ColorMode, highContrast = false) {
   const light = mode === "light";
   const tint = light ? theme.shadowTint.light : theme.shadowTint.dark;
   const strength = light ? 1 : darkShadowStrength;
   const { surface, surfaceRaised } = theme.colors[mode];
   return {
-    ...colorVariables(theme.colors[mode]),
+    ...colorVariables(highContrast ? theme.highContrast[mode] : theme.colors[mode]),
     ...dataVariables(theme.dataviz[mode], theme.avatars[mode]),
     ...elevationVariables(tint, strength),
     ...Object.fromEntries(
@@ -589,6 +618,8 @@ export function toCss(theme: BrandTheme) {
     block(":root", { ...foundationVariables(), ...brandVariables(theme), ...light }),
     block('[data-ns-theme="light"]', light),
     block('.dark,\n[data-ns-theme="dark"]', dark),
+    block('[data-ns-theme="light-hc"]', modeVariables(theme, "light", true)),
+    block('[data-ns-theme="dark-hc"]', modeVariables(theme, "dark", true)),
     block('[data-ns-density="compact"]', densityVariables(primitives.density.compact)),
     block('[data-ns-density="spacious"]', densityVariables(primitives.density.spacious)),
     ...gridMediaQueries(),
@@ -614,6 +645,14 @@ export function toScopedCss(theme: BrandTheme, scope: string) {
     block(scope, { ...brandVariables(theme), ...light }),
     block(`[data-ns-theme="light"] ${scope}`, light),
     block(`.dark ${scope},\n[data-ns-theme="dark"] ${scope}`, dark),
+    block(
+      `${scope} [data-ns-theme="light-hc"],\n${scope}[data-ns-theme="light-hc"]`,
+      modeVariables(theme, "light", true)
+    ),
+    block(
+      `${scope} [data-ns-theme="dark-hc"],\n${scope}[data-ns-theme="dark-hc"]`,
+      modeVariables(theme, "dark", true)
+    ),
     ""
   ].join("\n\n");
 }

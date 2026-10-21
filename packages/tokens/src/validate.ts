@@ -1,6 +1,7 @@
 import { brandThemes, type BrandTheme } from "./brands";
 import { colorSteps, primitives } from "./primitives";
 import { contrastPairs, contrastRatio } from "./semantic/contrast";
+import { highContrastTargets } from "./semantic/high-contrast";
 import { semanticColorRoles } from "./semantic/roles";
 
 const hexColorPattern = /^#([0-9a-f]{6})$/i;
@@ -31,23 +32,32 @@ export type ContrastResult = {
   exception?: string;
 };
 
-/** Checks every required contrast pair of a brand theme in both modes. */
-export function checkContrast(theme: BrandTheme): ContrastResult[] {
+/**
+ * Checks every required contrast pair of a brand theme in both modes. With `highContrast`, checks
+ * the AAA themes instead: 7:1 for text and 4.5:1 for indicators, with no exceptions.
+ */
+export function checkContrast(theme: BrandTheme, highContrast = false): ContrastResult[] {
   return (["light", "dark"] as const).flatMap((mode) =>
     contrastPairs.map((pair) => {
-      const colors = theme.colors[mode];
-      const exception = theme.contrastExceptions?.find(
-        (item) =>
-          item.mode === mode &&
-          item.foreground === pair.foreground &&
-          item.background === pair.background
-      );
+      const colors = highContrast ? theme.highContrast[mode] : theme.colors[mode];
+      const exception = highContrast
+        ? undefined
+        : theme.contrastExceptions?.find(
+            (item) =>
+              item.mode === mode &&
+              item.foreground === pair.foreground &&
+              item.background === pair.background
+          );
       return {
         mode,
         foreground: pair.foreground,
         background: pair.background,
         ratio: contrastRatio(colors[pair.foreground], colors[pair.background]),
-        minimum: pair.minimum,
+        minimum: highContrast
+          ? pair.minimum === 3
+            ? highContrastTargets.ui
+            : highContrastTargets.text
+          : pair.minimum,
         usage: pair.usage,
         exception: exception?.reason
       };
@@ -114,7 +124,7 @@ export function validateTokens() {
       });
     }
 
-    for (const result of checkContrast(theme)) {
+    for (const result of [...checkContrast(theme), ...checkContrast(theme, true)]) {
       if (result.ratio < result.minimum && !result.exception) {
         errors.push(
           `${path} ${result.mode}: ${result.foreground} on ${result.background} is ` +

@@ -6,6 +6,8 @@ import {
   type AvatarColors,
   type DataVizColors
 } from "../semantic/derive";
+import { resolveHighContrast } from "../semantic/high-contrast";
+import { defaultPersonality, shapePresets, type Personality } from "../semantic/personality";
 import type { BrandColors, SemanticColorRole, SemanticColors } from "../semantic/roles";
 
 export type FontStack = readonly string[];
@@ -45,11 +47,13 @@ export type BrandThemeInput = {
       serif?: FontStack;
     };
   };
+  /** Character traits: corners, motion, title weight and density. Unset traits use the defaults. */
+  personality?: Partial<Personality>;
   /**
-   * Corner radius per usage, picked from the radius scale. The four first usages are required; the
-   * others follow them unless the brand sets them.
+   * Corner radius per usage, picked from the radius scale. Unset usages come from the shape trait
+   * of the personality; the secondary usages then follow the base ones.
    */
-  shape: Pick<BrandShape, "control" | "card" | "overlay" | "badge"> & Partial<BrandShape>;
+  shape?: Partial<BrandShape>;
   /** Shadow color per mode; elevation opacities are applied on top. */
   shadowTint: {
     light: string;
@@ -81,19 +85,26 @@ export type BrandFonts = Required<BrandThemeInput["typography"]["fontFamily"]>;
 const systemSerif: FontStack = ["Georgia", "Cambria", "Times New Roman", "serif"];
 
 /** A brand theme with every role resolved, plus its chart and avatar colors. */
-export type BrandTheme = Omit<BrandThemeInput, "colors" | "typography" | "shape"> & {
+export type BrandTheme = Omit<
+  BrandThemeInput,
+  "colors" | "typography" | "shape" | "personality"
+> & {
   typography: { fontFamily: BrandFonts };
+  personality: Personality;
   shape: BrandShape;
   colors: { light: SemanticColors; dark: SemanticColors };
+  /** AAA versions of the colors, for `data-ns-theme="light-hc"` and `"dark-hc"`. */
+  highContrast: { light: SemanticColors; dark: SemanticColors };
   dataviz: { light: DataVizColors; dark: DataVizColors };
   avatars: { light: AvatarColors; dark: AvatarColors };
 };
 
 export function defineBrandTheme<const T extends BrandThemeInput>(
   theme: T
-): Omit<T, "colors" | "typography" | "shape"> & BrandTheme {
+): Omit<T, "colors" | "typography" | "shape" | "personality"> & BrandTheme {
   const { fontFamily } = theme.typography;
-  const shape = theme.shape;
+  const personality = { ...defaultPersonality, ...theme.personality };
+  const shape = { ...shapePresets[personality.shape], ...theme.shape };
   const colors = {
     light: resolveColors(theme.colors.light, theme.palette, "light"),
     dark: resolveColors(theme.colors.dark, theme.palette, "dark")
@@ -107,6 +118,7 @@ export function defineBrandTheme<const T extends BrandThemeInput>(
         serif: fontFamily.serif ?? systemSerif
       }
     },
+    personality,
     shape: {
       button: shape.control,
       input: shape.control,
@@ -118,6 +130,10 @@ export function defineBrandTheme<const T extends BrandThemeInput>(
       ...shape
     },
     colors,
+    highContrast: {
+      light: resolveHighContrast(colors.light, theme.palette, "light"),
+      dark: resolveHighContrast(colors.dark, theme.palette, "dark")
+    },
     dataviz: {
       light: resolveDataViz(colors.light, theme.palette, "light"),
       dark: resolveDataViz(colors.dark, theme.palette, "dark")
