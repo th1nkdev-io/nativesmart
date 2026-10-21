@@ -21,7 +21,7 @@ const docPage = computed(() => findDocPage(state.page));
 const menuOpen = ref(false);
 const tocVisible = ref(false);
 // The contextual aside only takes room when it has something to show.
-const hasAside = computed(() => Boolean(contract.value) || tocVisible.value);
+const hasAside = computed(() => Boolean(contract.value) || (state.page !== "" && tocVisible.value));
 const canvas = ref<HTMLElement>();
 
 // The Lab always wears the NativeSmart identity so its screens are designed against one theme.
@@ -82,7 +82,11 @@ watchEffect(() => {
 
     <aside class="lab__aside" aria-label="Panneau contextuel">
       <div id="lab-aside" />
-      <OnThisPage v-if="!contract" :key="tocKey" @visible="tocVisible = $event" />
+      <OnThisPage
+        v-if="!contract && state.page !== ''"
+        :key="tocKey"
+        @visible="tocVisible = $event"
+      />
     </aside>
   </div>
 </template>

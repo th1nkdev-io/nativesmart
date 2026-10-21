@@ -1,7 +1,19 @@
 <script setup lang="ts">
-import DocPage from "./DocPage.vue";
+import EditorialPage from "../editorial/EditorialPage.vue";
+import Icon from "../editorial/Icon.vue";
+import PageHero from "../editorial/PageHero.vue";
 
 const releases = [
+  {
+    date: "21 octobre 2026",
+    title: "Pages éditoriales",
+    changes: [
+      { kind: "Nouveau", text: "Accueil, guides et ressources réécrits, avec illustrations 3D" },
+      { kind: "Nouveau", text: "Apparitions au défilement, compteurs animés et effets de survol" },
+      { kind: "Nouveau", text: "Comparateur clair/sombre et contrastes calculés en direct" },
+      { kind: "Corrigé", text: "Les sidebars restent pleine hauteur au-dessus du pied de page" }
+    ]
+  },
   {
     date: "20 octobre 2026",
     title: "Identité NativeSmart et Lab complet",
@@ -46,25 +58,46 @@ const releases = [
     ]
   }
 ];
+
+const total = releases.reduce((sum, release) => sum + release.changes.length, 0);
 </script>
 
 <template>
-  <DocPage
-    eyebrow="Ressources"
-    title="Journal des modifications"
-    lead="Les évolutions de NativeSmart, des plus récentes aux plus anciennes. Aucune version n'est encore publiée : tout fait partie de la 0.1.0 en préparation."
-  >
-    <section v-for="release in releases" :key="release.date" class="doc__section release">
-      <p class="release__date">{{ release.date }}</p>
-      <h2>{{ release.title }}</h2>
-      <ul class="release__changes">
-        <li v-for="change in release.changes" :key="change.text">
-          <span :class="['tag', change.kind === 'Corrigé' ? 'tag--fixed' : 'tag--new']">
-            {{ change.kind }}
-          </span>
-          {{ change.text }}
-        </li>
-      </ul>
-    </section>
-  </DocPage>
+  <EditorialPage>
+    <PageHero
+      eyebrow="Journal des modifications"
+      icon="clock"
+      lead="Les évolutions de NativeSmart, des plus récentes aux plus anciennes. Aucune version n'est encore publiée : tout fait partie de la 0.1.0 en préparation."
+    >
+      <template #title>
+        Ce qui a changé, <span class="ed-gradient">jour après jour.</span>
+      </template>
+      <template #meta>
+        <span><Icon name="check" :size="16" /> {{ total }} changements</span>
+        <span><Icon name="check" :size="16" /> {{ releases.length }} étapes</span>
+      </template>
+    </PageHero>
+
+    <ol class="releases">
+      <li v-for="(release, index) in releases" :key="release.date" class="release-item">
+        <div v-reveal:left class="release-item__date">
+          <span class="release-item__dot" :class="{ 'is-latest': index === 0 }" />
+          <time>{{ release.date }}</time>
+          <small v-if="index === 0">Dernière mise à jour</small>
+        </div>
+        <section v-reveal v-spotlight class="ed-card release-item__card">
+          <h2>{{ release.title }}</h2>
+          <ul>
+            <li v-for="change in release.changes" :key="change.text">
+              <span :class="['release-kind', change.kind === 'Corrigé' ? 'is-fix' : 'is-new']">
+                <Icon :name="change.kind === 'Corrigé' ? 'bug' : 'sparkles'" :size="13" />
+                {{ change.kind }}
+              </span>
+              <span>{{ change.text }}</span>
+            </li>
+          </ul>
+        </section>
+      </li>
+    </ol>
+  </EditorialPage>
 </template>

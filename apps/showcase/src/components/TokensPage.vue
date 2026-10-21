@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { brandThemes, semanticColorRoles, textStyles } from "@nativesmart/tokens";
 import { computed, type Component } from "vue";
+import TokenFlowArt from "../editorial/art/TokenFlowArt.vue";
+import PageHero from "../editorial/PageHero.vue";
 import { tokenSections } from "../pages";
 import { openPage, state } from "../state";
 import ColorsSection from "./tokens/ColorsSection.vue";
@@ -35,16 +37,16 @@ const current = computed(
 
 <template>
   <article class="page tokens-page">
-    <header class="page__header">
-      <p class="ns-text-overline eyebrow">Fondations · {{ theme.name }}</p>
-      <h1 class="ns-text-h1">Tokens</h1>
-      <p class="lead">
-        Les décisions visuelles de NativeSmart : {{ semanticColorRoles.length }} rôles de couleur,
-        {{ Object.keys(textStyles).length }} styles de texte, des échelles d'espacement, de taille,
-        de forme, d'élévation et de mouvement. Les aperçus suivent l'identité et le mode choisis
-        dans la barre du haut ; le Lab, lui, garde l'identité NativeSmart.
-      </p>
-    </header>
+    <PageHero
+      :eyebrow="`Fondations · ${theme.name}`"
+      icon="droplet"
+      :lead="`Les décisions visuelles de NativeSmart : ${semanticColorRoles.length} rôles de couleur, ${Object.keys(textStyles).length} styles de texte, des échelles d'espacement, de taille, de forme, d'élévation et de mouvement. Les aperçus suivent l'identité et le mode choisis ; le Lab, lui, garde l'identité NativeSmart.`"
+    >
+      <template #title> Chaque décision, <span class="ed-gradient">une variable.</span> </template>
+      <template #art>
+        <TokenFlowArt />
+      </template>
+    </PageHero>
 
     <nav class="subnav" aria-label="Sections des tokens">
       <a
