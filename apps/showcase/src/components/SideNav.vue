@@ -28,7 +28,7 @@ const legend = computed(() => [
   {
     value: "available" as const,
     label: "Disponibles",
-    short: "dispo.",
+    short: "disponibles",
     hint: `Codés en ${technology.value.name} et testables`
   },
   {
@@ -172,8 +172,10 @@ const visibleCount = computed(() =>
             :title="`${item.hint}. Cliquez pour ${filter === item.value ? 'tout afficher' : 'filtrer'}.`"
             @click="filter = filter === item.value ? null : item.value"
           >
-            <span :class="['dot', `dot--${item.value}`]" aria-hidden="true" />
-            <span class="status-legend__count">{{ counts[item.value] }}</span>
+            <span class="status-legend__count">
+              <span :class="['dot', `dot--${item.value}`]" aria-hidden="true" />
+              {{ counts[item.value] }}
+            </span>
             <span class="status-legend__label">{{ item.short }}</span>
           </button>
         </div>
@@ -206,7 +208,7 @@ const visibleCount = computed(() =>
             @click.prevent="openPage(contract.id)"
           >
             <span :class="['dot', `dot--${statusOf(contract)}`]" aria-hidden="true" />
-            {{ contract.name }}
+            <span class="sidenav__name" :title="contract.name">{{ contract.name }}</span>
           </a>
         </div>
       </div>
