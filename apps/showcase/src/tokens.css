@@ -408,7 +408,7 @@
   justify-items: center;
 }
 
-.weight span {
+.weight > span {
   font-size: var(--ns-font-size-3xl);
 }
 
@@ -587,20 +587,20 @@
   font-weight: var(--ns-font-weight-semibold);
 }
 
-.radius span {
+.radius > span {
   inline-size: 72px;
   block-size: 72px;
   border: 2px solid var(--ns-color-primary);
   background: var(--ns-color-primary-muted);
 }
 
-.border-demo span {
+.border-demo > span {
   inline-size: 72px;
   block-size: 48px;
   border-style: solid;
   border-color: var(--ns-color-border-strong);
   border-radius: var(--ns-radius-control);
-  background: var(--ns-color-surface);
+  background: var(--ns-color-surface-muted);
 }
 
 .border-demo span.border-demo__focus {
