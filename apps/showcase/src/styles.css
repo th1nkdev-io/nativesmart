@@ -223,12 +223,19 @@ svg {
   scrollbar-gutter: stable;
 }
 
-.lab__rail {
+/*
+ * The rail and the navigation scroll without a visible bar. Edge on Windows draws its own wide
+ * scrollbars over the reserved gutter and hid the right edge of the filters; without a native
+ * bar, every browser lays the sidebars out the same way.
+ */
+.lab__rail,
+.lab__nav {
   scrollbar-width: none;
   scrollbar-gutter: auto;
 }
 
-.lab__rail::-webkit-scrollbar {
+.lab__rail::-webkit-scrollbar,
+.lab__nav::-webkit-scrollbar {
   display: none;
 }
 
