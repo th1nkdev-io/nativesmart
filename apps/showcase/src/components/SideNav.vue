@@ -97,6 +97,13 @@ function toggle(key: string) {
   collapsed.value = next;
 }
 
+// The nav only scrolls vertically. Focusing the filter must never shift it sideways, whatever
+// rounding a browser applies to its width.
+function keepAligned(event: Event) {
+  const nav = event.currentTarget as HTMLElement;
+  if (nav.scrollLeft !== 0) nav.scrollLeft = 0;
+}
+
 function isCurrent(id: string) {
   return id === "tokens" ? state.page.startsWith("tokens") : state.page === id;
 }
@@ -107,7 +114,7 @@ const visibleCount = computed(() =>
 </script>
 
 <template>
-  <nav class="sidenav" aria-label="Navigation">
+  <nav class="sidenav" aria-label="Navigation" @scroll.passive="keepAligned">
     <section v-for="section in navSections" :key="section.id" class="sidenav__section">
       <h2 class="sidenav__heading">{{ section.label }}</h2>
       <a

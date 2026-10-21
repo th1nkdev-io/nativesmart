@@ -974,8 +974,12 @@ kbd {
 
 /* Side navigation */
 
+/*
+ * The nav itself has no side padding: each section brings its own, so the pinned filters can
+ * span the full width with their background, without negative margins.
+ */
 .sidenav {
-  padding: var(--ns-space-4) var(--ns-space-3) var(--ns-space-8);
+  padding: var(--ns-space-4) 0 var(--ns-space-8);
   border-inline-end: 1px solid var(--ns-color-border);
   background: var(--ns-color-surface);
 }
@@ -1045,12 +1049,8 @@ kbd {
   z-index: 2;
   display: grid;
   gap: 10px;
-  padding-block: var(--ns-space-4) var(--ns-space-3);
+  padding: var(--ns-space-4) var(--ns-space-3) var(--ns-space-3);
   background: var(--ns-color-surface);
-  /* Paints over the side padding of the nav without widening its content. */
-  box-shadow:
-    calc(var(--ns-space-3) * -1) 0 0 var(--ns-color-surface),
-    var(--ns-space-3) 0 0 var(--ns-color-surface);
 }
 
 .sidenav__tools::after {
@@ -1062,8 +1062,17 @@ kbd {
   pointer-events: none;
 }
 
+.sidenav__section {
+  padding-inline: var(--ns-space-3);
+}
+
 .sidenav__components {
   margin-block-start: var(--ns-space-1);
+  padding-inline: 0;
+}
+
+.sidenav__components > :not(.sidenav__tools) {
+  margin-inline: var(--ns-space-3);
 }
 
 .sidenav__tools .sidenav__heading {
