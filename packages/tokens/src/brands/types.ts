@@ -1,5 +1,12 @@
 import type { ColorScale, RadiusKey } from "../primitives";
-import type { SemanticColorRole, SemanticColors } from "../semantic/roles";
+import {
+  resolveAvatars,
+  resolveColors,
+  resolveDataViz,
+  type AvatarColors,
+  type DataVizColors
+} from "../semantic/derive";
+import type { BrandColors, SemanticColorRole, SemanticColors } from "../semantic/roles";
 
 export type FontStack = readonly string[];
 
@@ -11,10 +18,10 @@ export type ContrastException = {
 };
 
 /**
- * A brand theme gives values to every semantic role. Components never change between brands:
- * only these values do.
+ * A brand theme as written: the core color roles, plus any derived role to override. Components
+ * never change between brands: only these values do.
  */
-export type BrandTheme = {
+export type BrandThemeInput = {
   id: string;
   name: string;
   description: string;
@@ -25,8 +32,8 @@ export type BrandTheme = {
     neutral: ColorScale;
   };
   colors: {
-    light: SemanticColors;
-    dark: SemanticColors;
+    light: BrandColors;
+    dark: BrandColors;
   };
   typography: {
     fontFamily: {
@@ -51,6 +58,27 @@ export type BrandTheme = {
   contrastExceptions?: readonly ContrastException[];
 };
 
-export function defineBrandTheme<const T extends BrandTheme>(theme: T): T {
-  return theme;
+/** A brand theme with every semantic role resolved, plus its chart and avatar colors. */
+export type BrandTheme = Omit<BrandThemeInput, "colors"> & {
+  colors: { light: SemanticColors; dark: SemanticColors };
+  dataviz: { light: DataVizColors; dark: DataVizColors };
+  avatars: { light: AvatarColors; dark: AvatarColors };
+};
+
+export function defineBrandTheme<const T extends BrandThemeInput>(
+  theme: T
+): Omit<T, "colors"> & BrandTheme {
+  const colors = {
+    light: resolveColors(theme.colors.light, theme.palette, "light"),
+    dark: resolveColors(theme.colors.dark, theme.palette, "dark")
+  };
+  return {
+    ...theme,
+    colors,
+    dataviz: {
+      light: resolveDataViz(colors.light, theme.palette, "light"),
+      dark: resolveDataViz(colors.dark, theme.palette, "dark")
+    },
+    avatars: { light: resolveAvatars("light"), dark: resolveAvatars("dark") }
+  };
 }

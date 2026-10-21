@@ -94,6 +94,26 @@ export function validateTokens() {
       if (stack.length === 0) errors.push(`${path}.typography.fontFamily.${key} is empty`);
     }
 
+    for (const mode of ["light", "dark"] as const) {
+      const { surface, background } = theme.colors[mode];
+      theme.dataviz[mode].categorical.forEach((color, index) => {
+        for (const base of [surface, background]) {
+          const ratio = contrastRatio(color, base);
+          if (ratio < 3) {
+            errors.push(
+              `${path} ${mode}: chart series ${index + 1} is ${ratio.toFixed(2)}:1, below 3:1`
+            );
+          }
+        }
+      });
+      theme.avatars[mode].forEach((pair, index) => {
+        const ratio = contrastRatio(pair.foreground, pair.background);
+        if (ratio < 4.5) {
+          errors.push(`${path} ${mode}: avatar ${index + 1} is ${ratio.toFixed(2)}:1, below 4.5:1`);
+        }
+      });
+    }
+
     for (const result of checkContrast(theme)) {
       if (result.ratio < result.minimum && !result.exception) {
         errors.push(

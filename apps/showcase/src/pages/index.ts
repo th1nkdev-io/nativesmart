@@ -21,6 +21,8 @@ export type NavSection = { id: string; label: string; items: readonly NavItem[] 
 /** Sections of the Tokens page, each with its own URL (`tokens/<id>`). */
 export const tokenSections = [
   { id: "colors", label: "Couleurs" },
+  { id: "states", label: "États" },
+  { id: "data", label: "Données" },
   { id: "typography", label: "Typographie" },
   { id: "spacing", label: "Espacements" },
   { id: "sizing", label: "Tailles" },

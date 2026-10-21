@@ -1,9 +1,9 @@
 import { palette } from "../primitives";
-import type { SemanticColors } from "./roles";
+import type { BrandColors } from "./roles";
 
 const { slate, emerald, blue, amber, red } = palette;
 
-/** Default semantic colors (Thinkdev theme): emerald primary, blue secondary, slate neutrals. */
+/** Core semantic colors of the Thinkdev theme: emerald primary, blue secondary, slate neutrals. */
 const light = {
   background: slate[50],
   surface: "#ffffff",
@@ -46,7 +46,7 @@ const light = {
   offline: amber[500],
   focusRing: blue[600],
   overlay: slate[950]
-} as const satisfies SemanticColors;
+} as const satisfies BrandColors;
 
 const dark = {
   background: slate[950],
@@ -90,6 +90,6 @@ const dark = {
   offline: amber[400],
   focusRing: blue[400],
   overlay: "#000000"
-} as const satisfies SemanticColors;
+} as const satisfies BrandColors;
 
-export const semanticColors = { light, dark } as const;
+export const thinkdevColors = { light, dark } as const;

@@ -3,8 +3,10 @@ import {
   cssColorVariable,
   cssPrefix,
   kebab,
+  gradients,
   primitives,
   semanticColorRoles,
+  stateLayers,
   textStyles
 } from "@nativesmart/tokens";
 
@@ -22,6 +24,22 @@ const roleColors = Object.fromEntries(
   semanticColorRoles.map((role) => [kebab(role), `var(${cssColorVariable(role)})`])
 );
 
+/** Chart series and ramps: `bg-ns-data-cat-1`, `fill-ns-data-seq-5`... */
+const dataColors = Object.fromEntries(
+  (
+    [
+      ["cat", 10],
+      ["seq", 9],
+      ["div", 9]
+    ] as const
+  ).flatMap(([scale, count]) =>
+    Array.from({ length: count }, (_, index) => [
+      `data-${scale}-${index + 1}`,
+      `var(${cssPrefix}-data-${scale}-${index + 1})`
+    ])
+  )
+);
+
 const shapeUsages = ["control", "card", "overlay", "badge"];
 const elevationLevels = Object.keys(primitives.elevation);
 
@@ -37,11 +55,23 @@ export const nativesmartPreset = {
       colors: {
         ns: {
           ...roleColors,
+          ...dataColors,
+          "data-grid": `var(${cssPrefix}-data-grid)`,
+          "data-axis": `var(${cssPrefix}-data-axis)`,
+          ...Object.fromEntries(
+            stateLayers.map((state) => [`state-${state}`, `var(${cssPrefix}-state-${state})`])
+          ),
           primary: { DEFAULT: roleColors.primary, ...paletteScale("primary") },
           secondary: { DEFAULT: roleColors.secondary, ...paletteScale("secondary") },
           neutral: paletteScale("neutral")
         }
       },
+      backgroundImage: Object.fromEntries(
+        Object.keys(gradients).map((name) => [
+          `ns-${kebab(name)}`,
+          `var(${cssPrefix}-gradient-${kebab(name)})`
+        ])
+      ),
       borderRadius: variableScale("radius", [...Object.keys(primitives.radius), ...shapeUsages]),
       fontFamily: {
         "ns-sans": `var(${cssPrefix}-font-sans)`,

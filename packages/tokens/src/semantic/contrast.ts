@@ -1,4 +1,10 @@
-import type { SemanticColorRole } from "./roles";
+import {
+  colorIntents,
+  intentRole,
+  type ColorIntent,
+  type IntentVariant,
+  type SemanticColorRole
+} from "./roles";
 
 function channel(value: number) {
   const srgb = value / 255;
@@ -38,10 +44,60 @@ export type ContrastPair = {
   usage: string;
 };
 
+const intentLabels: Record<ColorIntent, string> = {
+  primary: "Primary",
+  secondary: "Secondary",
+  neutral: "Neutral",
+  success: "Success",
+  warning: "Warning",
+  danger: "Danger",
+  info: "Info"
+};
+
+/** Every intent keeps its text readable on its fills, at rest, hovered and pressed. */
+const intentPairs = colorIntents.flatMap((intent): ContrastPair[] => {
+  const role = (variant: IntentVariant) => intentRole(intent, variant);
+  const label = intentLabels[intent];
+  return [
+    { foreground: role("on"), background: role("base"), minimum: 4.5, usage: `${label} solid` },
+    {
+      foreground: role("on"),
+      background: role("hover"),
+      minimum: 4.5,
+      usage: `${label} solid, hovered`
+    },
+    {
+      foreground: role("on"),
+      background: role("pressed"),
+      minimum: 4.5,
+      usage: `${label} solid, pressed`
+    },
+    {
+      foreground: role("onMuted"),
+      background: role("muted"),
+      minimum: 4.5,
+      usage: `${label} soft`
+    },
+    {
+      foreground: role("onMuted"),
+      background: role("mutedHover"),
+      minimum: 4.5,
+      usage: `${label} soft, hovered`
+    },
+    {
+      foreground: role("text"),
+      background: "surface",
+      minimum: 4.5,
+      usage: `${label} text on surfaces`
+    }
+  ];
+});
+
 /** Pairs every brand theme must keep readable, in light and dark mode. */
 export const contrastPairs: readonly ContrastPair[] = [
   { foreground: "text", background: "background", minimum: 4.5, usage: "Page text" },
   { foreground: "text", background: "surface", minimum: 4.5, usage: "Text on cards" },
+  { foreground: "text", background: "surfaceSunken", minimum: 4.5, usage: "Text in wells" },
   { foreground: "textMuted", background: "background", minimum: 4.5, usage: "Secondary text" },
   {
     foreground: "textMuted",
@@ -49,49 +105,45 @@ export const contrastPairs: readonly ContrastPair[] = [
     minimum: 4.5,
     usage: "Secondary text on cards"
   },
+  {
+    foreground: "textSubtle",
+    background: "surface",
+    minimum: 4.5,
+    usage: "Helper text, placeholders"
+  },
+  {
+    foreground: "textSubtle",
+    background: "background",
+    minimum: 4.5,
+    usage: "Helper text on the page"
+  },
+  {
+    foreground: "textInverse",
+    background: "surfaceInverse",
+    minimum: 4.5,
+    usage: "Inverse surfaces"
+  },
+  { foreground: "textOnBrand", background: "surfaceBrand", minimum: 4.5, usage: "Brand surfaces" },
+  { foreground: "textLink", background: "surface", minimum: 4.5, usage: "Links" },
+  { foreground: "textLinkVisited", background: "surface", minimum: 4.5, usage: "Visited links" },
   { foreground: "primary", background: "surface", minimum: 4.5, usage: "Links, outline buttons" },
-  { foreground: "onPrimary", background: "primary", minimum: 4.5, usage: "Solid primary button" },
-  {
-    foreground: "onPrimaryMuted",
-    background: "primaryMuted",
-    minimum: 4.5,
-    usage: "Selected item, soft primary badge"
-  },
-  { foreground: "onSecondary", background: "secondary", minimum: 4.5, usage: "Secondary button" },
-  {
-    foreground: "onSecondaryMuted",
-    background: "secondaryMuted",
-    minimum: 4.5,
-    usage: "Soft secondary badge"
-  },
-  { foreground: "onSuccess", background: "success", minimum: 4.5, usage: "Success button" },
-  {
-    foreground: "onSuccessMuted",
-    background: "successMuted",
-    minimum: 4.5,
-    usage: "Success alert and badge"
-  },
-  { foreground: "onWarning", background: "warning", minimum: 4.5, usage: "Warning button" },
-  {
-    foreground: "onWarningMuted",
-    background: "warningMuted",
-    minimum: 4.5,
-    usage: "Warning alert and badge"
-  },
-  { foreground: "onDanger", background: "danger", minimum: 4.5, usage: "Danger button" },
-  {
-    foreground: "onDangerMuted",
-    background: "dangerMuted",
-    minimum: 4.5,
-    usage: "Error alert and badge"
-  },
   { foreground: "danger", background: "surface", minimum: 4.5, usage: "Error messages" },
-  { foreground: "onInfo", background: "info", minimum: 4.5, usage: "Info button" },
+  ...intentPairs,
+  { foreground: "onSelection", background: "selection", minimum: 4.5, usage: "Selected text" },
+  { foreground: "onHighlight", background: "highlight", minimum: 4.5, usage: "Highlighted text" },
+  { foreground: "onTooltip", background: "tooltip", minimum: 4.5, usage: "Tooltips" },
+  { foreground: "borderInput", background: "surface", minimum: 3, usage: "Input boundaries" },
   {
-    foreground: "onInfoMuted",
-    background: "infoMuted",
-    minimum: 4.5,
-    usage: "Info alert and badge"
+    foreground: "borderInput",
+    background: "background",
+    minimum: 3,
+    usage: "Input boundaries on the page"
   },
-  { foreground: "focusRing", background: "background", minimum: 3, usage: "Focus indicator" }
+  { foreground: "focusRing", background: "background", minimum: 3, usage: "Focus indicator" },
+  {
+    foreground: "focusRing",
+    background: "surface",
+    minimum: 3,
+    usage: "Focus indicator on cards"
+  }
 ];

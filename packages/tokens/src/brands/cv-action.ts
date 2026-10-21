@@ -122,7 +122,7 @@ export const cvActionTheme = defineBrandTheme({
       textDisabled: night[500],
       primary: "#a78bfa",
       primaryHover: "#c4b5fd",
-      primaryPressed: "#8b5cf6",
+      primaryPressed: "#9165f7",
       onPrimary: night[950],
       primaryMuted: "#1d2642",
       onPrimaryMuted: "#c4b5fd",
@@ -178,6 +178,18 @@ export const cvActionTheme = defineBrandTheme({
       mode: "light",
       reason:
         "White on coral (2.6:1) is part of the CV Action identity; use it for large text and icons only."
+    },
+    {
+      foreground: "onSecondary",
+      background: "secondaryHover",
+      mode: "light",
+      reason: "Hovered coral button, same rule as its resting state: large text and icons only."
+    },
+    {
+      foreground: "onSecondary",
+      background: "secondaryPressed",
+      mode: "light",
+      reason: "Pressed coral button, same rule as its resting state: large text and icons only."
     }
   ]
 });

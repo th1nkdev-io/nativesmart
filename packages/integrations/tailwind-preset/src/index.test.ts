@@ -26,5 +26,8 @@ describe("tailwind preset", () => {
     expect(extend.fontSize["ns-h1"][0]).toBe("var(--ns-text-h1-size)");
     expect(extend.boxShadow["ns-elevation-3"]).toBe("var(--ns-elevation-3)");
     expect(extend.height["ns-md"]).toBe("var(--ns-control-height-md)");
+    expect(extend.backgroundImage["ns-brand-soft"]).toBe("var(--ns-gradient-brand-soft)");
+    expect(extend.colors.ns["data-cat-10"]).toBe("var(--ns-data-cat-10)");
+    expect(extend.colors.ns["state-hover"]).toBe("var(--ns-state-hover)");
   });
 });

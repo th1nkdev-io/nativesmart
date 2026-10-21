@@ -1,5 +1,5 @@
 import { palette } from "../primitives";
-import { semanticColors } from "../semantic/colors";
+import { thinkdevColors } from "../semantic/colors";
 import { defineBrandTheme } from "./types";
 
 export const thinkdevTheme = defineBrandTheme({
@@ -11,7 +11,7 @@ export const thinkdevTheme = defineBrandTheme({
     secondary: palette.blue,
     neutral: palette.slate
   },
-  colors: semanticColors,
+  colors: thinkdevColors,
   typography: {
     fontFamily: {
       sans: ["Inter", "system-ui", "sans-serif"],

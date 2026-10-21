@@ -6,6 +6,26 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "21 octobre 2026",
+    title: "Système de couleurs complet",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "103 rôles de couleur : sept intentions à neuf déclinaisons chacune"
+      },
+      {
+        kind: "Nouveau",
+        text: "Rôles dérivés automatiquement de chaque identité, tous surchargeables"
+      },
+      {
+        kind: "Nouveau",
+        text: "Calques d'état, couleurs de données, avatars, dégradés et translucides"
+      },
+      { kind: "Nouveau", text: "Pages Couleurs, États et Données dans le Lab" },
+      { kind: "Amélioré", text: "124 paires de contraste vérifiées par identité, contre 38" }
+    ]
+  },
+  {
+    date: "21 octobre 2026",
     title: "Pages éditoriales",
     changes: [
       { kind: "Nouveau", text: "Accueil, guides et ressources réécrits, avec illustrations 3D" },

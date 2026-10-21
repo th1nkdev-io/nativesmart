@@ -18,8 +18,8 @@ withDefaults(defineProps<NsBadgeProps>(), { intent: "neutral" });
 
 <style>
 .ns-badge {
-  --ns-badge-background: var(--ns-color-surface-muted);
-  --ns-badge-foreground: var(--ns-color-text);
+  --ns-badge-background: var(--ns-color-neutral-muted);
+  --ns-badge-foreground: var(--ns-color-on-neutral-muted);
   --ns-badge-radius: var(--ns-radius-badge);
   display: inline-flex;
   align-items: center;

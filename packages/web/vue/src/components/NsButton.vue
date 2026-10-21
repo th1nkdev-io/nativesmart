@@ -145,17 +145,17 @@ function onClick(event: MouseEvent) {
 
 /* Intents */
 .ns-button--neutral {
-  --ns-button-tone: var(--ns-color-text);
-  --ns-button-tone-hover: var(--ns-color-text-muted);
-  --ns-button-tone-pressed: var(--ns-color-text);
-  --ns-button-on-tone: var(--ns-color-surface);
-  --ns-button-tone-muted: var(--ns-color-surface-muted);
+  --ns-button-tone: var(--ns-color-neutral);
+  --ns-button-tone-hover: var(--ns-color-neutral-hover);
+  --ns-button-tone-pressed: var(--ns-color-neutral-pressed);
+  --ns-button-on-tone: var(--ns-color-on-neutral);
+  --ns-button-tone-muted: var(--ns-color-neutral-muted);
 }
 
 .ns-button--danger {
   --ns-button-tone: var(--ns-color-danger);
   --ns-button-tone-hover: var(--ns-color-danger-hover);
-  --ns-button-tone-pressed: var(--ns-color-danger-hover);
+  --ns-button-tone-pressed: var(--ns-color-danger-pressed);
   --ns-button-on-tone: var(--ns-color-on-danger);
   --ns-button-tone-muted: var(--ns-color-danger-muted);
   --ns-button-focus-ring: var(--ns-color-danger);

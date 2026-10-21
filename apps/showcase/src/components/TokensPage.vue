@@ -6,16 +6,20 @@ import PageHero from "../editorial/PageHero.vue";
 import { tokenSections } from "../pages";
 import { openPage, state } from "../state";
 import ColorsSection from "./tokens/ColorsSection.vue";
+import DataSection from "./tokens/DataSection.vue";
 import ElevationSection from "./tokens/ElevationSection.vue";
 import MotionSection from "./tokens/MotionSection.vue";
 import ShapeSection from "./tokens/ShapeSection.vue";
 import SizingSection from "./tokens/SizingSection.vue";
 import SpacingSection from "./tokens/SpacingSection.vue";
+import StatesSection from "./tokens/StatesSection.vue";
 import SystemSection from "./tokens/SystemSection.vue";
 import TypographySection from "./tokens/TypographySection.vue";
 
 const components: Record<(typeof tokenSections)[number]["id"], Component> = {
   colors: ColorsSection,
+  states: StatesSection,
+  data: DataSection,
   typography: TypographySection,
   spacing: SpacingSection,
   sizing: SizingSection,
@@ -40,7 +44,7 @@ const current = computed(
     <PageHero
       :eyebrow="`Fondations · ${theme.name}`"
       icon="droplet"
-      :lead="`Les décisions visuelles de NativeSmart : ${semanticColorRoles.length} rôles de couleur, ${Object.keys(textStyles).length} styles de texte, des échelles d'espacement, de taille, de forme, d'élévation et de mouvement. Les aperçus suivent l'identité et le mode choisis ; le Lab, lui, garde l'identité NativeSmart.`"
+      :lead="`Les décisions visuelles de NativeSmart : ${semanticColorRoles.length} rôles de couleur en sept intentions, des états d'interaction, des couleurs de données, ${Object.keys(textStyles).length} styles de texte et les échelles d'espacement, de taille, de forme, d'élévation et de mouvement. Les aperçus suivent l'identité et le mode choisis ; le Lab, lui, garde l'identité NativeSmart.`"
     >
       <template #title> Chaque décision, <span class="ed-gradient">une variable.</span> </template>
       <template #art>

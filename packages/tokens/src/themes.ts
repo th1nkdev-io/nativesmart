@@ -1,13 +1,14 @@
-import { semanticColors } from "./semantic/colors";
+import { thinkdevTheme } from "./brands/thinkdev";
 
+/** Default themes of the mobile renderers: the Thinkdev colors with every role resolved. */
 export const lightTheme = {
   mode: "light",
-  colors: semanticColors.light
+  colors: thinkdevTheme.colors.light
 } as const;
 
 export const darkTheme = {
   mode: "dark",
-  colors: semanticColors.dark
+  colors: thinkdevTheme.colors.dark
 } as const;
 
 export const themes = {
