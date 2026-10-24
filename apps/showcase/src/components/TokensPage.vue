@@ -2,10 +2,11 @@
 import { brandThemes, semanticColorRoles, textStyles } from "@nativesmart/tokens";
 import { computed, type Component } from "vue";
 import TokenFlowArt from "../editorial/art/TokenFlowArt.vue";
+import Icon from "../editorial/Icon.vue";
 import PageHero from "../editorial/PageHero.vue";
 import { tokenSections } from "../pages";
 import { referenceFor, tokenPlatform } from "../lib/tokenPlatform";
-import { openPage, state } from "../state";
+import { state } from "../state";
 import { getTechnology } from "../technologies";
 import AccessibilitySection from "./tokens/AccessibilitySection.vue";
 import ColorsSection from "./tokens/ColorsSection.vue";
@@ -21,6 +22,7 @@ import SizingSection from "./tokens/SizingSection.vue";
 import SpacingSection from "./tokens/SpacingSection.vue";
 import StatesSection from "./tokens/StatesSection.vue";
 import SystemSection from "./tokens/SystemSection.vue";
+import TokenRail from "./tokens/TokenRail.vue";
 import TypographySection from "./tokens/TypographySection.vue";
 
 const components: Record<(typeof tokenSections)[number]["id"], Component> = {
@@ -66,32 +68,30 @@ const current = computed(
       </template>
     </PageHero>
 
-    <nav class="subnav" aria-label="Sections des tokens">
-      <a
-        v-for="section in sections"
-        :key="section.id"
-        :href="`#/tokens/${section.id}`"
-        :aria-current="current.id === section.id ? 'page' : undefined"
-        @click.prevent="openPage(`tokens/${section.id}`)"
-      >
-        {{ section.label }}
-      </a>
-    </nav>
+    <TokenRail :current="current.id" />
 
-    <p class="token-format">
-      <svg v-if="technology.icon" viewBox="0 0 24 24" aria-hidden="true">
-        <path :d="technology.icon.path" />
-      </svg>
-      <span>
-        Noms affichés pour <strong>{{ technology.name }}</strong> :
-        <code>{{ sample }}</code>
+    <aside class="token-format" aria-label="Format des noms">
+      <span class="token-format__icon" aria-hidden="true">
+        <Icon name="code" :size="18" />
       </span>
-      <small v-if="tokenPlatform === 'css'">
-        Choisissez SwiftUI, Compose, Flutter ou React Native dans la barre de gauche pour voir les
-        tokens dans leur langage.
-      </small>
-      <small v-else>Les tokens propres au web sont marqués « web ».</small>
-    </p>
+      <div class="token-format__body">
+        <p>
+          Noms affichés pour
+          <span class="token-format__tech">
+            <svg v-if="technology.icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path :d="technology.icon.path" />
+            </svg>
+            {{ technology.name }}
+          </span>
+          : <code>{{ sample }}</code>
+        </p>
+        <small v-if="tokenPlatform === 'css'">
+          Choisissez SwiftUI, Compose, Flutter ou React Native dans la barre de gauche pour voir les
+          tokens dans leur langage.
+        </small>
+        <small v-else>Les tokens propres au web sont marqués « web ».</small>
+      </div>
+    </aside>
 
     <component :is="current.component" />
   </article>

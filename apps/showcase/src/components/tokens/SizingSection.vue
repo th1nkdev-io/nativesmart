@@ -29,7 +29,7 @@ const ratioText: Record<keyof typeof ratios, string> = {
 
 /** Dialog widths drawn inside a 1280px screen. */
 const screen = 1280;
-const people = ["AN", "BP", "CW", "DR", "EM", "FA"];
+const people = ["AN", "KM", "CW", "DR", "EM", "FA"];
 </script>
 
 <template>

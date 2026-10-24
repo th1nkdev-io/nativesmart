@@ -143,7 +143,7 @@ describe("color system", () => {
   });
 
   it("gives a name the same avatar color every time", () => {
-    expect(avatarColorIndex("Biya Paul")).toBe(avatarColorIndex(" biya paul "));
+    expect(avatarColorIndex("Kofi Mensah")).toBe(avatarColorIndex(" kofi mensah "));
     expect(avatarColorIndex("Ada")).toBeLessThan(8);
   });
 

@@ -1,4 +1,5 @@
 import type { Component } from "vue";
+import type { IconName } from "../editorial/icons";
 import AccessibilityPage from "./AccessibilityPage.vue";
 import ChangelogPage from "./ChangelogPage.vue";
 import ContributingPage from "./ContributingPage.vue";
@@ -18,22 +19,29 @@ export type NavItem = {
 
 export type NavSection = { id: string; label: string; items: readonly NavItem[] };
 
-/** Sections of the Tokens page, each with its own URL (`tokens/<id>`). */
+/** Sections of the Tokens page, each with its own URL (`tokens/<id>`), grouped for the rail. */
 export const tokenSections = [
-  { id: "colors", label: "Couleurs" },
-  { id: "states", label: "États" },
-  { id: "data", label: "Données" },
-  { id: "typography", label: "Typographie" },
-  { id: "spacing", label: "Espacements" },
-  { id: "layout", label: "Mise en page" },
-  { id: "sizing", label: "Tailles" },
-  { id: "shape", label: "Formes" },
-  { id: "elevation", label: "Élévation" },
-  { id: "motion", label: "Mouvement" },
-  { id: "icons", label: "Iconographie" },
-  { id: "accessibility", label: "Accessibilité" },
-  { id: "personality", label: "Personnalité" },
-  { id: "exports", label: "Exports" },
+  { id: "colors", label: "Couleurs", icon: "palette", group: "color" },
+  { id: "states", label: "États", icon: "hand", group: "color" },
+  { id: "data", label: "Données", icon: "gauge", group: "color" },
+  { id: "typography", label: "Typographie", icon: "type", group: "structure" },
+  { id: "spacing", label: "Espacements", icon: "ruler", group: "structure" },
+  { id: "layout", label: "Mise en page", icon: "grid", group: "structure" },
+  { id: "sizing", label: "Tailles", icon: "target", group: "structure" },
+  { id: "shape", label: "Formes", icon: "cube", group: "structure" },
+  { id: "elevation", label: "Élévation", icon: "layers", group: "depth" },
+  { id: "motion", label: "Mouvement", icon: "wave", group: "depth" },
+  { id: "icons", label: "Iconographie", icon: "star", group: "depth" },
+  { id: "accessibility", label: "Accessibilité", icon: "accessibility", group: "system" },
+  { id: "personality", label: "Personnalité", icon: "wand", group: "system" },
+  { id: "exports", label: "Exports", icon: "package", group: "system" },
+  { id: "system", label: "Système", icon: "compass", group: "system" }
+] as const satisfies readonly { id: string; label: string; icon: IconName; group: string }[];
+
+export const tokenGroups = [
+  { id: "color", label: "Couleur" },
+  { id: "structure", label: "Structure" },
+  { id: "depth", label: "Profondeur et mouvement" },
   { id: "system", label: "Système" }
 ] as const;
 

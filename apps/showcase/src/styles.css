@@ -1584,6 +1584,8 @@ kbd {
 
 .page {
   display: grid;
+  /* A wide child, such as a scrolling rail, must scroll inside the page, never widen it. */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--ns-space-6);
   max-inline-size: 1180px;
   margin-inline: auto;

@@ -41,7 +41,14 @@ const variations = [-4, -3, -1, 0, 1, 2, 4, 3, 2, -2, 1, 3];
 const months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
 
 /* Avatars */
-const people = ["Aïcha Ndiaye", "Biya Paul", "Chen Wei", "Diego Ramos", "Emma Martin", "Farid Ali"];
+const people = [
+  "Aïcha Ndiaye",
+  "Kofi Mensah",
+  "Chen Wei",
+  "Diego Ramos",
+  "Emma Martin",
+  "Farid Ali"
+];
 const typedName = ref("Ada Lovelace");
 const initials = (name: string) =>
   name
