@@ -44,6 +44,11 @@ const materialNames: Record<keyof typeof primitives.materials, string> = {
   regular: "Normale",
   thick: "Épaisse"
 };
+const materialUsage: Record<keyof typeof primitives.materials, string> = {
+  thin: "Barres d'outils, onglets",
+  regular: "Menus, notifications",
+  thick: "Feuilles, panneaux latéraux"
+};
 
 /* Tonal surfaces: shown in dark mode whatever the Lab mode, since that is where they matter. */
 const darkTheme = computed(() => theme.value.colors.dark);
@@ -190,8 +195,9 @@ const darkLevels = computed(() =>
       </header>
       <div class="material-stage lab-preview">
         <div class="material-stage__backdrop" aria-hidden="true">
-          <i /><i /><i />
-          <span>Paiements</span>
+          <div v-for="row in 6" :key="row" class="material-stage__track">
+            <i v-for="tile in 14" :key="tile" :class="`is-${(tile + row * 3) % 7}`" />
+          </div>
         </div>
         <div
           v-for="(material, name) in primitives.materials"
@@ -202,11 +208,24 @@ const darkLevels = computed(() =>
             backdropFilter: `var(--ns-material-${name}-filter)`
           }"
         >
-          <strong>{{ materialNames[name] }}</strong>
-          <small>
-            {{ Math.round(material.opacity * 100) }} % · flou {{ material.blur }} px · saturation
-            ×{{ material.saturate }}
-          </small>
+          <span class="material-panel__head">
+            <strong>{{ materialNames[name] }}</strong>
+            <small>{{ materialUsage[name] }}</small>
+          </span>
+          <dl class="material-panel__specs">
+            <div>
+              <dt>Opacité</dt>
+              <dd>{{ Math.round(material.opacity * 100) }} %</dd>
+            </div>
+            <div>
+              <dt>Flou</dt>
+              <dd>{{ material.blur }} px</dd>
+            </div>
+            <div>
+              <dt>Saturation</dt>
+              <dd>×{{ material.saturate }}</dd>
+            </div>
+          </dl>
           <code>--ns-material-{{ name }}</code>
         </div>
       </div>

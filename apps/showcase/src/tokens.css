@@ -3299,13 +3299,14 @@ button.intent-matrix__row:hover {
 
 .material-stage {
   position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: center;
   gap: var(--ns-space-5);
-  min-block-size: 280px;
+  min-block-size: 300px;
   overflow: hidden;
-  padding: var(--ns-space-8);
+  padding: var(--ns-space-10) var(--ns-space-8);
+  border: 1px solid var(--ns-color-border);
   border-radius: var(--ns-radius-card);
   background: var(--ns-color-background);
   font-family: var(--ns-font-sans);
@@ -3314,61 +3315,65 @@ button.intent-matrix__row:hover {
 .material-stage__backdrop {
   position: absolute;
   inset: 0;
+  z-index: -1;
+  display: grid;
+  align-content: center;
+  gap: var(--ns-space-4);
+  overflow: hidden;
 }
 
-.material-stage__backdrop i {
-  position: absolute;
-  border-radius: 50%;
-  animation: blob-drift 12s var(--ns-easing-standard) infinite alternate;
+.material-stage__track {
+  display: flex;
+  gap: var(--ns-space-4);
+  inline-size: max-content;
+  animation: material-scroll 40s linear infinite;
 }
 
-.material-stage__backdrop i:nth-child(1) {
-  inset-block-start: -10%;
-  inset-inline-start: 6%;
-  inline-size: 240px;
-  block-size: 240px;
-  background: var(--ns-color-primary);
+.material-stage__track:nth-child(even) {
+  margin-inline-start: -90px;
+  animation-direction: reverse;
 }
 
-.material-stage__backdrop i:nth-child(2) {
-  inset-block-end: -20%;
-  inset-inline-start: 38%;
-  inline-size: 280px;
-  block-size: 280px;
-  background: var(--ns-color-secondary);
-  animation-delay: -4s;
+.material-stage__track i {
+  flex: none;
+  inline-size: 132px;
+  block-size: 108px;
+  border-radius: var(--ns-radius-lg);
 }
 
-.material-stage__backdrop i:nth-child(3) {
-  inset-block-start: 8%;
-  inset-inline-end: 4%;
-  inline-size: 180px;
-  block-size: 180px;
-  background: var(--ns-palette-primary-300);
-  animation-delay: -8s;
+.material-stage__track .is-0 {
+  background: linear-gradient(135deg, var(--ns-palette-primary-300), var(--ns-color-primary));
+}
+.material-stage__track .is-1 {
+  background: linear-gradient(135deg, var(--ns-palette-secondary-300), var(--ns-color-secondary));
+}
+.material-stage__track .is-2 {
+  background: linear-gradient(135deg, #fde68a, #f97316);
+}
+.material-stage__track .is-3 {
+  background: linear-gradient(135deg, #a7f3d0, #059669);
+}
+.material-stage__track .is-4 {
+  background: linear-gradient(135deg, #fbcfe8, #db2777);
+}
+.material-stage__track .is-5 {
+  background:
+    repeating-linear-gradient(0deg, var(--ns-color-text) 0 6px, transparent 6px 16px) 16px 22px /
+      70% 60% no-repeat,
+    var(--ns-color-surface);
+}
+.material-stage__track .is-6 {
+  background: linear-gradient(135deg, #c7d2fe, #4f46e5);
 }
 
-.material-stage__backdrop span {
-  position: absolute;
-  inset-block-start: 42%;
-  inset-inline: 0;
-  color: var(--ns-color-text);
-  font-family: var(--ns-font-heading);
-  font-size: 72px;
-  font-weight: var(--ns-font-weight-black);
-  letter-spacing: -0.04em;
-  text-align: center;
-  opacity: 0.85;
-}
-
-@keyframes blob-drift {
+@keyframes material-scroll {
   to {
-    transform: translate(30px, 20px) scale(1.1);
+    transform: translateX(-50%);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .material-stage__backdrop i {
+  .material-stage__track {
     animation: none;
   }
 }
@@ -3376,15 +3381,22 @@ button.intent-matrix__row:hover {
 .material-panel {
   position: relative;
   display: grid;
-  gap: 4px;
-  min-block-size: 150px;
-  align-content: end;
+  align-content: start;
+  gap: var(--ns-space-4);
+  min-inline-size: 0;
   padding: var(--ns-space-5);
-  border: 1px solid color-mix(in srgb, #ffffff 35%, transparent);
+  border: 1px solid color-mix(in srgb, #ffffff 40%, transparent);
   border-radius: var(--ns-radius-overlay);
-  box-shadow: var(--ns-elevation-3);
+  box-shadow:
+    var(--ns-elevation-3),
+    inset 0 1px 0 color-mix(in srgb, #ffffff 50%, transparent);
   color: var(--ns-color-text);
   -webkit-backdrop-filter: var(--ns-material-regular-filter);
+}
+
+.material-panel__head {
+  display: grid;
+  gap: 2px;
 }
 
 .material-panel strong {
@@ -3393,12 +3405,42 @@ button.intent-matrix__row:hover {
 
 .material-panel small {
   color: var(--ns-color-text-muted);
+  font-size: var(--ns-font-size-sm);
+}
+
+.material-panel__specs {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+
+.material-panel__specs div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--ns-space-3);
+  padding-block-end: 6px;
+  border-block-end: 1px solid color-mix(in srgb, var(--ns-color-text) 10%, transparent);
+  font-size: var(--ns-font-size-sm);
+}
+
+.material-panel__specs dt {
+  color: var(--ns-color-text-muted);
+}
+
+.material-panel__specs dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--ns-font-weight-semibold);
 }
 
 .material-panel code {
   justify-self: start;
-  margin-block-start: var(--ns-space-2);
+  max-inline-size: 100%;
+  overflow: hidden;
   background: color-mix(in srgb, var(--ns-color-surface) 60%, transparent);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .blur-row {
@@ -3979,30 +4021,34 @@ button.intent-matrix__row:hover {
 
 .icon-library {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
-  overflow: hidden;
-  border: 1px solid var(--ns-color-border);
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: var(--ns-space-1);
+  padding: var(--ns-space-3);
   border-radius: var(--ns-radius-card);
-  background: var(--ns-color-surface);
 }
 
 .icon-library__item {
-  box-shadow:
-    1px 0 0 var(--ns-color-border),
-    0 1px 0 var(--ns-color-border);
   display: grid;
   grid-template-rows: 64px auto;
   place-items: center;
-  gap: var(--ns-space-2);
+  gap: var(--ns-space-1);
   margin: 0;
   padding: var(--ns-space-3) var(--ns-space-2);
-  background: var(--ns-color-surface);
+  border-radius: var(--ns-radius-lg);
   color: var(--ns-color-text);
-  transition: background-color var(--ns-duration-fast) var(--ns-easing-standard);
+  transition:
+    background-color var(--ns-duration-fast) var(--ns-easing-standard),
+    color var(--ns-duration-fast) var(--ns-easing-standard),
+    transform var(--ns-duration-fast) var(--ns-easing-standard);
 }
 
 .icon-library__item:hover {
-  background: var(--ns-color-surface-hover);
+  background: var(--ns-color-primary-muted);
+  color: var(--ns-color-primary-text);
+  transform: translateY(-2px);
+}
+
+.icon-library__item:hover figcaption {
   color: var(--ns-color-primary-text);
 }
 
@@ -4021,7 +4067,7 @@ button.intent-matrix__row:hover {
   overflow: hidden;
   color: var(--ns-color-text-muted);
   font-family: var(--ns-font-mono);
-  font-size: 10px;
+  font-size: 11px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -4383,10 +4429,6 @@ button.intent-matrix__row:hover {
 
   .icon-pair {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .material-stage__backdrop span {
-    font-size: 48px;
   }
 
   .forced-row {
