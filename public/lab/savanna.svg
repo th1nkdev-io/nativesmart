@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3b1d5e"/>
+      <stop offset=".45" stop-color="#d9480f"/>
+      <stop offset=".8" stop-color="#fcc419"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#sky)"/>
+  <circle cx="400" cy="560" r="170" fill="#ffe8a3" opacity=".9"/>
+  <path d="M0 640 Q160 600 300 630 T560 620 T800 640 V1000 H0Z" fill="#9c3d10" opacity=".7"/>
+  <path d="M0 720 Q200 680 420 720 T800 700 V1000 H0Z" fill="#5c2208"/>
+  <g fill="#2b1004">
+    <path d="M520 720v-150h14v150Z"/>
+    <path d="M440 580c40-30 140-35 200 0-60-8-140-8-200 0Z"/>
+    <path d="M460 560c35-26 120-30 170 0-50-6-120-6-170 0Z"/>
+    <path d="M180 760v-90h8v90Z"/>
+    <path d="M130 680c25-18 85-20 120 0-36-5-85-5-120 0Z"/>
+  </g>
+  <path d="M0 840 Q260 800 520 850 T800 840 V1000 H0Z" fill="#2b1004"/>
+  <g fill="#2b1004">
+    <path d="M610 812c6-30 16-52 30-62l4-36 8 34c16 4 30 18 36 40l-8 2c-6-14-14-22-24-24l-2 50h-8l-4-40c-8 6-14 18-18 36Z"/>
+  </g>
+</svg>

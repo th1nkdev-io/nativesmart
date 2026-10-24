@@ -1,3 +1,14 @@
+export { default as NsAspectRatio } from "./NsAspectRatio.vue";
+export type {
+  NsAspectRatioBreakpoint,
+  NsAspectRatioFit,
+  NsAspectRatioFocus,
+  NsAspectRatioPlaceholder,
+  NsAspectRatioPreset,
+  NsAspectRatioProps,
+  NsAspectRatioRadius,
+  NsAspectRatioValue
+} from "./NsAspectRatio.vue";
 export { default as NsAvatar } from "./NsAvatar.vue";
 export type { NsAvatarProps, NsAvatarSize } from "./NsAvatar.vue";
 export { default as NsBadge } from "./NsBadge.vue";

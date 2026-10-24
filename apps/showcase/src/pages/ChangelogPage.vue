@@ -6,6 +6,21 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "24 octobre 2026",
+    title: "AspectRatio, premier composant de mise en page",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "AspectRatio en Vue : 7 ratios, ratio par point de rupture, mode masonry"
+      },
+      {
+        kind: "Nouveau",
+        text: "Chargement en shimmer, image de secours, légende, voile et zoom au survol"
+      },
+      { kind: "Nouveau", text: "Token de ratio « nombre d'or » (1,618 : 1)" }
+    ]
+  },
+  {
+    date: "24 octobre 2026",
     title: "Vue : les 12 composants de base",
     changes: [
       {

@@ -11,19 +11,33 @@ Nativesmart renderer for Vue 3 and Nuxt. Status: `preview`.
 
 ## Components
 
-| Contract  | Component   | Contract  | Component   |
-| --------- | ----------- | --------- | ----------- |
-| `avatar`  | `NsAvatar`  | `icon`    | `NsIcon`    |
-| `badge`   | `NsBadge`   | `input`   | `NsInput`   |
-| `box`     | `NsBox`     | `modal`   | `NsModal`   |
-| `button`  | `NsButton`  | `spinner` | `NsSpinner` |
-| `card`    | `NsCard`    | `text`    | `NsText`    |
-| `divider` | `NsDivider` | `toast`   | `NsToast`   |
+| Contract       | Component       | Contract  | Component   |
+| -------------- | --------------- | --------- | ----------- |
+| `aspect-ratio` | `NsAspectRatio` | `divider` | `NsDivider` |
+| `avatar`       | `NsAvatar`      | `icon`    | `NsIcon`    |
+| `badge`        | `NsBadge`       | `input`   | `NsInput`   |
+| `box`          | `NsBox`         | `modal`   | `NsModal`   |
+| `button`       | `NsButton`      | `spinner` | `NsSpinner` |
+| `card`         | `NsCard`        | `text`    | `NsText`    |
+|                |                 | `toast`   | `NsToast`   |
 
 Props use the contract property names; contract events are emitted as Vue events (`press`,
 `change`, `submit`, `dismiss`, `open-change`…). `NsInput` and `NsModal` also support `v-model` and
 `v-model:open`. Every component reads its colors, spacing, radii and motion from the tokens, and
 exposes `--ns-<component>-*` variables to restyle one component without touching the others.
+
+### AspectRatio
+
+Frames any media at a ratio token (`video`, `square`, `photo`, `portrait`, `story`, `wide`,
+`golden`), a number or a `"w:h"` string, or `auto` to keep the media's own ratio (masonry). It shows
+a shimmer until the image loads, a fallback when it fails, and can switch ratio per breakpoint:
+
+```vue
+<NsAspectRatio ratio="square" :responsive="{ md: 'video', xl: 'wide' }" title="Grand-Bassam" zoom>
+  <img src="/lagune.jpg" alt="Lagune bordée de palmiers" />
+  <template #overlay><NsBadge label="Nouveau" /></template>
+</NsAspectRatio>
+```
 
 ### Icons
 

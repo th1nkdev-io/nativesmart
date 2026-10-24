@@ -4,6 +4,7 @@ export { Nativesmart, type NativesmartOptions } from "./plugin";
 
 /** Contract ids implemented by this renderer. Kept in sync with the platform registry. */
 export const implementedComponents = [
+  "aspect-ratio",
   "avatar",
   "badge",
   "box",

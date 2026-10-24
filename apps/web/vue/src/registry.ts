@@ -1,5 +1,6 @@
 import { NsAvatar, NsBadge, NsButton, NsSpinner } from "@nativesmart/vue";
 import type { Component } from "vue";
+import AspectRatioDemo from "./demos/AspectRatioDemo.vue";
 import BoxDemo from "./demos/BoxDemo.vue";
 import CardDemo from "./demos/CardDemo.vue";
 import DividerDemo from "./demos/DividerDemo.vue";
@@ -14,6 +15,7 @@ import ToastDemo from "./demos/ToastDemo.vue";
  * components that need content or room, and pass the Lab's props through unchanged.
  */
 export const registry: Readonly<Record<string, Component>> = {
+  "aspect-ratio": AspectRatioDemo,
   avatar: NsAvatar,
   badge: NsBadge,
   box: BoxDemo,
