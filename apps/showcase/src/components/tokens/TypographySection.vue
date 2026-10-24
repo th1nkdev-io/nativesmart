@@ -10,6 +10,7 @@ import {
 } from "@nativesmart/tokens";
 import { computed, ref } from "vue";
 import { state } from "../../state";
+import Icon from "../../editorial/Icon.vue";
 import TokenCode from "./TokenCode.vue";
 
 const theme = computed(() => brandThemes[state.brand]);
@@ -98,19 +99,6 @@ function sizeAt(style: TextStyle, width: number) {
   return Math.round(min + (max - min) * progress);
 }
 
-function spec(style: TextStyle) {
-  const tracking = letterSpacing[style.tracking];
-  const size = style.fluid
-    ? `${fontSize[style.fluid.min]}→${fontSize[style.size]}`
-    : `${fontSize[style.size]}/${style.leading ? leading[style.leading] : lineHeight[style.size]}`;
-  return [
-    size,
-    fontWeight[style.weight],
-    tracking === 0 ? "0" : `${tracking}em`,
-    style.family
-  ].join(" · ");
-}
-
 /* Tester */
 const testerText = ref("Envoyez de l'argent, partout, en un instant.");
 const testerStyle = ref<TextStyleName>("display-lg");
@@ -152,6 +140,7 @@ const paragraph =
   "Chaque transfert est suivi en temps réel. Vous recevez une confirmation dès que l'argent arrive, et votre historique reste disponible hors ligne.";
 
 const amounts = ["1 250,00", "18 900,50", "311,10", "7 040,00", "99 999,99"];
+const total = "127 501,59";
 </script>
 
 <template>
@@ -193,48 +182,73 @@ const amounts = ["1 250,00", "18 900,50", "311,10", "7 040,00", "99 999,99"];
         </p>
       </header>
       <div class="tester">
-        <div class="tester__controls">
-          <label class="tester__field">
-            <small>Texte</small>
-            <input v-model="testerText" type="text" spellcheck="false" />
+        <div class="tester__head">
+          <label class="tester__text">
+            <span class="sr-only">Texte à essayer</span>
+            <Icon name="type" :size="18" />
+            <input v-model="testerText" type="text" spellcheck="false" placeholder="Votre texte…" />
           </label>
-          <label class="tester__field">
-            <small>Style</small>
-            <select v-model="testerStyle">
-              <optgroup v-for="group in groups" :key="group.id" :label="group.label">
-                <option v-for="[name] in group.styles" :key="name" :value="name">{{ name }}</option>
-              </optgroup>
-            </select>
-          </label>
-          <label class="tester__field tester__field--wide">
-            <small>
-              Largeur d'écran · <strong>{{ testerWidth }} px</strong>
-            </small>
-            <input v-model.number="testerWidth" type="range" min="320" max="1600" step="1" />
-          </label>
-          <div class="seg" role="group" aria-label="Largeurs types">
-            <button
-              v-for="preset in presets"
-              :key="preset.width"
-              type="button"
-              :aria-pressed="testerWidth === preset.width"
-              @click="testerWidth = preset.width"
-            >
-              {{ preset.label }}
-            </button>
+          <div class="tester__toolbar">
+            <label class="tester__control tester__control--select">
+              <span>Style</span>
+              <select v-model="testerStyle">
+                <optgroup v-for="group in groups" :key="group.id" :label="group.label">
+                  <option v-for="[name] in group.styles" :key="name" :value="name">
+                    {{ name }}
+                  </option>
+                </optgroup>
+              </select>
+            </label>
+            <label class="tester__control tester__control--range">
+              <span>Écran</span>
+              <input v-model.number="testerWidth" type="range" min="320" max="1600" step="1" />
+              <output>{{ testerWidth }} px</output>
+            </label>
+            <div class="seg tester__presets" role="group" aria-label="Largeurs types">
+              <button
+                v-for="preset in presets"
+                :key="preset.width"
+                type="button"
+                :aria-pressed="testerWidth === preset.width"
+                @click="testerWidth = preset.width"
+              >
+                {{ preset.label }}
+              </button>
+            </div>
           </div>
         </div>
         <div class="tester__stage lab-preview">
           <p class="tester__sample" :style="tester.css">{{ testerText || "Aa" }}</p>
         </div>
-        <div class="tester__readout">
-          <span
-            ><strong>{{ tester.size }} px</strong> à {{ testerWidth }} px de large</span
-          >
-          <span v-if="tester.style.fluid" class="tag-derived">fluide</span>
-          <span class="muted">{{ spec(tester.style) }}</span>
-          <TokenCode :value="`.ns-text-${testerStyle}`" />
-        </div>
+        <dl class="tester__readout">
+          <div>
+            <dt>Taille</dt>
+            <dd>
+              {{ tester.size }} px
+              <span v-if="tester.style.fluid" class="tag-derived">fluide</span>
+            </dd>
+          </div>
+          <div>
+            <dt>Interligne</dt>
+            <dd>{{ tester.css.lineHeight }}</dd>
+          </div>
+          <div>
+            <dt>Graisse</dt>
+            <dd>{{ tester.style.weight }} · {{ fontWeight[tester.style.weight] }}</dd>
+          </div>
+          <div>
+            <dt>Interlettrage</dt>
+            <dd>{{ letterSpacing[tester.style.tracking] }} em</dd>
+          </div>
+          <div>
+            <dt>Famille</dt>
+            <dd>{{ tester.style.family }}</dd>
+          </div>
+          <div class="tester__token">
+            <dt>Classe</dt>
+            <dd><TokenCode :value="`ns-text-${testerStyle}`" /></dd>
+          </div>
+        </dl>
       </div>
     </section>
 
@@ -246,11 +260,12 @@ const amounts = ["1 250,00", "18 900,50", "311,10", "7 040,00", "99 999,99"];
           (<code>.ns-text-h1</code>), en classe Tailwind (<code>text-ns-h1</code>) et en variables.
         </p>
       </header>
-      <div v-for="group in groups" :key="group.id" class="token-group">
-        <div class="token-group__title">
+      <div v-for="group in groups" :key="group.id" class="type-group">
+        <header class="type-group__head">
           <h3>{{ group.label }}</h3>
+          <span class="type-group__count">{{ group.styles.length }}</span>
           <p>{{ group.description }}</p>
-        </div>
+        </header>
         <div class="type-list">
           <article v-for="[name, style] in group.styles" :key="name" class="type-row">
             <div class="type-row__sample lab-preview">
@@ -259,12 +274,23 @@ const amounts = ["1 250,00", "18 900,50", "311,10", "7 040,00", "99 999,99"];
               </p>
             </div>
             <div class="type-row__meta">
-              <strong>
-                {{ name }}
+              <div class="type-row__name">
+                <strong>{{ name }}</strong>
                 <span v-if="style.fluid" class="tag-derived">fluide</span>
-              </strong>
-              <span class="muted">{{ descriptions[name] }}</span>
-              <span class="type-row__spec">{{ spec(style) }}</span>
+              </div>
+              <span class="type-row__usage">{{ descriptions[name] }}</span>
+              <ul class="type-row__chips">
+                <li>
+                  {{
+                    style.fluid
+                      ? `${fontSize[style.fluid.min]}→${fontSize[style.size]} px`
+                      : `${fontSize[style.size]} px`
+                  }}
+                </li>
+                <li>{{ fontWeight[style.weight] }}</li>
+                <li>{{ letterSpacing[style.tracking] }} em</li>
+                <li>{{ style.family }}</li>
+              </ul>
               <TokenCode :value="`ns-text-${name}`" />
             </div>
           </article>
@@ -317,22 +343,37 @@ const amounts = ["1 250,00", "18 900,50", "311,10", "7 040,00", "99 999,99"];
       </header>
       <div class="leading-grid lab-preview">
         <article v-for="(value, key) in leading" :key="key" class="leading-card">
+          <header>
+            <strong>{{ key }}</strong>
+            <span class="leading-card__value">{{ value }}</span>
+          </header>
           <p :style="{ lineHeight: value }">{{ paragraph }}</p>
-          <span>
-            <strong>{{ key }}</strong> · {{ value }}
-          </span>
           <TokenCode :value="`--ns-leading-${key}`" />
         </article>
       </div>
-      <div class="tracking-list lab-preview">
-        <div v-for="(value, key) in letterSpacing" :key="key" class="tracking-row">
-          <span :style="{ letterSpacing: `${value}em` }">Typographie</span>
-          <span class="tracking-row__caps" :style="{ letterSpacing: `${value}em` }">
+      <div class="tracking-table lab-preview" role="table" aria-label="Interlettrages">
+        <div class="tracking-table__row tracking-table__row--head" role="row">
+          <span role="columnheader">Titre</span>
+          <span role="columnheader">Capitales</span>
+          <span role="columnheader">Nom</span>
+          <span role="columnheader" class="is-end">Valeur</span>
+          <span role="columnheader">Variable</span>
+        </div>
+        <div
+          v-for="(value, key) in letterSpacing"
+          :key="key"
+          class="tracking-table__row"
+          role="row"
+        >
+          <span role="cell" class="tracking-table__title" :style="{ letterSpacing: `${value}em` }">
+            Typographie
+          </span>
+          <span role="cell" class="tracking-table__caps" :style="{ letterSpacing: `${value}em` }">
             SURTITRE
           </span>
-          <strong>{{ key }}</strong>
-          <small class="numeric">{{ value }}em</small>
-          <TokenCode :value="`--ns-tracking-${key}`" />
+          <strong role="cell">{{ key }}</strong>
+          <span role="cell" class="numeric is-end">{{ value }} em</span>
+          <span role="cell"><TokenCode :value="`--ns-tracking-${key}`" /></span>
         </div>
       </div>
     </section>
@@ -346,44 +387,70 @@ const amounts = ["1 250,00", "18 900,50", "311,10", "7 040,00", "99 999,99"];
         </p>
       </header>
       <div class="measure-list lab-preview">
-        <div v-for="(value, key) in measure" :key="key" class="measure-row">
-          <span class="measure-row__label">
+        <article v-for="(value, key) in measure" :key="key" class="measure-row">
+          <header class="measure-row__head">
             <strong>{{ key }}</strong>
-            <small>{{ value }} caractères</small>
-          </span>
-          <p :style="{ maxInlineSize: `var(--ns-measure-${key})` }">{{ paragraph }}</p>
-          <TokenCode :value="`--ns-measure-${key}`" />
-        </div>
+            <span class="measure-row__chars">{{ value }} caractères par ligne</span>
+            <TokenCode :value="`--ns-measure-${key}`" />
+          </header>
+          <div class="measure-row__track">
+            <p :style="{ maxInlineSize: `var(--ns-measure-${key})` }">{{ paragraph }}</p>
+          </div>
+        </article>
       </div>
       <div class="readability-grid lab-preview">
-        <figure>
+        <article class="read-card">
+          <header>
+            <h3>Chiffres tabulaires</h3>
+            <p>Chaque chiffre a la même largeur : les colonnes de montants s'alignent.</p>
+          </header>
           <div class="numbers">
-            <div>
+            <div class="numbers__col">
               <small>Proportionnels</small>
               <span v-for="amount in amounts" :key="amount">{{ amount }}</span>
+              <strong>{{ total }}</strong>
             </div>
-            <div class="numbers--tabular">
+            <div class="numbers__col numbers__col--tabular">
               <small>Tabulaires</small>
               <span v-for="amount in amounts" :key="amount">{{ amount }}</span>
+              <strong>{{ total }}</strong>
             </div>
           </div>
-          <figcaption>
-            <code>font-variant-numeric: tabular-nums</code> · styles <code>stat</code> et
-            <code>price</code>
-          </figcaption>
-        </figure>
-        <figure>
-          <p class="underline-demo">
-            <a href="#" @click.prevent>Voir l'historique</a> et
-            <a href="#" class="is-hover" @click.prevent>gérer les bénéficiaires</a>
-          </p>
-          <figcaption>
-            <code>--ns-underline-thickness</code>
-            {{ primitives.typography.underline.thickness }} px,
-            {{ primitives.typography.underline.hoverThickness }} px au survol, décalé de
-            {{ primitives.typography.underline.offset }} px
-          </figcaption>
-        </figure>
+          <footer>
+            <code>tabular-nums</code>
+            <span class="muted">dans les styles</span>
+            <TokenCode value="ns-text-stat" />
+            <TokenCode value="ns-text-price" />
+          </footer>
+        </article>
+        <article class="read-card">
+          <header>
+            <h3>Soulignement des liens</h3>
+            <p>Un trait fin et décalé du texte, plus épais au survol, jamais retiré.</p>
+          </header>
+          <ul class="link-states">
+            <li>
+              <small>Au repos</small>
+              <a href="#" class="link-demo" @click.prevent>Voir l'historique</a>
+              <span class="numeric">{{ primitives.typography.underline.thickness }} px</span>
+            </li>
+            <li>
+              <small>Survol</small>
+              <a href="#" class="link-demo is-hover" @click.prevent>Voir l'historique</a>
+              <span class="numeric">{{ primitives.typography.underline.hoverThickness }} px</span>
+            </li>
+            <li>
+              <small>Visité</small>
+              <a href="#" class="link-demo is-visited" @click.prevent>Voir l'historique</a>
+              <span class="numeric">{{ primitives.typography.underline.thickness }} px</span>
+            </li>
+          </ul>
+          <footer>
+            <TokenCode value="--ns-underline-thickness" />
+            <TokenCode value="--ns-underline-offset" />
+            <span class="muted">décalé de {{ primitives.typography.underline.offset }} px</span>
+          </footer>
+        </article>
       </div>
     </section>
   </div>
