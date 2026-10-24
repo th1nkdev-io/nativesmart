@@ -32,6 +32,7 @@ export const tokenSections = [
   { id: "elevation", label: "Élévation", icon: "layers", group: "depth" },
   { id: "motion", label: "Mouvement", icon: "wave", group: "depth" },
   { id: "icons", label: "Iconographie", icon: "star", group: "depth" },
+  { id: "depth", label: "3D", icon: "orbit", group: "depth" },
   { id: "accessibility", label: "Accessibilité", icon: "accessibility", group: "system" },
   { id: "personality", label: "Personnalité", icon: "wand", group: "system" },
   { id: "exports", label: "Exports", icon: "package", group: "system" },

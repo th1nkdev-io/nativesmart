@@ -196,6 +196,22 @@ Not visual on their own but required by every renderer.
 | Live Region     | `live-region`     | Announces dynamic changes to screen readers                | P1       | —      |
 | Locale Provider | `locale-provider` | Language, number, currency and date formats                | P1       | —      |
 
+### 11. 3D and immersive
+
+Scenes and objects in depth. They read the `depth` tokens (perspective, tilt, camera, lights,
+PBR materials) and fall back to a still image when motion is reduced or WebGL is missing.
+
+| Component       | Id                | Purpose                                                          | Priority | Today      |
+| --------------- | ----------------- | ---------------------------------------------------------------- | -------- | ---------- |
+| Scene 3D        | `scene-3d`        | 3D canvas with camera, lights and environment from tokens        | P1       | —          |
+| Model Viewer    | `model-viewer`    | glTF or USDZ model with orbit controls, poster and loading state | P1       | —          |
+| Tilt Card       | `tilt-card`       | Card that tilts with the pointer or gyroscope, with glare        | P1       | —          |
+| Parallax Layers | `parallax-layers` | Depth layers that follow scroll or pointer                       | P2       | —          |
+| Flip Card       | `flip-card`       | Two-sided card that turns in 3D                                  | P2       | —          |
+| Product 360     | `product-360`     | Product spin from an image sequence or a model                   | P2       | —          |
+| Globe 3D        | `globe-3d`        | Interactive globe with markers and arcs                          | P2       | —          |
+| AR Viewer       | `ar-viewer`       | Places a model in the room with AR Quick Look or Scene Viewer    | P2       | — (mobile) |
+
 ---
 
 ## Business components
@@ -203,7 +219,7 @@ Not visual on their own but required by every renderer.
 Product patterns built only from foundation components. Kits reference these ids. Names used
 twice across kits are merged here.
 
-### 11. Identity and onboarding
+### 12. Identity and onboarding
 
 | Component               | Id                        | Purpose                                            | Kits                     | Priority | Today  |
 | ----------------------- | ------------------------- | -------------------------------------------------- | ------------------------ | -------- | ------ |
@@ -222,7 +238,7 @@ twice across kits are merged here.
 | Onboarding Carousel     | `onboarding-carousel`     | First-run value screens with progress              | all                      | P2       | —      |
 | Profile Header          | `profile-header`          | User identity, verification and quick actions      | all                      | P2       | —      |
 
-### 12. Money and payments
+### 13. Money and payments
 
 | Component                 | Id                          | Purpose                                                   | Kits                    | Priority | Today  |
 | ------------------------- | --------------------------- | --------------------------------------------------------- | ----------------------- | -------- | ------ |
@@ -251,7 +267,7 @@ twice across kits are merged here.
 | QR Payment Scanner        | `qr-payment-scanner`        | Scans a merchant or user QR to pay                        | fintech, mobile-money   | P2       | —      |
 | Bank Card Input           | `bank-card-input`           | Card number, expiry and CVV with brand detection          | ecommerce               | P2       | —      |
 
-### 13. Connectivity and offline
+### 14. Connectivity and offline
 
 | Component           | Id                    | Purpose                                    | Kits          | Priority | Today  |
 | ------------------- | --------------------- | ------------------------------------------ | ------------- | -------- | ------ |
@@ -263,7 +279,7 @@ twice across kits are merged here.
 | Conflict State      | `conflict-state`      | Resolve local and server data conflicts    | offline-first | P2       | —      |
 | Data Saver Notice   | `data-saver-notice`   | Low-data mode indicator and controls       | offline-first | P2       | —      |
 
-### 14. Commerce and marketplace
+### 15. Commerce and marketplace
 
 | Component                | Id                         | Purpose                                         | Kits                             | Priority | Today |
 | ------------------------ | -------------------------- | ----------------------------------------------- | -------------------------------- | -------- | ----- |
@@ -284,7 +300,7 @@ twice across kits are merged here.
 | Delivery Method Selector | `delivery-method-selector` | Delivery or pickup options with price and delay | delivery, marketplace            | P2       | —     |
 | Filter Bar               | `filter-bar`               | Filter chips, sort and filter sheet             | ecommerce, marketplace, saas     | P2       | —     |
 
-### 15. Delivery and logistics
+### 16. Delivery and logistics
 
 | Component               | Id                        | Purpose                                        | Kits     | Priority | Today |
 | ----------------------- | ------------------------- | ---------------------------------------------- | -------- | -------- | ----- |
@@ -293,7 +309,7 @@ twice across kits are merged here.
 | Location Picker         | `location-picker`         | Pick a point on a map or from current location | delivery | P2       | —     |
 | Proof of Delivery State | `proof-of-delivery-state` | Photo, signature or code confirmation          | delivery | P2       | —     |
 
-### 16. SaaS and workspace
+### 17. SaaS and workspace
 
 | Component           | Id                    | Purpose                                       | Kits | Priority | Today |
 | ------------------- | --------------------- | --------------------------------------------- | ---- | -------- | ----- |
@@ -307,7 +323,7 @@ twice across kits are merged here.
 | Notification Center | `notification-center` | Notification list with read state and actions | saas | P2       | —     |
 | Settings List       | `settings-list`       | Grouped settings rows with toggles and links  | all  | P1       | —     |
 
-### 17. Public services
+### 18. Public services
 
 | Component                 | Id                          | Purpose                                    | Kits            | Priority | Today |
 | ------------------------- | --------------------------- | ------------------------------------------ | --------------- | -------- | ----- |
@@ -324,9 +340,9 @@ twice across kits are merged here.
 
 | Group                      | Components | P0  | P1  | P2  |
 | -------------------------- | ---------- | --- | --- | --- |
-| Foundation (sections 1–10) | 113        | 13  | 63  | 37  |
-| Business (sections 11–17)  | 80         | 0   | 28  | 52  |
-| **Total**                  | **193**    | 13  | 91  | 89  |
+| Foundation (sections 1–11) | 121        | 13  | 66  | 42  |
+| Business (sections 12–18)  | 80         | 0   | 28  | 52  |
+| **Total**                  | **201**    | 13  | 94  | 94  |
 
 Today, 12 foundation components have a contract and an implementation in React Native and
 Flutter, the theme provider exists in both, and 10 business components are implemented in React

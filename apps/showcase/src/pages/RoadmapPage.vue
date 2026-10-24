@@ -15,7 +15,7 @@ const phases: { status: Status; icon: IconName; title: string; text: string; ite
     title: "Fondations",
     text: "Décider une fois pour toutes ce qu'est chaque composant.",
     items: [
-      "Inventaire des 193 composants et un contrat par composant",
+      "Inventaire des 201 composants et un contrat par composant",
       "Tokens complets : couleurs, typographie, tailles, formes, élévation, mouvement",
       "Identités NativeSmart, Thinkdev et CV Action, contraste vérifié",
       "Registre des 13 technologies et des intégrations"

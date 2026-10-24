@@ -10,8 +10,8 @@ import { validateComponentContracts } from "./validate";
 
 describe("component contracts", () => {
   it("declares one contract per inventoried component", () => {
-    expect(componentContracts).toHaveLength(193);
-    expect(getContractsByLayer("foundation")).toHaveLength(113);
+    expect(componentContracts).toHaveLength(201);
+    expect(getContractsByLayer("foundation")).toHaveLength(121);
     expect(getContractsByLayer("business")).toHaveLength(80);
   });
 

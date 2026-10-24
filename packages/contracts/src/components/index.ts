@@ -9,6 +9,7 @@ import { navigationContracts } from "./foundation/navigation";
 import { dataDisplayContracts } from "./foundation/data-display";
 import { mediaContracts } from "./foundation/media";
 import { utilitiesContracts } from "./foundation/utilities";
+import { immersiveContracts } from "./foundation/immersive";
 import { identityContracts } from "./business/identity";
 import { paymentsContracts } from "./business/payments";
 import { connectivityContracts } from "./business/connectivity";
@@ -27,7 +28,8 @@ export const foundationContracts: readonly ComponentContract[] = [
   ...navigationContracts,
   ...dataDisplayContracts,
   ...mediaContracts,
-  ...utilitiesContracts
+  ...utilitiesContracts,
+  ...immersiveContracts
 ];
 
 export const businessContracts: readonly ComponentContract[] = [

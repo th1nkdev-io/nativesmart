@@ -2,6 +2,7 @@ import { borders } from "./borders";
 import { breakpoints } from "./breakpoints";
 import { colors } from "./colors";
 import { accessibility } from "./accessibility";
+import { depth } from "./depth";
 import { darkSurfaceLift, elevation, elevationUsages, glows, insetShadows } from "./elevation";
 import { iconography } from "./icons";
 import { blur, materials } from "./materials";
@@ -20,6 +21,7 @@ export type { ElevationLevel, ShadowLayer } from "./elevation";
 export { darkShadowStrength } from "./elevation";
 export { sampleSpring, type DurationKey, type EasingKey, type SpringName } from "./motion";
 export type { MaterialName } from "./materials";
+export type { PbrMaterial } from "./depth";
 export { stateLayers, type StateLayer } from "./opacity";
 export type { RadiusKey } from "./radius";
 export type { SpacingKey } from "./spacing";
@@ -60,6 +62,8 @@ export const primitives = {
   alpha,
   zIndex,
   motion,
+  /** Third dimension: perspective, depth, tilt, camera, lights and PBR materials. */
+  depth,
   breakpoints
 } as const;
 

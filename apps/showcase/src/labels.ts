@@ -10,6 +10,7 @@ export const categoryNames: Readonly<Record<string, string>> = {
   "data-display": "Affichage de données",
   media: "Médias",
   utilities: "Utilitaires",
+  immersive: "3D et immersif",
   identity: "Identité",
   payments: "Paiements",
   connectivity: "Connectivité",

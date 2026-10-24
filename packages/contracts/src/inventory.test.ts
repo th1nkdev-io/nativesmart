@@ -14,6 +14,7 @@ const categoriesBySection = [
   "data-display",
   "media",
   "utilities",
+  "immersive",
   "identity",
   "payments",
   "connectivity",

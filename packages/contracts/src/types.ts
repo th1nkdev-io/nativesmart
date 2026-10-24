@@ -9,7 +9,8 @@ export type FoundationCategory =
   | "navigation"
   | "data-display"
   | "media"
-  | "utilities";
+  | "utilities"
+  | "immersive";
 export type BusinessCategory =
   | "identity"
   | "payments"

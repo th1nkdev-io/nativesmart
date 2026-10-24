@@ -299,6 +299,27 @@ export function brandVariables(theme: BrandTheme): Record<string, string> {
     }
   }
 
+  const { depth } = primitives;
+  for (const [key, value] of entries(depth.perspective)) {
+    variables[`${cssPrefix}-perspective-${key}`] = px(value);
+  }
+  for (const [key, value] of entries(depth.layer)) {
+    variables[`${cssPrefix}-depth-${key}`] = px(value);
+  }
+  for (const [key, value] of entries(depth.tilt)) {
+    variables[`${cssPrefix}-tilt-${key}`] = `${value}deg`;
+  }
+  for (const [key, value] of entries(depth.interaction.parallax)) {
+    variables[`${cssPrefix}-parallax-${key}`] = String(value);
+  }
+  for (const [key, value] of entries(depth.interaction.autoRotate)) {
+    variables[`${cssPrefix}-auto-rotate-${key}`] = `${value}s`;
+  }
+  variables[`${cssPrefix}-float-amplitude`] = px(depth.float.amplitude);
+  variables[`${cssPrefix}-float-period`] = `${depth.float.period}ms`;
+  variables[`${cssPrefix}-contact-shadow`] =
+    `0 ${px(depth.contactShadow.offset)} ${px(depth.contactShadow.blur)} rgba(0, 0, 0, ${depth.contactShadow.opacity})`;
+
   for (const [name, material] of entries(primitives.materials)) {
     variables[`${cssPrefix}-material-${name}`] =
       `color-mix(in srgb, var(${cssColorVariable("surface")}) ${Math.round(material.opacity * 100)}%, transparent)`;

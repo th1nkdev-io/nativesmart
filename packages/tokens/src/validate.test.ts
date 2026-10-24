@@ -342,5 +342,8 @@ describe("platform exports", () => {
     expect(tokenReference("ns-text-display-lg", "dart")).toBe("NsTextStyles.displayLg");
     expect(tokenReference("--ns-space-4", "react-native")).toBe('theme.spacing["4"]');
     expect(tokenReference("--ns-gradient-brand", "swift")).toBeNull();
+    expect(tokenReference("--ns-depth-3", "swift")).toBe("NsTokens.Depth.z3");
+    expect(tokenReference("--ns-perspective-near", "dart")).toBe("NsPerspective.near");
+    expect(tokenReference("--ns-tilt-normal", "csharp")).toBe("NsTokens.Tilt.Normal");
   });
 });

@@ -44,6 +44,10 @@ export const nativeScales: readonly NativeScale[] = [
   { name: "AvatarSize", unit: "dimension", values: primitives.sizing.avatar },
   { name: "TouchTarget", unit: "dimension", values: primitives.sizing.touchTargets },
   { name: "Opacity", unit: "number", values: primitives.opacity },
+  { name: "Perspective", unit: "dimension", values: primitives.depth.perspective },
+  { name: "Depth", unit: "dimension", values: primitives.depth.layer, prefix: "z" },
+  { name: "Tilt", unit: "number", values: primitives.depth.tilt },
+  { name: "FieldOfView", unit: "number", values: primitives.depth.fov },
   {
     name: "Elevation",
     unit: "dimension",

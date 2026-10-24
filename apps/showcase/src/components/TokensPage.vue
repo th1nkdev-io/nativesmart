@@ -11,6 +11,7 @@ import { getTechnology } from "../technologies";
 import AccessibilitySection from "./tokens/AccessibilitySection.vue";
 import ColorsSection from "./tokens/ColorsSection.vue";
 import DataSection from "./tokens/DataSection.vue";
+import DepthSection from "./tokens/DepthSection.vue";
 import ElevationSection from "./tokens/ElevationSection.vue";
 import ExportsSection from "./tokens/ExportsSection.vue";
 import IconsSection from "./tokens/IconsSection.vue";
@@ -37,6 +38,7 @@ const components: Record<(typeof tokenSections)[number]["id"], Component> = {
   elevation: ElevationSection,
   motion: MotionSection,
   icons: IconsSection,
+  depth: DepthSection,
   accessibility: AccessibilitySection,
   personality: PersonalitySection,
   exports: ExportsSection,

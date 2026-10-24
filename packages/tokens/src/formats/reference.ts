@@ -7,6 +7,9 @@ export type TokenPlatform = "css" | "swift" | "kotlin" | "dart" | "csharp" | "re
 /** CSS variable prefixes of the native scales, longest first. */
 const scales: readonly [prefix: string, name: string, rn?: string][] = [
   ["control-height", "ControlHeight"],
+  ["perspective", "Perspective", "primitives.depth.perspective"],
+  ["depth", "Depth", "primitives.depth.layer"],
+  ["tilt", "Tilt", "primitives.depth.tilt"],
   ["line-height", "LineHeight", "theme.typography.lineHeight"],
   ["font-size", "FontSize", "theme.typography.fontSize"],
   ["font-weight", "FontWeight", "theme.typography.fontWeight"],
@@ -94,7 +97,7 @@ export function tokenReference(css: string, platform: TokenPlatform): string | n
     if (platform === "react-native") {
       return rn ? `${rn}${/^\d/.test(key) ? `[${JSON.stringify(key)}]` : `.${camel(key)}`}` : null;
     }
-    return scaleAccess(platform, scale, identifier(key, scale === "Space" ? "s" : "s"));
+    return scaleAccess(platform, scale, identifier(key, scale === "Depth" ? "z" : "s"));
   }
   return null;
 }

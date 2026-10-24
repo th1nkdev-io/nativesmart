@@ -6,6 +6,22 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "24 octobre 2026",
+    title: "3D, .NET MAUI et pages Tokens revues",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "Tokens 3D : perspective, profondeur, inclinaison, caméra, lumières, matières PBR"
+      },
+      { kind: "Nouveau", text: "Page 3D du Lab et 8 contrats de composants 3D et immersifs" },
+      { kind: "Nouveau", text: "Export .NET MAUI en C# et XAML, couverture des 13 technologies" },
+      {
+        kind: "Amélioré",
+        text: "Mouvement en lecture continue, Personnalité, Matières et Système redessinés"
+      }
+    ]
+  },
+  {
+    date: "24 octobre 2026",
     title: "Transitions et apparitions",
     changes: [
       {
