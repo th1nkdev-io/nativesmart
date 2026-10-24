@@ -729,10 +729,6 @@ so a long variable name
   gap: var(--ns-space-2);
 }
 
-.motion--slow {
-  --motion-factor: 4;
-}
-
 .motion-track {
   position: relative;
   block-size: 24px;
@@ -3443,8 +3439,8 @@ button.intent-matrix__row:hover {
 
 /* ───────────── Motion ───────────── */
 
-/* Floats at the bottom of the screen while the page scrolls, so a demo can be replayed anywhere. */
-.motion-controls {
+/* Floats at the bottom of the screen while the page scrolls. */
+.motion-dock {
   position: sticky;
   bottom: var(--ns-space-4);
   z-index: 2;
@@ -3452,19 +3448,101 @@ button.intent-matrix__row:hover {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--ns-space-3) var(--ns-space-6);
   justify-self: center;
-  padding: var(--ns-space-2) var(--ns-space-4) var(--ns-space-2) var(--ns-space-2);
+  gap: var(--ns-space-3);
+  padding: 6px 8px 6px 6px;
   border: 1px solid var(--ns-color-border);
   border-radius: var(--ns-radius-full);
-  background: color-mix(in srgb, var(--ns-color-surface) 88%, transparent);
-  box-shadow: var(--ns-elevation-2);
-  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, var(--ns-color-surface) 86%, transparent);
+  box-shadow: var(--ns-elevation-4);
+  backdrop-filter: blur(16px) saturate(1.6);
+}
+
+.motion-dock__play {
+  display: grid;
+  place-items: center;
+  inline-size: 44px;
+  block-size: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-gradient-brand);
+  box-shadow: var(--ns-glow-sm);
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.motion-dock__play:hover {
+  transform: scale(1.06);
+}
+
+.motion-dock__play:active {
+  transform: scale(0.96);
+}
+
+.motion-dock__play:focus-visible,
+.motion-dock__toggle:focus-visible {
+  outline: var(--ns-focus-ring-width) solid var(--ns-color-focus-ring);
+  outline-offset: 2px;
+}
+
+.motion-dock__play .ed-icon {
+  fill: currentColor;
+}
+
+.motion-dock__play[aria-pressed="true"] .ed-icon {
+  fill: none;
+  stroke-width: 3;
+}
+
+.motion-dock__status {
+  display: grid;
+  line-height: 1.25;
+}
+
+.motion-dock__status strong {
   font-size: var(--ns-font-size-sm);
 }
 
-.motion-controls .primary-button {
+.motion-dock__status small {
+  color: var(--ns-color-text-muted);
+  font-size: 11px;
+}
+
+.motion-dock__sep {
+  inline-size: 1px;
+  block-size: 28px;
+  background: var(--ns-color-border);
+}
+
+.motion-dock__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-block-size: 36px;
+  padding-inline: var(--ns-space-3);
+  border: 1px solid var(--ns-color-border);
   border-radius: var(--ns-radius-full);
+  background: var(--ns-color-surface);
+  color: var(--ns-color-text-muted);
+  font: inherit;
+  font-size: var(--ns-font-size-sm);
+  font-weight: var(--ns-font-weight-medium);
+  cursor: pointer;
+}
+
+.motion-dock__toggle[aria-pressed="true"] {
+  border-color: var(--ns-color-primary-border);
+  background: var(--ns-color-primary-muted);
+  color: var(--ns-color-on-primary-muted);
+}
+
+@container content (max-width: 640px) {
+  .motion-dock__status,
+  .motion-dock__sep {
+    display: none;
+  }
 }
 
 .curve-grid,

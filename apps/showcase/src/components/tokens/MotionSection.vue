@@ -1,20 +1,58 @@
 <script setup lang="ts">
 import { animations, primitives, sampleSpring, type AnimationName } from "@nativesmart/tokens";
-import { computed, ref } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import Icon from "../../editorial/Icon.vue";
+import SegControl from "./SegControl.vue";
 import TokenCode from "./TokenCode.vue";
 
 const { duration, easing, spring, transition, distance, stagger } = primitives.motion;
 const kebab = (value: string) => value.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
 
-const played = ref(false);
-const slowMotion = ref(false);
+/*
+ * Every demo plays on its own, in a loop, while the page is on screen: `played` goes back and
+ * forth, and the keyed demos (named animations, cascade) restart on each forward beat.
+ */
+const systemReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const playing = ref(!systemReduced);
+const speed = ref<1 | 0.5 | 0.25>(1);
+const speedOptions = [
+  { value: 1, label: "1×" },
+  { value: 0.5, label: "½×" },
+  { value: 0.25, label: "¼×" }
+] as const;
 const reduced = ref(false);
-const factor = computed(() => (slowMotion.value ? 4 : 1));
+const factor = computed(() => 1 / speed.value);
+const played = ref(false);
+const beat = ref(0);
 
-function replay() {
-  played.value = false;
-  requestAnimationFrame(() => requestAnimationFrame(() => (played.value = true)));
+const root = ref<HTMLElement>();
+const onScreen = ref(false);
+let timer: ReturnType<typeof setTimeout> | undefined;
+let observer: IntersectionObserver | undefined;
+
+function tick() {
+  clearTimeout(timer);
+  if (!playing.value || !onScreen.value) return;
+  played.value = !played.value;
+  if (played.value) beat.value += 1;
+  timer = setTimeout(tick, (played.value ? 1800 : 1100) * factor.value);
 }
+
+onMounted(() => {
+  observer = new IntersectionObserver(([entry]) => {
+    onScreen.value = entry.isIntersecting;
+  });
+  if (root.value) observer.observe(root.value);
+});
+onBeforeUnmount(() => {
+  clearTimeout(timer);
+  observer?.disconnect();
+});
+watch([playing, onScreen, speed], () => {
+  // Start from the beginning so every demo lines up on the new rhythm.
+  played.value = false;
+  timer = setTimeout(tick, 300);
+});
 
 /* Curves */
 const easingUsage: Record<keyof typeof easing, string> = {
@@ -77,9 +115,9 @@ const transitionText: Record<keyof typeof transition, string> = {
   collapse: "Une zone se referme",
   fade: "Un contenu se remplace"
 };
-const transitionShown = ref<Record<string, boolean>>(
-  Object.fromEntries(Object.keys(transition).map((key) => [key, true]))
-);
+/** Transitions hide on the backward beat; a click flips one card out of step to compare. */
+const flipped = ref<Record<string, boolean>>({});
+const transitionShown = (key: string) => played.value !== Boolean(flipped.value[key]);
 
 /* Named animations */
 const animationText: Record<AnimationName, string> = {
@@ -93,10 +131,10 @@ const animationText: Record<AnimationName, string> = {
   pulse: "Pulsation"
 };
 const animationNames = Object.keys(animations) as AnimationName[];
-const animationKey = ref(0);
+const animationKey = beat;
 
 /* Stagger */
-const staggerKey = ref(0);
+const staggerKey = beat;
 const staggerItems = [
   "Virement envoyé",
   "Facture payée",
@@ -108,21 +146,37 @@ const staggerItems = [
 
 <template>
   <div
+    ref="root"
     class="token-sections motion-page"
-    :class="{ 'motion--slow': slowMotion }"
     :data-ns-motion="reduced ? 'reduce' : undefined"
     :style="{ '--motion-factor': factor }"
   >
-    <div class="motion-controls">
-      <button type="button" class="primary-button" @click="replay">Rejouer</button>
-      <label class="motion-toggle">
-        <input v-model="slowMotion" type="checkbox" class="switch" />
-        Ralenti ×4
-      </label>
-      <label class="motion-toggle">
-        <input v-model="reduced" type="checkbox" class="switch" />
-        Simuler « réduire les animations »
-      </label>
+    <div class="motion-dock" role="toolbar" aria-label="Lecture des démonstrations">
+      <button
+        type="button"
+        class="motion-dock__play"
+        :aria-label="playing ? 'Mettre en pause' : 'Lire'"
+        :aria-pressed="playing"
+        @click="playing = !playing"
+      >
+        <Icon :name="playing ? 'pause' : 'play'" :size="18" />
+      </button>
+      <span class="motion-dock__status">
+        <strong>{{ playing ? "Lecture en boucle" : "En pause" }}</strong>
+        <small>Les démonstrations jouent seules</small>
+      </span>
+      <span class="motion-dock__sep" aria-hidden="true" />
+      <SegControl v-model="speed" :options="speedOptions" label="Vitesse" />
+      <button
+        type="button"
+        class="motion-dock__toggle"
+        :aria-pressed="reduced"
+        title="Simuler le réglage « réduire les animations » du système"
+        @click="reduced = !reduced"
+      >
+        <Icon name="accessibility" :size="16" />
+        Mouvement réduit
+      </button>
     </div>
 
     <section class="token-section">
@@ -240,14 +294,14 @@ const staggerItems = [
           :key="key"
           type="button"
           class="transition-card"
-          @click="transitionShown[key] = !transitionShown[key]"
+          @click="flipped[key] = !flipped[key]"
         >
           <span class="transition-card__stage">
             <span
               :class="[
                 'transition-card__item',
                 `transition-card__item--${key}`,
-                { 'is-hidden': !transitionShown[key] }
+                { 'is-hidden': !transitionShown(key) }
               ]"
               :style="{
                 transition: `all calc(var(--ns-duration-${value.duration}) * var(--motion-factor, 1)) var(--ns-easing-${kebab(value.easing)})`
@@ -263,14 +317,13 @@ const staggerItems = [
     </section>
 
     <section class="token-section">
-      <header class="token-section__header token-section__header--action">
+      <header class="token-section__header">
         <h2>Animations nommées</h2>
         <p>
           Huit animations prêtes : la classe <code>.ns-animate-slide-up</code> ou
           <code>animate-ns-slide-up</code> avec Tailwind. Avec le mouvement réduit, les glissements
           deviennent de simples fondus.
         </p>
-        <button type="button" class="secondary-button" @click="animationKey++">Rejouer</button>
       </header>
       <div class="animation-grid lab-preview">
         <figure
@@ -315,7 +368,6 @@ const staggerItems = [
           </li>
         </ul>
         <div class="stagger-demo__side">
-          <button type="button" class="secondary-button" @click="staggerKey++">Rejouer</button>
           <TokenCode value="--ns-stagger" />
           <TokenCode value="--ns-motion-distance-lg" />
         </div>

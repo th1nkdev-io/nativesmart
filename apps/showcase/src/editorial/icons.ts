@@ -64,6 +64,8 @@ export const icons = {
   rows: "M4 6h16M4 12h16M4 18h16",
   columns: "M4 4h6v16H4ZM14 4h6v16h-6Z",
   sliders: "M4 7h10M18 7h2M4 17h4M12 17h8M16 5v4M10 15v4",
+  play: "M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z",
+  pause: "M8 5v14M16 5v14",
   bug: "M8 6V4M16 6V4M9 6h6a4 4 0 0 1 4 4v4a7 7 0 0 1-14 0v-4a4 4 0 0 1 4-4ZM3 13h2M19 13h2M4 8l2 1.5M20 8l-2 1.5M4 19l2-1.5M20 19l-2-1.5M12 10v10"
 } as const;
 
