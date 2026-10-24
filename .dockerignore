@@ -1,0 +1,12 @@
+**/node_modules
+**/dist
+**/build
+**/.turbo
+**/.dart_tool
+.git
+.github
+.changeset
+.env
+.env.*
+*.log
+.DS_Store
