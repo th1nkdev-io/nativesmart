@@ -39,6 +39,76 @@ export const vReveal: Directive<HTMLElement, number | undefined> = {
   }
 };
 
+/** Blocks revealed on every page, without marking each one by hand. */
+const revealBlocks = [
+  ".page > :not(.token-rail, .token-sections, .component-tabs, .ed-hero)",
+  ".token-section > *",
+  ".token-group > *",
+  ".showcase > *",
+  ".contract > *"
+].join(", ");
+
+/** Grids whose items appear one after another, rather than as one block. */
+function isMultiColumnGrid(element: Element) {
+  const style = getComputedStyle(element);
+  return (
+    style.display === "grid" &&
+    style.gridTemplateColumns.trim().split(/\s+/).length > 1 &&
+    element.children.length > 1 &&
+    element.children.length <= 24
+  );
+}
+
+function prepare(element: HTMLElement, delay: number) {
+  const position = getComputedStyle(element).position;
+  // Sticky and fixed elements keep their place; anything already revealed is left alone.
+  if (position === "sticky" || position === "fixed") return;
+  if (element.closest(".reveal") || element.querySelector(".reveal")) return;
+  element.classList.add("reveal", "reveal--up");
+  element.style.setProperty("--reveal-delay", `${delay}ms`);
+  if (reduced()) element.classList.add("is-in");
+  else observeReveal(element);
+}
+
+function scan(root: HTMLElement) {
+  for (const block of Array.from(root.querySelectorAll<HTMLElement>(revealBlocks))) {
+    if (block.dataset.autoReveal) continue;
+    block.dataset.autoReveal = "1";
+    if (isMultiColumnGrid(block)) {
+      block.dataset.autoReveal = "grid";
+      Array.from(block.children).forEach((child, index) => {
+        if (child instanceof HTMLElement) {
+          child.dataset.autoReveal = "1";
+          prepare(child, Math.min(index, 8) * 60);
+        }
+      });
+    } else if (block.dataset.autoReveal !== "grid") {
+      prepare(block, 0);
+    }
+  }
+}
+
+/**
+ * Reveals the blocks of every page as they scroll into view: sections, cards of a grid one after
+ * another, tables. New content, such as another page or tab, is picked up as it renders.
+ */
+export const vAutoReveal: Directive<HTMLElement> = {
+  mounted(element) {
+    let frame = 0;
+    const schedule = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => scan(element));
+    };
+    const observer = new MutationObserver(schedule);
+    observer.observe(element, { childList: true, subtree: true });
+    (element as HTMLElement & { _revealObserver?: MutationObserver })._revealObserver = observer;
+    schedule();
+  },
+  unmounted(element) {
+    (element as HTMLElement & { _revealObserver?: MutationObserver })._revealObserver?.disconnect();
+  }
+};
+
 /** Tilts an element in 3D toward the pointer. The strength is in degrees (default 8). */
 export const vTilt: Directive<HTMLElement, number | undefined> = {
   mounted(element, binding) {
@@ -103,6 +173,7 @@ export const vCount: Directive<HTMLElement, number> = {
 declare module "vue" {
   interface GlobalDirectives {
     vReveal: typeof vReveal;
+    vAutoReveal: typeof vAutoReveal;
     vTilt: typeof vTilt;
     vSpotlight: typeof vSpotlight;
     vCount: typeof vCount;

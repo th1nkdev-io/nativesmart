@@ -93,6 +93,8 @@ const current = computed(
       </div>
     </aside>
 
-    <component :is="current.component" />
+    <Transition name="section" mode="out-in">
+      <component :is="current.component" :key="current.id" />
+    </Transition>
   </article>
 </template>

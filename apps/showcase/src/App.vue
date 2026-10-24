@@ -68,11 +68,13 @@ watchEffect(() => {
 
     <main class="lab__main">
       <div :class="['lab__viewport', `lab__viewport--${state.viewport}`]">
-        <div ref="canvas" class="lab__canvas" data-toc-root>
-          <ComponentPage v-if="contract" :key="contract.id" :contract="contract" />
-          <TokensPage v-else-if="state.page.startsWith('tokens')" />
-          <component :is="docPage.component" v-else-if="docPage?.component" :key="docPage.id" />
-          <HomePage v-else />
+        <div ref="canvas" v-auto-reveal class="lab__canvas" data-toc-root>
+          <Transition name="page" mode="out-in">
+            <ComponentPage v-if="contract" :key="contract.id" :contract="contract" />
+            <TokensPage v-else-if="state.page.startsWith('tokens')" key="tokens" />
+            <component :is="docPage.component" v-else-if="docPage?.component" :key="docPage.id" />
+            <HomePage v-else key="home" />
+          </Transition>
         </div>
       </div>
       <LabFooter />

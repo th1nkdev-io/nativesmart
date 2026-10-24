@@ -5,6 +5,21 @@ import PageHero from "../editorial/PageHero.vue";
 
 const releases = [
   {
+    date: "24 octobre 2026",
+    title: "Transitions et apparitions",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "Transitions entre les pages, les sections des tokens et les onglets"
+      },
+      { kind: "Nouveau", text: "Apparition au défilement sur toutes les pages, cartes en cascade" },
+      {
+        kind: "Amélioré",
+        text: "Pages Tokens : onglets à icônes, lignes alignées, variables en pied"
+      }
+    ]
+  },
+  {
     date: "21 octobre 2026",
     title: "Personnalités, contraste élevé et exports natifs",
     changes: [

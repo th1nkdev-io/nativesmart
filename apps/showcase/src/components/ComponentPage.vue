@@ -124,18 +124,20 @@ function reset() {
       </button>
     </div>
 
-    <ContractPanel v-if="tab === 'api'" :contract="contract" />
-    <section v-else class="showcase">
-      <ComingSoon v-if="!implemented" :contract="contract" :technology="technology" />
-      <RendererFrame
-        v-else-if="technology.url"
-        :url="technology.url"
-        :request="request"
-        @event="logEvent"
-      />
-      <PreviewCode v-if="tab === 'playground'" :contract="contract" :values="values" />
-      <PreviewCode v-else :contract="contract" :groups="groups" />
-    </section>
+    <Transition name="section" mode="out-in">
+      <ContractPanel v-if="tab === 'api'" :contract="contract" />
+      <section v-else class="showcase">
+        <ComingSoon v-if="!implemented" :contract="contract" :technology="technology" />
+        <RendererFrame
+          v-else-if="technology.url"
+          :url="technology.url"
+          :request="request"
+          @event="logEvent"
+        />
+        <PreviewCode v-if="tab === 'playground'" :contract="contract" :values="values" />
+        <PreviewCode v-else :contract="contract" :groups="groups" />
+      </section>
+    </Transition>
 
     <Teleport defer to="#lab-aside">
       <div class="aside-stack">
