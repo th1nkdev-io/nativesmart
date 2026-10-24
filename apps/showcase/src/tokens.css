@@ -185,7 +185,6 @@ so a long variable name
   .anatomy__tier,
   .specimen,
   .gradient-card,
-  .usage-column,
   .target,
   .ratio,
   .ratio figcaption,
@@ -253,17 +252,6 @@ so a long variable name
   gap: var(--ns-space-3);
 }
 
-.token-group__title {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--ns-space-1) var(--ns-space-3);
-}
-
-.token-group__title h3 {
-  font-size: var(--ns-text-h6-size);
-}
-
 .token-group__title p {
   margin: 0;
   color: var(--ns-color-text-muted);
@@ -284,6 +272,7 @@ so a long variable name
 }
 
 .token-code code {
+  font-size: 11.5px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -330,6 +319,7 @@ so a long variable name
 
 .role {
   display: grid;
+  grid-template-rows: auto auto 1fr auto;
   min-inline-size: 0;
   gap: var(--ns-space-2);
   padding: var(--ns-space-2);
@@ -801,7 +791,7 @@ so a long variable name
 
 .opacity-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--ns-space-4);
 }
 
@@ -873,7 +863,11 @@ so a long variable name
 }
 
 .seg button {
-  padding: 6px var(--ns-space-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-block-size: 32px;
+  padding: 0 var(--ns-space-3);
   border: 0;
   border-radius: var(--ns-radius-control);
   background: none;
@@ -881,10 +875,38 @@ so a long variable name
   font: inherit;
   font-size: var(--ns-font-size-sm);
   font-weight: var(--ns-font-weight-medium);
+  white-space: nowrap;
   cursor: pointer;
   transition:
     background-color var(--ns-duration-fast) var(--ns-easing-standard),
-    color var(--ns-duration-fast) var(--ns-easing-standard);
+    color var(--ns-duration-fast) var(--ns-easing-standard),
+    box-shadow var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.seg button .ed-icon {
+  color: var(--ns-color-text-subtle);
+  transition: color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.seg button:focus-visible {
+  outline: var(--ns-focus-ring-width) solid var(--ns-color-focus-ring);
+  outline-offset: 1px;
+}
+
+.seg button[aria-checked="true"] .ed-icon,
+.seg button[aria-pressed="true"] .ed-icon {
+  color: var(--ns-color-primary);
+}
+
+@container content (max-width: 560px) {
+  .seg--compact .seg__label {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
 
 .seg button:hover {
@@ -1146,12 +1168,12 @@ button.intent-matrix__row:hover {
 }
 
 .intent-matrix__row--head small {
-  overflow: hidden;
+  align-self: end;
   color: var(--ns-color-text-muted);
   font-size: 11px;
+  line-height: 1.25;
   text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  text-wrap: balance;
 }
 
 .intent-matrix__name {
@@ -1363,7 +1385,7 @@ button.intent-matrix__row:hover {
 
 .gradient-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: var(--ns-space-3);
 }
 
@@ -1450,10 +1472,22 @@ button.intent-matrix__row:hover {
   color: var(--ns-color-text-muted);
 }
 
+.contrast-summary > span {
+  display: grid;
+  min-inline-size: 140px;
+  padding: var(--ns-space-3) var(--ns-space-4);
+  border: 1px solid var(--ns-color-border);
+  border-radius: var(--ns-radius-card);
+  background: var(--ns-color-surface);
+  font-size: var(--ns-font-size-sm);
+}
+
 .contrast-summary strong {
   color: var(--ns-color-text);
-  font-size: var(--ns-font-size-lg);
+  font-family: var(--ns-font-heading);
+  font-size: var(--ns-font-size-2xl);
   font-variant-numeric: tabular-nums;
+  line-height: 1.2;
 }
 
 .contrast-sample--ui {
@@ -2329,107 +2363,6 @@ button.intent-matrix__row:hover {
   opacity: 1;
 }
 
-.usage-columns {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
-  gap: var(--ns-space-3);
-}
-
-.usage-column {
-  display: grid;
-  align-content: start;
-  gap: var(--ns-space-2);
-  padding: var(--ns-space-4);
-  border: 1px solid var(--ns-color-border);
-  border-radius: var(--ns-radius-card);
-  background: var(--ns-color-surface);
-}
-
-.usage-column h3 {
-  font-size: var(--ns-text-h6-size);
-}
-
-.usage-column p {
-  margin: 0;
-  font-size: var(--ns-font-size-sm);
-}
-
-.usage-column ul {
-  display: grid;
-  gap: var(--ns-space-3);
-  margin: var(--ns-space-2) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.usage-column li {
-  display: grid;
-  grid-template-columns: 56px 36px minmax(0, 1fr);
-  align-items: center;
-  gap: 2px var(--ns-space-2);
-}
-
-.usage-column li strong {
-  font-family: var(--ns-font-mono);
-  font-size: var(--ns-font-size-xs);
-}
-
-.usage-column li small {
-  color: var(--ns-color-text-muted);
-  font-size: 11px;
-}
-
-.usage-column li .token-code {
-  grid-column: 2 / -1;
-}
-
-.space-sample {
-  display: flex;
-  grid-row: span 2;
-  align-items: center;
-  justify-content: center;
-  align-self: stretch;
-  min-block-size: 44px;
-  padding: 6px;
-  border-radius: var(--ns-radius-sm);
-  background: var(--ns-color-surface-muted);
-}
-
-.space-sample i {
-  display: block;
-  flex: none;
-  background: color-mix(in srgb, #f472b6 40%, transparent);
-}
-
-.space-sample--inset i {
-  padding: calc(var(--gap) / 2);
-  border: 1px dashed color-mix(in srgb, var(--ns-color-primary) 60%, transparent);
-}
-
-.space-sample--inset i::before {
-  display: block;
-  inline-size: 12px;
-  block-size: 12px;
-  border-radius: 2px;
-  background: var(--ns-color-primary);
-  content: "";
-}
-
-.space-sample--stack i,
-.space-sample--section i {
-  inline-size: 32px;
-  block-size: var(--gap);
-  border-block: 5px solid var(--ns-color-primary);
-  box-sizing: content-box;
-}
-
-.space-sample--inline i {
-  inline-size: var(--gap);
-  block-size: 20px;
-  border-inline: 8px solid var(--ns-color-primary);
-  box-sizing: content-box;
-}
-
 .space-ruler {
   display: grid;
   overflow: hidden;
@@ -3302,7 +3235,7 @@ button.intent-matrix__row:hover {
 
 .effect-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(150px, 100%), 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--ns-space-6);
   padding: var(--ns-space-8) var(--ns-space-6);
   border: 1px solid var(--ns-color-border);
@@ -3537,7 +3470,7 @@ button.intent-matrix__row:hover {
 .curve-grid,
 .spring-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--ns-space-3);
 }
 
@@ -3674,10 +3607,15 @@ button.intent-matrix__row:hover {
   justify-self: end;
 }
 
-.transition-grid,
+.transition-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--ns-space-3);
+}
+
 .animation-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--ns-space-3);
 }
 
@@ -3781,7 +3719,11 @@ button.intent-matrix__row:hover {
 
 .animation-card figcaption code {
   justify-self: start;
-  font-size: 11px;
+  max-inline-size: 100%;
+  overflow: hidden;
+  font-size: 10.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .animation-card__item.ns-animate-spin {
@@ -4101,6 +4043,7 @@ button.intent-matrix__row:hover {
 
 .minimum {
   display: grid;
+  grid-template-rows: auto auto 1fr auto;
   align-content: start;
   gap: 4px;
   padding: var(--ns-space-5);
@@ -5686,4 +5629,456 @@ button.intent-matrix__row:hover {
   .tracking-table__row > :last-child {
     display: none;
   }
+}
+
+/* ───────────── Spacing: intentions ───────────── */
+
+.intent-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: var(--ns-space-4);
+}
+
+.intent-card {
+  --usage: #db2777;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr;
+  overflow: hidden;
+  border: 1px solid var(--ns-color-border);
+  border-radius: var(--ns-radius-card);
+  background: var(--ns-color-surface);
+}
+
+.intent-card--stack {
+  --usage: #ea580c;
+}
+
+.intent-card--inline {
+  --usage: #0891b2;
+}
+
+.intent-card--section {
+  --usage: #7c3aed;
+}
+
+.intent-card__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ns-space-3);
+  padding: var(--ns-space-4) var(--ns-space-5);
+}
+
+.intent-card__icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  inline-size: 36px;
+  block-size: 36px;
+  border-radius: var(--ns-radius-control);
+  background: color-mix(in srgb, var(--usage) 14%, var(--ns-color-surface));
+  color: var(--usage);
+}
+
+.intent-card__head h3 {
+  font-size: var(--ns-font-size-md);
+}
+
+.intent-card__head p {
+  margin: 2px 0 0;
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-font-size-sm);
+}
+
+/* A schematic of the space, drawn at its md size. */
+.intent-card__figure {
+  display: grid;
+  place-items: center;
+  block-size: 112px;
+  margin-inline: var(--ns-space-5);
+  border-radius: var(--ns-radius-md);
+  background:
+    radial-gradient(circle at 1px 1px, var(--ns-color-border) 1px, transparent 0) 0 0 / 12px 12px,
+    var(--ns-color-background);
+}
+
+.intent-card__figure i {
+  display: block;
+  border-radius: 4px;
+  background: var(--ns-color-surface);
+  box-shadow: inset 0 0 0 1.5px var(--ns-color-border-strong);
+}
+
+.fig-inset {
+  padding: var(--ns-inset-lg);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--usage) 22%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--usage) 55%, transparent);
+}
+
+.fig-inset i {
+  inline-size: 72px;
+  block-size: 28px;
+}
+
+.fig-stack,
+.fig-section {
+  display: grid;
+  gap: var(--ns-stack-md);
+  background: color-mix(in srgb, var(--usage) 22%, transparent);
+}
+
+.fig-section {
+  gap: calc(var(--ns-section-md) / 4);
+}
+
+.fig-stack i {
+  inline-size: 120px;
+  block-size: 14px;
+}
+
+.fig-section i {
+  inline-size: 140px;
+  block-size: 26px;
+}
+
+.fig-inline {
+  display: flex;
+  gap: var(--ns-inline-md);
+  background: color-mix(in srgb, var(--usage) 22%, transparent);
+}
+
+.fig-inline i {
+  inline-size: 36px;
+  block-size: 40px;
+}
+
+.intent-card__rows {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 52px auto;
+  align-content: start;
+  margin: 0;
+  padding: var(--ns-space-3) var(--ns-space-5) var(--ns-space-4);
+  list-style: none;
+}
+
+.intent-card__rows li {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: center;
+  column-gap: var(--ns-space-3);
+  padding-block: 7px;
+}
+
+.intent-card__rows li + li {
+  border-block-start: 1px dashed var(--ns-color-border);
+}
+
+.intent-card__rows strong {
+  font-family: var(--ns-font-mono);
+  font-size: var(--ns-font-size-sm);
+}
+
+.intent-card__rows .numeric {
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-font-size-xs);
+  text-align: end;
+}
+
+.intent-card__bar {
+  display: block;
+  block-size: 8px;
+  overflow: hidden;
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-surface-muted);
+}
+
+.intent-card__bar i {
+  display: block;
+  block-size: 100%;
+  border-radius: inherit;
+  background: var(--usage);
+}
+
+/* ───────────── Shared blocks ───────────── */
+
+/* Empty edge tracks give the rows their side padding: a subgrid's own padding would eat the
+   sample column. */
+.scale-rows {
+  display: grid;
+  grid-template-columns: 0 var(--sample) 56px 72px minmax(0, 1fr) auto 0;
+  column-gap: var(--ns-space-4);
+  overflow: hidden;
+  border: 1px solid var(--ns-color-border);
+  border-radius: var(--ns-radius-card);
+  background: var(--ns-color-surface);
+}
+
+.scale-rows__row {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: center;
+  padding-block: var(--ns-space-3);
+}
+
+.scale-rows__row > :first-child {
+  grid-column-start: 2;
+}
+
+.scale-rows__row + .scale-rows__row {
+  border-block-start: 1px solid var(--ns-color-border);
+}
+
+.scale-rows__sample {
+  display: flex;
+  align-items: center;
+  min-block-size: 32px;
+  color: var(--ns-color-text);
+}
+
+.scale-rows__name {
+  font-family: var(--ns-font-mono);
+  font-size: var(--ns-font-size-sm);
+}
+
+.scale-rows__value {
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-font-size-sm);
+  text-align: end;
+}
+
+.scale-rows__note {
+  min-inline-size: 0;
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-font-size-sm);
+}
+
+@container content (max-width: 640px) {
+  .scale-rows {
+    grid-template-columns: 0 var(--sample) minmax(0, 1fr) auto 0;
+  }
+
+  .scale-rows__note,
+  .scale-rows__row .token-code {
+    display: none;
+  }
+}
+
+/* Variables listed under a block are attached to it as its footer. */
+.token-section > .token-inline {
+  margin-block-start: calc(var(--ns-space-6) * -1 - 1px);
+  padding: var(--ns-space-3) var(--ns-space-5);
+  border: 1px solid var(--ns-color-border);
+  border-radius: 0 0 var(--ns-radius-card) var(--ns-radius-card);
+  background: var(--ns-color-surface-muted);
+  font-size: var(--ns-font-size-sm);
+}
+
+.token-section > .token-inline::before {
+  color: var(--ns-color-text-subtle);
+  font-size: 11px;
+  font-weight: var(--ns-font-weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  content: "Variables";
+}
+
+.token-section > :has(+ .token-inline) {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+
+/* Group heads: title, then a rule to the edge, description underneath. */
+.token-group__title {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 2px var(--ns-space-3);
+}
+
+.token-group__title::after {
+  grid-row: 1;
+  grid-column: 2;
+  block-size: 1px;
+  background: var(--ns-color-border);
+  content: "";
+}
+
+.token-group__title h3 {
+  font-size: var(--ns-font-size-lg);
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.token-group__title p {
+  grid-column: 1 / -1;
+  font-size: var(--ns-font-size-sm);
+}
+
+.sample-control {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--ns-space-4);
+  border-radius: var(--ns-radius-button);
+  background: var(--ns-color-primary);
+  color: var(--ns-color-on-primary);
+  font-size: var(--ns-font-size-sm);
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.sample-icon {
+  fill: none;
+  stroke: var(--ns-color-primary);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.sample-border {
+  inline-size: 100%;
+  block-size: 36px;
+  border-color: var(--ns-color-border-strong);
+  border-radius: var(--ns-radius-control);
+  background: var(--ns-color-surface-muted);
+}
+
+.radius-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  justify-items: center;
+}
+
+@container content (max-width: 640px) {
+  .radius-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.try-panel {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--ns-space-3);
+  margin: 0;
+}
+
+.try-panel figcaption {
+  color: var(--ns-color-text-subtle);
+  font-size: 11px;
+  font-weight: var(--ns-font-weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.try-panel .try-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  padding: var(--ns-space-4);
+  border: 1px solid var(--ns-color-border);
+  border-radius: var(--ns-radius-card);
+  background: var(--ns-color-surface);
+}
+
+@container content (max-width: 900px) {
+  .curve-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .spring-grid,
+  .transition-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container content (max-width: 640px) {
+  .animation-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@container content (max-width: 560px) {
+  .effect-grid,
+  .curve-grid,
+  .animation-grid,
+  .spring-grid,
+  .transition-grid,
+  .opacity-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.transition-card code {
+  max-inline-size: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.transition-card small.numeric {
+  white-space: normal;
+}
+
+/* A section action sits at the end of its header. */
+.token-section__header--action {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+}
+
+.token-section__header--action > :not(button) {
+  grid-column: 1;
+}
+
+.token-section__header--action > button {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+}
+
+.icon-filter {
+  display: flex;
+  flex: 1 1 200px;
+  align-items: center;
+  gap: var(--ns-space-2);
+  min-block-size: 38px;
+  padding-inline: var(--ns-space-3);
+  border: 1px solid var(--ns-color-border-input);
+  border-radius: var(--ns-radius-control);
+  background: var(--ns-color-surface);
+  color: var(--ns-color-text-subtle);
+}
+
+.icon-filter:focus-within {
+  border-color: var(--ns-color-border-focus);
+}
+
+.icon-filter input {
+  flex: 1;
+  min-inline-size: 0;
+  min-block-size: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: none;
+}
+
+.prefs__toggles {
+  padding: var(--ns-space-3) var(--ns-space-4);
+  border: 1px solid var(--ns-color-border);
+  border-radius: var(--ns-radius-card);
+  background: var(--ns-color-surface);
+}
+
+.prefs + .table-wrap code {
+  white-space: nowrap;
+}
+
+.effect,
+.effect figcaption {
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+.effect figcaption {
+  grid-template-columns: minmax(0, 1fr);
+  inline-size: 100%;
 }

@@ -9,6 +9,7 @@ import {
 } from "@nativesmart/tokens";
 import { computed, onBeforeUnmount, reactive, ref, watchEffect } from "vue";
 import { state } from "../../state";
+import SegControl from "./SegControl.vue";
 
 const theme = computed(() => brandThemes[state.brand]);
 const traits = reactive<Personality>({ ...brandThemes[state.brand].personality });
@@ -131,18 +132,12 @@ const shapeFacts = computed(() => shapePresets[traits.shape]);
         <div class="persona__controls">
           <div v-for="(choices, trait) in options" :key="trait" class="persona__trait">
             <small>{{ traitNames[trait] }}</small>
-            <div class="seg" role="radiogroup" :aria-label="traitNames[trait]">
-              <button
-                v-for="choice in choices"
-                :key="choice.value"
-                type="button"
-                role="radio"
-                :aria-checked="traits[trait] === choice.value"
-                @click="setTrait(trait, choice.value)"
-              >
-                {{ choice.label }}
-              </button>
-            </div>
+            <SegControl
+              :model-value="traits[trait]"
+              :options="choices"
+              :label="traitNames[trait]"
+              @update:model-value="setTrait(trait, $event)"
+            />
           </div>
           <dl class="persona__facts">
             <div>

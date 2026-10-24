@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { primitives, spaceVariable } from "@nativesmart/tokens";
 import { ref } from "vue";
+import Icon from "../../editorial/Icon.vue";
+import type { IconName } from "../../editorial/icons";
+import SegControl from "./SegControl.vue";
 import TokenCode from "./TokenCode.vue";
 
 const steps = (Object.entries(primitives.spacing) as [string, number][]).sort(
@@ -9,24 +12,47 @@ const steps = (Object.entries(primitives.spacing) as [string, number][]).sort(
 const largest = Math.max(...steps.map(([, value]) => value));
 
 type Usage = keyof typeof primitives.spaceUsages;
-const usageText: Record<Usage, { label: string; description: string }> = {
-  inset: { label: "Inset", description: "Marge intérieure d'une boîte : carte, bouton, cellule." },
-  stack: { label: "Stack", description: "Écart vertical entre des éléments empilés." },
-  inline: { label: "Inline", description: "Écart horizontal entre des éléments alignés." },
-  section: { label: "Section", description: "Respiration entre les grands blocs d'une page." }
+const usageText: Record<Usage, { label: string; description: string; icon: IconName }> = {
+  inset: {
+    label: "Inset",
+    description: "Marge intérieure d'une boîte : carte, bouton, cellule.",
+    icon: "inset"
+  },
+  stack: {
+    label: "Stack",
+    description: "Écart vertical entre des éléments empilés.",
+    icon: "stack"
+  },
+  inline: {
+    label: "Inline",
+    description: "Écart horizontal entre des éléments alignés.",
+    icon: "inline"
+  },
+  section: {
+    label: "Section",
+    description: "Respiration entre les grands blocs d'une page.",
+    icon: "section"
+  }
 };
-const usages = (Object.keys(primitives.spaceUsages) as Usage[]).map((usage) => ({
-  usage,
-  ...usageText[usage],
-  sizes: Object.entries(primitives.spaceUsages[usage]).map(([size, step]) => ({
+const usages = (Object.keys(primitives.spaceUsages) as Usage[]).map((usage) => {
+  const sizes = Object.entries(primitives.spaceUsages[usage]).map(([size, step]) => ({
     size,
     step: String(step),
     value: primitives.spacing[step as keyof typeof primitives.spacing]
-  }))
-}));
+  }));
+  const largest = Math.max(...sizes.map((item) => item.value));
+  return {
+    usage,
+    ...usageText[usage],
+    sizes: sizes.map((item) => ({ ...item, share: item.value / largest }))
+  };
+});
 
 /* Anatomy: highlight one kind of space on a real layout. */
-const highlight = ref<Usage | null>("inset");
+const highlight = ref<Usage>("inset");
+const highlightOptions = usages
+  .filter((item) => item.usage !== "section")
+  .map((item) => ({ value: item.usage, label: item.label, icon: item.icon }));
 </script>
 
 <template>
@@ -40,18 +66,7 @@ const highlight = ref<Usage | null>("inset");
         </p>
       </header>
       <div class="space-anatomy">
-        <div class="seg" role="radiogroup" aria-label="Type d'espace">
-          <button
-            v-for="item in usages.filter((entry) => entry.usage !== 'section')"
-            :key="item.usage"
-            type="button"
-            role="radio"
-            :aria-checked="highlight === item.usage"
-            @click="highlight = item.usage"
-          >
-            {{ item.label }}
-          </button>
-        </div>
+        <SegControl v-model="highlight" :options="highlightOptions" label="Type d'espace" />
         <div :class="['space-card-stage', 'lab-preview', highlight && `show-${highlight}`]">
           <article class="space-card">
             <header class="space-card__head">
@@ -83,25 +98,36 @@ const highlight = ref<Usage | null>("inset");
         <h2>Espacements par intention</h2>
         <p>
           Quatre familles qui pointent vers l'échelle. Changer une famille change tous les
-          composants qui l'utilisent, sans chercher les valeurs une à une. Aperçus à taille réelle,
-          sauf les sections, au quart.
+          composants qui l'utilisent, sans chercher les valeurs une à une. Les barres comparent les
+          tailles d'une même famille.
         </p>
       </header>
-      <div class="usage-columns">
-        <article v-for="item in usages" :key="item.usage" class="usage-column">
-          <h3>{{ item.label }}</h3>
-          <p class="muted">{{ item.description }}</p>
-          <ul>
+      <div class="intent-cards">
+        <article
+          v-for="item in usages"
+          :key="item.usage"
+          :class="['intent-card', `intent-card--${item.usage}`]"
+        >
+          <header class="intent-card__head">
+            <span class="intent-card__icon"><Icon :name="item.icon" :size="20" /></span>
+            <div>
+              <h3>{{ item.label }}</h3>
+              <p>{{ item.description }}</p>
+            </div>
+          </header>
+          <div class="intent-card__figure lab-preview" aria-hidden="true">
+            <span v-if="item.usage === 'inset'" class="fig-inset"><i /></span>
+            <span v-else-if="item.usage === 'stack'" class="fig-stack"><i /><i /><i /></span>
+            <span v-else-if="item.usage === 'inline'" class="fig-inline"><i /><i /><i /></span>
+            <span v-else class="fig-section"><i /><i /></span>
+          </div>
+          <ul class="intent-card__rows">
             <li v-for="size in item.sizes" :key="size.size">
-              <span :class="['space-sample', `space-sample--${item.usage}`]">
-                <i
-                  :style="{
-                    '--gap': `${item.usage === 'section' ? size.value / 4 : size.value}px`
-                  }"
-                />
-              </span>
               <strong>{{ size.size }}</strong>
-              <small class="numeric">{{ size.value }} px · space-{{ size.step }}</small>
+              <span class="intent-card__bar"
+                ><i :style="{ inlineSize: `${size.share * 100}%` }"
+              /></span>
+              <span class="numeric">{{ size.value }} px</span>
               <TokenCode :value="`--ns-${item.usage}-${size.size}`" />
             </li>
           </ul>

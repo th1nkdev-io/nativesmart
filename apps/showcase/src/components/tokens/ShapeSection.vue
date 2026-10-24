@@ -2,6 +2,7 @@
 import { brandThemes, primitives, type BrandShape } from "@nativesmart/tokens";
 import { computed } from "vue";
 import { state } from "../../state";
+import ScaleRows from "./ScaleRows.vue";
 import TokenCode from "./TokenCode.vue";
 
 const theme = computed(() => brandThemes[state.brand]);
@@ -23,6 +24,38 @@ const usageText: { key: keyof BrandShape; label: string; example: string }[] = [
 const usages = computed(() =>
   usageText.map((item) => ({ ...item, value: theme.value.shape[item.key] }))
 );
+
+const borderRows = [
+  ...Object.entries(primitives.borders.width).map(([key, value]) => ({
+    id: `width-${key}`,
+    name: key,
+    value: `${value} px`,
+    note:
+      {
+        none: "Sans bordure",
+        thin: "Par défaut : cartes, champs, séparateurs",
+        thick: "Sélection, onglet actif",
+        heavy: "Mises en avant, indicateurs"
+      }[key] ?? "",
+    token: `--ns-border-width-${key}`,
+    width: `${value}px`,
+    styleValue: "solid"
+  })),
+  ...Object.entries(primitives.borders.style).map(([key, value]) => ({
+    id: `style-${key}`,
+    name: key,
+    value: "style",
+    note:
+      {
+        solid: "Par défaut",
+        dashed: "Zone de dépôt, brouillon",
+        dotted: "Repère, élément provisoire"
+      }[key] ?? "",
+    token: `border-style: ${value}`,
+    width: "2px",
+    styleValue: value
+  }))
+];
 
 /** Superellipse outline, the shape iOS draws for continuous corners. */
 function superellipse(size: number, exponent: number) {
@@ -151,19 +184,17 @@ const squircle = superellipse(120, 5);
           provisoire.
         </p>
       </header>
-      <div class="border-grid">
-        <div v-for="(value, key) in primitives.borders.width" :key="key" class="border-demo">
-          <span :style="{ borderWidth: `${value}px` }" />
-          <strong>{{ key }}</strong>
-          <small>{{ value }}px</small>
-          <TokenCode :value="`--ns-border-width-${key}`" />
-        </div>
-        <div v-for="(value, key) in primitives.borders.style" :key="key" class="border-demo">
-          <span :style="{ borderWidth: '2px', borderStyle: value }" />
-          <strong>{{ key }}</strong>
-          <small>style</small>
-        </div>
-      </div>
+      <ScaleRows :rows="borderRows" sample="120px">
+        <template #sample="{ row }">
+          <span
+            class="sample-border"
+            :style="{
+              borderWidth: row.width,
+              borderStyle: row.styleValue
+            }"
+          />
+        </template>
+      </ScaleRows>
     </section>
 
     <section class="token-section">

@@ -263,13 +263,14 @@ const staggerItems = [
     </section>
 
     <section class="token-section">
-      <header class="token-section__header">
+      <header class="token-section__header token-section__header--action">
         <h2>Animations nommées</h2>
         <p>
           Huit animations prêtes : la classe <code>.ns-animate-slide-up</code> ou
           <code>animate-ns-slide-up</code> avec Tailwind. Avec le mouvement réduit, les glissements
           deviennent de simples fondus.
         </p>
+        <button type="button" class="secondary-button" @click="animationKey++">Rejouer</button>
       </header>
       <div class="animation-grid lab-preview">
         <figure
@@ -286,11 +287,6 @@ const staggerItems = [
             <code>.ns-animate-{{ name }}</code>
           </figcaption>
         </figure>
-      </div>
-      <div class="motion-actions">
-        <button type="button" class="secondary-button" @click="animationKey++">
-          Rejouer les animations
-        </button>
       </div>
     </section>
 

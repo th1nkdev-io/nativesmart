@@ -11,6 +11,7 @@ import {
 import { computed, ref } from "vue";
 import { state } from "../../state";
 import Icon from "../../editorial/Icon.vue";
+import SegControl from "./SegControl.vue";
 import TokenCode from "./TokenCode.vue";
 
 const theme = computed(() => brandThemes[state.brand]);
@@ -127,11 +128,11 @@ const tester = computed(() => {
   };
 });
 const presets = [
-  { label: "Mobile", width: 375 },
-  { label: "Tablette", width: 768 },
-  { label: "Portable", width: 1024 },
-  { label: "Bureau", width: 1440 }
-];
+  { label: "Mobile", value: 375, icon: "smartphone" },
+  { label: "Tablette", value: 768, icon: "tablet" },
+  { label: "Portable", value: 1024, icon: "laptop" },
+  { label: "Bureau", value: 1440, icon: "monitor" }
+] as const;
 
 const sizes = Object.entries(fontSize) as [keyof typeof fontSize, number][];
 const largest = Math.max(...Object.values(fontSize));
@@ -204,17 +205,13 @@ const total = "127 501,59";
               <input v-model.number="testerWidth" type="range" min="320" max="1600" step="1" />
               <output>{{ testerWidth }} px</output>
             </label>
-            <div class="seg tester__presets" role="group" aria-label="Largeurs types">
-              <button
-                v-for="preset in presets"
-                :key="preset.width"
-                type="button"
-                :aria-pressed="testerWidth === preset.width"
-                @click="testerWidth = preset.width"
-              >
-                {{ preset.label }}
-              </button>
-            </div>
+            <SegControl
+              v-model="testerWidth"
+              class="tester__presets"
+              :options="presets"
+              label="Largeurs types"
+              compact
+            />
           </div>
         </div>
         <div class="tester__stage lab-preview">

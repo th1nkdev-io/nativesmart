@@ -27,7 +27,10 @@ const opacityUsage: Record<string, string> = {
   muted: "Contenu atténué",
   overlay: "Voile des modales",
   hover: "Calque de survol",
-  pressed: "Calque d'appui"
+  focus: "Calque de focus clavier",
+  pressed: "Calque d'appui",
+  selected: "Calque de sélection",
+  dragged: "Calque de glisser"
 };
 </script>
 

@@ -111,26 +111,32 @@ const fields = [
         </p>
       </header>
       <div class="try-grid lab-preview">
-        <ul class="try-list" role="listbox" aria-label="Exemple de liste">
-          <li
-            v-for="(item, index) in items"
-            :key="item"
-            role="option"
-            tabindex="0"
-            :aria-selected="selected === index"
-            @click="selected = index"
-            @keydown.enter.space.prevent="selected = index"
-          >
-            <span class="try-list__dot" aria-hidden="true" />
-            {{ item }}
-          </li>
-        </ul>
-        <div class="try-buttons">
-          <button type="button" class="try-button try-button--solid">Plein</button>
-          <button type="button" class="try-button try-button--soft">Doux</button>
-          <button type="button" class="try-button try-button--ghost">Discret</button>
-          <button type="button" class="try-button try-button--solid" disabled>Désactivé</button>
-        </div>
+        <figure class="try-panel">
+          <figcaption>Liste · survol, focus, sélection</figcaption>
+          <ul class="try-list" role="listbox" aria-label="Exemple de liste">
+            <li
+              v-for="(item, index) in items"
+              :key="item"
+              role="option"
+              tabindex="0"
+              :aria-selected="selected === index"
+              @click="selected = index"
+              @keydown.enter.space.prevent="selected = index"
+            >
+              <span class="try-list__dot" aria-hidden="true" />
+              {{ item }}
+            </li>
+          </ul>
+        </figure>
+        <figure class="try-panel">
+          <figcaption>Boutons · survol, pression, focus</figcaption>
+          <div class="try-buttons">
+            <button type="button" class="try-button try-button--solid">Plein</button>
+            <button type="button" class="try-button try-button--soft">Doux</button>
+            <button type="button" class="try-button try-button--ghost">Discret</button>
+            <button type="button" class="try-button try-button--solid" disabled>Désactivé</button>
+          </div>
+        </figure>
       </div>
     </section>
 
@@ -190,14 +196,20 @@ const fields = [
         <p>
           NativeSmart décrit chaque composant une fois, puis le livre dans chaque technologie.
           <mark>Le surlignage</mark> marque un résultat de recherche ;
-          <a href="#" class="reading-demo__link" @click.prevent>un lien</a>,
-          <a href="#" class="reading-demo__link reading-demo__link--hover" @click.prevent>
-            un lien survolé
-          </a>
+          <a href="#" class="reading-demo__link" @click.prevent v-text="'un lien'" />,
+          <a
+            href="#"
+            class="reading-demo__link reading-demo__link--hover"
+            @click.prevent
+            v-text="'un lien survolé'"
+          />
           et
-          <a href="#" class="reading-demo__link reading-demo__link--visited" @click.prevent>
-            un lien visité
-          </a>
+          <a
+            href="#"
+            class="reading-demo__link reading-demo__link--visited"
+            @click.prevent
+            v-text="'un lien visité'"
+          />
           gardent tous 4,5:1.
         </p>
         <div class="token-inline">

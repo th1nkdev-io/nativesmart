@@ -30,6 +30,8 @@ import {
   roleUsages,
   variantNames
 } from "./colorLabels";
+import type { IconName } from "../../editorial/icons";
+import SegControl from "./SegControl.vue";
 import TokenCode from "./TokenCode.vue";
 
 const theme = computed(() => brandThemes[state.brand]);
@@ -55,6 +57,12 @@ const anatomyExamples: {
   { role: "surfaceFloating", component: "--ns-menu-background", owner: "NsMenu", demo: "menu" }
 ];
 const anatomyIndex = ref(0);
+const anatomyIcons: IconName[] = ["palette", "check", "inset", "type", "layers"];
+const anatomyOptions = anatomyExamples.map((example, index) => ({
+  value: index,
+  label: example.role,
+  icon: anatomyIcons[index]
+}));
 const anatomy = computed(() => {
   const example = anatomyExamples[anatomyIndex.value];
   const hex = colors.value[example.role];
@@ -126,12 +134,12 @@ const specimenStyle = computed(() =>
 
 /* Contrast */
 const contrastFilters = [
-  { id: "all", label: "Toutes" },
-  { id: "intents", label: "Intentions" },
-  { id: "text", label: "Textes et surfaces" },
-  { id: "ui", label: "Indicateurs 3:1" }
+  { value: "all", label: "Toutes", icon: "layers" },
+  { value: "intents", label: "Intentions", icon: "palette" },
+  { value: "text", label: "Textes et surfaces", icon: "type" },
+  { value: "ui", label: "Indicateurs 3:1", icon: "target" }
 ] as const;
-const contrastFilter = ref<(typeof contrastFilters)[number]["id"]>("all");
+const contrastFilter = ref<(typeof contrastFilters)[number]["value"]>("all");
 const contrast = computed(() =>
   checkContrast(theme.value)
     .filter((result) => result.mode === state.mode)
@@ -192,18 +200,7 @@ const brandScales = computed(() => [
       </header>
 
       <div class="anatomy">
-        <div class="seg" role="radiogroup" aria-label="Exemple">
-          <button
-            v-for="(example, index) in anatomyExamples"
-            :key="example.role"
-            type="button"
-            role="radio"
-            :aria-checked="index === anatomyIndex"
-            @click="anatomyIndex = index"
-          >
-            {{ example.role }}
-          </button>
-        </div>
+        <SegControl v-model="anatomyIndex" :options="anatomyOptions" label="Exemple" />
 
         <ol class="anatomy__flow">
           <li class="anatomy__tier">
@@ -424,10 +421,10 @@ const brandScales = computed(() => [
           </span>
         </div>
       </div>
-      <p class="token-note">
+      <div class="token-inline">
         <TokenCode value="--ns-alpha-white-1" /> à <TokenCode value="--ns-alpha-white-12" /> et
         leurs équivalents noirs, de 2 % à 92 % d'opacité.
-      </p>
+      </div>
     </section>
 
     <!-- Contrast -->
@@ -451,18 +448,13 @@ const brandScales = computed(() => [
           <strong>{{ contrastSummary.exceptions }}</strong>
           {{ contrastSummary.exceptions > 1 ? "exceptions documentées" : "exception documentée" }}
         </span>
-        <div class="seg seg--end" role="radiogroup" aria-label="Filtrer les paires">
-          <button
-            v-for="filter in contrastFilters"
-            :key="filter.id"
-            type="button"
-            role="radio"
-            :aria-checked="contrastFilter === filter.id"
-            @click="contrastFilter = filter.id"
-          >
-            {{ filter.label }}
-          </button>
-        </div>
+        <SegControl
+          v-model="contrastFilter"
+          class="seg--end"
+          :options="contrastFilters"
+          label="Filtrer les paires"
+          compact
+        />
       </div>
       <div class="table-wrap">
         <table class="contrast-table">

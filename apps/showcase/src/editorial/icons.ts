@@ -55,6 +55,15 @@ export const icons = {
   search: "M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14ZM20 20l-3.5-3.5",
   star: "m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9Z",
   compass: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18ZM15.5 8.5l-2 5-5 2 2-5Z",
+  inset: "M4 4h16v16H4ZM9 9h6v6H9Z",
+  stack: "M5 4h14v5H5ZM5 15h14v5H5ZM12 10.5v3",
+  inline: "M4 5h5v14H4ZM15 5h5v14h-5ZM10.5 12h3",
+  section: "M3 4h18v5H3ZM3 15h18v5H3ZM7 12h10",
+  tablet: "M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1ZM11 18h2",
+  laptop: "M5 5h14v10H5ZM2.5 19h19",
+  rows: "M4 6h16M4 12h16M4 18h16",
+  columns: "M4 4h6v16H4ZM14 4h6v16h-6Z",
+  sliders: "M4 7h10M18 7h2M4 17h4M12 17h8M16 5v4M10 15v4",
   bug: "M8 6V4M16 6V4M9 6h6a4 4 0 0 1 4 4v4a7 7 0 0 1-14 0v-4a4 4 0 0 1 4-4ZM3 13h2M19 13h2M4 8l2 1.5M20 8l-2 1.5M4 19l2-1.5M20 19l-2-1.5M12 10v10"
 } as const;
 

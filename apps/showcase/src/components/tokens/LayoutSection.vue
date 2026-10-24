@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { primitives, type GridBreakpoint } from "@nativesmart/tokens";
 import { computed, ref } from "vue";
+import type { IconName } from "../../editorial/icons";
+import SegControl from "./SegControl.vue";
 import TokenCode from "./TokenCode.vue";
 
 const { grid, chrome } = primitives;
@@ -24,6 +26,20 @@ const sampleWidths: Record<GridBreakpoint, number> = {
   "2xl": 1536
 };
 const breakpoint = ref<GridBreakpoint>("lg");
+const breakpointIcons: Record<GridBreakpoint, IconName> = {
+  xs: "smartphone",
+  sm: "smartphone",
+  md: "tablet",
+  lg: "laptop",
+  xl: "monitor",
+  "2xl": "monitor"
+};
+const breakpointOptions = (Object.keys(grid) as GridBreakpoint[]).map((key) => ({
+  value: key,
+  label: key,
+  icon: breakpointIcons[key],
+  hint: breakpointLabels[key]
+}));
 const frame = computed(() => {
   const spec = grid[breakpoint.value];
   const width = sampleWidths[breakpoint.value];
@@ -37,6 +53,10 @@ const widest = Math.max(...Object.values(container));
 
 /* Application frame */
 const frameMode = ref<"desktop" | "mobile">("desktop");
+const deviceOptions = [
+  { value: "desktop", label: "Ordinateur", icon: "monitor" },
+  { value: "mobile", label: "Téléphone", icon: "smartphone" }
+] as const;
 const collapsed = ref(false);
 </script>
 
@@ -51,18 +71,7 @@ const collapsed = ref(false);
           rupture.
         </p>
       </header>
-      <div class="seg" role="radiogroup" aria-label="Point de rupture">
-        <button
-          v-for="(spec, key) in grid"
-          :key="key"
-          type="button"
-          role="radio"
-          :aria-checked="breakpoint === key"
-          @click="breakpoint = key"
-        >
-          {{ key }}
-        </button>
-      </div>
+      <SegControl v-model="breakpoint" :options="breakpointOptions" label="Point de rupture" />
       <figure class="grid-frame">
         <svg
           :viewBox="`0 0 ${frame.width} 260`"
@@ -118,24 +127,7 @@ const collapsed = ref(false);
         </p>
       </header>
       <div class="frame-controls">
-        <div class="seg" role="radiogroup" aria-label="Appareil">
-          <button
-            type="button"
-            role="radio"
-            :aria-checked="frameMode === 'desktop'"
-            @click="frameMode = 'desktop'"
-          >
-            Ordinateur
-          </button>
-          <button
-            type="button"
-            role="radio"
-            :aria-checked="frameMode === 'mobile'"
-            @click="frameMode = 'mobile'"
-          >
-            Téléphone
-          </button>
-        </div>
+        <SegControl v-model="frameMode" :options="deviceOptions" label="Appareil" />
         <label v-if="frameMode === 'desktop'" class="frame-toggle">
           <input v-model="collapsed" type="checkbox" />
           Navigation réduite

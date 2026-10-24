@@ -2,6 +2,8 @@
 import { primitives } from "@nativesmart/tokens";
 import { computed, ref } from "vue";
 import { icons, type IconName } from "../../editorial/icons";
+import SegControl from "./SegControl.vue";
+import Icon from "../../editorial/Icon.vue";
 import TokenCode from "./TokenCode.vue";
 
 const { iconography } = primitives;
@@ -20,6 +22,15 @@ const strokeText: Record<keyof typeof iconography.stroke, string> = {
   regular: "Normale · interface, par défaut",
   bold: "Épaisse · petites tailles, mise en avant"
 };
+
+const strokeOptions = (Object.keys(iconography.stroke) as (keyof typeof iconography.stroke)[]).map(
+  (key) => ({ value: key, label: `${key} · ${iconography.stroke[key]}`, hint: strokeText[key] })
+);
+const sizeOptions = (Object.keys(sizes) as (keyof typeof sizes)[]).map((key) => ({
+  value: key,
+  label: key,
+  hint: `${sizes[key]} px`
+}));
 
 const pairs = Object.entries(iconography.forText) as [
   keyof typeof primitives.typography.fontSize,
@@ -71,33 +82,11 @@ const live = iconography.grid - iconography.padding * 2;
         </p>
       </header>
       <div class="icon-controls">
-        <div class="seg" role="radiogroup" aria-label="Épaisseur">
-          <button
-            v-for="(value, key) in iconography.stroke"
-            :key="key"
-            type="button"
-            role="radio"
-            :aria-checked="stroke === key"
-            :title="strokeText[key]"
-            @click="stroke = key"
-          >
-            {{ key }} · {{ value }}
-          </button>
-        </div>
-        <div class="seg" role="radiogroup" aria-label="Taille">
-          <button
-            v-for="(value, key) in sizes"
-            :key="key"
-            type="button"
-            role="radio"
-            :aria-checked="size === key"
-            @click="size = key"
-          >
-            {{ key }}
-          </button>
-        </div>
+        <SegControl v-model="stroke" :options="strokeOptions" label="Épaisseur" />
+        <SegControl v-model="size" :options="sizeOptions" label="Taille" />
         <label class="icon-filter">
           <span class="sr-only">Filtrer les icônes</span>
+          <Icon name="search" :size="16" />
           <input v-model="filter" type="search" placeholder="Filtrer…" />
         </label>
       </div>
