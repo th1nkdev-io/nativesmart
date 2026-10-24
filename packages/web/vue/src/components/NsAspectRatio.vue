@@ -148,6 +148,7 @@ const hasCaption = computed(() => Boolean(props.title || props.description));
       'ns-aspect-ratio',
       `ns-aspect-ratio--${state}`,
       `ns-aspect-ratio--focus-${focus}`,
+      `ns-aspect-ratio--placeholder-${placeholder}`,
       ...breakpoints.map((point) => `ns-aspect-ratio--at-${point}`),
       {
         'ns-aspect-ratio--auto': auto,
@@ -235,6 +236,11 @@ const hasCaption = computed(() => Boolean(props.title || props.description));
   }
 }
 
+/* Without a placeholder, nothing shows until the media arrives. */
+.ns-aspect-ratio--placeholder-none:is(.ns-aspect-ratio--loading, .ns-aspect-ratio--busy) {
+  --ns-aspect-background: transparent;
+}
+
 .ns-aspect-ratio__media {
   position: absolute;
   inset: 0;
@@ -282,7 +288,12 @@ const hasCaption = computed(() => Boolean(props.title || props.description));
   min-block-size: 160px;
 }
 
-.ns-aspect-ratio--auto.ns-aspect-ratio--error .ns-aspect-ratio__media {
+.ns-aspect-ratio--auto.ns-aspect-ratio--error /* Without a placeholder, nothing shows until the media arrives. */
+.ns-aspect-ratio--placeholder-none:is(.ns-aspect-ratio--loading, .ns-aspect-ratio--busy) {
+  --ns-aspect-background: transparent;
+}
+
+.ns-aspect-ratio__media {
   position: absolute;
 }
 

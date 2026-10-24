@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { NsAspectRatio, NsBadge, NsIcon } from "@nativesmart/vue";
 import { computed, useAttrs } from "vue";
-import { useView } from "./view";
+import { useVariation, useView } from "./view";
 
 defineOptions({ inheritAttrs: false });
 
 const attrs = useAttrs();
 const view = useView();
+const variation = useVariation();
 
 const labels: Record<string, string> = {
   video: "16 : 9",
@@ -16,40 +17,96 @@ const labels: Record<string, string> = {
   story: "9 : 16",
   wide: "21 : 9",
   golden: "1,618 : 1",
-  auto: "Ratio de l'image"
+  auto: "naturel"
 };
 const ratio = computed(() => String(attrs.ratio ?? "video"));
-/** Variations are 180 px wide: they leave the caption out. */
-const variationAttrs = computed(() => {
-  const { title: _title, description: _description, ...rest } = attrs;
-  return rest;
-});
 
 /* Served from the shared public folder; bound so Vite keeps them as plain URLs. */
-const media = { lagoon: "lab/lagoon.svg", savanna: "lab/savanna.svg", market: "lab/market.svg" };
+const media = {
+  lagoon: { src: "lab/lagoon.svg", alt: "Lagune bordée de palmiers", ratio: 1.5 },
+  savanna: { src: "lab/savanna.svg", alt: "Acacias au coucher du soleil", ratio: 0.8 },
+  market: { src: "lab/market.svg", alt: "Étals colorés du marché", ratio: 1 }
+};
 const gallery = [
-  { src: "lab/savanna.svg", alt: "Acacias au coucher du soleil" },
-  { src: "lab/market.svg", alt: "Étals colorés du marché" },
-  { src: "lab/lagoon.svg", alt: "Lagune bordée de palmiers" },
-  { src: "lab/market.svg", alt: "Étals colorés du marché" },
-  { src: "lab/lagoon.svg", alt: "Lagune bordée de palmiers" },
-  { src: "lab/savanna.svg", alt: "Acacias au coucher du soleil" }
+  media.savanna,
+  media.market,
+  media.lagoon,
+  media.market,
+  media.lagoon,
+  media.savanna
 ];
+
+const numeric: Record<string, number> = {
+  video: 16 / 9,
+  square: 1,
+  photo: 4 / 3,
+  portrait: 3 / 4,
+  story: 9 / 16,
+  wide: 21 / 9,
+  golden: 1.618,
+  auto: media.lagoon.ratio
+};
+
+/**
+ * One specimen per variation, chosen so its difference shows: ratios side by side at the same
+ * height, a portrait image to compare fits, crops that reveal the focus, a square for radii.
+ */
+const specimen = computed(() => {
+  const { title: _title, description: _description, ...rest } = attrs;
+  const group = variation?.group;
+  const value = variation?.value ?? "";
+  const height = 104;
+  const width = (r: number) => `min(100%, ${Math.round(height * r)}px)`;
+  switch (group) {
+    case "ratio":
+      return {
+        props: rest,
+        image: media.lagoon,
+        width: width(numeric[value] ?? 1),
+        badge: labels[value]
+      };
+    case "fit":
+      return { props: rest, image: media.savanna, width: "100%" };
+    case "focus":
+      return ["start", "end"].includes(value)
+        ? { props: { ...rest, ratio: "portrait" }, image: media.lagoon, width: width(3 / 4) }
+        : { props: rest, image: media.savanna, width: "100%" };
+    case "radius":
+      return { props: { ...rest, ratio: "square" }, image: media.lagoon, width: width(1) };
+    case "placeholder":
+      return {
+        props: { ...rest, loading: true },
+        image: media.lagoon,
+        width: "100%",
+        outline: true
+      };
+    default:
+      return {
+        props: rest,
+        image: media.lagoon,
+        width: "100%",
+        badge: value === "zoom" ? "Survolez" : undefined
+      };
+  }
+});
 </script>
 
 <template>
-  <!-- Variations: a portrait image makes cropping, fit and focus visible; captions stay out. -->
   <NsAspectRatio
     v-if="view !== 'playground'"
-    class="demo-aspect demo-aspect--small"
-    v-bind="variationAttrs"
+    :class="['demo-aspect-specimen', { 'demo-aspect-specimen--outline': specimen.outline }]"
+    :style="{ inlineSize: specimen.width }"
+    v-bind="specimen.props"
   >
-    <img :src="media.savanna" alt="Acacias au coucher du soleil" />
+    <img :src="specimen.image.src" :alt="specimen.image.alt" />
+    <template v-if="specimen.badge" #overlay>
+      <NsBadge :label="specimen.badge" />
+    </template>
   </NsAspectRatio>
 
   <div v-else class="demo-aspect-stage">
     <NsAspectRatio class="demo-aspect" v-bind="$attrs">
-      <img :src="media.lagoon" alt="Lagune bordée de palmiers" />
+      <img :src="media.lagoon.src" :alt="media.lagoon.alt" />
       <template #overlay>
         <NsBadge :label="labels[ratio] ?? ratio" />
         <button type="button" class="demo-aspect__like" aria-label="Ajouter aux favoris">
@@ -86,8 +143,13 @@ const gallery = [
   max-inline-size: 100%;
 }
 
-.demo-aspect--small {
-  inline-size: 180px;
+.demo-aspect-specimen {
+  flex: none;
+}
+
+.demo-aspect-specimen--outline {
+  outline: 1px dashed var(--ns-color-border);
+  outline-offset: 3px;
 }
 
 .demo-aspect__like {

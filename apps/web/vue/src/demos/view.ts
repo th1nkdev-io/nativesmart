@@ -9,3 +9,11 @@ export function useView() {
     computed(() => "playground")
   );
 }
+
+/** The variation a demo renders: its group (a property name or `states`) and its value. */
+export type Variation = { group: string; value: string };
+export const variationKey: InjectionKey<Variation> = Symbol("ns-variation");
+
+export function useVariation() {
+  return inject<Variation | undefined>(variationKey, undefined);
+}
