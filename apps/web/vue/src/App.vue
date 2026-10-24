@@ -10,7 +10,8 @@ import {
   type RenderRequest,
   type ShowcaseProps
 } from "@nativesmart/showcase-runtime";
-import { computed, onBeforeUnmount, onMounted, ref, watchEffect } from "vue";
+import { computed, onBeforeUnmount, onMounted, provide, ref, watchEffect } from "vue";
+import { viewKey } from "./demos/view";
 import { registry } from "./registry";
 
 const request = ref<RenderRequest>(requestFromSearch(window.location.search));
@@ -20,6 +21,10 @@ const component = computed(() => registry[request.value.component]);
 const groups = computed(() => (contract.value ? variationsFor(contract.value) : []));
 
 watchEffect(() => applyTheme(document, request.value));
+provide(
+  viewKey,
+  computed(() => request.value.view)
+);
 
 /** Forwards every contract event to the shell event log. */
 function listeners() {

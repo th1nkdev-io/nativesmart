@@ -6,6 +6,19 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "24 octobre 2026",
+    title: "Vue : les 12 composants de base",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "Box, Divider, Text, Icon, Input, Avatar, Card, Toast et Modal en Vue"
+      },
+      { kind: "Nouveau", text: "Jeu de 42 icônes intégré, extensible à l'installation du plugin" },
+      { kind: "Nouveau", text: "Démos réalistes dans le Lab : contenu, fenêtre ouvrable, états" },
+      { kind: "Nouveau", text: "Déploiement automatique du Lab sur push dev (Docker et nginx)" }
+    ]
+  },
+  {
+    date: "24 octobre 2026",
     title: "3D, .NET MAUI et pages Tokens revues",
     changes: [
       {
