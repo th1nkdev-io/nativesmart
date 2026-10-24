@@ -11,14 +11,28 @@ Nativesmart renderer for Vue 3 and Nuxt. Status: `preview`.
 
 ## Components
 
-| Contract  | Component   |
-| --------- | ----------- |
-| `badge`   | `NsBadge`   |
-| `button`  | `NsButton`  |
-| `spinner` | `NsSpinner` |
+| Contract  | Component   | Contract  | Component   |
+| --------- | ----------- | --------- | ----------- |
+| `avatar`  | `NsAvatar`  | `icon`    | `NsIcon`    |
+| `badge`   | `NsBadge`   | `input`   | `NsInput`   |
+| `box`     | `NsBox`     | `modal`   | `NsModal`   |
+| `button`  | `NsButton`  | `spinner` | `NsSpinner` |
+| `card`    | `NsCard`    | `text`    | `NsText`    |
+| `divider` | `NsDivider` | `toast`   | `NsToast`   |
 
 Props use the contract property names; contract events are emitted as Vue events (`press`,
-`focus`, `blur`).
+`change`, `submit`, `dismiss`, `open-change`…). `NsInput` and `NsModal` also support `v-model` and
+`v-model:open`. Every component reads its colors, spacing, radii and motion from the tokens, and
+exposes `--ns-<component>-*` variables to restyle one component without touching the others.
+
+### Icons
+
+`NsIcon` ships a stroke set drawn on a 24 × 24 grid (`iconNames()` lists it). Add or replace icons
+when installing the plugin:
+
+```ts
+app.use(Nativesmart, { icons: { logo: "M4 4h16v16H4Z" } });
+```
 
 ## Usage
 
@@ -31,7 +45,12 @@ app.use(Nativesmart);
 ```
 
 ```vue
-<NsButton label="Envoyer" intent="primary" :loading="sending" @press="send" />
+<NsInput v-model="amount" label="Montant" :invalid="tooHigh" error="Solde insuffisant" />
+<NsButton label="Envoyer" intent="primary" :loading="sending" @press="open = true" />
+<NsModal v-model:open="open" title="Confirmer l'envoi">
+  {{ amount }} FCFA seront envoyés.
+  <template #actions><NsButton label="Confirmer" @press="send" /></template>
+</NsModal>
 ```
 
 ## Commands
