@@ -10,7 +10,10 @@ export const toastContract = defineContract({
   description: "Short, non-blocking notification",
   anatomy: ["root", "icon", "message", "action", "close-trigger"],
   properties: [
-    property("message", "string", "Notification text", { required: true }),
+    property("message", "string", "Notification text", {
+      required: true,
+      example: "Paiement envoyé à Kofi Mensah."
+    }),
     property("intent", "enum", "Semantic intent", {
       values: ["info", "success", "warning", "danger"]
     })

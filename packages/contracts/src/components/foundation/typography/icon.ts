@@ -10,7 +10,7 @@ export const iconContract = defineContract({
   description: "Named icon with decorative or meaningful semantics",
   states: ["default", "disabled"],
   properties: [
-    property("name", "string", "Icon identifier", { required: true }),
+    property("name", "string", "Icon identifier", { required: true, example: "heart" }),
     property("label", "string", "Meaning when the icon is not decorative")
   ],
   semanticTokens: ["icon.color", "icon.size"]

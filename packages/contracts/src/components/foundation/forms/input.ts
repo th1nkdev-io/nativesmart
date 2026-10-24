@@ -10,9 +10,9 @@ export const inputContract = defineContract({
   description: "Single-line text field",
   anatomy: ["root", "label", "control", "leading", "trailing", "description", "error"],
   properties: [
-    property("label", "string", "Input label"),
+    property("label", "string", "Input label", { example: "Montant à envoyer" }),
     property("value", "string", "Controlled value"),
-    property("placeholder", "string", "Input hint"),
+    property("placeholder", "string", "Input hint", { example: "25 000 FCFA" }),
     property("invalid", "boolean", "Whether validation failed", { defaultValue: false }),
     property("disabled", "boolean", "Whether editing is unavailable", { defaultValue: false })
   ],

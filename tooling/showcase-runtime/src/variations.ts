@@ -8,6 +8,7 @@ export type VariationGroup = { title: string; items: readonly VariationItem[] };
 export const editableKinds = new Set(["boolean", "enum", "number", "string", "string-list"]);
 
 function sampleValue(contract: ComponentContract, property: ComponentProperty) {
+  if (property.example !== undefined) return property.example;
   switch (property.kind) {
     case "string":
       return property.name === "label" ? contract.name : property.required ? "Text" : undefined;

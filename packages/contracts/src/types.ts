@@ -46,6 +46,8 @@ export type ComponentProperty = {
   required?: boolean;
   defaultValue?: string | number | boolean;
   values?: readonly string[];
+  /** Realistic sample used by playgrounds and docs when there is no default. */
+  example?: string | number | boolean;
   description: string;
 };
 

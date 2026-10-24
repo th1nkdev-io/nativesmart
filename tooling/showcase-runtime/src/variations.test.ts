@@ -16,6 +16,10 @@ describe("variations", () => {
     });
   });
 
+  it("prefers the contract example over a generic sample", () => {
+    expect(defaultProps(getComponentContract("icon")!)).toMatchObject({ name: "heart" });
+  });
+
   it("lists every enum value and every boolean state", () => {
     const groups = variationsFor(button);
     expect(groups.map((group) => group.title)).toEqual(["variant", "intent", "size", "states"]);
