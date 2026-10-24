@@ -11,6 +11,7 @@ export * from "./validate";
 export * from "./semantic/gradients";
 export * from "./semantic/personality";
 export * from "./semantic/high-contrast";
+export { toCSharp, toXaml } from "./formats/csharp";
 export { toDart } from "./formats/dart";
 export { toDesignTokens } from "./formats/dtcg";
 export { toKotlin } from "./formats/kotlin";

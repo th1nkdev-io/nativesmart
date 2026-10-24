@@ -7,6 +7,7 @@ const platforms: Readonly<Record<string, TokenPlatform>> = {
   swiftui: "swift",
   compose: "kotlin",
   flutter: "dart",
+  maui: "csharp",
   "react-native": "react-native",
   "react-native-nativewind": "react-native"
 };

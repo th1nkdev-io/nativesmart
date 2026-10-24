@@ -2,17 +2,20 @@
 import {
   brandThemes,
   semanticColorRoles,
+  toCSharp,
   toCss,
   toDart,
   toDesignTokens,
   toKotlin,
-  toSwift
+  toSwift,
+  toXaml
 } from "@nativesmart/tokens";
 import { computed, ref, watch } from "vue";
 import { useCopy } from "../../lib/clipboard";
 import { highlight } from "../../lib/highlight";
 import { tokenPlatform } from "../../lib/tokenPlatform";
 import { state } from "../../state";
+import { technologyFamilies } from "../../technologies";
 
 const theme = computed(() => brandThemes[state.brand]);
 
@@ -108,6 +111,17 @@ const formats = computed<Format[]>(() => {
       excerpt: () => from(toDart(), `static const ${brandName}Light`, 16)
     },
     {
+      id: "csharp",
+      label: ".NET MAUI",
+      file: "@nativesmart/tokens/maui/NativesmartTokens.cs",
+      audience: "iOS, Android, Windows et macOS avec .NET MAUI",
+      usage: `<!-- App.xaml : un dictionnaire par identité et par mode -->\n<ResourceDictionary Source="Tokens/${id}.light.xaml" />\n\n<Border Padding="{StaticResource SpaceS4}"\n        BackgroundColor="{DynamicResource ColorSurface}">\n  <Border.StrokeShape>\n    <RoundRectangle CornerRadius="{DynamicResource RadiusCard}" />\n  </Border.StrokeShape>\n  <Label Text="Solde" TextColor="{DynamicResource ColorText}" />\n</Border>\n\n// C# : var theme = NsBrands.${brandType}.Light;\nlabel.TextColor = theme.Colors.Text;`,
+      excerpt: () =>
+        from(toXaml(theme.value, "light"), "<ResourceDictionary", 10) +
+        "\n\n" +
+        from(toCSharp(), "public static class Space", 10)
+    },
+    {
       id: "react-native",
       label: "React Native",
       file: "@nativesmart/tokens/react-native",
@@ -123,6 +137,7 @@ const defaults: Record<string, string> = {
   swift: "swift",
   kotlin: "kotlin",
   dart: "dart",
+  csharp: "csharp",
   "react-native": "react-native",
   css: "css"
 };
@@ -135,13 +150,40 @@ const format = computed(
 const usage = computed(() => highlight(format.value.usage));
 const excerpt = computed(() => highlight(format.value.excerpt()));
 const { copied, copy } = useCopy();
+
+/* Coverage: the format each technology reads, and the Tailwind preset where it applies. */
+const consumes: Record<string, { format: string; extra?: string; note: string }> = {
+  vue: { format: "css", extra: "tailwind", note: "Variables CSS, thème par attribut" },
+  "react-web": { format: "css", extra: "tailwind", note: "Variables CSS, thème par attribut" },
+  "html-css": { format: "css", extra: "tailwind", note: "Une feuille de style, sans build" },
+  svelte: { format: "css", extra: "tailwind", note: "Variables CSS, thème par attribut" },
+  angular: { format: "css", extra: "tailwind", note: "Variables CSS, thème par attribut" },
+  "react-native": { format: "react-native", note: "Objets typés, hook de thème" },
+  "react-native-nativewind": {
+    format: "react-native",
+    extra: "tailwind",
+    note: "Préréglage Tailwind via NativeWind"
+  },
+  flutter: { format: "dart", note: "ThemeExtension et constantes" },
+  compose: { format: "kotlin", note: "CompositionLocal et objets" },
+  swiftui: { format: "swift", note: "EnvironmentValues et enums" },
+  "ionic-capacitor": { format: "css", extra: "tailwind", note: "Variables CSS dans la WebView" },
+  maui: { format: "csharp", note: "ResourceDictionary XAML et classes C#" },
+  "desktop-web": { format: "css", extra: "tailwind", note: "Variables CSS dans Electron ou Tauri" }
+};
+const formatLabel = (formatId: string) =>
+  formats.value.find((item) => item.id === formatId)?.label ?? formatId;
+const coveredCount = computed(
+  () =>
+    technologyFamilies.flatMap((family) => family.items).filter((tech) => consumes[tech.id]).length
+);
 </script>
 
 <template>
   <div class="token-sections">
     <section class="token-section">
       <header class="token-section__header">
-        <h2>Une source, sept formats</h2>
+        <h2>Une source, huit formats</h2>
         <p>
           Les tokens sont écrits une fois en TypeScript, validés, puis générés pour chaque
           plateforme à la compilation. Les noms ne changent pas d'un format à l'autre :
@@ -208,6 +250,64 @@ const { copied, copy } = useCopy();
               :class="token.kind && `tok-${token.kind}`"
             >{{ token.text }}</span></code></pre>
           </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="token-section">
+      <header class="token-section__header">
+        <h2>Couverture des technologies</h2>
+        <p>
+          Chacune des {{ coveredCount }} technologies lit les tokens dans son format natif, généré à
+          chaque compilation. Figma et les outils de design lisent le format W3C.
+        </p>
+      </header>
+      <div class="export-coverage">
+        <div
+          v-for="family in technologyFamilies"
+          :key="family.family"
+          class="export-coverage__family"
+        >
+          <small class="export-coverage__label">{{ family.label }}</small>
+          <div
+            v-for="tech in family.items"
+            :key="tech.id"
+            :class="['export-coverage__row', { 'is-active': consumes[tech.id]?.format === active }]"
+          >
+            <span class="export-coverage__tech">
+              <svg
+                v-if="tech.icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                :style="{ color: `#${tech.icon.hex}` }"
+              >
+                <path :d="tech.icon.path" />
+              </svg>
+              <strong>{{ tech.name }}</strong>
+            </span>
+            <span class="export-coverage__note">{{ consumes[tech.id]?.note }}</span>
+            <span class="export-coverage__formats">
+              <button
+                v-if="consumes[tech.id]"
+                type="button"
+                class="export-coverage__chip"
+                @click="active = consumes[tech.id].format"
+              >
+                {{ formatLabel(consumes[tech.id].format) }}
+              </button>
+              <button
+                v-if="consumes[tech.id]?.extra"
+                type="button"
+                class="export-coverage__chip export-coverage__chip--soft"
+                @click="active = consumes[tech.id].extra!"
+              >
+                + {{ formatLabel(consumes[tech.id].extra!) }}
+              </button>
+            </span>
+            <span class="export-coverage__check" aria-label="Généré">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+            </span>
+          </div>
         </div>
       </div>
     </section>

@@ -2,7 +2,7 @@ import { textStyles } from "../semantic/text-styles";
 import { identifier } from "./shared";
 
 /** Formats a token can be written in, one per family of technologies. */
-export type TokenPlatform = "css" | "swift" | "kotlin" | "dart" | "react-native";
+export type TokenPlatform = "css" | "swift" | "kotlin" | "dart" | "csharp" | "react-native";
 
 /** CSS variable prefixes of the native scales, longest first. */
 const scales: readonly [prefix: string, name: string, rn?: string][] = [
@@ -28,8 +28,14 @@ function camel(value: string) {
   return value.replace(/-([a-z0-9])/g, (_, letter: string) => letter.toUpperCase());
 }
 
+function upper(value: string) {
+  return `${value.charAt(0).toUpperCase()}${value.slice(1)}`;
+}
+
 function themeAccess(platform: TokenPlatform, path: string) {
   switch (platform) {
+    case "csharp":
+      return `theme.${path.split(".").map(upper).join(".")}`;
     case "swift":
       return `theme.${path}`;
     case "kotlin":
@@ -44,6 +50,7 @@ function themeAccess(platform: TokenPlatform, path: string) {
 function scaleAccess(platform: TokenPlatform, name: string, key: string) {
   if (platform === "dart") return `Ns${name === "FontWeight" ? "FontWeight" : name}.${key}`;
   if (platform === "kotlin" && name === "FontWeight") return `NsTokens.Weight.${key}`;
+  if (platform === "csharp") return `NsTokens.${name}.${upper(key)}`;
   return `NsTokens.${name}.${key}`;
 }
 
@@ -59,9 +66,9 @@ export function tokenReference(css: string, platform: TokenPlatform): string | n
     const style = name.slice(5);
     if (!(style in textStyles)) return null;
     if (platform === "react-native") return `textStyles["${style}"]`;
-    return platform === "dart"
-      ? `NsTextStyles.${camel(style)}`
-      : `NsTokens.TextStyle.${camel(style)}`;
+    if (platform === "dart") return `NsTextStyles.${camel(style)}`;
+    if (platform === "csharp") return `NsTokens.TextStyle.${upper(camel(style))}`;
+    return `NsTokens.TextStyle.${camel(style)}`;
   }
   if (name.startsWith("color-")) {
     return themeAccess(platform, `colors.${camel(name.slice(6))}`);

@@ -3,6 +3,7 @@ import { brandThemes, defaultBrandThemeId, defineBrandTheme } from "./brands";
 import { cssColorVariable, forcedColor, toCss, toScopedCss } from "./css";
 import { toDart } from "./formats/dart";
 import { toDesignTokens } from "./formats/dtcg";
+import { toCSharp, toXaml } from "./formats/csharp";
 import { toKotlin } from "./formats/kotlin";
 import { tokenReference } from "./formats/reference";
 import { toSwift } from "./formats/swift";
@@ -305,6 +306,20 @@ describe("platform exports", () => {
     expect(kotlin).toContain("val xl2 = 24.dp");
     expect(dart).toContain("static const fast = Duration(milliseconds: 120);");
     expect(dart).toContain("static const nativesmartDarkHighContrast = NsThemeData(");
+  });
+
+  it("writes every role and scale in C# and XAML for .NET MAUI", () => {
+    const csharp = toCSharp();
+    const xaml = toXaml(brandThemes.nativesmart, "light");
+    expect(csharp).toContain("  Color OnPrimary");
+    expect(csharp).toContain("public const double S0_5 = 2;");
+    expect(csharp).toContain("public const uint Fast = 120;");
+    expect(csharp).toContain("public static readonly NsTheme DarkHighContrast = new(");
+    expect(xaml).toContain('<Color x:Key="ColorPrimary">#0A66CC</Color>');
+    expect(xaml).toContain('<x:Double x:Key="RadiusCard">');
+    expect(tokenReference("--ns-color-on-primary", "csharp")).toBe("theme.Colors.OnPrimary");
+    expect(tokenReference("--ns-space-4", "csharp")).toBe("NsTokens.Space.S4");
+    expect(tokenReference("ns-text-display-lg", "csharp")).toBe("NsTokens.TextStyle.DisplayLg");
   });
 
   it("writes W3C design tokens with references between text styles and scales", () => {

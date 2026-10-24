@@ -2,6 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { brandThemes } from "./brands";
 import { toCss } from "./css";
+import { toCSharp, toXaml } from "./formats/csharp";
 import { toDart } from "./formats/dart";
 import { toDesignTokens } from "./formats/dtcg";
 import { toKotlin } from "./formats/kotlin";
@@ -53,6 +54,17 @@ async function main() {
   await writeFile(resolve(packageRoot, "dist/swift/NativesmartTokens.swift"), toSwift());
   await mkdir(resolve(packageRoot, "dist/compose"), { recursive: true });
   await writeFile(resolve(packageRoot, "dist/compose/NativesmartTokens.kt"), toKotlin());
+
+  await mkdir(resolve(packageRoot, "dist/maui"), { recursive: true });
+  await writeFile(resolve(packageRoot, "dist/maui/NativesmartTokens.cs"), toCSharp());
+  for (const theme of Object.values(brandThemes)) {
+    for (const variant of ["light", "dark", "lightHighContrast", "darkHighContrast"] as const) {
+      await writeFile(
+        resolve(packageRoot, `dist/maui/${theme.id}.${variant}.xaml`),
+        toXaml(theme, variant)
+      );
+    }
+  }
 
   await mkdir(resolve(packageRoot, "dist/flutter"), { recursive: true });
   await writeFile(resolve(packageRoot, "dist/flutter/nativesmart_theme.g.dart"), toDart());

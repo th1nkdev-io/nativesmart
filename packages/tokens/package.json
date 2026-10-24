@@ -18,6 +18,7 @@
     "./swift/*": "./dist/swift/*",
     "./compose/*": "./dist/compose/*",
     "./flutter/*": "./dist/flutter/*",
+    "./maui/*": "./dist/maui/*",
     "./react-native": {
       "types": "./dist/react-native/tokens.d.ts",
       "default": "./dist/react-native/tokens.ts"
