@@ -1182,7 +1182,7 @@
   --tilt-x: 0deg;
   --tilt-y: 0deg;
   position: relative;
-  padding: var(--ns-space-6) var(--ns-space-2) var(--ns-space-10);
+  padding: var(--ns-space-6) var(--ns-space-4) var(--ns-space-10);
   perspective: 1400px;
 }
 
