@@ -65,7 +65,8 @@ export const aspectRatios = {
   video: "16 / 9",
   wide: "21 / 9",
   portrait: "3 / 4",
-  story: "9 / 16"
+  story: "9 / 16",
+  golden: "1.618 / 1"
 } as const;
 
 /** Control height multipliers per density. */

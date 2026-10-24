@@ -25,7 +25,8 @@ const ratioText: Record<keyof typeof ratios, string> = {
   video: "Vidéo · lecteurs, bannières",
   wide: "Panoramique · héros",
   portrait: "Portrait · profils",
-  story: "Story · formats verticaux"
+  story: "Story · formats verticaux",
+  golden: "Nombre d'or · éditorial"
 };
 
 /** Dialog widths drawn inside a 1280px screen. */
@@ -202,7 +203,7 @@ const avatarRows = (Object.keys(avatar) as (keyof typeof avatar)[]).map((key, in
     <section class="token-section">
       <header class="token-section__header">
         <h2>Ratios</h2>
-        <p>Six formats pour les images et les vidéos, en CSS <code>aspect-ratio</code>.</p>
+        <p>Sept formats pour les images et les vidéos, en CSS <code>aspect-ratio</code>.</p>
       </header>
       <div class="ratio-grid lab-preview">
         <figure v-for="(value, key) in ratios" :key="key" class="ratio">
