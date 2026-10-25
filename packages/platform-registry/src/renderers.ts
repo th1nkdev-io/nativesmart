@@ -181,6 +181,7 @@ export const rendererManifests: readonly RendererManifest[] = [
       "scroll-area",
       "spacer",
       "stack",
+      "surface",
       ...previewComponents
     ],
     styling: "CSS custom properties and Tailwind preset",

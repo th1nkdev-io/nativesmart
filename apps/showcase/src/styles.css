@@ -3583,6 +3583,163 @@ button[aria-selected="true"] .component-tabs__count {
   font-weight: var(--ns-font-weight-bold);
 }
 
+/* Surface: a layer with its border, its content and its shadow, then the five levels */
+.anat-sf {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: var(--ns-space-8) var(--ns-space-6) var(--ns-space-10);
+  border-radius: var(--ns-radius-xl);
+  background: var(--ns-color-surface-sunken);
+}
+
+.anat-sf__shadow {
+  position: absolute;
+  inset-block-end: 18px;
+  inset-inline: 22%;
+  block-size: 22px;
+  border-radius: var(--ns-radius-full);
+  background: radial-gradient(closest-side, rgb(0 0 0 / 0.22), transparent);
+  transition: background var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-sf__shadow.is-active {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--ns-color-warning) 70%, transparent),
+    transparent
+  );
+}
+
+.anat-sf__root {
+  position: relative;
+  inline-size: min(100%, 260px);
+  padding: var(--ns-space-4);
+  border: 1px solid var(--ns-color-border-subtle);
+  border-radius: var(--ns-radius-lg);
+  background: var(--ns-color-surface-raised);
+  box-shadow: var(--ns-elevation-card);
+  outline: 2px dashed transparent;
+  outline-offset: 5px;
+  transition:
+    outline-color var(--ns-duration-fast) var(--ns-easing-standard),
+    border-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-sf__root.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-sf__root.is-border {
+  border-color: var(--ns-color-warning);
+  box-shadow:
+    0 0 0 1px var(--ns-color-warning),
+    var(--ns-elevation-card);
+}
+
+.anat-sf__border-hit {
+  position: absolute;
+  inset-block-start: 30%;
+  inset-inline-end: -6px;
+  inline-size: 12px;
+  block-size: 40%;
+}
+
+.anat-sf__content {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  padding: var(--ns-space-1) var(--ns-space-2);
+  border-radius: var(--ns-radius-sm);
+  transition: background-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-sf__content.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-sf__content small {
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-text-caption-size);
+}
+
+.anat-sf__content strong {
+  font-size: var(--ns-text-title-md-size);
+  font-variant-numeric: tabular-nums;
+}
+
+.anat-sf__pin {
+  position: absolute;
+}
+
+.anat-sf__pin--root {
+  inset-block-start: -12px;
+  inset-inline-start: -12px;
+}
+
+.anat-sf__pin--border {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-start: -5px;
+}
+
+.anat-sf__pin--content {
+  inset-block-start: -12px;
+  inset-inline-start: 55%;
+}
+
+.anat-sf__pin--shadow {
+  inset-block-start: 0;
+  inset-inline-end: -14px;
+}
+
+.anat-sf__levels {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--ns-space-5);
+  margin-block-start: var(--ns-space-5);
+}
+
+.anat-sf__levels span {
+  display: grid;
+  justify-items: center;
+  gap: var(--ns-space-2);
+  color: var(--ns-color-text-muted);
+  font-family: var(--ns-font-mono);
+  font-size: 10px;
+}
+
+.anat-sf__levels i {
+  inline-size: 40px;
+  block-size: 28px;
+  border-radius: var(--ns-radius-md);
+  background: var(--ns-color-surface);
+}
+
+.anat-sf__levels i.is-sunken {
+  background: var(--ns-color-surface-sunken);
+  box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.1);
+}
+
+.anat-sf__levels i.is-base {
+  border: 1px solid var(--ns-color-border-subtle);
+}
+
+.anat-sf__levels i.is-raised {
+  background: var(--ns-color-surface-raised);
+  box-shadow: var(--ns-elevation-card);
+}
+
+.anat-sf__levels i.is-floating {
+  background: var(--ns-color-surface-floating);
+  box-shadow: var(--ns-elevation-popover);
+}
+
+.anat-sf__levels i.is-overlay {
+  background: var(--ns-color-surface-floating);
+  box-shadow: var(--ns-elevation-modal);
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);

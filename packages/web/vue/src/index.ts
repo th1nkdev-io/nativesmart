@@ -24,6 +24,7 @@ export const implementedComponents = [
   "spacer",
   "spinner",
   "stack",
+  "surface",
   "text",
   "toast"
 ] as const;

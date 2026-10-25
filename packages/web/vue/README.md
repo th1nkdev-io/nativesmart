@@ -176,6 +176,25 @@ alignment and distribution accept one value per breakpoint:
 onto new lines, `fill` gives them equal shares, and `compact` joins them into one group with shared
 borders, such as a row of segmented buttons. `inline` sits the stack in a line of text.
 
+### Surface
+
+A layer of the interface. Its `level` sets the background and the shadow together, from `sunken`
+to `overlay`; with `auto`, the default, a surface sits one level above the surface around it, so
+nested panels lift on their own. The slot receives the resolved level:
+
+```vue
+<NsSurface padding="lg" radius="xl">
+  <NsSurface v-slot="{ level }" interactive @click="open">
+    {{ level }} <!-- raised -->
+  </NsSurface>
+</NsSurface>
+
+<NsSurface variant="glass" tone="primary">…</NsSurface>
+```
+
+`variant` picks a shadow (`elevated`), an outline, a fill or glass; `tone` colors the layer and its
+text. `interactive` lifts it on hover and makes a `div` keyboard-operable as a button.
+
 ### Icons
 
 `NsIcon` ships a stroke set drawn on a 24 × 24 grid (`iconNames()` lists it). Add or replace icons

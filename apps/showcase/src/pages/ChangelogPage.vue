@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "Surface : des couches qui savent où elles sont",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "Surface : cinq niveaux, du creusé au calque, fond et ombre réglés ensemble"
+      },
+      {
+        kind: "Nouveau",
+        text: "Niveau auto : une surface imbriquée monte d'un cran, le niveau est donné au slot"
+      },
+      {
+        kind: "Nouveau",
+        text: "Ombrée, contour, pleine ou verre, huit tons, états survol, appui, sélection et clavier"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "Stack : piles, rangées et groupes",
     changes: [
       {

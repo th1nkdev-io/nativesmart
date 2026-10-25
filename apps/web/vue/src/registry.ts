@@ -14,6 +14,7 @@ import SafeAreaDemo from "./demos/SafeAreaDemo.vue";
 import ScrollAreaDemo from "./demos/ScrollAreaDemo.vue";
 import SpacerDemo from "./demos/SpacerDemo.vue";
 import StackDemo from "./demos/StackDemo.vue";
+import SurfaceDemo from "./demos/SurfaceDemo.vue";
 import TextDemo from "./demos/TextDemo.vue";
 import ToastDemo from "./demos/ToastDemo.vue";
 
@@ -39,6 +40,7 @@ export const registry: Readonly<Record<string, Component>> = {
   "scroll-area": ScrollAreaDemo,
   spacer: SpacerDemo,
   stack: StackDemo,
+  surface: SurfaceDemo,
   spinner: NsSpinner,
   text: TextDemo,
   toast: ToastDemo
@@ -59,6 +61,7 @@ export const variationTiles: Readonly<Record<string, number>> = {
   "scroll-area": 220,
   spacer: 240,
   stack: 260,
+  surface: 240,
   text: 300,
   toast: 400
 };

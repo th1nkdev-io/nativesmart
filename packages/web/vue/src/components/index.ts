@@ -116,6 +116,15 @@ export type {
 } from "./NsStack.vue";
 export { default as NsSpinner } from "./NsSpinner.vue";
 export type { NsSpinnerProps } from "./NsSpinner.vue";
+export { default as NsSurface, surfaceLevelKey, surfaceLevels } from "./NsSurface.vue";
+export type {
+  NsSurfaceLevel,
+  NsSurfacePadding,
+  NsSurfaceProps,
+  NsSurfaceRadius,
+  NsSurfaceTone,
+  NsSurfaceVariant
+} from "./NsSurface.vue";
 export { default as NsText } from "./NsText.vue";
 export type { NsTextProps, NsTextRole, NsTextTone } from "./NsText.vue";
 export { default as NsToast } from "./NsToast.vue";
