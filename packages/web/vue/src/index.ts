@@ -11,6 +11,7 @@ export const implementedComponents = [
   "badge",
   "box",
   "button",
+  "button-group",
   "card",
   "code",
   "container",

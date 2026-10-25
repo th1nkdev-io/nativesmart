@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "ButtonGroup : des boutons qui vont ensemble",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "ButtonGroup : variante, intention, taille et désactivation données à tous ses boutons"
+      },
+      {
+        kind: "Nouveau",
+        text: "Boutons soudés, bordures partagées et coins extérieurs, en ligne ou en colonne"
+      },
+      {
+        kind: "Nouveau",
+        text: "Bouton scindé, barre d'icônes, pleine largeur ; chaque bouton peut garder son propre réglage"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "CopyButton : copier un numéro sans se tromper",
     changes: [
       {

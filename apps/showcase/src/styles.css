@@ -5486,6 +5486,110 @@ button[aria-selected="true"] .component-tabs__count {
   inset-inline-start: calc(100% + 8px);
 }
 
+/* ButtonGroup: three attached buttons with their seams, and a solid split button */
+.anat-bg {
+  display: grid;
+  justify-items: center;
+  gap: var(--ns-space-8);
+  padding: var(--ns-space-10) var(--ns-space-4) var(--ns-space-8);
+  border-radius: var(--ns-radius-xl);
+  background: var(--ns-color-surface-sunken);
+}
+
+.anat-bg__root {
+  position: relative;
+  display: inline-flex;
+  border: 1px solid var(--ns-color-border-strong);
+  border-radius: var(--ns-radius-control);
+  background: var(--ns-color-surface);
+  outline: 2px dashed transparent;
+  outline-offset: 4px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-bg__root.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-bg__button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-block-size: 40px;
+  padding-inline: var(--ns-space-4);
+  color: var(--ns-color-text);
+  font-size: var(--ns-text-label-md-size);
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.anat-bg__button.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-bg__seam {
+  position: relative;
+  inline-size: 1px;
+  background: var(--ns-color-border-strong);
+}
+
+.anat-bg__seam.is-active {
+  inline-size: 3px;
+  background: var(--ns-color-warning);
+}
+
+.anat-bg__split {
+  display: inline-flex;
+  align-items: stretch;
+  overflow: hidden;
+  border-radius: var(--ns-radius-control);
+  background: var(--ns-color-primary);
+  color: var(--ns-color-on-primary);
+  font-size: var(--ns-text-label-md-size);
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.anat-bg__split span {
+  display: grid;
+  place-items: center;
+  min-block-size: 40px;
+  padding-inline: var(--ns-space-4);
+}
+
+.anat-bg__split i {
+  inline-size: 1px;
+  background: color-mix(in srgb, var(--ns-color-on-primary) 30%, var(--ns-color-primary));
+}
+
+.anat-bg__split svg {
+  inline-size: 40px;
+  block-size: 16px;
+  margin-block: auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.anat-bg__pin {
+  position: absolute;
+}
+
+.anat-bg__pin--root {
+  inset-block-start: -14px;
+  inset-inline-start: -14px;
+}
+
+.anat-bg__pin--below {
+  inset-block-start: calc(100% + 10px);
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-bg__pin--above {
+  inset-block-end: calc(100% + 10px);
+  inset-inline-start: -11px;
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);

@@ -84,6 +84,23 @@ its button; `button` and `icon` show only the button:
 Where the clipboard API is missing or refused, it falls back to the selection command, then emits
 `error`. A masked value is copied in full.
 
+### ButtonGroup
+
+Lays related buttons out together and gives them a variant, intent, size and disabled state; a
+button that sets its own keeps it. Attached by default: shared borders, outer corners only.
+
+```vue
+<NsButtonGroup label="Exporter" size="sm">
+  <NsButton label="PDF" icon="download" />
+  <NsButton label="CSV" />
+</NsButtonGroup>
+
+<NsButtonGroup variant="solid" intent="primary">
+  <NsButton label="Envoyer" />
+  <NsIconButton icon="chevron-down" label="Autres façons d'envoyer" />
+</NsButtonGroup>
+```
+
 ### AspectRatio
 
 Frames any media at a ratio token (`video`, `square`, `photo`, `portrait`, `story`, `wide`,

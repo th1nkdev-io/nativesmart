@@ -174,6 +174,7 @@ export const rendererManifests: readonly RendererManifest[] = [
     supportedDesignSystems: webDesignSystems,
     implementedComponents: [
       "aspect-ratio",
+      "button-group",
       "code",
       "container",
       "copy-button",

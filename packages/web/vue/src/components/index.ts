@@ -42,6 +42,8 @@ export type {
 } from "./NsButton.vue";
 export { buttonGroupKey } from "./button-context";
 export type { NsButtonGroupContext } from "./button-context";
+export { default as NsButtonGroup } from "./NsButtonGroup.vue";
+export type { NsButtonGroupOrientation, NsButtonGroupProps } from "./NsButtonGroup.vue";
 export { default as NsCard } from "./NsCard.vue";
 export type { NsCardPadding, NsCardProps, NsCardVariant } from "./NsCard.vue";
 export { default as NsCode } from "./NsCode.vue";

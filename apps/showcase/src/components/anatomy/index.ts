@@ -2,6 +2,7 @@ import type { Component } from "vue";
 import AspectRatioAnatomy from "./AspectRatioAnatomy.vue";
 import BoxAnatomy from "./BoxAnatomy.vue";
 import ButtonAnatomy from "./ButtonAnatomy.vue";
+import ButtonGroupAnatomy from "./ButtonGroupAnatomy.vue";
 import CodeAnatomy from "./CodeAnatomy.vue";
 import ContainerAnatomy from "./ContainerAnatomy.vue";
 import CopyButtonAnatomy from "./CopyButtonAnatomy.vue";
@@ -32,6 +33,7 @@ export const anatomyFigures: Readonly<Record<string, Component>> = {
   "aspect-ratio": AspectRatioAnatomy,
   box: BoxAnatomy,
   button: ButtonAnatomy,
+  "button-group": ButtonGroupAnatomy,
   code: CodeAnatomy,
   container: ContainerAnatomy,
   "copy-button": CopyButtonAnatomy,
