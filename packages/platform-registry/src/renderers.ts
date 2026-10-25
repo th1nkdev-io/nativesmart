@@ -180,6 +180,7 @@ export const rendererManifests: readonly RendererManifest[] = [
       "heading",
       "image",
       "kbd",
+      "label",
       "keyboard-avoider",
       "safe-area",
       "scroll-area",

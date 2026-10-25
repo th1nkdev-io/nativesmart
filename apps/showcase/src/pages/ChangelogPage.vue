@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "Label : tout ce qu'un champ doit dire",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "Label : relié à son champ, astérisque requis ou mention facultatif, trois tailles"
+      },
+      {
+        kind: "Nouveau",
+        text: "Aide derrière une icône info, compteur en bout de ligne, description reliée au champ"
+      },
+      {
+        kind: "Nouveau",
+        text: "États invalide et désactivé, légende de fieldset pour nommer un groupe"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "Text : rôles, décorations et texte replié",
     changes: [
       {

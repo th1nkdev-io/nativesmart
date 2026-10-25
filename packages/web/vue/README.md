@@ -210,6 +210,28 @@ or `display`. The role picks the text style and the element (p, span, blockquote
 `strong`, `italic`, `strike`, `mark` and `underline` wrap the text in the matching element, so the
 meaning is announced. The expand button only appears when the text really overflows.
 
+### Label
+
+Names a form control. The description gets an id the control lists in `aria-describedby`:
+
+```vue
+<NsLabel
+  for="amount"
+  required
+  info="Frais inclus"
+  description="Entre 500 et 500 000 FCFA"
+  :counter="`${amount.length}/12`"
+>Montant à envoyer</NsLabel>
+<input id="amount" v-model="amount" required aria-describedby="amount-description" />
+
+<fieldset>
+  <NsLabel as="legend" optional>Moyen de paiement</NsLabel>
+  …
+</fieldset>
+```
+
+The asterisk is decorative: the control carries `required` itself.
+
 ### Code
 
 A word of code in a sentence, or a block with a title, a copy button and light syntax colors:

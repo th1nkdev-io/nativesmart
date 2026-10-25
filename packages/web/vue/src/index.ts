@@ -22,6 +22,7 @@ export const implementedComponents = [
   "input",
   "kbd",
   "keyboard-avoider",
+  "label",
   "modal",
   "safe-area",
   "scroll-area",

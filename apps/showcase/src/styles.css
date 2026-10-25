@@ -4585,6 +4585,123 @@ button[aria-selected="true"] .component-tabs__count {
   font-variant-numeric: tabular-nums;
 }
 
+/* Label: the line of a field label with its indicator, info and counter, then its hint */
+.anat-lb {
+  display: grid;
+  gap: var(--ns-space-2);
+  padding: var(--ns-space-10) var(--ns-space-6) var(--ns-space-6);
+  border-radius: var(--ns-radius-xl);
+  background: var(--ns-color-surface);
+  box-shadow: var(--ns-elevation-card);
+}
+
+.anat-lb__root {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  padding: var(--ns-space-1);
+  border-radius: var(--ns-radius-sm);
+  outline: 2px dashed transparent;
+  outline-offset: 3px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-lb__root.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-lb__line {
+  display: flex;
+  align-items: center;
+  gap: var(--ns-space-4);
+  white-space: nowrap;
+}
+
+.anat-lb__part {
+  position: relative;
+  padding: 1px 3px;
+  border-radius: var(--ns-radius-sm);
+  transition: background-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-lb__part.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-lb__text {
+  color: var(--ns-color-text);
+  font-size: var(--ns-text-label-md-size);
+  font-weight: var(--ns-text-label-md-weight);
+}
+
+.anat-lb__required {
+  color: var(--ns-color-danger-text);
+  font-weight: var(--ns-font-weight-bold);
+}
+
+.anat-lb__info {
+  display: inline-grid;
+  place-items: center;
+  color: var(--ns-color-text-subtle);
+}
+
+.anat-lb__info svg {
+  inline-size: 14px;
+  block-size: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.anat-lb__counter {
+  margin-inline-start: auto;
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-text-caption-size);
+  font-variant-numeric: tabular-nums;
+}
+
+.anat-lb__description {
+  justify-self: start;
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-text-caption-size);
+}
+
+.anat-lb__input {
+  display: flex;
+  align-items: center;
+  min-block-size: 40px;
+  padding-inline: var(--ns-space-3);
+  border: 1px solid var(--ns-color-border);
+  border-radius: var(--ns-radius-control);
+  color: var(--ns-color-text);
+  font-size: var(--ns-text-body-sm-size);
+}
+
+.anat-lb__pin {
+  position: absolute;
+}
+
+.anat-lb__pin--root {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-start: -34px;
+}
+
+.anat-lb__pin--top {
+  inset-block-start: -26px;
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-lb__pin--bottom {
+  inset-block-end: -26px;
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-lb__pin--side {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-start: calc(100% + 6px);
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);
