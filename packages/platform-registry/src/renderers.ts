@@ -179,6 +179,7 @@ export const rendererManifests: readonly RendererManifest[] = [
       "keyboard-avoider",
       "safe-area",
       "scroll-area",
+      "spacer",
       ...previewComponents
     ],
     styling: "CSS custom properties and Tailwind preset",

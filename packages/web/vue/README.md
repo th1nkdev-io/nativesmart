@@ -138,6 +138,25 @@ fade where more content is hidden. Give it `items` to render only the visible ro
 
 `scrollToIndex(index, align)` and `scrollToEdge(edge)` are exposed on the component.
 
+### Spacer
+
+Empty space inside a flex row or column. By default it takes the free space and pushes what follows
+to the far end; a step (`xs` to `2xl`) or a number of pixels reserves a fixed space instead. The
+size is a flex basis, so the same spacer works in a row and in a column:
+
+```vue
+<header class="toolbar">
+  <Logo />
+  <NsSpacer min-size="md" />
+  <NsButton>Se connecter</NsButton>
+</header>
+
+<NsSpacer :size="{ base: 'md', lg: 'auto' }" />
+```
+
+Several auto spacers split the space by `grow`. In normal flow, set `axis` to `horizontal` or
+`vertical`. `reveal` hatches the space and shows its size while you build a layout.
+
 ### Icons
 
 `NsIcon` ships a stroke set drawn on a 24 × 24 grid (`iconNames()` lists it). Add or replace icons

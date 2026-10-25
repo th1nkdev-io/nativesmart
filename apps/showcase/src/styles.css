@@ -3263,6 +3263,157 @@ button[aria-selected="true"] .component-tabs__count {
   font-size: 10px;
 }
 
+/* Spacer: an app bar, the space pushing the actions away, the size scale */
+.anat-sp {
+  display: flex;
+  align-items: center;
+  gap: var(--ns-space-2);
+  padding: var(--ns-space-3);
+  border: 1px solid var(--ns-color-border-subtle);
+  border-radius: var(--ns-radius-xl);
+  background: var(--ns-color-surface);
+  box-shadow: var(--ns-elevation-1);
+  font-size: var(--ns-text-body-sm-size);
+}
+
+.anat-sp__logo,
+.anat-sp__avatar {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  inline-size: 30px;
+  block-size: 30px;
+  border-radius: var(--ns-radius-md);
+}
+
+.anat-sp__logo {
+  background: var(--ns-color-primary);
+  color: var(--ns-color-on-primary);
+  font-weight: var(--ns-font-weight-bold);
+}
+
+.anat-sp__brand {
+  white-space: nowrap;
+}
+
+.anat-sp__avatar {
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-primary-muted);
+  color: var(--ns-color-on-primary-muted);
+  font-size: 10px;
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.anat-sp__root {
+  position: relative;
+  display: grid;
+  flex: 1;
+  place-items: center;
+  min-inline-size: 120px;
+  min-block-size: 30px;
+  align-self: stretch;
+  border-radius: var(--ns-radius-sm);
+  outline: 1px dashed color-mix(in srgb, var(--ns-color-primary) 55%, transparent);
+  outline-offset: -1px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-sp__root.is-active {
+  outline: 2px dashed var(--ns-color-warning);
+}
+
+.anat-sp__fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--ns-color-primary) 18%, transparent) 0 1px,
+    color-mix(in srgb, var(--ns-color-primary) 5%, transparent) 1px 6px
+  );
+  transition: background-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-sp__fill.is-active {
+  background: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--ns-color-warning) 45%, transparent) 0 1px,
+    color-mix(in srgb, var(--ns-color-warning) 12%, transparent) 1px 6px
+  );
+}
+
+.anat-sp__label {
+  position: relative;
+  padding: 1px 6px;
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-primary);
+  color: var(--ns-color-on-primary);
+  font-family: var(--ns-font-mono);
+  font-size: 10px;
+  font-weight: var(--ns-font-weight-semibold);
+  line-height: 14px;
+}
+
+.anat-sp__label.is-active {
+  background: var(--ns-color-warning);
+  color: var(--ns-color-on-warning);
+}
+
+.anat-sp__pin {
+  position: absolute;
+}
+
+.anat-sp__pin--root {
+  inset-block-start: -14px;
+  inset-inline-start: -10px;
+}
+
+.anat-sp__pin--fill {
+  inset-block-end: -14px;
+  inset-inline-end: 12px;
+}
+
+.anat-sp__pin--label {
+  inset-block-start: -26px;
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-sp__steps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: center;
+  gap: var(--ns-space-4);
+  margin-block-start: var(--ns-space-5);
+}
+
+.anat-sp__steps span {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  color: var(--ns-color-text-muted);
+  font-family: var(--ns-font-mono);
+  font-size: 10px;
+}
+
+.anat-sp__steps i {
+  block-size: 28px;
+  margin-block-end: 4px;
+  border-radius: 2px;
+  outline: 1px dashed color-mix(in srgb, var(--ns-color-primary) 55%, transparent);
+  outline-offset: -1px;
+  background: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--ns-color-primary) 18%, transparent) 0 1px,
+    color-mix(in srgb, var(--ns-color-primary) 5%, transparent) 1px 5px
+  );
+}
+
+.anat-sp__steps b {
+  color: var(--ns-color-text);
+  font-weight: var(--ns-font-weight-semibold);
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);

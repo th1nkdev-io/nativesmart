@@ -12,6 +12,7 @@ import KeyboardAvoiderDemo from "./demos/KeyboardAvoiderDemo.vue";
 import ModalDemo from "./demos/ModalDemo.vue";
 import SafeAreaDemo from "./demos/SafeAreaDemo.vue";
 import ScrollAreaDemo from "./demos/ScrollAreaDemo.vue";
+import SpacerDemo from "./demos/SpacerDemo.vue";
 import TextDemo from "./demos/TextDemo.vue";
 import ToastDemo from "./demos/ToastDemo.vue";
 
@@ -35,6 +36,7 @@ export const registry: Readonly<Record<string, Component>> = {
   modal: ModalDemo,
   "safe-area": SafeAreaDemo,
   "scroll-area": ScrollAreaDemo,
+  spacer: SpacerDemo,
   spinner: NsSpinner,
   text: TextDemo,
   toast: ToastDemo
@@ -53,6 +55,7 @@ export const variationTiles: Readonly<Record<string, number>> = {
   modal: 380,
   "safe-area": 220,
   "scroll-area": 220,
+  spacer: 240,
   text: 300,
   toast: 400
 };

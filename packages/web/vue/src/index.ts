@@ -21,6 +21,7 @@ export const implementedComponents = [
   "modal",
   "safe-area",
   "scroll-area",
+  "spacer",
   "spinner",
   "text",
   "toast"

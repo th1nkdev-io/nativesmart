@@ -94,6 +94,16 @@ export type {
   NsScrollAreaScrollbars,
   NsScrollAreaSnap
 } from "./NsScrollArea.vue";
+export { default as NsSpacer } from "./NsSpacer.vue";
+export type {
+  NsSpacerAxis,
+  NsSpacerBreakpoint,
+  NsSpacerMinSize,
+  NsSpacerProps,
+  NsSpacerResponsive,
+  NsSpacerSize,
+  NsSpacerStep
+} from "./NsSpacer.vue";
 export { default as NsSpinner } from "./NsSpinner.vue";
 export type { NsSpinnerProps } from "./NsSpinner.vue";
 export { default as NsText } from "./NsText.vue";

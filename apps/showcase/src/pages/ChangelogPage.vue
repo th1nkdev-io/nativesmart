@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "Spacer : l'espace qui pousse ou qui réserve",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "Spacer : prend l'espace libre ou réserve un pas fixe, en ligne comme en colonne"
+      },
+      {
+        kind: "Nouveau",
+        text: "Partage pondéré avec grow, espace minimum, tailles par point de rupture"
+      },
+      {
+        kind: "Nouveau",
+        text: "reveal hachure l'espace et affiche sa taille, pour vérifier une mise en page"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "ScrollArea : barres dessinées et listes virtuelles",
     changes: [
       {
