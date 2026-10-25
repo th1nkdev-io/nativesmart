@@ -71,6 +71,19 @@ export type ComponentContract = {
     requirements: readonly string[];
   };
   semanticTokens: readonly string[];
+  /** Explanations shown in documentation: what each part, state, event, key and token means. */
+  docs?: ContractDocs;
+};
+
+/** An event as documentation explains it: when it fires and what it carries. */
+export type EventDoc = { description: string; payload?: string };
+
+export type ContractDocs = {
+  anatomy?: Readonly<Record<string, string>>;
+  states?: Readonly<Record<string, string>>;
+  events?: Readonly<Record<string, EventDoc>>;
+  keyboard?: Readonly<Record<string, string>>;
+  tokens?: Readonly<Record<string, string>>;
 };
 
 export type ComponentRecipe = {

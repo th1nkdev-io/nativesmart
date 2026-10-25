@@ -56,5 +56,36 @@ export const aspectRatioContract = defineContract({
       "Zoom and shimmer stop when reduced motion is requested"
     ]
   },
-  semanticTokens: ["aspect.ratio", "aspect.radius", "aspect.placeholder", "aspect.scrim"]
+  semanticTokens: ["aspect.ratio", "aspect.radius", "aspect.placeholder", "aspect.scrim"],
+  docs: {
+    anatomy: {
+      root: "The frame: holds the ratio, clips the media to its radius and paints the background",
+      media: "The content in the frame, stretched to fill it and cropped by fit and focus",
+      placeholder: "Shimmer or plain color under the media until it has loaded",
+      fallback: "Shown in place of media that failed to load; reads the media's alternative text",
+      overlay: "Free layer over the media for badges, actions or a play button",
+      caption: "Title and description at the bottom, over a gradient scrim"
+    },
+    states: {
+      loading: "The media is still downloading: the placeholder shows and the frame is marked busy",
+      loaded: "The media is ready and fades in; content that is not media is loaded at once",
+      error: "The media failed: the fallback replaces it, keeping its alternative text"
+    },
+    events: {
+      load: {
+        description: "The image, video or frame inside finished loading",
+        payload: "the native load event of the media"
+      },
+      error: {
+        description: "The media failed to load; the fallback is already showing",
+        payload: "the native error event of the media"
+      }
+    },
+    tokens: {
+      "aspect.ratio": "Ratio presets: square, photo, video, wide, portrait, story, golden",
+      "aspect.radius": "Corner radius of the frame, image radius by default",
+      "aspect.placeholder": "Background and shimmer highlight shown while loading",
+      "aspect.scrim": "Gradient that keeps captions and overlays readable"
+    }
+  }
 });
