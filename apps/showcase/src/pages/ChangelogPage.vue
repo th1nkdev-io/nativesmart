@@ -5,6 +5,24 @@ import PageHero from "../editorial/PageHero.vue";
 
 const releases = [
   {
+    date: "25 octobre 2026",
+    title: "Onglets Variations et API repensés",
+    changes: [
+      {
+        kind: "Amélioré",
+        text: "Variations : un rail par propriété, valeur par défaut mise en avant, cartes titrées"
+      },
+      {
+        kind: "Amélioré",
+        text: "API : anatomie schématisée, valeurs et défauts, états et événements expliqués"
+      },
+      {
+        kind: "Nouveau",
+        text: "Contrats documentés : sens de chaque partie, état, événement, touche et token"
+      }
+    ]
+  },
+  {
     date: "24 octobre 2026",
     title: "AspectRatio, premier composant de mise en page",
     changes: [
