@@ -1,7 +1,8 @@
-import { NsAvatar, NsBadge, NsButton, NsSpinner } from "@nativesmart/vue";
+import { NsAvatar, NsBadge, NsSpinner } from "@nativesmart/vue";
 import type { Component } from "vue";
 import AspectRatioDemo from "./demos/AspectRatioDemo.vue";
 import BoxDemo from "./demos/BoxDemo.vue";
+import ButtonDemo from "./demos/ButtonDemo.vue";
 import CardDemo from "./demos/CardDemo.vue";
 import CodeDemo from "./demos/CodeDemo.vue";
 import ContainerDemo from "./demos/ContainerDemo.vue";
@@ -34,7 +35,7 @@ export const registry: Readonly<Record<string, Component>> = {
   avatar: NsAvatar,
   badge: NsBadge,
   box: BoxDemo,
-  button: NsButton,
+  button: ButtonDemo,
   card: CardDemo,
   code: CodeDemo,
   container: ContainerDemo,
@@ -64,6 +65,7 @@ export const registry: Readonly<Record<string, Component>> = {
 export const variationTiles: Readonly<Record<string, number>> = {
   "aspect-ratio": 168,
   box: 240,
+  button: 200,
   card: 340,
   code: 320,
   container: 240,

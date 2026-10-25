@@ -36,3 +36,39 @@ describe("NsButton", () => {
     expect(wrapper.attributes("aria-label")).toBe("Close");
   });
 });
+
+describe("NsButton extensions", () => {
+  it("draws icons around the label", () => {
+    const wrapper = mount(NsButton, {
+      props: { label: "Envoyer", icon: "send", iconEnd: "chevron-down" }
+    });
+    expect(wrapper.findAll(".ns-button__icon")).toHaveLength(2);
+    expect(wrapper.find(".ns-button__label").text()).toBe("Envoyer");
+  });
+
+  it("becomes a link with href, and drops it when disabled", () => {
+    const link = mount(NsButton, { props: { label: "Reçu", href: "/recu" } });
+    expect(link.element.tagName).toBe("A");
+    expect(link.attributes("href")).toBe("/recu");
+    const off = mount(NsButton, { props: { label: "Reçu", href: "/recu", disabled: true } });
+    expect(off.element.tagName).toBe("BUTTON");
+  });
+
+  it("shows a loading text beside the spinner", () => {
+    const wrapper = mount(NsButton, {
+      props: { label: "Envoyer", loading: true, loadingText: "Envoi…" }
+    });
+    expect(wrapper.find(".ns-button__label").text()).toBe("Envoi…");
+    expect(wrapper.attributes("aria-busy")).toBe("true");
+  });
+
+  it("announces a pressed toggle and names an icon-only button", () => {
+    const wrapper = mount(NsButton, {
+      props: { label: "Favori", icon: "heart", iconOnly: true, pressed: true }
+    });
+    expect(wrapper.attributes("aria-pressed")).toBe("true");
+    expect(wrapper.attributes("aria-label")).toBe("Favori");
+    expect(wrapper.find(".ns-button__label").exists()).toBe(false);
+    expect(mount(NsButton, { props: { label: "Ok" } }).attributes("aria-pressed")).toBeUndefined();
+  });
+});

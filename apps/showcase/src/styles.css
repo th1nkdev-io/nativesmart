@@ -4971,6 +4971,155 @@ button[aria-selected="true"] .component-tabs__count {
   font-size: 11px;
 }
 
+/* Button: a button with its icons and label, the same one loading, and the five variants */
+.anat-bt {
+  display: grid;
+  justify-items: center;
+  gap: var(--ns-space-10);
+  padding: var(--ns-space-10) var(--ns-space-6);
+  border-radius: var(--ns-radius-xl);
+  background: var(--ns-color-surface-sunken);
+}
+
+.anat-bt__button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ns-space-2);
+  min-block-size: 44px;
+  padding-inline: var(--ns-space-5);
+  border-radius: var(--ns-radius-control);
+  background: var(--ns-color-primary);
+  color: var(--ns-color-on-primary);
+  font-size: var(--ns-text-label-md-size);
+  font-weight: var(--ns-font-weight-semibold);
+  white-space: nowrap;
+  outline: 2px dashed transparent;
+  outline-offset: 4px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-bt__button.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-bt__part {
+  position: relative;
+  display: inline-flex;
+  padding: 2px;
+  border-radius: var(--ns-radius-sm);
+}
+
+.anat-bt__part.is-active {
+  background: var(--ns-color-warning);
+  color: var(--ns-color-on-warning);
+}
+
+.anat-bt__part svg {
+  inline-size: 16px;
+  block-size: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.anat-bt__ghost {
+  visibility: hidden;
+}
+
+.anat-bt__spinner {
+  position: absolute;
+  inset: 0;
+  inline-size: 18px;
+  block-size: 18px;
+  margin: auto;
+  border: 2px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-block-start-color: currentColor;
+  border-radius: var(--ns-radius-full);
+  animation: ns-icon-spin 0.9s linear infinite;
+}
+
+.anat-bt__pin {
+  position: absolute;
+}
+
+.anat-bt__pin--root {
+  inset-block-start: -14px;
+  inset-inline-start: -14px;
+}
+
+.anat-bt__pin--above {
+  inset-block-end: calc(100% + 12px);
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-bt__pin--below {
+  inset-block-start: calc(100% + 12px);
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-bt__pin--side {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-start: calc(100% + 10px);
+}
+
+.anat-bt__variants {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--ns-space-4);
+  margin-block-start: var(--ns-space-5);
+}
+
+.anat-bt__variants span {
+  display: grid;
+  justify-items: center;
+  gap: var(--ns-space-1);
+  color: var(--ns-color-text-muted);
+  font-family: var(--ns-font-mono);
+  font-size: 10px;
+}
+
+.anat-bt__variants i {
+  display: grid;
+  place-items: center;
+  inline-size: 44px;
+  block-size: 28px;
+  border: 1px solid transparent;
+  border-radius: var(--ns-radius-md);
+  color: var(--ns-color-primary-text);
+  font-family: var(--ns-font-sans);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.anat-bt__variants .is-solid {
+  background: var(--ns-color-primary);
+  color: var(--ns-color-on-primary);
+}
+
+.anat-bt__variants .is-soft {
+  background: var(--ns-color-primary-muted);
+}
+
+.anat-bt__variants .is-outline {
+  border-color: var(--ns-color-primary);
+}
+
+.anat-bt__variants .is-link {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anat-bt__spinner {
+    animation: none;
+  }
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);

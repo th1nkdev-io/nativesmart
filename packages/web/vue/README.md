@@ -26,6 +26,21 @@ Props use the contract property names; contract events are emitted as Vue events
 `v-model:open`. Every component reads its colors, spacing, radii and motion from the tokens, and
 exposes `--ns-<component>-*` variables to restyle one component without touching the others.
 
+### Button
+
+Five variants (`solid`, `soft`, `outline`, `ghost`, `link`) in five intents, five sizes and three
+shapes. While `loading`, the button keeps its width, ignores presses and sets `aria-busy`:
+
+```vue
+<NsButton label="Envoyer" icon="send" :loading="sending" loading-text="Envoi…" @press="send" />
+<NsButton label="Annuler" variant="ghost" intent="neutral" />
+<NsButton label="Télécharger le reçu" href="/recu.pdf" variant="soft" icon="download" />
+<NsButton label="Continuer" block shape="pill" size="lg" icon-end="arrow-right" />
+```
+
+With `href` it renders a link, announced as one. Inside an `NsButtonGroup`, variant, intent, size and
+disabled come from the group unless the button sets its own.
+
 ### AspectRatio
 
 Frames any media at a ratio token (`video`, `square`, `photo`, `portrait`, `story`, `wide`,

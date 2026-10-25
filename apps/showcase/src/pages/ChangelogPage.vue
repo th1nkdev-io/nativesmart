@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "Button : plus de variantes, d'intentions et de formes",
+    changes: [
+      {
+        kind: "Amélioré",
+        text: "Button : variante teintée, intentions succès et alerte, tailles xs et xl, pilule ou carré"
+      },
+      {
+        kind: "Amélioré",
+        text: "Icônes avant et après, pleine largeur, texte de chargement, lien en forme de bouton"
+      },
+      {
+        kind: "Amélioré",
+        text: "État pressé pour les bascules, bouton icône seule, réglages hérités d'un ButtonGroup"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "List : puces, coches et étapes",
     changes: [
       {

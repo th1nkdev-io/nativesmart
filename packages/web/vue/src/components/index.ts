@@ -33,7 +33,15 @@ export type {
   NsBoxTone
 } from "./NsBox.vue";
 export { default as NsButton } from "./NsButton.vue";
-export type { NsButtonIntent, NsButtonProps, NsButtonSize, NsButtonVariant } from "./NsButton.vue";
+export type {
+  NsButtonIntent,
+  NsButtonProps,
+  NsButtonShape,
+  NsButtonSize,
+  NsButtonVariant
+} from "./NsButton.vue";
+export { buttonGroupKey } from "./button-context";
+export type { NsButtonGroupContext } from "./button-context";
 export { default as NsCard } from "./NsCard.vue";
 export type { NsCardPadding, NsCardProps, NsCardVariant } from "./NsCard.vue";
 export { default as NsCode } from "./NsCode.vue";

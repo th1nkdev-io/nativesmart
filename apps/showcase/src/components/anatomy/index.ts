@@ -1,6 +1,7 @@
 import type { Component } from "vue";
 import AspectRatioAnatomy from "./AspectRatioAnatomy.vue";
 import BoxAnatomy from "./BoxAnatomy.vue";
+import ButtonAnatomy from "./ButtonAnatomy.vue";
 import CodeAnatomy from "./CodeAnatomy.vue";
 import ContainerAnatomy from "./ContainerAnatomy.vue";
 import DividerAnatomy from "./DividerAnatomy.vue";
@@ -27,6 +28,7 @@ import TextAnatomy from "./TextAnatomy.vue";
 export const anatomyFigures: Readonly<Record<string, Component>> = {
   "aspect-ratio": AspectRatioAnatomy,
   box: BoxAnatomy,
+  button: ButtonAnatomy,
   code: CodeAnatomy,
   container: ContainerAnatomy,
   divider: DividerAnatomy,
