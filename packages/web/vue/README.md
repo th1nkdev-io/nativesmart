@@ -11,19 +11,30 @@ Nativesmart renderer for Vue 3 and Nuxt. Status: `preview`.
 
 ## Components
 
-| Contract       | Component       | Contract  | Component   |
-| -------------- | --------------- | --------- | ----------- |
-| `aspect-ratio` | `NsAspectRatio` | `divider` | `NsDivider` |
-| `avatar`       | `NsAvatar`      | `icon`    | `NsIcon`    |
-| `badge`        | `NsBadge`       | `input`   | `NsInput`   |
-| `box`          | `NsBox`         | `modal`   | `NsModal`   |
-| `button`       | `NsButton`      | `spinner` | `NsSpinner` |
-| `card`         | `NsCard`        | `text`    | `NsText`    |
-|                |                 | `toast`   | `NsToast`   |
+| Contract       | Component       | Contract            | Component            |
+| -------------- | --------------- | ------------------- | -------------------- |
+| `aspect-ratio` | `NsAspectRatio` | `input`             | `NsInput`            |
+| `avatar`       | `NsAvatar`      | `kbd`               | `NsKbd`              |
+| `badge`        | `NsBadge`       | `keyboard-avoider`  | `NsKeyboardAvoider`  |
+| `box`          | `NsBox`         | `label`             | `NsLabel`            |
+| `button`       | `NsButton`      | `link`              | `NsLink`             |
+| `button-group` | `NsButtonGroup` | `list`              | `NsList`             |
+| `card`         | `NsCard`        | `modal`             | `NsModal`            |
+| `code`         | `NsCode`        | `safe-area`         | `NsSafeArea`         |
+| `container`    | `NsContainer`   | `scroll-area`       | `NsScrollArea`       |
+| `copy-button`  | `NsCopyButton`  | `segmented-control` | `NsSegmentedControl` |
+| `divider`      | `NsDivider`     | `spacer`            | `NsSpacer`           |
+| `fab`          | `NsFab`         | `spinner`           | `NsSpinner`          |
+| `grid`         | `NsGrid`        | `stack`             | `NsStack`            |
+| `heading`      | `NsHeading`     | `surface`           | `NsSurface`          |
+| `icon`         | `NsIcon`        | `text`              | `NsText`             |
+| `icon-button`  | `NsIconButton`  | `toast`             | `NsToast`            |
+| `image`        | `NsImage`       | `toggle-button`     | `NsToggleButton`     |
 
 Props use the contract property names; contract events are emitted as Vue events (`press`,
-`change`, `submit`, `dismiss`, `open-change`…). `NsInput` and `NsModal` also support `v-model` and
-`v-model:open`. Every component reads its colors, spacing, radii and motion from the tokens, and
+`change`, `submit`, `dismiss`, `open-change`…). Two-way state uses `v-model`: `NsInput`,
+`v-model:open` on `NsModal` and `NsFab`, `v-model:pressed` on `NsToggleButton` and `v-model:value` on
+`NsSegmentedControl`. Every component reads its colors, spacing, radii and motion from the tokens, and
 exposes `--ns-<component>-*` variables to restyle one component without touching the others.
 
 ### Button
