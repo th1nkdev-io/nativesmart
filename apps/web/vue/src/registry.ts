@@ -10,6 +10,7 @@ import DividerDemo from "./demos/DividerDemo.vue";
 import GridDemo from "./demos/GridDemo.vue";
 import HeadingDemo from "./demos/HeadingDemo.vue";
 import IconDemo from "./demos/IconDemo.vue";
+import IconButtonDemo from "./demos/IconButtonDemo.vue";
 import ImageDemo from "./demos/ImageDemo.vue";
 import InputDemo from "./demos/InputDemo.vue";
 import KbdDemo from "./demos/KbdDemo.vue";
@@ -43,6 +44,7 @@ export const registry: Readonly<Record<string, Component>> = {
   grid: GridDemo,
   heading: HeadingDemo,
   icon: IconDemo,
+  "icon-button": IconButtonDemo,
   image: ImageDemo,
   input: InputDemo,
   kbd: KbdDemo,
@@ -73,6 +75,7 @@ export const variationTiles: Readonly<Record<string, number>> = {
   grid: 240,
   heading: 280,
   icon: 200,
+  "icon-button": 200,
   image: 260,
   input: 300,
   kbd: 260,

@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "IconButton : l'icône seule, toujours nommée",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "IconButton : label obligatoire lu à voix haute et montré en bulle au survol et au focus"
+      },
+      {
+        kind: "Nouveau",
+        text: "Pastille compteur ou point, comptée dans le nom : « Notifications, 3 »"
+      },
+      {
+        kind: "Nouveau",
+        text: "Carré arrondi, cercle ou carré, cinq tailles, variantes et intentions de Button"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "Button : plus de variantes, d'intentions et de formes",
     changes: [
       {

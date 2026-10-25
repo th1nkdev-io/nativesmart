@@ -8,6 +8,7 @@ import DividerAnatomy from "./DividerAnatomy.vue";
 import GridAnatomy from "./GridAnatomy.vue";
 import HeadingAnatomy from "./HeadingAnatomy.vue";
 import IconAnatomy from "./IconAnatomy.vue";
+import IconButtonAnatomy from "./IconButtonAnatomy.vue";
 import ImageAnatomy from "./ImageAnatomy.vue";
 import KbdAnatomy from "./KbdAnatomy.vue";
 import KeyboardAvoiderAnatomy from "./KeyboardAvoiderAnatomy.vue";
@@ -35,6 +36,7 @@ export const anatomyFigures: Readonly<Record<string, Component>> = {
   grid: GridAnatomy,
   heading: HeadingAnatomy,
   icon: IconAnatomy,
+  "icon-button": IconButtonAnatomy,
   image: ImageAnatomy,
   kbd: KbdAnatomy,
   "keyboard-avoider": KeyboardAvoiderAnatomy,

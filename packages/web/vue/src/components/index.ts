@@ -105,6 +105,8 @@ export type {
   NsKeyboardAvoiderGap,
   NsKeyboardAvoiderProps
 } from "./NsKeyboardAvoider.vue";
+export { default as NsIconButton } from "./NsIconButton.vue";
+export type { NsIconButtonProps, NsIconButtonShape } from "./NsIconButton.vue";
 export { default as NsImage } from "./NsImage.vue";
 export type {
   NsImageCaptionPlacement,

@@ -41,6 +41,18 @@ shapes. While `loading`, the button keeps its width, ignores presses and sets `a
 With `href` it renders a link, announced as one. Inside an `NsButtonGroup`, variant, intent, size and
 disabled come from the group unless the button sets its own.
 
+### IconButton
+
+A square button that shows only its icon. The `label` is required: it names the button and appears
+in a tooltip on hover and focus.
+
+```vue
+<NsIconButton icon="bell" label="Notifications" :badge="unread" @press="openInbox" />
+<NsIconButton icon="plus" label="Ajouter" variant="solid" intent="primary" shape="circle" />
+```
+
+A badge count joins the name (« Notifications, 3 »); an empty badge draws a dot.
+
 ### AspectRatio
 
 Frames any media at a ratio token (`video`, `square`, `photo`, `portrait`, `story`, `wide`,

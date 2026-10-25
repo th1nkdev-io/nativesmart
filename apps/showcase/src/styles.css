@@ -5120,6 +5120,150 @@ button[aria-selected="true"] .component-tabs__count {
   }
 }
 
+/* IconButton: the square with its icon and badge, its tooltip, and the three shapes */
+.anat-ib {
+  display: grid;
+  justify-items: center;
+  gap: var(--ns-space-3);
+  padding: var(--ns-space-10) var(--ns-space-6) var(--ns-space-8);
+  border-radius: var(--ns-radius-xl);
+  background: var(--ns-color-surface-sunken);
+}
+
+.anat-ib__tooltip {
+  position: relative;
+  padding: var(--ns-space-1) var(--ns-space-2-5);
+  border-radius: var(--ns-radius-md);
+  background: var(--ns-color-surface-inverse);
+  color: var(--ns-color-text-inverse);
+  font-size: var(--ns-text-caption-size);
+  font-weight: var(--ns-font-weight-medium);
+  outline: 2px dashed transparent;
+  outline-offset: 3px;
+}
+
+.anat-ib__tooltip.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-ib__root {
+  position: relative;
+  display: grid;
+  place-items: center;
+  inline-size: 64px;
+  block-size: 64px;
+  border: 1px solid var(--ns-color-border-subtle);
+  border-radius: var(--ns-radius-lg);
+  background: var(--ns-color-surface);
+  color: var(--ns-color-text);
+  outline: 2px dashed transparent;
+  outline-offset: 4px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-ib__root.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-ib__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 4px;
+  border-radius: var(--ns-radius-sm);
+}
+
+.anat-ib__icon.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-ib__icon svg {
+  inline-size: 28px;
+  block-size: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.anat-ib__badge {
+  position: absolute;
+  inset-block-start: -8px;
+  inset-inline-end: -8px;
+  display: grid;
+  place-items: center;
+  min-inline-size: 22px;
+  block-size: 22px;
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-danger);
+  box-shadow: 0 0 0 2px var(--ns-color-surface-sunken);
+  color: var(--ns-color-on-danger);
+  font-size: 11px;
+  font-weight: var(--ns-font-weight-bold);
+}
+
+.anat-ib__badge.is-active {
+  background: var(--ns-color-warning);
+  color: var(--ns-color-on-warning);
+}
+
+.anat-ib__pin {
+  position: absolute;
+}
+
+.anat-ib__pin--root {
+  inset-block-start: -12px;
+  inset-inline-start: -12px;
+}
+
+.anat-ib__pin--side {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-start: calc(100% + 10px);
+}
+
+.anat-ib__pin--below {
+  inset-block-start: calc(100% + 12px);
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-ib__pin--badge {
+  inset-block-start: 0;
+  inset-inline-start: calc(100% + 8px);
+}
+
+.anat-ib__shapes {
+  display: flex;
+  justify-content: center;
+  gap: var(--ns-space-5);
+  margin-block-start: var(--ns-space-5);
+}
+
+.anat-ib__shapes span {
+  display: grid;
+  justify-items: center;
+  gap: var(--ns-space-1);
+  color: var(--ns-color-text-muted);
+  font-family: var(--ns-font-mono);
+  font-size: 10px;
+}
+
+.anat-ib__shapes i {
+  inline-size: 32px;
+  block-size: 32px;
+  border-radius: var(--ns-radius-control);
+  background: var(--ns-color-primary-muted);
+  box-shadow: inset 0 0 0 1px var(--ns-color-primary-border);
+}
+
+.anat-ib__shapes i.is-circle {
+  border-radius: var(--ns-radius-full);
+}
+
+.anat-ib__shapes i.is-square {
+  border-radius: var(--ns-radius-xs);
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);
