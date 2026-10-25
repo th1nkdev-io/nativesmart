@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "Stack : piles, rangées et groupes",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "Stack : colonne ou rangée, inversées, avec direction et espacement par point de rupture"
+      },
+      {
+        kind: "Nouveau",
+        text: "Séparateurs entre les éléments, ligne ou contenu libre, centrés dans l'espacement"
+      },
+      {
+        kind: "Nouveau",
+        text: "Retour à la ligne, parts égales avec fill, groupe soudé avec compact, pile en ligne"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "Spacer : l'espace qui pousse ou qui réserve",
     changes: [
       {

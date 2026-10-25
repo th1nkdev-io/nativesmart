@@ -157,6 +157,25 @@ size is a flex basis, so the same spacer works in a row and in a column:
 Several auto spacers split the space by `grow`. In normal flow, set `axis` to `horizontal` or
 `vertical`. `reveal` hatches the space and shows its size while you build a layout.
 
+### Stack
+
+Lays its children out in a column or a row, with a gap from the spacing scale. Direction, gap,
+alignment and distribution accept one value per breakpoint:
+
+```vue
+<NsStack :direction="{ base: 'column', md: 'row' }" gap="lg" align="center">
+  …
+</NsStack>
+
+<NsStack as="ul" divided>
+  <li v-for="contact in contacts" :key="contact.id">{{ contact.name }}</li>
+</NsStack>
+```
+
+`divided` draws a line in the middle of each gap; a `divider` slot replaces it. `wrap` flows items
+onto new lines, `fill` gives them equal shares, and `compact` joins them into one group with shared
+borders, such as a row of segmented buttons. `inline` sits the stack in a line of text.
+
 ### Icons
 
 `NsIcon` ships a stroke set drawn on a 24 × 24 grid (`iconNames()` lists it). Add or replace icons

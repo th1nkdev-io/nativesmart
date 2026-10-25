@@ -104,6 +104,16 @@ export type {
   NsSpacerSize,
   NsSpacerStep
 } from "./NsSpacer.vue";
+export { default as NsStack } from "./NsStack.vue";
+export type {
+  NsStackAlign,
+  NsStackBreakpoint,
+  NsStackDirection,
+  NsStackGap,
+  NsStackJustify,
+  NsStackProps,
+  NsStackResponsive
+} from "./NsStack.vue";
 export { default as NsSpinner } from "./NsSpinner.vue";
 export type { NsSpinnerProps } from "./NsSpinner.vue";
 export { default as NsText } from "./NsText.vue";

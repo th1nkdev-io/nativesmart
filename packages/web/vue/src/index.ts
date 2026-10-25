@@ -23,6 +23,7 @@ export const implementedComponents = [
   "scroll-area",
   "spacer",
   "spinner",
+  "stack",
   "text",
   "toast"
 ] as const;

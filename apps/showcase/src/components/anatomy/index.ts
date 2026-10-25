@@ -8,6 +8,7 @@ import KeyboardAvoiderAnatomy from "./KeyboardAvoiderAnatomy.vue";
 import SafeAreaAnatomy from "./SafeAreaAnatomy.vue";
 import ScrollAreaAnatomy from "./ScrollAreaAnatomy.vue";
 import SpacerAnatomy from "./SpacerAnatomy.vue";
+import StackAnatomy from "./StackAnatomy.vue";
 
 /**
  * Illustrated anatomies: a drawing of the component with a numbered pin on each part. Components
@@ -22,5 +23,6 @@ export const anatomyFigures: Readonly<Record<string, Component>> = {
   "keyboard-avoider": KeyboardAvoiderAnatomy,
   "safe-area": SafeAreaAnatomy,
   "scroll-area": ScrollAreaAnatomy,
-  spacer: SpacerAnatomy
+  spacer: SpacerAnatomy,
+  stack: StackAnatomy
 };

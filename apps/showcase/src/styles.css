@@ -3414,6 +3414,175 @@ button[aria-selected="true"] .component-tabs__count {
   font-weight: var(--ns-font-weight-semibold);
 }
 
+/* Stack: three items, a gap, a divider, and the four directions */
+.anat-st {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--ns-space-3);
+  border-radius: var(--ns-radius-lg);
+  outline: 1px dashed color-mix(in srgb, var(--ns-color-primary) 55%, transparent);
+  outline-offset: -1px;
+  background: var(--ns-color-surface-muted);
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-st.is-active {
+  outline: 2px dashed var(--ns-color-warning);
+}
+
+.anat-st__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--ns-space-2);
+  padding: var(--ns-space-2) var(--ns-space-3);
+  border: 1px solid var(--ns-color-border-subtle);
+  border-radius: var(--ns-radius-md);
+  background: var(--ns-color-surface);
+  font-size: var(--ns-text-caption-size);
+  transition:
+    border-color var(--ns-duration-fast) var(--ns-easing-standard),
+    box-shadow var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-st__item.is-active {
+  border-color: var(--ns-color-warning);
+  box-shadow: 0 0 0 2px var(--ns-color-warning-muted);
+}
+
+.anat-st__item i {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 22px;
+  block-size: 22px;
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-primary-muted);
+  color: var(--ns-color-on-primary-muted);
+  font-size: 9px;
+  font-style: normal;
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.anat-st__gap {
+  position: relative;
+  display: grid;
+  place-items: center;
+  block-size: 16px;
+  background: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--ns-color-primary) 22%, transparent) 0 1px,
+    transparent 1px 5px
+  );
+}
+
+.anat-st__gap.is-active {
+  background: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--ns-color-warning) 50%, transparent) 0 1px,
+    color-mix(in srgb, var(--ns-color-warning) 10%, transparent) 1px 5px
+  );
+}
+
+.anat-st__gap small {
+  padding: 0 5px;
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-surface-muted);
+  color: var(--ns-color-primary-text);
+  font-family: var(--ns-font-mono);
+  font-size: 9px;
+  line-height: 12px;
+}
+
+.anat-st__divider {
+  position: relative;
+  block-size: 1px;
+  margin-block: 8px;
+  background: var(--ns-color-border-strong);
+}
+
+.anat-st__divider.is-active {
+  block-size: 2px;
+  background: var(--ns-color-warning);
+}
+
+.anat-st__pin {
+  position: absolute;
+}
+
+.anat-st__pin--root {
+  inset-block-start: -10px;
+  inset-inline-start: -10px;
+}
+
+.anat-st__pin--item {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-end: -11px;
+}
+
+.anat-st__pin--gap {
+  inset-block-start: -3px;
+  inset-inline-end: 20%;
+}
+
+.anat-st__pin--divider {
+  inset-block-start: -11px;
+  inset-inline-start: 20%;
+}
+
+.anat-st__directions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: center;
+  gap: var(--ns-space-4);
+  margin-block-start: var(--ns-space-5);
+}
+
+.anat-st__directions > span {
+  display: grid;
+  justify-items: center;
+  gap: var(--ns-space-1-5);
+  color: var(--ns-color-text-muted);
+  font-family: var(--ns-font-mono);
+  font-size: 10px;
+}
+
+.anat-st__directions em {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 4px;
+  border-radius: var(--ns-radius-sm);
+  outline: 1px dashed color-mix(in srgb, var(--ns-color-primary) 45%, transparent);
+  font-style: normal;
+}
+
+.anat-st__directions em.is-row {
+  flex-direction: row;
+}
+
+.anat-st__directions em.is-reverse {
+  flex-direction: column-reverse;
+}
+
+.anat-st__directions em.is-row.is-reverse {
+  flex-direction: row-reverse;
+}
+
+.anat-st__directions em i {
+  display: grid;
+  place-items: center;
+  inline-size: 14px;
+  block-size: 14px;
+  border-radius: 3px;
+  background: var(--ns-color-primary);
+  color: var(--ns-color-on-primary);
+  font-size: 8px;
+  font-style: normal;
+  font-weight: var(--ns-font-weight-bold);
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);
