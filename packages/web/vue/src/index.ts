@@ -18,6 +18,7 @@ export const implementedComponents = [
   "grid",
   "heading",
   "icon",
+  "image",
   "input",
   "keyboard-avoider",
   "modal",

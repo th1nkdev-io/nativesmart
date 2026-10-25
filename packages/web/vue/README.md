@@ -234,6 +234,27 @@ not change it: a compact sidebar can use a small h2, a hero a display h1.
 An eyebrow or a subtitle wraps the title in an `hgroup`. `anchor` adds a `#` link and an id derived
 from the text.
 
+### Image
+
+An image in a frame of a given ratio, with a placeholder while it loads, a fallback when it fails
+and an optional lightbox:
+
+```vue
+<NsImage src="/lagoon.jpg" alt="Lagune bordée de palmiers" ratio="4/3" caption="Assinie" />
+
+<NsImage
+  :src="photo.url"
+  :alt="photo.alt"
+  placeholder="blur"
+  :lazy-src="photo.thumbnail"
+  fallback-src="/placeholder.jpg"
+  preview
+/>
+```
+
+Without `src` the placeholder stays, which covers a source still on its way from an API. When both
+sources fail, the frame shows the alt text. The lightbox is a native modal `dialog`.
+
 ### Icons
 
 `NsIcon` ships a stroke set drawn on a 24 × 24 grid (`iconNames()` lists it):

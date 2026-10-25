@@ -97,6 +97,16 @@ export type {
   NsKeyboardAvoiderGap,
   NsKeyboardAvoiderProps
 } from "./NsKeyboardAvoider.vue";
+export { default as NsImage } from "./NsImage.vue";
+export type {
+  NsImageCaptionPlacement,
+  NsImageFit,
+  NsImagePlaceholder,
+  NsImagePosition,
+  NsImageProps,
+  NsImageRadius,
+  NsImageRatio
+} from "./NsImage.vue";
 export { default as NsInput } from "./NsInput.vue";
 export type { NsInputProps, NsInputSize, NsInputType } from "./NsInput.vue";
 export { default as NsModal } from "./NsModal.vue";

@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "Image : chargement soigné et aperçu agrandi",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "Image : ratio, recadrage, point d'intérêt, coins, lazy loading, srcset et sizes"
+      },
+      {
+        kind: "Nouveau",
+        text: "Scintillement, aperçu flou ou teinte pendant le chargement, fondu à l'arrivée"
+      },
+      {
+        kind: "Nouveau",
+        text: "Image de secours puis texte alternatif, légende dessous ou en surimpression, visionneuse avec zoom"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "Icon : tons, conteneurs et mouvements",
     changes: [
       {
