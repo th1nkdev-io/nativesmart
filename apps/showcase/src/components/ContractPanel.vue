@@ -124,6 +124,33 @@ function listener(event: string) {
   }
 }
 
+/** How the active technology fills a slot. */
+function slotSyntax(name: string) {
+  const isDefault = name === "children";
+  switch (state.tech) {
+    case "vue":
+      return isDefault ? "contenu entre les balises" : `<template #${name}>`;
+    case "svelte":
+      return isDefault ? "contenu entre les balises" : `{#snippet ${name}()}`;
+    case "angular":
+      return isDefault ? "contenu projeté" : `<ng-template #${name}>`;
+    case "flutter":
+      return isDefault ? "child:" : `${name}:`;
+    case "compose":
+      return isDefault ? "content = { … }" : `${name} = { … }`;
+    case "swiftui":
+      return isDefault ? "content: { … }" : `${name}: { … }`;
+    case "maui":
+      return isDefault ? "Content" : pascal(name);
+    case "html-css":
+    case "ionic-capacitor":
+    case "desktop-web":
+      return isDefault ? "contenu de l'élément" : `slot="${name}"`;
+    default:
+      return isDefault ? "children" : `${name}={…}`;
+  }
+}
+
 const techName = computed(
   () => technologies.find((technology) => technology.id === state.tech)?.name ?? state.tech
 );
@@ -243,10 +270,13 @@ const techName = computed(
 
       <template v-if="slots.length">
         <h4 class="api-subhead">Emplacements</h4>
-        <div class="api-slots">
-          <div v-for="slot in slots" :key="slot.name" class="api-slot">
-            <code>{{ slot.name === "children" ? "default" : slot.name }}</code>
-            <p>{{ slot.description }}</p>
+        <div class="api-list">
+          <div v-for="slot in slots" :key="slot.name" class="api-list__row">
+            <span class="api-list__key">
+              <code>{{ slot.name === "children" ? "default" : slot.name }}</code>
+              <small>{{ slotSyntax(slot.name) }}</small>
+            </span>
+            <span class="api-list__text">{{ slot.description }}</span>
           </div>
         </div>
       </template>
@@ -258,16 +288,18 @@ const techName = computed(
         <h3 data-toc>États</h3>
         <p>Ce que le composant peut afficher, et ce que chaque état signifie.</p>
       </header>
-      <div class="api-states">
+      <div class="api-list">
         <div
           v-for="item in described.states"
           :key="item.name"
-          :class="['api-state', `api-state--${stateTone(item.name)}`]"
+          :class="['api-list__row', `api-tone--${stateTone(item.name)}`]"
         >
-          <span class="api-state__name"
-            ><i aria-hidden="true" /><code>{{ item.name }}</code></span
+          <span class="api-list__key"
+            ><span class="api-list__name"
+              ><i class="api-dot" aria-hidden="true" /><code>{{ item.name }}</code></span
+            ></span
           >
-          <p>{{ item.description || "—" }}</p>
+          <span class="api-list__text">{{ item.description || "—" }}</span>
         </div>
       </div>
     </section>
@@ -281,23 +313,31 @@ const techName = computed(
           {{ techName }}.
         </p>
       </header>
-      <p v-if="described.events.length === 0" class="api-empty">
-        <Icon name="check" :size="16" /> Aucun événement : le composant n'a pas d'interaction
-        propre.
-      </p>
-      <div v-else class="api-events">
-        <article v-for="event in described.events" :key="event.name" class="api-event">
-          <header>
-            <code class="api-event__name">{{ event.name }}</code>
-            <code class="api-event__listen">{{ listener(event.name) }}</code>
-          </header>
-          <p>{{ event.description || "—" }}</p>
-          <p class="api-event__payload">
-            <span>Données</span>
-            <strong v-if="event.payload">{{ event.payload }}</strong>
+      <div v-if="described.events.length === 0" class="api-empty">
+        <span class="api-empty__icon"><Icon name="zap" :size="18" /></span>
+        <span>
+          <strong>Aucun événement</strong>
+          <small
+            >{{ contract.name }} ne réagit à aucune interaction : il n'y a rien à écouter. Ses
+            enfants gardent leurs propres événements.</small
+          >
+        </span>
+      </div>
+      <div v-else class="api-list api-list--events">
+        <div class="api-list__row api-list__row--head" aria-hidden="true">
+          <span>Événement</span><span>Se déclenche quand</span><span>Données</span>
+        </div>
+        <div v-for="event in described.events" :key="event.name" class="api-list__row">
+          <span class="api-list__key">
+            <code>{{ event.name }}</code>
+            <small class="api-listen">{{ listener(event.name) }}</small>
+          </span>
+          <span class="api-list__text">{{ event.description || "—" }}</span>
+          <span class="api-list__text">
+            <template v-if="event.payload">{{ event.payload }}</template>
             <em v-else>aucune</em>
-          </p>
-        </article>
+          </span>
+        </div>
       </div>
     </section>
 
@@ -307,22 +347,50 @@ const techName = computed(
         <h3 data-toc>Accessibilité</h3>
         <p>Ce que chaque technologie doit garantir pour les lecteurs d'écran et le clavier.</p>
       </header>
-      <div class="api-a11y">
-        <p v-if="contract.accessibility.role" class="api-a11y__role">
-          Rôle exposé <code>{{ contract.accessibility.role }}</code>
-        </p>
-        <div v-if="described.keyboard.length" class="api-keys">
-          <div v-for="key in described.keyboard" :key="key.name" class="api-key">
-            <kbd>{{ key.name }}</kbd>
-            <span>{{ key.description }}</span>
-          </div>
+      <div class="api-facts">
+        <div class="api-fact">
+          <Icon name="eye" :size="18" />
+          <span>
+            <small>Rôle exposé</small>
+            <strong v-if="contract.accessibility.role"
+              ><code>{{ contract.accessibility.role }}</code></strong
+            >
+            <strong v-else>Celui de l'élément rendu</strong>
+          </span>
         </div>
-        <ul class="api-checklist">
-          <li v-for="item in contract.accessibility.requirements" :key="item">
-            <Icon name="check" :size="14" /> {{ item }}
-          </li>
-        </ul>
+        <div class="api-fact">
+          <Icon name="keyboard" :size="18" />
+          <span>
+            <small>Clavier</small>
+            <strong>{{
+              described.keyboard.length
+                ? `${described.keyboard.length} touche${described.keyboard.length > 1 ? "s" : ""}`
+                : "Aucune touche propre"
+            }}</strong>
+          </span>
+        </div>
+        <div class="api-fact">
+          <Icon name="shield" :size="18" />
+          <span>
+            <small>Exigences</small>
+            <strong>{{ contract.accessibility.requirements.length }} à garantir</strong>
+          </span>
+        </div>
       </div>
+      <div v-if="described.keyboard.length" class="api-list">
+        <div v-for="key in described.keyboard" :key="key.name" class="api-list__row">
+          <span class="api-list__key"
+            ><kbd>{{ key.name }}</kbd></span
+          >
+          <span class="api-list__text">{{ key.description }}</span>
+        </div>
+      </div>
+      <ul class="api-list api-checklist">
+        <li v-for="item in contract.accessibility.requirements" :key="item" class="api-list__row">
+          <span class="api-check" aria-hidden="true"><Icon name="check" :size="12" /></span>
+          <span class="api-list__text api-list__text--strong">{{ item }}</span>
+        </li>
+      </ul>
     </section>
 
     <!-- Tokens -->
@@ -332,10 +400,12 @@ const techName = computed(
         <p>Les décisions de design que le composant lit, à surcharger par thème.</p>
       </header>
       <p v-if="described.tokens.length === 0" class="muted">Aucun.</p>
-      <div v-else class="api-tokens">
-        <div v-for="token in described.tokens" :key="token.name" class="api-token">
-          <code>{{ token.name }}</code>
-          <span v-if="token.description">{{ token.description }}</span>
+      <div v-else class="api-list">
+        <div v-for="token in described.tokens" :key="token.name" class="api-list__row">
+          <span class="api-list__key"
+            ><code>{{ token.name }}</code></span
+          >
+          <span class="api-list__text">{{ token.description || "—" }}</span>
         </div>
       </div>
     </section>
