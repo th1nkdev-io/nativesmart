@@ -1,6 +1,6 @@
 import { getComponentContract } from "@nativesmart/contracts";
 import { describe, expect, it } from "vitest";
-import { requestFromSearch, requestToSearch, type RenderRequest } from "./protocol";
+import { defaultRequest, requestFromSearch, requestToSearch, type RenderRequest } from "./protocol";
 import { defaultProps, variationsFor } from "./variations";
 
 const button = getComponentContract("button")!;
@@ -60,5 +60,17 @@ describe("protocol", () => {
       density: "compact"
     };
     expect(requestFromSearch(requestToSearch(request))).toEqual(request);
+  });
+
+  it("keeps file names and accents out of the query", () => {
+    const request: RenderRequest = {
+      ...defaultRequest,
+      component: "image",
+      props: { src: "lab/lagoon.svg", alt: "Lagune bordée de palmiers" }
+    };
+    const search = requestToSearch(request);
+    expect(search).not.toContain(".svg");
+    expect(requestFromSearch(search).props).toEqual(request.props);
+    expect(requestFromSearch('?props={"label":"Ok"}').props).toEqual({ label: "Ok" });
   });
 });

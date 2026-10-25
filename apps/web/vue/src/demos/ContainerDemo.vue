@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { NsContainer, NsIcon } from "@nativesmart/vue";
 import { primitives } from "@nativesmart/tokens";
+import { encodeProps, type ShowcaseProps } from "@nativesmart/showcase-runtime";
 import { computed, onBeforeUnmount, onMounted, ref, useAttrs, watch } from "vue";
 import { useVariation, useView } from "./view";
 
@@ -29,7 +30,8 @@ const scale = computed(() => Math.min(1, available.value / viewport.value));
 /** The same renderer, in frame mode, with the Lab's current props. */
 const source = computed(() => {
   const params = new URLSearchParams(window.location.search);
-  params.set("props", JSON.stringify(attrs));
+  params.delete("props");
+  params.set("p", encodeProps(attrs as ShowcaseProps));
   params.set("frame", "1");
   params.set("view", "playground");
   return `${window.location.pathname}?${params.toString()}`;

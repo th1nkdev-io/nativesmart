@@ -45,6 +45,24 @@ export const defaultRequest: RenderRequest = {
   density: "comfortable"
 };
 
+/*
+ * Props travel as base64url JSON. A plain JSON value such as "lab/lagoon.svg" puts a file
+ * extension in the query, and the Vite dev server refuses those URLs with a 403.
+ */
+export function encodeProps(props: ShowcaseProps) {
+  const bytes = new TextEncoder().encode(JSON.stringify(props));
+  let binary = "";
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+export function decodeProps(value: string): ShowcaseProps {
+  const base64 = value.replace(/-/g, "+").replace(/_/g, "/");
+  const binary = atob(base64.padEnd(Math.ceil(base64.length / 4) * 4, "="));
+  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+  return JSON.parse(new TextDecoder().decode(bytes)) as ShowcaseProps;
+}
+
 /** Encodes a request in a query string so a renderer URL can be opened on its own. */
 export function requestToSearch(request: RenderRequest) {
   const params = new URLSearchParams({
@@ -54,7 +72,7 @@ export function requestToSearch(request: RenderRequest) {
     mode: request.mode,
     dir: request.dir,
     density: request.density,
-    props: JSON.stringify(request.props)
+    p: encodeProps(request.props)
   });
   return `?${params.toString()}`;
 }
@@ -63,7 +81,11 @@ export function requestFromSearch(search: string): RenderRequest {
   const params = new URLSearchParams(search);
   let props: ShowcaseProps = {};
   try {
-    props = JSON.parse(params.get("props") ?? "{}") as ShowcaseProps;
+    const encoded = params.get("p");
+    /* `props` is the older plain JSON form, still read so saved links keep working. */
+    props = encoded
+      ? decodeProps(encoded)
+      : (JSON.parse(params.get("props") ?? "{}") as ShowcaseProps);
   } catch {
     props = {};
   }
