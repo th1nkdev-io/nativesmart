@@ -23,6 +23,7 @@ import ListDemo from "./demos/ListDemo.vue";
 import ModalDemo from "./demos/ModalDemo.vue";
 import SafeAreaDemo from "./demos/SafeAreaDemo.vue";
 import ScrollAreaDemo from "./demos/ScrollAreaDemo.vue";
+import SegmentedControlDemo from "./demos/SegmentedControlDemo.vue";
 import SpacerDemo from "./demos/SpacerDemo.vue";
 import StackDemo from "./demos/StackDemo.vue";
 import SurfaceDemo from "./demos/SurfaceDemo.vue";
@@ -60,6 +61,7 @@ export const registry: Readonly<Record<string, Component>> = {
   modal: ModalDemo,
   "safe-area": SafeAreaDemo,
   "scroll-area": ScrollAreaDemo,
+  "segmented-control": SegmentedControlDemo,
   spacer: SpacerDemo,
   stack: StackDemo,
   surface: SurfaceDemo,
@@ -94,6 +96,7 @@ export const variationTiles: Readonly<Record<string, number>> = {
   modal: 380,
   "safe-area": 220,
   "scroll-area": 220,
+  "segmented-control": 360,
   spacer: 240,
   stack: 260,
   surface: 240,

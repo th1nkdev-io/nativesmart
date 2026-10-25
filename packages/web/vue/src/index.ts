@@ -31,6 +31,7 @@ export const implementedComponents = [
   "modal",
   "safe-area",
   "scroll-area",
+  "segmented-control",
   "spacer",
   "spinner",
   "stack",

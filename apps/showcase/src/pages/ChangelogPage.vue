@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "SegmentedControl : un choix parmi quelques-uns",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "SegmentedControl : vrai groupe radio, flèches qui sélectionnent et sautent les options désactivées"
+      },
+      {
+        kind: "Nouveau",
+        text: "Indicateur qui glisse : surface surélevée, remplissage primaire ou soulignement"
+      },
+      {
+        kind: "Nouveau",
+        text: "Icônes seules nommées par leur label, pleine largeur, pilule, trois tailles"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "ButtonGroup : des boutons qui vont ensemble",
     changes: [
       {

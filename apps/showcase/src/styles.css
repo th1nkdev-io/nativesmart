@@ -5590,6 +5590,162 @@ button[aria-selected="true"] .component-tabs__count {
   inset-inline-start: -11px;
 }
 
+/* SegmentedControl: the track, its segments and the indicator under the selected one */
+.anat-sg {
+  display: grid;
+  place-items: center;
+  padding: var(--ns-space-12) var(--ns-space-4) var(--ns-space-10);
+  border-radius: var(--ns-radius-xl);
+  background: var(--ns-color-surface);
+  box-shadow: var(--ns-elevation-card);
+}
+
+.anat-sg__root {
+  position: relative;
+  border-radius: var(--ns-radius-control);
+  outline: 2px dashed transparent;
+  outline-offset: 6px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-sg__root.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-sg__track {
+  position: relative;
+  display: inline-flex;
+  padding: 3px;
+  border-radius: var(--ns-radius-control);
+  background: var(--ns-color-surface-muted);
+  transition: box-shadow var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-sg__track.is-active {
+  box-shadow: 0 0 0 2px var(--ns-color-warning);
+}
+
+.anat-sg__segment {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ns-space-1-5);
+  min-block-size: 34px;
+  padding-inline: var(--ns-space-3-5);
+  border-radius: calc(var(--ns-radius-control) - 3px);
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-text-label-md-size);
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.anat-sg__segment.is-selected {
+  background: var(--ns-color-surface);
+  box-shadow: var(--ns-elevation-card);
+  color: var(--ns-color-text);
+}
+
+.anat-sg__segment.is-active {
+  box-shadow: 0 0 0 2px var(--ns-color-warning);
+}
+
+.anat-sg__part {
+  position: relative;
+  display: inline-flex;
+  border-radius: 3px;
+}
+
+.anat-sg__part.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-sg svg {
+  inline-size: 15px;
+  block-size: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.anat-sg__pin {
+  position: absolute;
+}
+
+.anat-sg__pin--root {
+  inset-block-start: -16px;
+  inset-inline-start: -16px;
+}
+
+.anat-sg__pin--track {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-end: -34px;
+}
+
+.anat-sg__pin--above {
+  inset-block-end: calc(100% + 12px);
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-sg__pin--below {
+  inset-block-start: calc(100% + 14px);
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-sg__variants {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--ns-space-5);
+  margin-block-start: var(--ns-space-5);
+}
+
+.anat-sg__variants > span {
+  display: grid;
+  justify-items: center;
+  gap: var(--ns-space-1-5);
+  color: var(--ns-color-text-muted);
+  font-family: var(--ns-font-mono);
+  font-size: 10px;
+}
+
+.anat-sg__variants i {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: var(--ns-radius-md);
+  background: var(--ns-color-surface-muted);
+  font-family: var(--ns-font-sans);
+  font-style: normal;
+}
+
+.anat-sg__variants b {
+  padding: 4px 10px;
+  border-radius: calc(var(--ns-radius-md) - 3px);
+  background: var(--ns-color-surface);
+  box-shadow: var(--ns-elevation-card);
+  color: var(--ns-color-text);
+  font-size: 11px;
+}
+
+.anat-sg__variants .is-primary b {
+  background: var(--ns-color-primary);
+  box-shadow: none;
+  color: var(--ns-color-on-primary);
+}
+
+.anat-sg__variants .is-underline {
+  border-radius: 0;
+  background: none;
+  box-shadow: inset 0 -1px 0 var(--ns-color-border);
+}
+
+.anat-sg__variants .is-underline b {
+  border-radius: 0;
+  background: none;
+  box-shadow: inset 0 -2px 0 var(--ns-color-primary);
+  color: var(--ns-color-primary-text);
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);

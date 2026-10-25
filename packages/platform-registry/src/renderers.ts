@@ -189,6 +189,7 @@ export const rendererManifests: readonly RendererManifest[] = [
       "keyboard-avoider",
       "safe-area",
       "scroll-area",
+      "segmented-control",
       "spacer",
       "stack",
       "surface",

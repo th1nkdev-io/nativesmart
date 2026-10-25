@@ -101,6 +101,24 @@ button that sets its own keeps it. Attached by default: shared borders, outer co
 </NsButtonGroup>
 ```
 
+### SegmentedControl
+
+One choice among a few, inline. It is a radiogroup: only the selected option is in the tab order and
+the arrows move the selection, skipping disabled options. The indicator slides to the choice:
+
+```vue
+<NsSegmentedControl v-model:value="period" :options="['Jour', 'Semaine', 'Mois']" label="Période" />
+<NsSegmentedControl
+  v-model:value="view"
+  :options="[
+    { label: 'Liste', value: 'list', icon: 'menu' },
+    { label: 'Grille', value: 'grid', icon: 'image' }
+  ]"
+  icon-only
+  variant="primary"
+/>
+```
+
 ### AspectRatio
 
 Frames any media at a ratio token (`video`, `square`, `photo`, `portrait`, `story`, `wide`,

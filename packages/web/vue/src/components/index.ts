@@ -169,6 +169,14 @@ export type {
   NsScrollAreaScrollbars,
   NsScrollAreaSnap
 } from "./NsScrollArea.vue";
+export { default as NsSegmentedControl } from "./NsSegmentedControl.vue";
+export type {
+  NsSegmentedControlProps,
+  NsSegmentedOption,
+  NsSegmentedShape,
+  NsSegmentedSize,
+  NsSegmentedVariant
+} from "./NsSegmentedControl.vue";
 export { default as NsSpacer } from "./NsSpacer.vue";
 export type {
   NsSpacerAxis,

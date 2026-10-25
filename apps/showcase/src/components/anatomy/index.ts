@@ -19,6 +19,7 @@ import LinkAnatomy from "./LinkAnatomy.vue";
 import ListAnatomy from "./ListAnatomy.vue";
 import SafeAreaAnatomy from "./SafeAreaAnatomy.vue";
 import ScrollAreaAnatomy from "./ScrollAreaAnatomy.vue";
+import SegmentedControlAnatomy from "./SegmentedControlAnatomy.vue";
 import SpacerAnatomy from "./SpacerAnatomy.vue";
 import StackAnatomy from "./StackAnatomy.vue";
 import SurfaceAnatomy from "./SurfaceAnatomy.vue";
@@ -50,6 +51,7 @@ export const anatomyFigures: Readonly<Record<string, Component>> = {
   list: ListAnatomy,
   "safe-area": SafeAreaAnatomy,
   "scroll-area": ScrollAreaAnatomy,
+  "segmented-control": SegmentedControlAnatomy,
   spacer: SpacerAnatomy,
   stack: StackAnatomy,
   surface: SurfaceAnatomy,
