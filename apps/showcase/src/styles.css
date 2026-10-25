@@ -2574,6 +2574,127 @@ button[aria-selected="true"] .component-tabs__count {
   font-weight: var(--ns-font-weight-semibold);
 }
 
+/* Divider: a sign-in card, the line, its label */
+.anat-dv {
+  display: grid;
+  gap: var(--ns-space-4);
+  padding: var(--ns-space-6);
+  border: 1px solid var(--ns-color-border-subtle);
+  border-radius: var(--ns-radius-xl);
+  background: var(--ns-color-surface);
+}
+
+.anat-dv__block {
+  display: grid;
+  place-items: center;
+  min-block-size: 38px;
+  border: 1px solid var(--ns-color-border);
+  border-radius: var(--ns-radius-control);
+  font-size: var(--ns-text-body-sm-size);
+  font-weight: var(--ns-font-weight-medium);
+}
+
+.anat-dv__block.is-field {
+  place-items: center start;
+  padding-inline: var(--ns-space-3);
+  color: var(--ns-color-text-placeholder);
+  font-weight: var(--ns-font-weight-regular);
+}
+
+.anat-dv__root {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--ns-space-3);
+  padding-block: var(--ns-space-2);
+  border-radius: var(--ns-radius-sm);
+  outline: 2px dashed transparent;
+  outline-offset: 4px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-dv__root.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-dv__line {
+  position: relative;
+  flex: 1;
+  block-size: 2px;
+  background: var(--ns-color-border-strong);
+  transition: background-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-dv__line.is-active {
+  background: var(--ns-color-warning);
+}
+
+.anat-dv__label {
+  position: relative;
+  padding: 2px 6px;
+  border-radius: var(--ns-radius-sm);
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-text-caption-size);
+  font-weight: var(--ns-font-weight-medium);
+}
+
+.anat-dv__label.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-dv__pin {
+  position: absolute;
+}
+
+.anat-dv__pin--root {
+  inset-block-start: -14px;
+  inset-inline-start: -8px;
+}
+
+.anat-dv__pin--label {
+  inset-block-start: -22px;
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-dv__pin--line {
+  inset-block-start: -11px;
+  inset-inline-start: 50%;
+}
+
+.anat-dv__styles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--ns-space-3);
+  color: var(--ns-color-text-muted);
+  font-family: var(--ns-font-mono);
+  font-size: 10px;
+}
+
+.anat-dv__styles span {
+  display: grid;
+  gap: 6px;
+  text-align: center;
+}
+
+.anat-dv__styles i {
+  block-size: 0;
+  border-block-start: 2px solid var(--ns-color-border-strong);
+}
+
+.anat-dv__styles .is-dashed {
+  border-block-start-style: dashed;
+}
+
+.anat-dv__styles .is-dotted {
+  border-block-start-style: dotted;
+}
+
+.anat-dv__styles .is-gradient {
+  block-size: 2px;
+  border: 0;
+  background: linear-gradient(to right, transparent, var(--ns-color-border-strong), transparent);
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);

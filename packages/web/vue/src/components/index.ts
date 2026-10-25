@@ -45,7 +45,16 @@ export type {
   NsContainerSpacing
 } from "./NsContainer.vue";
 export { default as NsDivider } from "./NsDivider.vue";
-export type { NsDividerOrientation, NsDividerProps } from "./NsDivider.vue";
+export type {
+  NsDividerInset,
+  NsDividerLabelPlacement,
+  NsDividerOrientation,
+  NsDividerProps,
+  NsDividerSpacing,
+  NsDividerThickness,
+  NsDividerTone,
+  NsDividerVariant
+} from "./NsDivider.vue";
 export { default as NsIcon } from "./NsIcon.vue";
 export type { NsIconProps, NsIconSize } from "./NsIcon.vue";
 export { default as NsInput } from "./NsInput.vue";

@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "Divider complet, onglet API en lignes",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "Divider : plein, tirets, pointillés ou dégradé, 3 épaisseurs, 4 tons, retraits"
+      },
+      {
+        kind: "Nouveau",
+        text: "Libellé au début, au centre ou à la fin, ou contenu libre ; espacement par tokens"
+      },
+      {
+        kind: "Amélioré",
+        text: "API : emplacements, états, événements, accessibilité et tokens en lignes pleine largeur"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "Container, la colonne de page",
     changes: [
       {

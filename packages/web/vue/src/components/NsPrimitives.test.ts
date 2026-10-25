@@ -12,14 +12,50 @@ describe("NsDivider", () => {
     const wrapper = mount(NsDivider);
     expect(wrapper.attributes("role")).toBe("separator");
     expect(wrapper.attributes("aria-orientation")).toBe("horizontal");
+    expect(wrapper.classes()).toEqual(
+      expect.arrayContaining(["ns-divider--solid", "ns-divider--thin", "ns-divider--tone-default"])
+    );
   });
 
-  it("can be vertical, labelled or decorative", () => {
+  it("can be vertical or decorative", () => {
     expect(
       mount(NsDivider, { props: { orientation: "vertical" } }).attributes("aria-orientation")
     ).toBe("vertical");
-    expect(mount(NsDivider, { props: { label: "ou" } }).text()).toBe("ou");
     expect(mount(NsDivider, { props: { decorative: true } }).attributes("role")).toBe("none");
+  });
+
+  it("reads a label as text and hides the lines around it", () => {
+    const wrapper = mount(NsDivider, { props: { label: "ou", labelPlacement: "start" } });
+    expect(wrapper.text()).toBe("ou");
+    expect(wrapper.attributes("role")).toBeUndefined();
+    expect(wrapper.findAll('.ns-divider__line[aria-hidden="true"]')).toHaveLength(2);
+    expect(wrapper.classes()).toContain("ns-divider--label-start");
+  });
+
+  it("takes custom label content", () => {
+    const wrapper = mount(NsDivider, { slots: { default: "<button>Afficher plus</button>" } });
+    expect(wrapper.find(".ns-divider__label button").exists()).toBe(true);
+  });
+
+  it("applies style, weight, tone, inset and spacing", () => {
+    const classes = mount(NsDivider, {
+      props: {
+        variant: "gradient",
+        thickness: "thick",
+        tone: "primary",
+        inset: "start",
+        spacing: "md"
+      }
+    }).classes();
+    expect(classes).toEqual(
+      expect.arrayContaining([
+        "ns-divider--gradient",
+        "ns-divider--thick",
+        "ns-divider--tone-primary",
+        "ns-divider--inset-start",
+        "ns-divider--spacing-md"
+      ])
+    );
   });
 });
 

@@ -38,6 +38,7 @@ export const variationTiles: Readonly<Record<string, number>> = {
   box: 240,
   card: 340,
   container: 240,
+  divider: 260,
   input: 300,
   modal: 380,
   text: 300,
