@@ -33,19 +33,19 @@ Generic UI with no product assumption.
 
 ### 1. Layout and structure
 
-| Component        | Id                 | Purpose                                                   | Priority | Today      |
-| ---------------- | ------------------ | --------------------------------------------------------- | -------- | ---------- |
-| Box              | `box`              | Base container with spacing, background and border tokens | P0       | C, RN, FL  |
-| Stack            | `stack`            | Vertical or horizontal layout with consistent gap         | P1       | —          |
-| Grid             | `grid`             | Responsive columns                                        | P1       | —          |
-| Container        | `container`        | Max-width page wrapper with responsive gutters            | P1       | —          |
-| Spacer           | `spacer`           | Flexible empty space inside a stack                       | P2       | —          |
-| Divider          | `divider`          | Horizontal or vertical separator                          | P0       | C, RN, FL  |
-| Aspect Ratio     | `aspect-ratio`     | Keeps media at a fixed ratio                              | P2       | —          |
-| Scroll Area      | `scroll-area`      | Scrollable region with consistent scrollbars and insets   | P1       | —          |
-| Safe Area        | `safe-area`        | Respects notches, status and navigation bars              | P1       | — (mobile) |
-| Keyboard Avoider | `keyboard-avoider` | Keeps focused inputs visible above the keyboard           | P1       | — (mobile) |
-| Surface          | `surface`          | Elevated layer with shadow and tonal background           | P2       | —          |
+| Component        | Id                 | Purpose                                                   | Priority | Today                     |
+| ---------------- | ------------------ | --------------------------------------------------------- | -------- | ------------------------- |
+| Box              | `box`              | Base container with spacing, background and border tokens | P0       | C, RN, FL                 |
+| Stack            | `stack`            | Vertical or horizontal layout with consistent gap         | P1       | —                         |
+| Grid             | `grid`             | Responsive columns                                        | P1       | —                         |
+| Container        | `container`        | Max-width page wrapper with responsive gutters            | P1       | —                         |
+| Spacer           | `spacer`           | Flexible empty space inside a stack                       | P2       | —                         |
+| Divider          | `divider`          | Horizontal or vertical separator                          | P0       | C, RN, FL                 |
+| Aspect Ratio     | `aspect-ratio`     | Keeps media at a fixed ratio                              | P2       | —                         |
+| Scroll Area      | `scroll-area`      | Scrollable region with consistent scrollbars and insets   | P1       | —                         |
+| Safe Area        | `safe-area`        | Respects notches, status and navigation bars              | P1       | — (mobile)                |
+| Keyboard Avoider | `keyboard-avoider` | Keeps focused inputs visible above the keyboard           | P1       | — (mobile, web on phones) |
+| Surface          | `surface`          | Elevated layer with shadow and tonal background           | P2       | —                         |
 
 ### 2. Typography and content
 

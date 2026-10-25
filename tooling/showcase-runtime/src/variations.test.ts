@@ -20,6 +20,14 @@ describe("variations", () => {
     expect(defaultProps(getComponentContract("icon")!)).toMatchObject({ name: "heart" });
   });
 
+  it("switches off the booleans that default to on", () => {
+    const states = variationsFor(getComponentContract("keyboard-avoider")!).find(
+      (group) => group.title === "states"
+    )!;
+    const enabled = states.items.find((item) => item.label === "enabled=false")!;
+    expect(enabled.props.enabled).toBe(false);
+  });
+
   it("starts from the example even when a default exists", () => {
     expect(defaultProps(getComponentContract("box")!)).toMatchObject({
       background: "surface-muted",

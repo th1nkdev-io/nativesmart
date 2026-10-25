@@ -129,6 +129,8 @@ function onKeydown(event: KeyboardEvent) {
   --ns-input-focus-ring: var(--ns-color-focus-ring);
   --ns-input-error: var(--ns-color-danger-text);
   display: grid;
+  /* A native input has an intrinsic width: without this the field overflows narrow containers. */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--ns-space-1-5);
   min-inline-size: 0;
   font-family: var(--ns-font-sans);
@@ -174,6 +176,7 @@ function onKeydown(event: KeyboardEvent) {
 
 .ns-input__field {
   flex: 1;
+  inline-size: 100%;
   min-inline-size: 0;
   padding: 0;
   border: 0;

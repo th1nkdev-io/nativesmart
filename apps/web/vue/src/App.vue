@@ -70,7 +70,11 @@ function groupInfo(title: string) {
 /** How the variation is written: `ratio="square"`, or the boolean switched on. */
 function itemCode(group: string, label: string) {
   if (group === "default") return "";
-  if (group === "states") return label === "default" ? "aucune option" : `:${label}="true"`;
+  if (group === "states") {
+    if (label === "default") return "aucune option";
+    const [name, value = "true"] = label.split("=");
+    return `:${name}="${value}"`;
+  }
   return `${group}="${label}"`;
 }
 
@@ -135,7 +139,11 @@ onBeforeUnmount(() => cleanups.forEach((cleanup) => cleanup()));
           </div>
           <figcaption class="renderer__caption">
             <span class="renderer__name">
-              {{ item.label === "default" && group.title === "states" ? "Repos" : item.label }}
+              {{
+                item.label === "default" && group.title === "states"
+                  ? "Repos"
+                  : item.label.replace("=false", " désactivé")
+              }}
               <span v-if="isDefault(group.title, item.label)" class="renderer__default">
                 <NsIcon name="check" /> défaut
               </span>

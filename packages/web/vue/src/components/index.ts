@@ -69,6 +69,12 @@ export { default as NsGridItem } from "./NsGridItem.vue";
 export type { NsGridItemProps } from "./NsGridItem.vue";
 export { default as NsIcon } from "./NsIcon.vue";
 export type { NsIconProps, NsIconSize } from "./NsIcon.vue";
+export { default as NsKeyboardAvoider } from "./NsKeyboardAvoider.vue";
+export type {
+  NsKeyboardAvoiderBehavior,
+  NsKeyboardAvoiderGap,
+  NsKeyboardAvoiderProps
+} from "./NsKeyboardAvoider.vue";
 export { default as NsInput } from "./NsInput.vue";
 export type { NsInputProps, NsInputSize, NsInputType } from "./NsInput.vue";
 export { default as NsModal } from "./NsModal.vue";

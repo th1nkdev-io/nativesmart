@@ -1,5 +1,6 @@
 export * from "./components";
 export { defaultIcons, iconNames, registerIcons, type NsIconName } from "./icons";
+export { useKeyboardInset } from "./composables/useKeyboardInset";
 export { Nativesmart, type NativesmartOptions } from "./plugin";
 
 /** Contract ids implemented by this renderer. Kept in sync with the platform registry. */
@@ -15,6 +16,7 @@ export const implementedComponents = [
   "grid",
   "icon",
   "input",
+  "keyboard-avoider",
   "modal",
   "spinner",
   "text",

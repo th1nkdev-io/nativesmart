@@ -92,6 +92,21 @@ Columns that reflow per breakpoint. `columns="layout"` follows the layout grid t
 An item never spans more columns than the grid has, so a `span` of 8 stays inside a 4-column grid
 on phones.
 
+### KeyboardAvoider
+
+Keeps the focused field visible above the on-screen keyboard, on phones. It fills its parent like a
+screen: the content scrolls, and the `accessory` slot rides just above the keyboard.
+
+```vue
+<NsKeyboardAvoider behavior="padding" :offset="56" @keyboard-change="onKeyboard">
+  <form>…</form>
+  <template #accessory><NsButton label="Envoyer" /></template>
+</NsKeyboardAvoider>
+```
+
+The keyboard is read from the visual viewport. In a native shell (Capacitor, Cordova), pass its
+height with `keyboard-height`. `useKeyboardInset()` gives the same measure to any component.
+
 ### Icons
 
 `NsIcon` ships a stroke set drawn on a 24 × 24 grid (`iconNames()` lists it). Add or replace icons

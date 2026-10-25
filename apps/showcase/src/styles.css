@@ -2818,6 +2818,146 @@ button[aria-selected="true"] .component-tabs__count {
   text-align: center;
 }
 
+/* KeyboardAvoider: a phone, its content, the accessory bar riding on the keyboard */
+.anat-kb-figure {
+  justify-items: center;
+}
+
+.anat-kb {
+  display: flex;
+  flex-direction: column;
+  inline-size: 220px;
+  block-size: 380px;
+  overflow: hidden;
+  border: 6px solid #0f172a;
+  border-radius: 30px;
+  background: var(--ns-color-background);
+}
+
+.anat-kb__header {
+  padding: 18px 14px 8px;
+  border-block-end: 1px solid var(--ns-color-border-subtle);
+  font-size: 11px;
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.anat-kb__root {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-block-size: 0;
+  outline: 2px dashed transparent;
+  outline-offset: -3px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-kb__root.is-active,
+.anat-kb__content.is-active,
+.anat-kb__accessory.is-active,
+.anat-kb__keyboard.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-kb__content {
+  position: relative;
+  display: grid;
+  flex: 1;
+  align-content: end;
+  gap: 8px;
+  padding: 12px;
+  outline: 2px dashed transparent;
+  outline-offset: -4px;
+}
+
+.anat-kb__field {
+  block-size: 26px;
+  border: 1px solid var(--ns-color-border);
+  border-radius: var(--ns-radius-sm);
+  background: var(--ns-color-surface);
+}
+
+.anat-kb__field.is-focused {
+  border: 2px solid var(--ns-color-primary);
+}
+
+.anat-kb__accessory {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-block-start: 1px solid var(--ns-color-border-subtle);
+  background: var(--ns-color-surface);
+  font-size: 10px;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.anat-kb__accessory b {
+  padding: 4px 10px;
+  border-radius: var(--ns-radius-control);
+  background: var(--ns-color-primary);
+  color: var(--ns-color-on-primary);
+}
+
+.anat-kb__keyboard {
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: 6px;
+  block-size: 120px;
+  padding: 10px;
+  background: #d1d5db;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.anat-kb__keyboard i {
+  block-size: 18px;
+  border-radius: 4px;
+  background: repeating-linear-gradient(to right, #fff 0 14px, transparent 14px 18px);
+}
+
+.anat-kb__measure {
+  position: absolute;
+  inset-block: 6px;
+  inset-inline-end: 6px;
+  display: grid;
+  place-items: center;
+  writing-mode: vertical-rl;
+  padding-inline: 2px;
+  border-inline: 1px solid #475569;
+  color: #334155;
+  font-family: var(--ns-font-mono);
+  font-size: 9px;
+}
+
+.anat-kb__pin {
+  position: absolute;
+  z-index: 1;
+}
+
+.anat-kb__pin--root {
+  inset-block-start: 6px;
+  inset-inline-end: 6px;
+}
+
+.anat-kb__pin--content {
+  inset-block-start: 12px;
+  inset-inline-start: 10px;
+}
+
+.anat-kb__pin--accessory {
+  inset-block-start: -11px;
+  inset-inline-start: 46%;
+}
+
+.anat-kb__pin--inset {
+  inset-block-start: 10px;
+  inset-inline-start: 10px;
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);

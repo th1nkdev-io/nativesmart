@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "KeyboardAvoider pour le mobile et le web sur téléphone",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "KeyboardAvoider : padding, hauteur ou translation, champ actif toujours visible"
+      },
+      {
+        kind: "Nouveau",
+        text: "Barre d'accessoire collée au clavier, décalage d'en-tête, hauteur fournie par un shell natif"
+      },
+      {
+        kind: "Corrigé",
+        text: "Input ne déborde plus des conteneurs étroits ; variations des options actives par défaut"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "Grid et GridItem",
     changes: [
       {

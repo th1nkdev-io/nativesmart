@@ -17,7 +17,7 @@ function sampleValue(contract: ComponentContract, property: ComponentProperty) {
     case "boolean":
       return false;
     case "number":
-      return 0;
+      return property.required ? 0 : undefined;
     case "string-list":
       return [];
     default:
@@ -58,16 +58,18 @@ export function variationsFor(contract: ComponentContract): VariationGroup[] {
     });
   }
 
+  /* Each boolean away from its default: on when it defaults to off, off when it defaults to on. */
   const booleans = contract.properties.filter((property) => property.kind === "boolean");
   if (booleans.length > 0) {
     groups.push({
       title: "states",
       items: [
         { label: "default", props: base },
-        ...booleans.map((property) => ({
-          label: property.name,
-          props: { ...base, [property.name]: true }
-        }))
+        ...booleans.map((property) =>
+          property.defaultValue === true
+            ? { label: `${property.name}=false`, props: { ...base, [property.name]: false } }
+            : { label: property.name, props: { ...base, [property.name]: true } }
+        )
       ]
     });
   }

@@ -172,7 +172,13 @@ export const rendererManifests: readonly RendererManifest[] = [
     playgroundPath: "apps/web/vue",
     status: "preview",
     supportedDesignSystems: webDesignSystems,
-    implementedComponents: ["aspect-ratio", "container", "grid", ...previewComponents],
+    implementedComponents: [
+      "aspect-ratio",
+      "container",
+      "grid",
+      "keyboard-avoider",
+      ...previewComponents
+    ],
     styling: "CSS custom properties and Tailwind preset",
     notes: "First renderer: native Vue 3 components, validated in CV Action with Nuxt 4."
   },
