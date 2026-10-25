@@ -79,6 +79,13 @@ export { default as NsInput } from "./NsInput.vue";
 export type { NsInputProps, NsInputSize, NsInputType } from "./NsInput.vue";
 export { default as NsModal } from "./NsModal.vue";
 export type { NsModalProps, NsModalSize } from "./NsModal.vue";
+export { default as NsSafeArea } from "./NsSafeArea.vue";
+export type {
+  NsSafeAreaEdge,
+  NsSafeAreaEdges,
+  NsSafeAreaProps,
+  NsSafeAreaSpace
+} from "./NsSafeArea.vue";
 export { default as NsSpinner } from "./NsSpinner.vue";
 export type { NsSpinnerProps } from "./NsSpinner.vue";
 export { default as NsText } from "./NsText.vue";

@@ -1,6 +1,7 @@
 export * from "./components";
 export { defaultIcons, iconNames, registerIcons, type NsIconName } from "./icons";
 export { useKeyboardInset } from "./composables/useKeyboardInset";
+export { useSafeAreaInsets, type SafeAreaInsets } from "./composables/useSafeAreaInsets";
 export { Nativesmart, type NativesmartOptions } from "./plugin";
 
 /** Contract ids implemented by this renderer. Kept in sync with the platform registry. */
@@ -18,6 +19,7 @@ export const implementedComponents = [
   "input",
   "keyboard-avoider",
   "modal",
+  "safe-area",
   "spinner",
   "text",
   "toast"

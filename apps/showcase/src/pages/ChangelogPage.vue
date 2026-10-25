@@ -6,6 +6,21 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "SafeArea : encoches, îlots et indicateurs d'accueil",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "SafeArea : bords choisis, padding ou marge, minimum et espace en plus, start et end"
+      },
+      {
+        kind: "Nouveau",
+        text: "Aperçu sur iPhone portrait et paysage et sur Android, zones à éviter hachurées"
+      },
+      { kind: "Nouveau", text: "useSafeAreaInsets() pour lire les zones sûres dans tout composant" }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "KeyboardAvoider pour le mobile et le web sur téléphone",
     changes: [
       {

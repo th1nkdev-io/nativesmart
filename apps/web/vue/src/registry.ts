@@ -10,6 +10,7 @@ import IconDemo from "./demos/IconDemo.vue";
 import InputDemo from "./demos/InputDemo.vue";
 import KeyboardAvoiderDemo from "./demos/KeyboardAvoiderDemo.vue";
 import ModalDemo from "./demos/ModalDemo.vue";
+import SafeAreaDemo from "./demos/SafeAreaDemo.vue";
 import TextDemo from "./demos/TextDemo.vue";
 import ToastDemo from "./demos/ToastDemo.vue";
 
@@ -31,6 +32,7 @@ export const registry: Readonly<Record<string, Component>> = {
   input: InputDemo,
   "keyboard-avoider": KeyboardAvoiderDemo,
   modal: ModalDemo,
+  "safe-area": SafeAreaDemo,
   spinner: NsSpinner,
   text: TextDemo,
   toast: ToastDemo
@@ -47,6 +49,7 @@ export const variationTiles: Readonly<Record<string, number>> = {
   input: 300,
   "keyboard-avoider": 230,
   modal: 380,
+  "safe-area": 220,
   text: 300,
   toast: 400
 };

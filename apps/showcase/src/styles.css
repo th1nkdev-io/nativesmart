@@ -2958,6 +2958,146 @@ button[aria-selected="true"] .component-tabs__count {
   inset-inline-start: 10px;
 }
 
+/* SafeArea: a phone, its reserved bands, the content kept clear of them */
+.anat-sa-figure {
+  justify-items: center;
+}
+
+.anat-sa {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  inline-size: 200px;
+  block-size: 380px;
+  overflow: hidden;
+  border: 6px solid #0f172a;
+  border-radius: 34px;
+  background: var(--ns-color-primary);
+  outline: 2px dashed transparent;
+  outline-offset: 4px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-sa.is-active,
+.anat-sa__content.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-sa__inset {
+  position: relative;
+  flex: none;
+  background: repeating-linear-gradient(
+    45deg,
+    color-mix(in srgb, var(--ns-color-danger) 45%, transparent) 0 4px,
+    transparent 4px 9px
+  );
+  transition: background-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-sa__inset.is-top {
+  block-size: 40px;
+}
+
+.anat-sa__inset.is-bottom {
+  block-size: 28px;
+  background-color: var(--ns-color-surface);
+}
+
+.anat-sa__inset.is-active {
+  background-color: color-mix(in srgb, var(--ns-color-warning) 35%, transparent);
+}
+
+.anat-sa__content {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 12px 0;
+  background: linear-gradient(180deg, transparent 0 22%, var(--ns-color-background) 22%);
+  outline: 2px dashed transparent;
+  outline-offset: -3px;
+}
+
+.anat-sa__line {
+  block-size: 8px;
+  border-radius: var(--ns-radius-full);
+  background: rgb(255 255 255 / 0.7);
+}
+
+.anat-sa__card {
+  block-size: 56px;
+  border-radius: var(--ns-radius-md);
+  background: var(--ns-color-surface);
+  box-shadow: var(--ns-elevation-2);
+}
+
+.anat-sa__tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-block-start: auto;
+  padding-block: 8px;
+  margin-inline: -12px;
+  border-block-start: 1px solid var(--ns-color-border-subtle);
+  background: var(--ns-color-surface);
+}
+
+.anat-sa__tabs i {
+  inline-size: 16px;
+  block-size: 16px;
+  border-radius: 4px;
+  background: var(--ns-color-border);
+}
+
+.anat-sa__island {
+  position: absolute;
+  inset-block-start: 8px;
+  inset-inline-start: 50%;
+  inline-size: 64px;
+  block-size: 20px;
+  border-radius: var(--ns-radius-full);
+  background: #000;
+  transform: translateX(-50%);
+}
+
+.anat-sa__home {
+  position: absolute;
+  inset-block-end: 8px;
+  inset-inline-start: 50%;
+  inline-size: 70px;
+  block-size: 4px;
+  border-radius: var(--ns-radius-full);
+  background: #0f172a;
+  transform: translateX(-50%);
+}
+
+.anat-sa__pin {
+  position: absolute;
+  z-index: 1;
+}
+
+.anat-sa__pin--root {
+  inset-block-start: 50%;
+  inset-inline-end: 4px;
+}
+
+.anat-sa__pin--inset {
+  inset-block-start: 10px;
+  inset-inline-start: 8px;
+}
+
+.anat-sa__pin--content {
+  inset-block-start: 74px;
+  inset-inline-start: 6px;
+}
+
+.anat-sa__note {
+  margin: 0;
+  color: var(--ns-color-text-muted);
+  font-family: var(--ns-font-mono);
+  font-size: 10px;
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);

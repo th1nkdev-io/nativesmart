@@ -107,6 +107,19 @@ screen: the content scrolls, and the `accessory` slot rides just above the keybo
 The keyboard is read from the visual viewport. In a native shell (Capacitor, Cordova), pass its
 height with `keyboard-height`. `useKeyboardInset()` gives the same measure to any component.
 
+### SafeArea
+
+Keeps content clear of notches, islands, rounded corners and the home indicator. Needs
+`viewport-fit=cover` in the page's viewport meta tag; start and end follow the reading direction.
+
+```vue
+<NsSafeArea as="header" edges="top">…</NsSafeArea>
+<NsSafeArea edges="bottom" minimum="4">…tab bar…</NsSafeArea>
+```
+
+In a native shell, pass the insets it reports with `:insets="{ top, bottom }"`.
+`useSafeAreaInsets()` reads them in any component.
+
 ### Icons
 
 `NsIcon` ships a stroke set drawn on a 24 × 24 grid (`iconNames()` lists it). Add or replace icons

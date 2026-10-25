@@ -43,7 +43,7 @@ Generic UI with no product assumption.
 | Divider          | `divider`          | Horizontal or vertical separator                          | P0       | C, RN, FL                 |
 | Aspect Ratio     | `aspect-ratio`     | Keeps media at a fixed ratio                              | P2       | —                         |
 | Scroll Area      | `scroll-area`      | Scrollable region with consistent scrollbars and insets   | P1       | —                         |
-| Safe Area        | `safe-area`        | Respects notches, status and navigation bars              | P1       | — (mobile)                |
+| Safe Area        | `safe-area`        | Respects notches, status and navigation bars              | P1       | — (mobile, web on phones) |
 | Keyboard Avoider | `keyboard-avoider` | Keeps focused inputs visible above the keyboard           | P1       | — (mobile, web on phones) |
 | Surface          | `surface`          | Elevated layer with shadow and tonal background           | P2       | —                         |
 
