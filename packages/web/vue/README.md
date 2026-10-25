@@ -195,6 +195,20 @@ nested panels lift on their own. The slot receives the resolved level:
 `variant` picks a shadow (`elevated`), an outline, a fill or glass; `tone` colors the layer and its
 text. `interactive` lifts it on hover and makes a `div` keyboard-operable as a button.
 
+### Code
+
+A word of code in a sentence, or a block with a title, a copy button and light syntax colors:
+
+```vue
+<p>Installez avec <NsCode variant="inline">pnpm add @nativesmart/vue</NsCode>.</p>
+
+<NsCode :code="source" language="ts" title="send.ts" line-numbers highlight="2, 4-5" />
+<NsCode :code="commands" language="bash" prompt :max-lines="6" @copy="track" />
+```
+
+Line numbers and prompts are drawn by CSS, so they are never read aloud or copied. The copy button
+confirms with a check and announces `copiedLabel`. `tokenizeLine()` exposes the highlighter.
+
 ### Icons
 
 `NsIcon` ships a stroke set drawn on a 24 × 24 grid (`iconNames()` lists it). Add or replace icons

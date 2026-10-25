@@ -36,6 +36,10 @@ export { default as NsButton } from "./NsButton.vue";
 export type { NsButtonIntent, NsButtonProps, NsButtonSize, NsButtonVariant } from "./NsButton.vue";
 export { default as NsCard } from "./NsCard.vue";
 export type { NsCardPadding, NsCardProps, NsCardVariant } from "./NsCard.vue";
+export { default as NsCode } from "./NsCode.vue";
+export type { NsCodeProps, NsCodeSize, NsCodeTone, NsCodeVariant } from "./NsCode.vue";
+export { parseLineRanges, tokenizeLine } from "./code-syntax";
+export type { NsCodeLanguage, NsCodeToken, NsCodeTokenKind } from "./code-syntax";
 export { default as NsContainer } from "./NsContainer.vue";
 export type {
   NsContainerBackground,

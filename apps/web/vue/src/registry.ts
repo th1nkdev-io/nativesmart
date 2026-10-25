@@ -3,6 +3,7 @@ import type { Component } from "vue";
 import AspectRatioDemo from "./demos/AspectRatioDemo.vue";
 import BoxDemo from "./demos/BoxDemo.vue";
 import CardDemo from "./demos/CardDemo.vue";
+import CodeDemo from "./demos/CodeDemo.vue";
 import ContainerDemo from "./demos/ContainerDemo.vue";
 import DividerDemo from "./demos/DividerDemo.vue";
 import GridDemo from "./demos/GridDemo.vue";
@@ -29,6 +30,7 @@ export const registry: Readonly<Record<string, Component>> = {
   box: BoxDemo,
   button: NsButton,
   card: CardDemo,
+  code: CodeDemo,
   container: ContainerDemo,
   divider: DividerDemo,
   grid: GridDemo,
@@ -51,6 +53,7 @@ export const variationTiles: Readonly<Record<string, number>> = {
   "aspect-ratio": 168,
   box: 240,
   card: 340,
+  code: 320,
   container: 240,
   divider: 260,
   grid: 240,

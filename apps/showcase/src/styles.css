@@ -3740,6 +3740,185 @@ button[aria-selected="true"] .component-tabs__count {
   box-shadow: var(--ns-elevation-modal);
 }
 
+/* Code: a block with its header, gutter, highlighted line and colored tokens */
+.anat-code {
+  position: relative;
+  border: 1px solid var(--ns-color-border-subtle);
+  border-radius: var(--ns-radius-lg);
+  background: var(--ns-color-surface-sunken);
+  font-family: var(--ns-font-mono);
+  font-size: 12px;
+  outline: 2px dashed transparent;
+  outline-offset: 4px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-code.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-code__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--ns-space-2);
+  padding: var(--ns-space-2) var(--ns-space-2) var(--ns-space-2) var(--ns-space-4);
+  border-block-end: 1px solid var(--ns-color-border-subtle);
+  border-start-start-radius: inherit;
+  border-start-end-radius: inherit;
+  background: var(--ns-color-surface);
+  transition: background-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-code__header.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-code__header small {
+  color: var(--ns-color-text-subtle);
+  font-family: var(--ns-font-sans);
+  font-size: 11px;
+}
+
+.anat-code__title {
+  position: relative;
+  flex: 1;
+  font-weight: var(--ns-font-weight-medium);
+}
+
+.anat-code__title.is-active,
+.anat-code__gutter.is-active,
+.anat-code__copy.is-active {
+  border-radius: var(--ns-radius-sm);
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-code__copy {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  inline-size: 26px;
+  block-size: 26px;
+  border-radius: var(--ns-radius-md);
+  color: var(--ns-color-text-muted);
+}
+
+.anat-code__copy svg {
+  inline-size: 15px;
+  block-size: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.anat-code__body {
+  display: flex;
+  padding-block: var(--ns-space-3);
+  line-height: 1.9;
+}
+
+.anat-code__gutter {
+  position: relative;
+  display: grid;
+  padding-inline: var(--ns-space-3) var(--ns-space-2);
+  color: var(--ns-color-text-subtle);
+  text-align: end;
+}
+
+.anat-code__gutter i {
+  font-style: normal;
+}
+
+.anat-code__lines {
+  display: grid;
+  flex: 1;
+}
+
+.anat-code__line {
+  position: relative;
+  padding-inline: var(--ns-space-2);
+  white-space: pre;
+}
+
+.anat-code__line.is-highlighted {
+  background: color-mix(in srgb, var(--ns-color-primary) 10%, transparent);
+  box-shadow: inset 2px 0 0 var(--ns-color-primary);
+}
+
+.anat-code__line.is-active {
+  background: var(--ns-color-warning-muted);
+  box-shadow: inset 2px 0 0 var(--ns-color-warning);
+}
+
+.anat-code__line > b {
+  position: relative;
+  font-weight: var(--ns-font-weight-regular);
+}
+
+.anat-code__line .is-keyword {
+  color: var(--ns-color-primary-text);
+  font-weight: var(--ns-font-weight-medium);
+}
+
+.anat-code__line .is-number {
+  color: var(--ns-color-warning-text);
+}
+
+.anat-code__line .is-comment {
+  color: var(--ns-color-text-subtle);
+  font-style: italic;
+}
+
+.anat-code__line .is-string {
+  border-radius: 3px;
+  color: var(--ns-color-success-text);
+}
+
+.anat-code__line .is-string.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-code__pin {
+  position: absolute;
+}
+
+.anat-code__pin--root {
+  inset-block-start: -12px;
+  inset-inline-start: -12px;
+}
+
+.anat-code__pin--header {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-start: 45%;
+}
+
+.anat-code__pin--title {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-start: 62px;
+}
+
+.anat-code__pin--copy {
+  inset-block-start: -16px;
+  inset-inline-end: -10px;
+}
+
+.anat-code__pin--gutter {
+  inset-block-end: -18px;
+  inset-inline-start: 2px;
+}
+
+.anat-code__pin--line {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-start: 72%;
+}
+
+.anat-code__pin--token {
+  inset-block-start: 16px;
+  inset-inline-start: calc(50% - 11px);
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);

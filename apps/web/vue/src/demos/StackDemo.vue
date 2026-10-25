@@ -184,7 +184,7 @@ const tag = computed(() => (attrs.as === "ul" || attrs.as === "ol" ? "li" : "div
 .demo-stack-inline {
   margin: 0;
   color: var(--ns-color-text);
-  font-size: var(--ns-text-body-size);
+  font-size: var(--ns-text-body-md-size);
   line-height: 2;
 }
 

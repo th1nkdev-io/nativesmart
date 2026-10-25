@@ -174,6 +174,7 @@ export const rendererManifests: readonly RendererManifest[] = [
     supportedDesignSystems: webDesignSystems,
     implementedComponents: [
       "aspect-ratio",
+      "code",
       "container",
       "grid",
       "keyboard-avoider",

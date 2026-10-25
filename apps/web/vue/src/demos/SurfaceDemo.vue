@@ -107,7 +107,7 @@ const variation = useVariation();
 }
 
 .demo-surface.is-small .demo-surface__card > strong {
-  font-size: var(--ns-text-body-size);
+  font-size: var(--ns-text-body-md-size);
 }
 
 .demo-surface__level {

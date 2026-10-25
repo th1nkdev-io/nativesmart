@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "Code : blocs copiables et code en ligne",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "Code : bloc avec titre, langage et copie annoncée, ou mot de code dans une phrase"
+      },
+      {
+        kind: "Nouveau",
+        text: "Coloration légère pour TypeScript, Vue, HTML, CSS, JSON et le terminal"
+      },
+      {
+        kind: "Nouveau",
+        text: "Numéros de ligne, lignes surlignées, invite shell, retour à la ligne, repli après n lignes"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "Surface : des couches qui savent où elles sont",
     changes: [
       {

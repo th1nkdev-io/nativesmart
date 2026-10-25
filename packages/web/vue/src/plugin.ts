@@ -1,4 +1,4 @@
-import type { App, Plugin } from "vue";
+import type { App, Component, Plugin } from "vue";
 import * as components from "./components";
 import { registerIcons } from "./icons";
 
@@ -11,6 +11,9 @@ export type NativesmartOptions = {
 export const Nativesmart: Plugin<[NativesmartOptions?]> = {
   install(app: App, options: NativesmartOptions = {}) {
     if (options.icons) registerIcons(options.icons);
-    for (const [name, component] of Object.entries(components)) app.component(name, component);
+    /* The module also exports helpers such as tokenizeLine: only Ns… names are components. */
+    for (const [name, component] of Object.entries(components)) {
+      if (name.startsWith("Ns")) app.component(name, component as Component);
+    }
   }
 };
