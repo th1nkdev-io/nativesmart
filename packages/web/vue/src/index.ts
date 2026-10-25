@@ -20,6 +20,7 @@ export const implementedComponents = [
   "keyboard-avoider",
   "modal",
   "safe-area",
+  "scroll-area",
   "spinner",
   "text",
   "toast"

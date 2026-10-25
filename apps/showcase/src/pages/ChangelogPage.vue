@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "ScrollArea : barres dessinées et listes virtuelles",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "ScrollArea : barres au survol, au défilement, toujours ou natives, pouce déplaçable"
+      },
+      {
+        kind: "Nouveau",
+        text: "Bords estompés, accroche des éléments, défilement vertical, horizontal ou les deux"
+      },
+      {
+        kind: "Nouveau",
+        text: "Liste virtuelle de 10 000 lignes, chargement infini avec end-reached, scrollToIndex()"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "SafeArea : encoches, îlots et indicateurs d'accueil",
     changes: [
       {

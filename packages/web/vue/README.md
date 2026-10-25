@@ -120,6 +120,24 @@ Keeps content clear of notches, islands, rounded corners and the home indicator.
 In a native shell, pass the insets it reports with `:insets="{ top, bottom }"`.
 `useSafeAreaInsets()` reads them in any component.
 
+### ScrollArea
+
+A scroll region with drawn, theme-coloured scrollbars over native scrolling: wheel, touch, keyboard
+and focus behave as usual. The bars show on hover, while scrolling, always or never, and the edges
+fade where more content is hidden. Give it `items` to render only the visible rows of a long list:
+
+```vue
+<NsScrollArea max-height="320px" label="Contacts" @end-reached="loadMore">
+  …
+</NsScrollArea>
+
+<NsScrollArea ref="list" height="400px" :items="rows" :item-height="56">
+  <template #item="{ item }">{{ item.name }}</template>
+</NsScrollArea>
+```
+
+`scrollToIndex(index, align)` and `scrollToEdge(edge)` are exposed on the component.
+
 ### Icons
 
 `NsIcon` ships a stroke set drawn on a 24 × 24 grid (`iconNames()` lists it). Add or replace icons

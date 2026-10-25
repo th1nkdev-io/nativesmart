@@ -86,6 +86,14 @@ export type {
   NsSafeAreaProps,
   NsSafeAreaSpace
 } from "./NsSafeArea.vue";
+export { default as NsScrollArea } from "./NsScrollArea.vue";
+export type {
+  NsScrollAreaExpose,
+  NsScrollAreaOrientation,
+  NsScrollAreaProps,
+  NsScrollAreaScrollbars,
+  NsScrollAreaSnap
+} from "./NsScrollArea.vue";
 export { default as NsSpinner } from "./NsSpinner.vue";
 export type { NsSpinnerProps } from "./NsSpinner.vue";
 export { default as NsText } from "./NsText.vue";

@@ -6,6 +6,7 @@ import DividerAnatomy from "./DividerAnatomy.vue";
 import GridAnatomy from "./GridAnatomy.vue";
 import KeyboardAvoiderAnatomy from "./KeyboardAvoiderAnatomy.vue";
 import SafeAreaAnatomy from "./SafeAreaAnatomy.vue";
+import ScrollAreaAnatomy from "./ScrollAreaAnatomy.vue";
 
 /**
  * Illustrated anatomies: a drawing of the component with a numbered pin on each part. Components
@@ -18,5 +19,6 @@ export const anatomyFigures: Readonly<Record<string, Component>> = {
   divider: DividerAnatomy,
   grid: GridAnatomy,
   "keyboard-avoider": KeyboardAvoiderAnatomy,
-  "safe-area": SafeAreaAnatomy
+  "safe-area": SafeAreaAnatomy,
+  "scroll-area": ScrollAreaAnatomy
 };
