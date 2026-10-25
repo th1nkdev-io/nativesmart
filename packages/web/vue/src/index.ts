@@ -10,6 +10,7 @@ export const implementedComponents = [
   "box",
   "button",
   "card",
+  "container",
   "divider",
   "icon",
   "input",

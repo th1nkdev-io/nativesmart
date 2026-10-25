@@ -36,6 +36,14 @@ export { default as NsButton } from "./NsButton.vue";
 export type { NsButtonIntent, NsButtonProps, NsButtonSize, NsButtonVariant } from "./NsButton.vue";
 export { default as NsCard } from "./NsCard.vue";
 export type { NsCardPadding, NsCardProps, NsCardVariant } from "./NsCard.vue";
+export { default as NsContainer } from "./NsContainer.vue";
+export type {
+  NsContainerBackground,
+  NsContainerGutter,
+  NsContainerProps,
+  NsContainerSize,
+  NsContainerSpacing
+} from "./NsContainer.vue";
 export { default as NsDivider } from "./NsDivider.vue";
 export type { NsDividerOrientation, NsDividerProps } from "./NsDivider.vue";
 export { default as NsIcon } from "./NsIcon.vue";

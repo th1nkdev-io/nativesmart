@@ -1,6 +1,7 @@
 import type { Component } from "vue";
 import AspectRatioAnatomy from "./AspectRatioAnatomy.vue";
 import BoxAnatomy from "./BoxAnatomy.vue";
+import ContainerAnatomy from "./ContainerAnatomy.vue";
 
 /**
  * Illustrated anatomies: a drawing of the component with a numbered pin on each part. Components
@@ -8,5 +9,6 @@ import BoxAnatomy from "./BoxAnatomy.vue";
  */
 export const anatomyFigures: Readonly<Record<string, Component>> = {
   "aspect-ratio": AspectRatioAnatomy,
-  box: BoxAnatomy
+  box: BoxAnatomy,
+  container: ContainerAnatomy
 };

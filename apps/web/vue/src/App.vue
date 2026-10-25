@@ -18,6 +18,8 @@ import { viewKey } from "./demos/view";
 import { registry, variationTiles } from "./registry";
 
 const request = ref<RenderRequest>(requestFromSearch(window.location.search));
+/** A demo loaded inside its own frame, at a chosen width: the component alone, as a full page. */
+const framed = new URLSearchParams(window.location.search).has("frame");
 const root = ref<HTMLElement>();
 const contract = computed(() => getComponentContract(request.value.component));
 const component = computed(() => registry[request.value.component]);
@@ -87,6 +89,7 @@ function bind(props: ShowcaseProps) {
 const cleanups: (() => void)[] = [];
 onMounted(() => {
   cleanups.push(onRenderRequest((next) => (request.value = next)));
+  if (framed) return;
   if (root.value) cleanups.push(reportHeight(root.value));
   postToShell({ type: "ns:ready", renderer: "vue", components: Object.keys(registry) });
 });
@@ -94,7 +97,11 @@ onBeforeUnmount(() => cleanups.forEach((cleanup) => cleanup()));
 </script>
 
 <template>
-  <main ref="root" class="renderer">
+  <main v-if="framed" class="renderer-frame">
+    <component :is="component" v-bind="request.props" />
+  </main>
+
+  <main v-else ref="root" class="renderer">
     <p v-if="!component" class="renderer__empty">
       « {{ contract?.name ?? request.component }} » n'est pas encore implémenté en Vue.
     </p>
@@ -152,6 +159,10 @@ body {
   background: var(--ns-color-background);
   color: var(--ns-color-text);
   font-family: var(--ns-font-sans);
+}
+
+.renderer-frame {
+  min-block-size: 100vh;
 }
 
 .renderer {

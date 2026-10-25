@@ -61,6 +61,19 @@ Spacing uses logical sides (`paddingInline`, `marginBlock`), so layouts mirror i
 languages. The text tone follows the background (`surface-brand` gets `text-on-brand`), and
 `material` gives a translucent blurred surface.
 
+### Container
+
+The page column. The band spans the screen and carries the background and section spacing; the
+content stays within `size` (`sm` to `2xl`, `prose` for reading, or `full`), with gutters that follow
+the layout grid and clear phone notches. A child with `data-bleed` runs edge to edge:
+
+```vue
+<NsContainer as="section" size="xl" spacing="lg" background="surface-muted">
+  <h2>Nos offres</h2>
+  <img data-bleed src="/bandeau.jpg" alt="" />
+</NsContainer>
+```
+
 ### Icons
 
 `NsIcon` ships a stroke set drawn on a 24 × 24 grid (`iconNames()` lists it). Add or replace icons

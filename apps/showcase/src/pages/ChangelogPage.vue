@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "Container, la colonne de page",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "Container : largeurs xl à 2xl et lecture, marges de grille, sections, zones sûres"
+      },
+      {
+        kind: "Nouveau",
+        text: "Bande pleine largeur, enfants data-bleed bord à bord, mode par paliers"
+      },
+      {
+        kind: "Nouveau",
+        text: "Aperçu sur une vraie page à 390, 768, 1280 et 1600 px, avec les mesures réelles"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "Box, le conteneur de base refait",
     changes: [
       {
