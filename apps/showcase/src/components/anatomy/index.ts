@@ -4,6 +4,7 @@ import BoxAnatomy from "./BoxAnatomy.vue";
 import ButtonAnatomy from "./ButtonAnatomy.vue";
 import CodeAnatomy from "./CodeAnatomy.vue";
 import ContainerAnatomy from "./ContainerAnatomy.vue";
+import CopyButtonAnatomy from "./CopyButtonAnatomy.vue";
 import DividerAnatomy from "./DividerAnatomy.vue";
 import GridAnatomy from "./GridAnatomy.vue";
 import HeadingAnatomy from "./HeadingAnatomy.vue";
@@ -33,6 +34,7 @@ export const anatomyFigures: Readonly<Record<string, Component>> = {
   button: ButtonAnatomy,
   code: CodeAnatomy,
   container: ContainerAnatomy,
+  "copy-button": CopyButtonAnatomy,
   divider: DividerAnatomy,
   grid: GridAnatomy,
   heading: HeadingAnatomy,

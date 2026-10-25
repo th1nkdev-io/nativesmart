@@ -5369,6 +5369,123 @@ button[aria-selected="true"] .component-tabs__count {
   inset-inline-start: calc(50% - 11px);
 }
 
+/* CopyButton: a captioned field with its value and button, and the announced result */
+.anat-cp {
+  display: grid;
+  gap: var(--ns-space-2);
+  padding: var(--ns-space-10) var(--ns-space-6) var(--ns-space-8);
+  border-radius: var(--ns-radius-xl);
+  background: var(--ns-color-surface);
+  box-shadow: var(--ns-elevation-card);
+}
+
+.anat-cp__caption {
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-text-caption-size);
+  font-weight: var(--ns-font-weight-medium);
+}
+
+.anat-cp__field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--ns-space-2);
+  min-block-size: 44px;
+  padding-inline: var(--ns-space-3) var(--ns-space-1);
+  border: 1px solid var(--ns-color-success-border);
+  border-radius: var(--ns-radius-control);
+  background: var(--ns-color-surface-sunken);
+  outline: 2px dashed transparent;
+  outline-offset: 4px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-cp__field.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-cp__value {
+  position: relative;
+  flex: 1;
+  padding: 2px;
+  border-radius: var(--ns-radius-sm);
+  color: var(--ns-color-text);
+  font-family: var(--ns-font-mono);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.anat-cp__value.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-cp__button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  inline-size: 32px;
+  block-size: 32px;
+  border-radius: var(--ns-radius-md);
+  color: var(--ns-color-success-text);
+}
+
+.anat-cp__button.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-cp svg {
+  inline-size: 16px;
+  block-size: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.anat-cp__feedback {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ns-space-1-5);
+  justify-self: start;
+  margin-block-start: var(--ns-space-4);
+  padding: var(--ns-space-1) var(--ns-space-2-5);
+  border: 1px dashed var(--ns-color-border-strong);
+  border-radius: var(--ns-radius-full);
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-text-caption-size);
+}
+
+.anat-cp__feedback.is-active {
+  border-color: var(--ns-color-warning);
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-cp__pin {
+  position: absolute;
+}
+
+.anat-cp__pin--root {
+  inset-block-start: -12px;
+  inset-inline-start: -12px;
+}
+
+.anat-cp__pin--below {
+  inset-block-start: calc(100% + 10px);
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-cp__pin--above {
+  inset-block-end: calc(100% + 10px);
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-cp__pin--side {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-start: calc(100% + 8px);
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);

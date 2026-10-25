@@ -56,6 +56,8 @@ export type {
   NsContainerSize,
   NsContainerSpacing
 } from "./NsContainer.vue";
+export { default as NsCopyButton } from "./NsCopyButton.vue";
+export type { NsCopyButtonDisplay, NsCopyButtonProps, NsCopyButtonSize } from "./NsCopyButton.vue";
 export { default as NsDivider } from "./NsDivider.vue";
 export type {
   NsDividerInset,

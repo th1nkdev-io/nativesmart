@@ -176,6 +176,7 @@ export const rendererManifests: readonly RendererManifest[] = [
       "aspect-ratio",
       "code",
       "container",
+      "copy-button",
       "grid",
       "heading",
       "icon-button",

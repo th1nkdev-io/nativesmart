@@ -14,6 +14,7 @@ export const implementedComponents = [
   "card",
   "code",
   "container",
+  "copy-button",
   "divider",
   "grid",
   "heading",

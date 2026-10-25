@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "CopyButton : copier un numéro sans se tromper",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "CopyButton : champ avec la valeur, bouton avec texte ou icône seule"
+      },
+      {
+        kind: "Nouveau",
+        text: "Confirmation visible et annoncée, état d'échec, solution de repli sans API presse-papiers"
+      },
+      {
+        kind: "Nouveau",
+        text: "Valeur masquée sauf les quatre derniers caractères, copiée en entier"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "ToggleButton : un bouton qui garde son état",
     changes: [
       {

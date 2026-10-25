@@ -70,6 +70,20 @@ A button that stays on or off, exposed with `aria-pressed`. Its name stays the s
 
 For one choice among several, use `NsSegmentedControl`.
 
+### CopyButton
+
+Copies a value and confirms it, on screen and to screen readers. The field shows the value next to
+its button; `button` and `icon` show only the button:
+
+```vue
+<NsCopyButton value="CI93 0001 2345 6789 4521" caption="Numéro de compte" mask />
+<NsCopyButton :value="link" display="button" label="Copier le lien" copied-label="Copié" />
+<NsCopyButton value="NS-4521" display="icon" @copy="track" />
+```
+
+Where the clipboard API is missing or refused, it falls back to the selection command, then emits
+`error`. A masked value is copied in full.
+
 ### AspectRatio
 
 Frames any media at a ratio token (`video`, `square`, `photo`, `portrait`, `story`, `wide`,
