@@ -11,6 +11,7 @@ import HeadingDemo from "./demos/HeadingDemo.vue";
 import IconDemo from "./demos/IconDemo.vue";
 import ImageDemo from "./demos/ImageDemo.vue";
 import InputDemo from "./demos/InputDemo.vue";
+import KbdDemo from "./demos/KbdDemo.vue";
 import KeyboardAvoiderDemo from "./demos/KeyboardAvoiderDemo.vue";
 import ModalDemo from "./demos/ModalDemo.vue";
 import SafeAreaDemo from "./demos/SafeAreaDemo.vue";
@@ -40,6 +41,7 @@ export const registry: Readonly<Record<string, Component>> = {
   icon: IconDemo,
   image: ImageDemo,
   input: InputDemo,
+  kbd: KbdDemo,
   "keyboard-avoider": KeyboardAvoiderDemo,
   modal: ModalDemo,
   "safe-area": SafeAreaDemo,
@@ -65,6 +67,7 @@ export const variationTiles: Readonly<Record<string, number>> = {
   icon: 200,
   image: 260,
   input: 300,
+  kbd: 260,
   "keyboard-avoider": 230,
   modal: 380,
   "safe-area": 220,

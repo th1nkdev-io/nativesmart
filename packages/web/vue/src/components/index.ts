@@ -109,6 +109,16 @@ export type {
 } from "./NsImage.vue";
 export { default as NsInput } from "./NsInput.vue";
 export type { NsInputProps, NsInputSize, NsInputType } from "./NsInput.vue";
+export { default as NsKbd } from "./NsKbd.vue";
+export type {
+  NsKbdDisplay,
+  NsKbdProps,
+  NsKbdSeparator,
+  NsKbdSize,
+  NsKbdVariant
+} from "./NsKbd.vue";
+export { keyLabel, keyName, normalizeKey, parseKeys } from "./kbd-keys";
+export type { NsKbdPlatform } from "./kbd-keys";
 export { default as NsModal } from "./NsModal.vue";
 export type { NsModalProps, NsModalSize } from "./NsModal.vue";
 export { default as NsSafeArea } from "./NsSafeArea.vue";

@@ -4332,6 +4332,137 @@ button[aria-selected="true"] .component-tabs__count {
   }
 }
 
+/* Kbd: a shortcut with its keys and separator, read aloud, and per platform */
+.anat-kbd {
+  display: grid;
+  justify-items: center;
+  gap: var(--ns-space-4);
+  padding: var(--ns-space-10) var(--ns-space-4) var(--ns-space-6);
+  border-radius: var(--ns-radius-xl);
+  background: var(--ns-color-surface-sunken);
+}
+
+.anat-kbd__root {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--ns-space-2);
+  border-radius: var(--ns-radius-md);
+  outline: 2px dashed transparent;
+  outline-offset: 2px;
+  font-family: var(--ns-font-mono);
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-kbd__root.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-kbd__key {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: 44px;
+  block-size: 44px;
+  padding-inline: 10px;
+  border: 1px solid var(--ns-color-border);
+  border-block-end: 3px solid var(--ns-color-border-strong);
+  border-radius: var(--ns-radius-md);
+  background: linear-gradient(var(--ns-color-surface), var(--ns-color-surface-muted));
+  color: var(--ns-color-text);
+  font-family: var(--ns-font-sans);
+  font-size: 18px;
+  font-weight: var(--ns-font-weight-medium);
+  transition:
+    border-color var(--ns-duration-fast) var(--ns-easing-standard),
+    background-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-kbd__key.is-active {
+  border-color: var(--ns-color-warning);
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-kbd__plus {
+  position: relative;
+  padding: 2px 4px;
+  border-radius: var(--ns-radius-sm);
+  color: var(--ns-color-text-subtle);
+  font-family: var(--ns-font-sans);
+  font-size: 16px;
+}
+
+.anat-kbd__plus.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-kbd__spoken {
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-text-caption-size);
+}
+
+.anat-kbd__pin {
+  position: absolute;
+}
+
+.anat-kbd__pin--root {
+  inset-block-start: -12px;
+  inset-inline-start: -12px;
+}
+
+.anat-kbd__pin--key {
+  inset-block-start: -14px;
+  inset-inline-end: -10px;
+}
+
+.anat-kbd__pin--separator {
+  inset-block-end: -26px;
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-kbd__platforms {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--ns-space-5);
+  margin-block-start: var(--ns-space-5);
+}
+
+.anat-kbd__platforms > span {
+  display: grid;
+  justify-items: center;
+  gap: var(--ns-space-1-5);
+  color: var(--ns-color-text-muted);
+  font-size: 10px;
+}
+
+.anat-kbd__mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.anat-kbd__mini b {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: 20px;
+  block-size: 20px;
+  padding-inline: 4px;
+  border: 1px solid var(--ns-color-border);
+  border-block-end-width: 2px;
+  border-radius: 4px;
+  background: var(--ns-color-surface);
+  color: var(--ns-color-text);
+  font-family: var(--ns-font-sans);
+  font-size: 11px;
+  font-weight: var(--ns-font-weight-medium);
+}
+
+.anat-kbd__mini i {
+  font-style: normal;
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);

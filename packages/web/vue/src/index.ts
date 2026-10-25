@@ -20,6 +20,7 @@ export const implementedComponents = [
   "icon",
   "image",
   "input",
+  "kbd",
   "keyboard-avoider",
   "modal",
   "safe-area",

@@ -255,6 +255,20 @@ and an optional lightbox:
 Without `src` the placeholder stays, which covers a source still on its way from an API. When both
 sources fail, the frame shows the alt text. The lightbox is a native modal `dialog`.
 
+### Kbd
+
+A shortcut hint written once for every keyboard: `mod` shows ⌘ on Apple devices and Ctrl elsewhere.
+
+```vue
+<NsKbd keys="mod+k" />
+<NsKbd keys="mod+shift+p" separator="plus" display="text" />
+<NsKbd keys="g h" then-label="puis" />
+<NsKbd keys="mod+enter" listen @match="send" />
+```
+
+Symbols are hidden from screen readers, which read the key names instead (« Command + K »).
+`listen` lights the keys as they are pressed and emits `match`; the page keeps its own shortcut.
+
 ### Icons
 
 `NsIcon` ships a stroke set drawn on a 24 × 24 grid (`iconNames()` lists it):

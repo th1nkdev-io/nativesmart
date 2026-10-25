@@ -179,6 +179,7 @@ export const rendererManifests: readonly RendererManifest[] = [
       "grid",
       "heading",
       "image",
+      "kbd",
       "keyboard-avoider",
       "safe-area",
       "scroll-area",

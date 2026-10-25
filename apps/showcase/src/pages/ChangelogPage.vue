@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "Kbd : des raccourcis qui parlent chaque clavier",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "Kbd : combinaisons et séquences, ⌘ sur Apple et Ctrl ailleurs, symboles ou noms"
+      },
+      {
+        kind: "Nouveau",
+        text: "Touche en relief, teintée ou nue, en trois tailles, lue en toutes lettres"
+      },
+      {
+        kind: "Nouveau",
+        text: "listen allume les touches pressées et émet match quand la combinaison est complète"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "Image : chargement soigné et aperçu agrandi",
     changes: [
       {
