@@ -55,7 +55,7 @@ const specimen = computed(() => {
   const { title: _title, description: _description, ...rest } = attrs;
   const group = variation?.group;
   const value = variation?.value ?? "";
-  const height = 104;
+  const height = 112;
   const width = (r: number) => `min(100%, ${Math.round(height * r)}px)`;
   switch (group) {
     case "ratio":

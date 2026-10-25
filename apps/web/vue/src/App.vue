@@ -11,7 +11,9 @@ import {
   type ShowcaseProps
 } from "@nativesmart/showcase-runtime";
 import { computed, onBeforeUnmount, onMounted, provide, ref, watchEffect } from "vue";
+import VariationRail from "./VariationRail.vue";
 import VariationScope from "./demos/VariationScope.vue";
+import { NsIcon } from "@nativesmart/vue";
 import { viewKey } from "./demos/view";
 import { registry, variationTiles } from "./registry";
 
@@ -38,20 +40,36 @@ function listeners() {
   );
 }
 
-/** Group header: the property and its contract description, or the boolean states. */
+const kindLabels: Record<string, string> = {
+  enum: "liste",
+  boolean: "booléen",
+  string: "texte",
+  number: "nombre"
+};
+
+/** Group header: a readable title, the property as code, its type and contract description. */
 function groupInfo(title: string) {
   if (title === "states") {
-    return { name: "États", description: "Chaque option activée seule, les autres à leur défaut." };
+    return {
+      name: "États",
+      description: "Chaque option booléenne activée seule, les autres à leur valeur par défaut."
+    };
   }
-  if (title === "default") return { name: "Par défaut", description: "" };
+  if (title === "default") return { name: "Par défaut" };
   const property = contract.value?.properties.find((item) => item.name === title);
-  return { name: title, description: property?.description ?? "" };
+  return {
+    name: title.charAt(0).toUpperCase() + title.slice(1).replace(/-/g, " "),
+    code: title,
+    kind: property ? kindLabels[property.kind] : undefined,
+    description: property?.description
+  };
 }
 
-/** The value a tile shows, as code: `"square"` under the `ratio` header, or the boolean name. */
+/** How the variation is written: `ratio="square"`, or the boolean switched on. */
 function itemCode(group: string, label: string) {
-  if (group === "states" || group === "default") return label;
-  return `"${label}"`;
+  if (group === "default") return "";
+  if (group === "states") return label === "default" ? "aucune option" : `:${label}="true"`;
+  return `${group}="${label}"`;
 }
 
 function isDefault(group: string, label: string) {
@@ -60,7 +78,7 @@ function isDefault(group: string, label: string) {
   return property?.defaultValue === label;
 }
 
-const tile = computed(() => `${variationTiles[request.value.component] ?? 160}px`);
+const tile = computed(() => `${variationTiles[request.value.component] ?? 180}px`);
 
 function bind(props: ShowcaseProps) {
   return { ...props, ...listeners() };
@@ -86,30 +104,41 @@ onBeforeUnmount(() => cleanups.forEach((cleanup) => cleanup()));
     </div>
 
     <div v-else class="renderer__groups" :style="{ '--renderer-tile': tile }">
-      <section v-for="group in groups" :key="group.title" class="renderer__group">
-        <header class="renderer__head">
-          <h2 class="renderer__title">
-            {{ groupInfo(group.title).name }}
-            <span class="renderer__count">{{ group.items.length }}</span>
-          </h2>
-          <p v-if="groupInfo(group.title).description" class="renderer__description">
-            {{ groupInfo(group.title).description }}
-          </p>
-        </header>
-        <div class="renderer__grid">
-          <figure v-for="item in group.items" :key="item.label" class="renderer__cell">
-            <div class="renderer__specimen">
-              <VariationScope :group="group.title" :value="item.label">
-                <component :is="component" v-bind="bind(item.props)" />
-              </VariationScope>
-            </div>
-            <span v-if="isDefault(group.title, item.label)" class="renderer__default">défaut</span>
-            <figcaption class="renderer__caption">
-              <code>{{ itemCode(group.title, item.label) }}</code>
-            </figcaption>
-          </figure>
-        </div>
-      </section>
+      <VariationRail
+        v-for="group in groups"
+        :key="group.title"
+        :title="groupInfo(group.title).name"
+        :code="groupInfo(group.title).code"
+        :kind="groupInfo(group.title).kind"
+        :description="groupInfo(group.title).description"
+        :count="group.items.length"
+      >
+        <figure
+          v-for="item in group.items"
+          :key="item.label"
+          :class="[
+            'renderer__cell',
+            { 'renderer__cell--default': isDefault(group.title, item.label) }
+          ]"
+        >
+          <div class="renderer__specimen">
+            <VariationScope :group="group.title" :value="item.label">
+              <component :is="component" v-bind="bind(item.props)" />
+            </VariationScope>
+          </div>
+          <figcaption class="renderer__caption">
+            <span class="renderer__name">
+              {{ item.label === "default" && group.title === "states" ? "Repos" : item.label }}
+              <span v-if="isDefault(group.title, item.label)" class="renderer__default">
+                <NsIcon name="check" size="xs" /> Défaut
+              </span>
+            </span>
+            <code v-if="itemCode(group.title, item.label)">{{
+              itemCode(group.title, item.label)
+            }}</code>
+          </figcaption>
+        </figure>
+      </VariationRail>
     </div>
   </main>
 </template>
@@ -159,49 +188,7 @@ body {
   gap: var(--ns-space-10);
 }
 
-.renderer__head {
-  display: grid;
-  gap: var(--ns-space-1);
-  margin-block-end: var(--ns-space-4);
-}
-
-.renderer__title {
-  display: flex;
-  align-items: center;
-  gap: var(--ns-space-2);
-  margin: 0;
-  color: var(--ns-color-text);
-  font-family: var(--ns-font-mono);
-  font-size: var(--ns-text-body-sm-size);
-  font-weight: var(--ns-font-weight-semibold);
-}
-
-.renderer__count {
-  padding: 1px 7px;
-  border-radius: var(--ns-radius-full);
-  background: var(--ns-color-surface-muted);
-  color: var(--ns-color-text-muted);
-  font-family: var(--ns-font-sans);
-  font-size: 11px;
-  font-weight: var(--ns-font-weight-medium);
-}
-
-.renderer__description {
-  margin: 0;
-  color: var(--ns-color-text-muted);
-  font-size: var(--ns-text-body-sm-size);
-  line-height: var(--ns-text-body-sm-line-height);
-}
-
-/* Uniform tiles: every row lines up, every specimen sits in the middle of its tile. */
-.renderer__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(var(--renderer-tile), 100%), 1fr));
-  gap: var(--ns-space-3);
-}
-
 .renderer__cell {
-  position: relative;
   display: grid;
   grid-template-rows: 1fr auto;
   min-inline-size: 0;
@@ -210,6 +197,21 @@ body {
   border: 1px solid var(--ns-color-border-subtle);
   border-radius: var(--ns-radius-lg);
   background: var(--ns-color-surface);
+  transition:
+    border-color var(--ns-duration-fast) var(--ns-easing-standard),
+    box-shadow var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.renderer__cell:hover {
+  border-color: var(--ns-color-border);
+  box-shadow: var(--ns-elevation-1);
+}
+
+/* The default value stands out: primary ring, tinted stage, labelled caption. */
+.renderer__cell--default,
+.renderer__cell--default:hover {
+  border-color: var(--ns-color-primary);
+  box-shadow: 0 0 0 1px var(--ns-color-primary);
 }
 
 .renderer__specimen {
@@ -217,42 +219,63 @@ body {
   align-items: center;
   justify-content: center;
   min-inline-size: 0;
-  min-block-size: 112px;
+  min-block-size: 132px;
   padding: var(--ns-space-5) var(--ns-space-4);
   background:
     radial-gradient(circle, var(--ns-color-border-subtle) 1px, transparent 1.5px) 0 0 / 14px 14px,
     var(--ns-color-background);
 }
 
+.renderer__cell--default .renderer__specimen {
+  background:
+    radial-gradient(
+        circle,
+        color-mix(in srgb, var(--ns-color-primary) 22%, transparent) 1px,
+        transparent 1.5px
+      )
+      0 0 / 14px 14px,
+    color-mix(in srgb, var(--ns-color-primary-muted) 45%, var(--ns-color-background));
+}
+
 .renderer__caption {
+  display: grid;
+  gap: 2px;
+  min-inline-size: 0;
+  padding: var(--ns-space-2-5) var(--ns-space-3);
+  border-block-start: 1px solid var(--ns-color-border-subtle);
+}
+
+.renderer__name {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--ns-space-2);
-  min-inline-size: 0;
-  padding: var(--ns-space-2) var(--ns-space-3);
-  border-block-start: 1px solid var(--ns-color-border-subtle);
+  gap: var(--ns-space-1) var(--ns-space-2);
+  color: var(--ns-color-text);
+  font-size: var(--ns-text-label-md-size);
+  font-weight: var(--ns-font-weight-semibold);
 }
 
 .renderer__caption code {
-  min-inline-size: 0;
-  color: var(--ns-color-text);
+  overflow: hidden;
+  color: var(--ns-color-text-muted);
   font-family: var(--ns-font-mono);
-  font-size: 12px;
-  overflow-wrap: anywhere;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .renderer__default {
-  position: absolute;
-  inset-block-start: var(--ns-space-2);
-  inset-inline-end: var(--ns-space-2);
-  z-index: 1;
-  padding: 1px 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 7px 1px 5px;
   border-radius: var(--ns-radius-full);
-  background: var(--ns-color-primary-muted);
-  color: var(--ns-color-on-primary-muted);
-  font-size: 11px;
-  font-weight: var(--ns-font-weight-medium);
+  background: var(--ns-color-primary);
+  color: var(--ns-color-on-primary);
+  font-size: 10px;
+  font-weight: var(--ns-font-weight-semibold);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 </style>
