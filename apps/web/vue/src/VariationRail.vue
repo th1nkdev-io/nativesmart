@@ -184,8 +184,7 @@ onBeforeUnmount(() => observer?.disconnect());
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   scroll-padding-inline: 2px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--ns-color-border) transparent;
+  scrollbar-width: none;
   mask-image: linear-gradient(
     to right,
     transparent,
@@ -205,6 +204,11 @@ onBeforeUnmount(() => observer?.disconnect());
 
 .rail__track--start.rail__track--end {
   mask-image: none;
+}
+
+/* Discreet: the arrows, the fade and the trackpad scroll it; no bar underneath. */
+.rail__track::-webkit-scrollbar {
+  display: none;
 }
 
 [dir="rtl"] .rail__track {

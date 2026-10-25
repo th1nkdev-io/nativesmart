@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { NsAspectRatio, NsBadge, NsIcon } from "@nativesmart/vue";
-import { computed, useAttrs } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref, useAttrs } from "vue";
 import { useVariation, useView } from "./view";
 
 defineOptions({ inheritAttrs: false });
@@ -35,6 +35,15 @@ const gallery = [
   media.lagoon,
   media.savanna
 ];
+
+/* Placeholders only differ while loading: replay a load every few seconds so each one shows. */
+const replaying = ref(true);
+let timer: ReturnType<typeof setInterval> | undefined;
+onMounted(() => {
+  if (variation?.group !== "placeholder") return;
+  timer = setInterval(() => (replaying.value = !replaying.value), 1800);
+});
+onBeforeUnmount(() => clearInterval(timer));
 
 const numeric: Record<string, number> = {
   video: 16 / 9,
@@ -75,10 +84,11 @@ const specimen = computed(() => {
       return { props: { ...rest, ratio: "square" }, image: media.lagoon, width: width(1) };
     case "placeholder":
       return {
-        props: { ...rest, loading: true },
+        props: { ...rest, loading: replaying.value },
         image: media.lagoon,
         width: "100%",
-        outline: true
+        outline: value === "none",
+        badge: replaying.value ? "chargement…" : "image chargée"
       };
     default:
       return {

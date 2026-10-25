@@ -130,7 +130,7 @@ onBeforeUnmount(() => cleanups.forEach((cleanup) => cleanup()));
             <span class="renderer__name">
               {{ item.label === "default" && group.title === "states" ? "Repos" : item.label }}
               <span v-if="isDefault(group.title, item.label)" class="renderer__default">
-                <NsIcon name="check" size="xs" /> Défaut
+                <NsIcon name="check" /> défaut
               </span>
             </span>
             <code v-if="itemCode(group.title, item.label)">{{
@@ -268,14 +268,18 @@ body {
 .renderer__default {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  padding: 1px 7px 1px 5px;
+  gap: 2px;
+  padding: 0 6px 0 4px;
   border-radius: var(--ns-radius-full);
-  background: var(--ns-color-primary);
-  color: var(--ns-color-on-primary);
+  background: var(--ns-color-primary-muted);
+  color: var(--ns-color-on-primary-muted);
   font-size: 10px;
   font-weight: var(--ns-font-weight-semibold);
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  line-height: 16px;
+}
+
+.renderer__default .ns-icon {
+  --ns-icon-size: 10px;
+  --ns-icon-stroke: 3;
 }
 </style>

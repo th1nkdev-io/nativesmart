@@ -195,7 +195,7 @@ const hasCaption = computed(() => Boolean(props.title || props.description));
   --ns-aspect-fit: cover;
   --ns-aspect-position: 50% 50%;
   --ns-aspect-background: var(--ns-color-surface-muted);
-  --ns-aspect-shimmer: color-mix(in srgb, var(--ns-color-surface) 70%, transparent);
+  --ns-aspect-shimmer: var(--ns-color-surface);
   --ns-aspect-scrim: color-mix(in srgb, var(--ns-color-overlay) 72%, transparent);
   --ns-aspect-caption-color: #fff;
   --ns-aspect-zoom: 1.06;
