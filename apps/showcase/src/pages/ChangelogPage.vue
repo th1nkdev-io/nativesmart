@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "Link : liens dans le texte, liens autonomes, liens externes",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "Link : soulignement toujours, au survol ou jamais, cinq tons, tailles et icône"
+      },
+      {
+        kind: "Nouveau",
+        text: "Liens externes reconnus : nouvel onglet, rel noopener, icône et mention lue"
+      },
+      {
+        kind: "Nouveau",
+        text: "Lien autonome à flèche, téléchargement, lien désactivé, composant de routeur via as"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "Label : tout ce qu'un champ doit dire",
     changes: [
       {

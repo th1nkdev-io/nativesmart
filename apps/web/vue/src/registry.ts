@@ -14,6 +14,7 @@ import InputDemo from "./demos/InputDemo.vue";
 import KbdDemo from "./demos/KbdDemo.vue";
 import KeyboardAvoiderDemo from "./demos/KeyboardAvoiderDemo.vue";
 import LabelDemo from "./demos/LabelDemo.vue";
+import LinkDemo from "./demos/LinkDemo.vue";
 import ModalDemo from "./demos/ModalDemo.vue";
 import SafeAreaDemo from "./demos/SafeAreaDemo.vue";
 import ScrollAreaDemo from "./demos/ScrollAreaDemo.vue";
@@ -45,6 +46,7 @@ export const registry: Readonly<Record<string, Component>> = {
   kbd: KbdDemo,
   "keyboard-avoider": KeyboardAvoiderDemo,
   label: LabelDemo,
+  link: LinkDemo,
   modal: ModalDemo,
   "safe-area": SafeAreaDemo,
   "scroll-area": ScrollAreaDemo,
@@ -72,6 +74,7 @@ export const variationTiles: Readonly<Record<string, number>> = {
   kbd: 260,
   "keyboard-avoider": 230,
   label: 260,
+  link: 260,
   modal: 380,
   "safe-area": 220,
   "scroll-area": 220,

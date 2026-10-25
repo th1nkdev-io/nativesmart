@@ -121,6 +121,14 @@ export { keyLabel, keyName, normalizeKey, parseKeys } from "./kbd-keys";
 export type { NsKbdPlatform } from "./kbd-keys";
 export { default as NsLabel } from "./NsLabel.vue";
 export type { NsLabelProps, NsLabelSize } from "./NsLabel.vue";
+export { default as NsLink } from "./NsLink.vue";
+export type {
+  NsLinkProps,
+  NsLinkSize,
+  NsLinkTone,
+  NsLinkUnderline,
+  NsLinkVariant
+} from "./NsLink.vue";
 export { default as NsModal } from "./NsModal.vue";
 export type { NsModalProps, NsModalSize } from "./NsModal.vue";
 export { default as NsSafeArea } from "./NsSafeArea.vue";

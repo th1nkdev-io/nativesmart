@@ -4702,6 +4702,116 @@ button[aria-selected="true"] .component-tabs__count {
   inset-inline-start: calc(100% + 6px);
 }
 
+/* Link: an external link in a sentence, a standalone link, and the three underlines */
+.anat-lk {
+  display: grid;
+  gap: var(--ns-space-10);
+  padding: var(--ns-space-10) var(--ns-space-6) var(--ns-space-8);
+  border-radius: var(--ns-radius-xl);
+  background: var(--ns-color-surface);
+  box-shadow: var(--ns-elevation-card);
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-text-body-sm-size);
+  line-height: 1.7;
+}
+
+.anat-lk p {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.anat-lk__root {
+  position: relative;
+  padding: 2px;
+  border-radius: var(--ns-radius-sm);
+  color: var(--ns-color-text-link);
+  outline: 2px dashed transparent;
+  outline-offset: 2px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-lk__root.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-lk__part {
+  position: relative;
+  border-radius: 3px;
+  transition: background-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-lk__part.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-lk__text {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  text-underline-offset: 0.22em;
+}
+
+.anat-lk svg {
+  inline-size: 14px;
+  block-size: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -0.15em;
+}
+
+.anat-lk__standalone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  justify-self: start;
+  color: var(--ns-color-text-link);
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.anat-lk__pin {
+  position: absolute;
+}
+
+.anat-lk__pin--root {
+  inset-block-start: -26px;
+  inset-inline-start: -14px;
+}
+
+.anat-lk__pin--below {
+  inset-block-start: calc(100% + 4px);
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-lk__pin--above {
+  inset-block-end: calc(100% + 4px);
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-lk__underlines {
+  display: flex;
+  justify-content: center;
+  gap: var(--ns-space-6);
+  margin-block-start: var(--ns-space-5);
+  color: var(--ns-color-text-link);
+  font-family: var(--ns-font-mono);
+  font-size: 12px;
+}
+
+.anat-lk__underlines u {
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  text-underline-offset: 0.22em;
+}
+
+.anat-lk__underlines .is-hover {
+  text-decoration-style: dashed;
+}
+
+.anat-lk__underlines .is-none {
+  text-decoration: none;
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);

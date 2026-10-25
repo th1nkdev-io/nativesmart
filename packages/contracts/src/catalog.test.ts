@@ -21,7 +21,7 @@ describe("component contracts", () => {
     expect(getComponentContract("button")?.states).toContain("focused");
     expect(getComponentContract("modal")?.accessibility.role).toBe("dialog");
     const reviewed = componentContracts.filter((contract) => contract.status !== "draft");
-    expect(reviewed).toHaveLength(40);
+    expect(reviewed).toHaveLength(41);
   });
 
   it("specifies every P1 form control", () => {

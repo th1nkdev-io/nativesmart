@@ -232,6 +232,20 @@ Names a form control. The description gets an id the control lists in `aria-desc
 
 The asterisk is decorative: the control carries `required` itself.
 
+### Link
+
+A link in a sentence (underlined by default) or on its own line with an arrow. A link to another
+site opens a new tab, with `rel="noopener noreferrer"` and a spoken « opens in a new tab »:
+
+```vue
+<p>Consultez <NsLink href="/conditions">nos conditions d'envoi</NsLink>.</p>
+<NsLink href="https://aide.example.org">Centre d'aide</NsLink>
+<NsLink :as="RouterLink" to="/transferts" variant="standalone">Tous les transferts</NsLink>
+<NsLink href="/recu.pdf" download icon="download">Télécharger le reçu</NsLink>
+```
+
+`external` forces or prevents the new tab. A disabled link drops its `href`.
+
 ### Code
 
 A word of code in a sentence, or a block with a title, a copy button and light syntax colors:
