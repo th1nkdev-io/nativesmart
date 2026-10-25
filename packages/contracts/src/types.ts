@@ -73,6 +73,15 @@ export type ComponentContract = {
   semanticTokens: readonly string[];
   /** Explanations shown in documentation: what each part, state, event, key and token means. */
   docs?: ContractDocs;
+  /** Child components used with this one, such as a grid's items, with their own properties. */
+  subcomponents?: readonly SubcomponentContract[];
+};
+
+export type SubcomponentContract = {
+  /** Name without the platform prefix: `GridItem`. */
+  name: string;
+  description: string;
+  properties: readonly ComponentProperty[];
 };
 
 /** An event as documentation explains it: when it fires and what it carries. */

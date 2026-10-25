@@ -124,6 +124,11 @@ function listener(event: string) {
   }
 }
 
+/** A subcomponent as the active technology names it: NsGridItem in Vue, GridItem elsewhere. */
+function subName(name: string) {
+  return ["vue", "svelte", "angular", "html-css"].includes(state.tech) ? `Ns${name}` : name;
+}
+
 /** How the active technology fills a slot. */
 function slotSyntax(name: string) {
   const isDefault = name === "children";
@@ -280,6 +285,59 @@ const techName = computed(
           </div>
         </div>
       </template>
+    </section>
+
+    <!-- Subcomponents -->
+    <section v-if="contract.subcomponents?.length" id="api-subcomponents" class="api-section">
+      <header class="api-section__head">
+        <h3 data-toc>Sous-composants</h3>
+        <p>Les composants qui s'utilisent à l'intérieur de {{ contract.name }}.</p>
+      </header>
+      <div v-for="sub in contract.subcomponents" :key="sub.name" class="api-sub">
+        <h4 class="api-sub__title">
+          <code>{{ subName(sub.name) }}</code>
+          <span>{{ sub.description }}</span>
+        </h4>
+        <div class="api-table" role="table" :aria-label="sub.name">
+          <div class="api-table__row api-table__row--head" role="row">
+            <span role="columnheader">Propriété</span>
+            <span role="columnheader">Valeurs</span>
+            <span role="columnheader">Description</span>
+          </div>
+          <div
+            v-for="property in sub.properties"
+            :key="property.name"
+            class="api-table__row"
+            role="row"
+          >
+            <span class="api-prop" role="cell">
+              <code>{{ property.name }}</code>
+              <span :class="['api-kind', `api-kind--${property.kind}`]">{{
+                kindLabels[property.kind]
+              }}</span>
+            </span>
+            <span class="api-values" role="cell">
+              <template v-if="values(property).length">
+                <code
+                  v-for="value in values(property)"
+                  :key="value"
+                  :class="['api-value', { 'api-value--default': isDefault(property, value) }]"
+                  ><Icon v-if="isDefault(property, value)" name="check" :size="12" />{{
+                    value
+                  }}</code
+                >
+              </template>
+              <code
+                v-else-if="property.defaultValue !== undefined"
+                class="api-value api-value--default"
+                ><Icon name="check" :size="12" />{{ property.defaultValue }}</code
+              >
+              <span v-else class="muted">libre</span>
+            </span>
+            <span class="api-description" role="cell">{{ property.description }}</span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- States -->

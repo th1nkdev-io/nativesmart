@@ -6,6 +6,21 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "Grid et GridItem",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "Grid : colonnes, gouttières et alignements par point de rupture, grille des tokens"
+      },
+      {
+        kind: "Nouveau",
+        text: "Grille fluide sans point de rupture, ruptures selon la largeur de la grille, dense"
+      },
+      { kind: "Nouveau", text: "Sous-composants documentés dans l'onglet API : GridItem" }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "Divider complet, onglet API en lignes",
     changes: [
       {

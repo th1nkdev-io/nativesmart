@@ -2695,6 +2695,129 @@ button[aria-selected="true"] .component-tabs__count {
   background: linear-gradient(to right, transparent, var(--ns-color-border-strong), transparent);
 }
 
+/* Grid: 12 column guides, a gutter, items snapped to the columns */
+.anat-gr {
+  --anat-gr-gap: 10px;
+  position: relative;
+  padding: var(--ns-space-5) var(--ns-space-4);
+  border-radius: var(--ns-radius-lg);
+  background: var(--ns-color-surface);
+  outline: 2px dashed transparent;
+  outline-offset: 3px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-gr.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-gr__columns,
+.anat-gr__items,
+.anat-gr__scale {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--anat-gr-gap);
+}
+
+.anat-gr__columns {
+  position: absolute;
+  inset: var(--ns-space-5) var(--ns-space-4);
+}
+
+.anat-gr__columns i {
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--ns-color-danger) 10%, transparent);
+  transition: background-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-gr__columns i.is-active {
+  background: color-mix(in srgb, var(--ns-color-warning) 45%, transparent);
+}
+
+.anat-gr__gutter {
+  position: absolute;
+  inset-block: var(--ns-space-5);
+  inset-inline-start: calc(
+    var(--ns-space-4) + (100% - 2 * var(--ns-space-4) - 11 * var(--anat-gr-gap)) / 12 * 2 +
+      var(--anat-gr-gap)
+  );
+  inline-size: var(--anat-gr-gap);
+  background: repeating-linear-gradient(
+    45deg,
+    color-mix(in srgb, var(--ns-color-warning) 60%, transparent) 0 2px,
+    transparent 2px 5px
+  );
+  opacity: 0.55;
+  transition: opacity var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-gr__gutter.is-active {
+  opacity: 1;
+}
+
+.anat-gr__items {
+  position: relative;
+  row-gap: var(--anat-gr-gap);
+}
+
+.anat-gr__item {
+  display: grid;
+  place-items: center;
+  min-block-size: 40px;
+  border-radius: var(--ns-radius-sm);
+  background: var(--ns-color-primary);
+  color: var(--ns-color-on-primary);
+  font-family: var(--ns-font-mono);
+  font-size: 10px;
+  font-weight: var(--ns-font-weight-semibold);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.anat-gr__item:first-child {
+  min-block-size: 64px;
+}
+
+.anat-gr__item.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-gr__pin {
+  position: absolute;
+  z-index: 1;
+}
+
+.anat-gr__pin--root {
+  inset-block-start: -11px;
+  inset-inline-end: 14px;
+}
+
+.anat-gr__pin--column {
+  inset-block-end: -11px;
+  inset-inline-start: calc(var(--ns-space-4) + (100% - 2 * var(--ns-space-4)) / 12 * 2.5 - 11px);
+}
+
+.anat-gr__pin--gutter {
+  inset-block-start: 40%;
+  inset-inline-start: calc(
+    var(--ns-space-4) + (100% - 2 * var(--ns-space-4) - 11 * var(--anat-gr-gap)) / 12 * 2 - 6px
+  );
+}
+
+.anat-gr__pin--item {
+  inset-block-start: 10px;
+  inset-inline-start: 14px;
+}
+
+.anat-gr__scale {
+  margin: 0;
+  padding-inline: var(--ns-space-4);
+  color: var(--ns-color-text-subtle);
+  font-family: var(--ns-font-mono);
+  font-size: 9px;
+  text-align: center;
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);
@@ -2864,6 +2987,31 @@ button[aria-selected="true"] .component-tabs__count {
 .api-example {
   color: var(--ns-color-text-muted);
   font-size: var(--ns-text-body-sm-size);
+}
+
+/* Subcomponents */
+.api-sub {
+  display: grid;
+  gap: var(--ns-space-3);
+}
+
+.api-sub__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--ns-space-1) var(--ns-space-3);
+  margin: 0;
+  font-size: var(--ns-text-label-md-size);
+}
+
+.api-sub__title code {
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.api-sub__title span {
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-text-body-sm-size);
+  font-weight: var(--ns-font-weight-regular);
 }
 
 /* Lists: one full-width row per slot, state, event, key, requirement or token */

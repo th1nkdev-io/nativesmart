@@ -74,6 +74,24 @@ the layout grid and clear phone notches. A child with `data-bleed` runs edge to 
 </NsContainer>
 ```
 
+### Grid
+
+Columns that reflow per breakpoint. `columns="layout"` follows the layout grid tokens (4, 8, then
+12 columns, with their gutters); `minItemWidth` makes a fluid grid with no breakpoint at all; and
+`breakpoints="container"` measures the grid itself, for grids in side panels and cards:
+
+```vue
+<NsGrid :columns="{ base: 1, md: 2, lg: 3 }" gap="6">
+  <NsGridItem :span="{ base: 1, lg: 2 }">…</NsGridItem>
+  <NsGridItem>…</NsGridItem>
+</NsGrid>
+
+<NsGrid min-item-width="240px" as="ul">…</NsGrid>
+```
+
+An item never spans more columns than the grid has, so a `span` of 8 stays inside a 4-column grid
+on phones.
+
 ### Icons
 
 `NsIcon` ships a stroke set drawn on a 24 × 24 grid (`iconNames()` lists it). Add or replace icons

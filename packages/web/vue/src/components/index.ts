@@ -55,6 +55,18 @@ export type {
   NsDividerTone,
   NsDividerVariant
 } from "./NsDivider.vue";
+export { default as NsGrid } from "./NsGrid.vue";
+export type {
+  NsGridAlign,
+  NsGridBreakpoint,
+  NsGridColumns,
+  NsGridJustify,
+  NsGridProps,
+  NsGridResponsive,
+  NsGridSpace
+} from "./NsGrid.vue";
+export { default as NsGridItem } from "./NsGridItem.vue";
+export type { NsGridItemProps } from "./NsGridItem.vue";
 export { default as NsIcon } from "./NsIcon.vue";
 export type { NsIconProps, NsIconSize } from "./NsIcon.vue";
 export { default as NsInput } from "./NsInput.vue";

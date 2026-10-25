@@ -64,6 +64,14 @@ export function validateComponentContracts(contracts: readonly ComponentContract
     for (const item of contract.properties) {
       errors.push(...validateProperty(contract.id, item));
     }
+    for (const sub of contract.subcomponents ?? []) {
+      for (const name of duplicates(sub.properties.map((item) => item.name))) {
+        errors.push(`${contract.id} ${sub.name} has duplicate property: ${name}`);
+      }
+      for (const item of sub.properties) {
+        errors.push(...validateProperty(`${contract.id} ${sub.name}`, item));
+      }
+    }
   }
   return errors;
 }

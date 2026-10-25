@@ -5,6 +5,7 @@ import BoxDemo from "./demos/BoxDemo.vue";
 import CardDemo from "./demos/CardDemo.vue";
 import ContainerDemo from "./demos/ContainerDemo.vue";
 import DividerDemo from "./demos/DividerDemo.vue";
+import GridDemo from "./demos/GridDemo.vue";
 import IconDemo from "./demos/IconDemo.vue";
 import InputDemo from "./demos/InputDemo.vue";
 import ModalDemo from "./demos/ModalDemo.vue";
@@ -24,6 +25,7 @@ export const registry: Readonly<Record<string, Component>> = {
   card: CardDemo,
   container: ContainerDemo,
   divider: DividerDemo,
+  grid: GridDemo,
   icon: IconDemo,
   input: InputDemo,
   modal: ModalDemo,
@@ -39,6 +41,7 @@ export const variationTiles: Readonly<Record<string, number>> = {
   card: 340,
   container: 240,
   divider: 260,
+  grid: 240,
   input: 300,
   modal: 380,
   text: 300,
