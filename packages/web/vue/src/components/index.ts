@@ -71,6 +71,15 @@ export type {
 } from "./NsGrid.vue";
 export { default as NsGridItem } from "./NsGridItem.vue";
 export type { NsGridItemProps } from "./NsGridItem.vue";
+export { default as NsHeading } from "./NsHeading.vue";
+export type {
+  NsHeadingAlign,
+  NsHeadingLevel,
+  NsHeadingProps,
+  NsHeadingSize,
+  NsHeadingTone,
+  NsHeadingWeight
+} from "./NsHeading.vue";
 export { default as NsIcon } from "./NsIcon.vue";
 export type { NsIconProps, NsIconSize } from "./NsIcon.vue";
 export { default as NsKeyboardAvoider } from "./NsKeyboardAvoider.vue";

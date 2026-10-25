@@ -209,6 +209,31 @@ A word of code in a sentence, or a block with a title, a copy button and light s
 Line numbers and prompts are drawn by CSS, so they are never read aloud or copied. The copy button
 confirms with a check and announces `copiedLabel`. `tokenizeLine()` exposes the highlighter.
 
+### Heading
+
+A title with its place in the document outline (`level`, h1 to h6) and a visual `size` that does
+not change it: a compact sidebar can use a small h2, a hero a display h1.
+
+```vue
+<NsHeading
+  :level="1"
+  size="display"
+  tone="gradient"
+  eyebrow="Transferts"
+  subtitle="Kofi reçoit son argent en quelques secondes."
+>
+  Envoyez de l'argent en un geste
+</NsHeading>
+
+<NsHeading :level="2" anchor :lines="2">
+  Historique
+  <template #actions><NsButton>Exporter</NsButton></template>
+</NsHeading>
+```
+
+An eyebrow or a subtitle wraps the title in an `hgroup`. `anchor` adds a `#` link and an id derived
+from the text.
+
 ### Icons
 
 `NsIcon` ships a stroke set drawn on a 24 × 24 grid (`iconNames()` lists it). Add or replace icons

@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "Heading : le niveau et la taille séparés",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "Heading : h1 à h6 pour le plan du document, taille visuelle indépendante"
+      },
+      {
+        kind: "Nouveau",
+        text: "Surtitre et sous-titre regroupés dans un hgroup, actions en bout de ligne"
+      },
+      {
+        kind: "Nouveau",
+        text: "Ton dégradé de marque, coupe après n lignes, ancre # avec un id tiré du texte"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "Code : blocs copiables et code en ligne",
     changes: [
       {

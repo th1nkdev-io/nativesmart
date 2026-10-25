@@ -16,6 +16,7 @@ export const implementedComponents = [
   "container",
   "divider",
   "grid",
+  "heading",
   "icon",
   "input",
   "keyboard-avoider",

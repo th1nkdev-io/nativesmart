@@ -7,6 +7,7 @@ import CodeDemo from "./demos/CodeDemo.vue";
 import ContainerDemo from "./demos/ContainerDemo.vue";
 import DividerDemo from "./demos/DividerDemo.vue";
 import GridDemo from "./demos/GridDemo.vue";
+import HeadingDemo from "./demos/HeadingDemo.vue";
 import IconDemo from "./demos/IconDemo.vue";
 import InputDemo from "./demos/InputDemo.vue";
 import KeyboardAvoiderDemo from "./demos/KeyboardAvoiderDemo.vue";
@@ -34,6 +35,7 @@ export const registry: Readonly<Record<string, Component>> = {
   container: ContainerDemo,
   divider: DividerDemo,
   grid: GridDemo,
+  heading: HeadingDemo,
   icon: IconDemo,
   input: InputDemo,
   "keyboard-avoider": KeyboardAvoiderDemo,
@@ -57,6 +59,7 @@ export const variationTiles: Readonly<Record<string, number>> = {
   container: 240,
   divider: 260,
   grid: 240,
+  heading: 280,
   input: 300,
   "keyboard-avoider": 230,
   modal: 380,
