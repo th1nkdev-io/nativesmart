@@ -14,7 +14,24 @@ export type { NsAvatarProps, NsAvatarSize } from "./NsAvatar.vue";
 export { default as NsBadge } from "./NsBadge.vue";
 export type { NsBadgeIntent, NsBadgeProps } from "./NsBadge.vue";
 export { default as NsBox } from "./NsBox.vue";
-export type { NsBoxBackground, NsBoxProps, NsBoxRadius, NsBoxSpace } from "./NsBox.vue";
+export type {
+  NsBoxAlign,
+  NsBoxBackground,
+  NsBoxBorder,
+  NsBoxBreakpoint,
+  NsBoxDirection,
+  NsBoxDisplay,
+  NsBoxElevation,
+  NsBoxJustify,
+  NsBoxMargin,
+  NsBoxMaterial,
+  NsBoxOverflow,
+  NsBoxProps,
+  NsBoxRadius,
+  NsBoxResponsive,
+  NsBoxSpace,
+  NsBoxTone
+} from "./NsBox.vue";
 export { default as NsButton } from "./NsButton.vue";
 export type { NsButtonIntent, NsButtonProps, NsButtonSize, NsButtonVariant } from "./NsButton.vue";
 export { default as NsCard } from "./NsCard.vue";

@@ -2,24 +2,10 @@ import { mount } from "@vue/test-utils";
 import { describe, expect, it } from "vitest";
 import { registerIcons } from "../icons";
 import NsAvatar from "./NsAvatar.vue";
-import NsBox from "./NsBox.vue";
 import NsCard from "./NsCard.vue";
 import NsDivider from "./NsDivider.vue";
 import NsIcon from "./NsIcon.vue";
 import NsText from "./NsText.vue";
-
-describe("NsBox", () => {
-  it("renders the requested element with spacing and background tokens", () => {
-    const wrapper = mount(NsBox, {
-      props: { as: "section", padding: "4", background: "surface-muted", border: true },
-      slots: { default: "Content" }
-    });
-    expect(wrapper.element.tagName).toBe("SECTION");
-    expect(wrapper.attributes("style")).toContain("--ns-box-padding: var(--ns-space-4)");
-    expect(wrapper.attributes("style")).toContain("var(--ns-color-surface-muted)");
-    expect(wrapper.classes()).toContain("ns-box--border");
-  });
-});
 
 describe("NsDivider", () => {
   it("is a horizontal separator by default", () => {

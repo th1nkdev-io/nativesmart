@@ -25,12 +25,15 @@ function sampleValue(contract: ComponentContract, property: ComponentProperty) {
   }
 }
 
-/** Initial props: contract defaults, plus sample values for required or labelling properties. */
+/**
+ * Initial props: the contract's realistic example when it has one, otherwise its default, plus
+ * sample values for required or labelling properties.
+ */
 export function defaultProps(contract: ComponentContract): ShowcaseProps {
   const props: Record<string, ShowcasePropValue> = {};
   for (const property of contract.properties) {
     if (!editableKinds.has(property.kind)) continue;
-    const value = property.defaultValue ?? sampleValue(contract, property);
+    const value = property.example ?? property.defaultValue ?? sampleValue(contract, property);
     if (value !== undefined) props[property.name] = value;
   }
   return props;

@@ -33,7 +33,7 @@ export const registry: Readonly<Record<string, Component>> = {
 /** Minimum width of one variation tile, in pixels, for components wider than a control. */
 export const variationTiles: Readonly<Record<string, number>> = {
   "aspect-ratio": 168,
-  box: 340,
+  box: 240,
   card: 340,
   input: 300,
   modal: 380,

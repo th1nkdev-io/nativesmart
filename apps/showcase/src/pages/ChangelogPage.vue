@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "Box, le conteneur de base refait",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "Box : padding, marge, gap, flex et grille par point de rupture, en côtés logiques"
+      },
+      {
+        kind: "Nouveau",
+        text: "Fonds avec couleur de texte appariée, bordures, ombres, matières translucides"
+      },
+      {
+        kind: "Nouveau",
+        text: "Anatomie illustrée en modèle de boîte : marge, bordure, padding, contenu"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "Onglets Variations et API repensés",
     changes: [
       {

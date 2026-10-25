@@ -39,6 +39,28 @@ a shimmer until the image loads, a fallback when it fails, and can switch ratio 
 </NsAspectRatio>
 ```
 
+### Box
+
+The base container. Every value is a token, and any layout prop takes one value per breakpoint:
+
+```vue
+<NsBox
+  as="section"
+  :padding="{ base: '4', md: '8' }"
+  display="grid"
+  :columns="{ base: 1, md: 2, lg: 3 }"
+  gap="4"
+  background="surface-muted"
+  radius="xl"
+>
+  …
+</NsBox>
+```
+
+Spacing uses logical sides (`paddingInline`, `marginBlock`), so layouts mirror in right-to-left
+languages. The text tone follows the background (`surface-brand` gets `text-on-brand`), and
+`material` gives a translucent blurred surface.
+
 ### Icons
 
 `NsIcon` ships a stroke set drawn on a 24 × 24 grid (`iconNames()` lists it). Add or replace icons
