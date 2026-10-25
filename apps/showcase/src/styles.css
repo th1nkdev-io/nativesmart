@@ -4036,6 +4036,129 @@ button[aria-selected="true"] .component-tabs__count {
   line-height: 1;
 }
 
+/* Icon: the glyph on its 24 grid, inside a soft container, and the size scale */
+.anat-ic {
+  display: grid;
+  place-items: center;
+  padding: var(--ns-space-8) var(--ns-space-4);
+  border-radius: var(--ns-radius-xl);
+  background: var(--ns-color-surface-sunken);
+}
+
+.anat-ic__container {
+  position: relative;
+  display: grid;
+  place-items: center;
+  inline-size: 200px;
+  block-size: 200px;
+  border-radius: 44px;
+  background: var(--ns-color-primary-muted);
+  outline: 2px dashed transparent;
+  outline-offset: 4px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-ic__container.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-ic__root {
+  position: relative;
+  display: block;
+  inline-size: 120px;
+  block-size: 120px;
+  border-radius: var(--ns-radius-sm);
+  outline: 1px dashed color-mix(in srgb, var(--ns-color-primary) 60%, transparent);
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-ic__root.is-active {
+  outline: 2px dashed var(--ns-color-warning);
+}
+
+.anat-ic__root svg {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+}
+
+.anat-ic__grid path {
+  stroke: color-mix(in srgb, var(--ns-color-primary) 18%, transparent);
+  stroke-width: 0.06;
+}
+
+.anat-ic__grid rect {
+  fill: none;
+  stroke: color-mix(in srgb, var(--ns-color-primary) 45%, transparent);
+  stroke-dasharray: 0.4 0.3;
+  stroke-width: 0.08;
+}
+
+.anat-ic__glyph {
+  fill: none;
+  stroke: var(--ns-color-primary);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-ic__glyph.is-active {
+  stroke: var(--ns-color-warning);
+}
+
+.anat-ic__pin {
+  position: absolute;
+}
+
+.anat-ic__pin--container {
+  inset-block-start: 6px;
+  inset-inline-start: 6px;
+}
+
+.anat-ic__pin--root {
+  inset-block-start: -11px;
+  inset-inline-end: -11px;
+}
+
+.anat-ic__pin--glyph {
+  inset-block-end: 14px;
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-ic__sizes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: center;
+  gap: var(--ns-space-3);
+  margin-block-start: var(--ns-space-5);
+}
+
+.anat-ic__sizes span {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  color: var(--ns-color-text-muted);
+  font-family: var(--ns-font-mono);
+  font-size: 10px;
+}
+
+.anat-ic__sizes svg {
+  margin-block-end: var(--ns-space-1);
+  fill: none;
+  stroke: var(--ns-color-text);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.anat-ic__sizes b {
+  color: var(--ns-color-text);
+  font-weight: var(--ns-font-weight-semibold);
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);

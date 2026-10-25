@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "Icon : tons, conteneurs et mouvements",
+    changes: [
+      {
+        kind: "Amélioré",
+        text: "Icon : huit tailles de 10 à 48 px, sept tons, trait fin, normal ou gras"
+      },
+      {
+        kind: "Amélioré",
+        text: "Conteneur teinté, plein ou contour, en cercle, carré arrondi ou carré"
+      },
+      {
+        kind: "Amélioré",
+        text: "Rotation, miroir, rotation continue ; la bibliothèque se filtre et copie la balise"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "Heading : le niveau et la taille séparés",
     changes: [
       {

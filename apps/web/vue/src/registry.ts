@@ -60,6 +60,7 @@ export const variationTiles: Readonly<Record<string, number>> = {
   divider: 260,
   grid: 240,
   heading: 280,
+  icon: 200,
   input: 300,
   "keyboard-avoider": 230,
   modal: 380,

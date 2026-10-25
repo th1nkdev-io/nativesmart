@@ -236,8 +236,18 @@ from the text.
 
 ### Icons
 
-`NsIcon` ships a stroke set drawn on a 24 × 24 grid (`iconNames()` lists it). Add or replace icons
-when installing the plugin:
+`NsIcon` ships a stroke set drawn on a 24 × 24 grid (`iconNames()` lists it):
+
+```vue
+<NsIcon name="check-circle" tone="success" label="Payé" />
+<NsIcon name="wallet" variant="soft" shape="circle" tone="primary" size="lg" />
+<NsIcon name="refresh" spin />
+<NsIcon name="chevron-down" :rotate="180" />
+```
+
+`variant` puts the glyph in a tinted (`soft`), `solid` or `outline` container about twice its size.
+Large sizes thin the stroke unless `stroke` says otherwise; spinning stops under reduced motion.
+Add or replace icons when installing the plugin:
 
 ```ts
 app.use(Nativesmart, { icons: { logo: "M4 4h16v16H4Z" } });

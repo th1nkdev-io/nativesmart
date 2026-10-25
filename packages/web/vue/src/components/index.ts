@@ -81,7 +81,16 @@ export type {
   NsHeadingWeight
 } from "./NsHeading.vue";
 export { default as NsIcon } from "./NsIcon.vue";
-export type { NsIconProps, NsIconSize } from "./NsIcon.vue";
+export type {
+  NsIconFlip,
+  NsIconProps,
+  NsIconRotation,
+  NsIconShape,
+  NsIconSize,
+  NsIconStroke,
+  NsIconTone,
+  NsIconVariant
+} from "./NsIcon.vue";
 export { default as NsKeyboardAvoider } from "./NsKeyboardAvoider.vue";
 export type {
   NsKeyboardAvoiderBehavior,

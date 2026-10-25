@@ -6,6 +6,7 @@ import ContainerAnatomy from "./ContainerAnatomy.vue";
 import DividerAnatomy from "./DividerAnatomy.vue";
 import GridAnatomy from "./GridAnatomy.vue";
 import HeadingAnatomy from "./HeadingAnatomy.vue";
+import IconAnatomy from "./IconAnatomy.vue";
 import KeyboardAvoiderAnatomy from "./KeyboardAvoiderAnatomy.vue";
 import SafeAreaAnatomy from "./SafeAreaAnatomy.vue";
 import ScrollAreaAnatomy from "./ScrollAreaAnatomy.vue";
@@ -25,6 +26,7 @@ export const anatomyFigures: Readonly<Record<string, Component>> = {
   divider: DividerAnatomy,
   grid: GridAnatomy,
   heading: HeadingAnatomy,
+  icon: IconAnatomy,
   "keyboard-avoider": KeyboardAvoiderAnatomy,
   "safe-area": SafeAreaAnatomy,
   "scroll-area": ScrollAreaAnatomy,
