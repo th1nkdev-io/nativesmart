@@ -265,7 +265,10 @@ const techName = computed(
               ><Icon name="check" :size="12" />{{ property.defaultValue }}</code
             >
             <span v-else-if="property.example !== undefined" class="api-example"
-              >ex. <code>{{ property.example }}</code></span
+              >ex.
+              <code>{{
+                Array.isArray(property.example) ? property.example.join(", ") : property.example
+              }}</code></span
             >
             <span v-else class="muted">libre</span>
           </span>

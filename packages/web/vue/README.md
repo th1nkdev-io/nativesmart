@@ -246,6 +246,25 @@ site opens a new tab, with `rel="noopener noreferrer"` and a spoken « opens in 
 
 `external` forces or prevents the new tab. A disabled link drops its `href`.
 
+### List
+
+A text list with drawn markers. Numbers and steps render an `ol`, the others a `ul`, and every list
+keeps `role="list"`:
+
+```vue
+<NsList :items="['Mobile Money', 'Carte bancaire']" marker="check" tone="success" />
+<NsList
+  marker="steps"
+  :items="[{ title: 'Créez votre compte', description: 'Un numéro suffit.' }]"
+/>
+<NsList marker="icon" icon="star" columns="2" dividers>
+  <li>Sans frais</li>
+  <li>En quelques secondes</li>
+</NsList>
+```
+
+Markers are generated content, so `li` elements written in the slot get them too.
+
 ### Code
 
 A word of code in a sentence, or a block with a title, a copy button and light syntax colors:

@@ -12,6 +12,7 @@ import KbdAnatomy from "./KbdAnatomy.vue";
 import KeyboardAvoiderAnatomy from "./KeyboardAvoiderAnatomy.vue";
 import LabelAnatomy from "./LabelAnatomy.vue";
 import LinkAnatomy from "./LinkAnatomy.vue";
+import ListAnatomy from "./ListAnatomy.vue";
 import SafeAreaAnatomy from "./SafeAreaAnatomy.vue";
 import ScrollAreaAnatomy from "./ScrollAreaAnatomy.vue";
 import SpacerAnatomy from "./SpacerAnatomy.vue";
@@ -37,6 +38,7 @@ export const anatomyFigures: Readonly<Record<string, Component>> = {
   "keyboard-avoider": KeyboardAvoiderAnatomy,
   label: LabelAnatomy,
   link: LinkAnatomy,
+  list: ListAnatomy,
   "safe-area": SafeAreaAnatomy,
   "scroll-area": ScrollAreaAnatomy,
   spacer: SpacerAnatomy,

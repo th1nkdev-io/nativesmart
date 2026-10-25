@@ -129,6 +129,15 @@ export type {
   NsLinkUnderline,
   NsLinkVariant
 } from "./NsLink.vue";
+export { default as NsList } from "./NsList.vue";
+export type {
+  NsListItem,
+  NsListMarker,
+  NsListProps,
+  NsListSize,
+  NsListSpacing,
+  NsListTone
+} from "./NsList.vue";
 export { default as NsModal } from "./NsModal.vue";
 export type { NsModalProps, NsModalSize } from "./NsModal.vue";
 export { default as NsSafeArea } from "./NsSafeArea.vue";

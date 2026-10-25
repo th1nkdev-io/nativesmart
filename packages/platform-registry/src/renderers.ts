@@ -182,6 +182,7 @@ export const rendererManifests: readonly RendererManifest[] = [
       "kbd",
       "label",
       "link",
+      "list",
       "keyboard-avoider",
       "safe-area",
       "scroll-area",

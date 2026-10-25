@@ -4812,6 +4812,165 @@ button[aria-selected="true"] .component-tabs__count {
   text-decoration: none;
 }
 
+/* List: two steps with their markers, connector, titles and descriptions, then the markers */
+.anat-ls {
+  position: relative;
+  padding: var(--ns-space-6) var(--ns-space-10) var(--ns-space-6) var(--ns-space-6);
+  border-radius: var(--ns-radius-xl);
+  background: var(--ns-color-surface);
+  box-shadow: var(--ns-elevation-card);
+  outline: 2px dashed transparent;
+  outline-offset: 4px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-ls.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-ls__list {
+  display: grid;
+  gap: var(--ns-space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.anat-ls__item {
+  position: relative;
+  display: flex;
+  gap: var(--ns-space-3);
+  border-radius: var(--ns-radius-md);
+  transition: background-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-ls__item.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-ls__marker {
+  position: relative;
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  inline-size: 28px;
+  block-size: 28px;
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-primary);
+  color: var(--ns-color-on-primary);
+  font-size: 12px;
+  font-weight: var(--ns-font-weight-bold);
+}
+
+.anat-ls__marker.is-active {
+  background: var(--ns-color-warning);
+  color: var(--ns-color-on-warning);
+}
+
+.anat-ls__connector {
+  position: absolute;
+  inset-block: 32px -16px;
+  inset-inline-start: 13px;
+  inline-size: 2px;
+  background: color-mix(in srgb, var(--ns-color-primary) 30%, transparent);
+}
+
+.anat-ls__connector.is-active {
+  inline-size: 3px;
+  background: var(--ns-color-warning);
+}
+
+.anat-ls__body {
+  display: grid;
+  gap: 2px;
+  padding-block-start: 3px;
+}
+
+.anat-ls__body b {
+  color: var(--ns-color-text);
+  font-size: var(--ns-text-body-sm-size);
+}
+
+.anat-ls__body small {
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-text-caption-size);
+}
+
+.anat-ls__part {
+  position: relative;
+  justify-self: start;
+  border-radius: 3px;
+}
+
+.anat-ls__part.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-ls__pin {
+  position: absolute;
+}
+
+.anat-ls__pin--root {
+  inset-block-start: -12px;
+  inset-inline-start: -12px;
+}
+
+.anat-ls__pin--marker {
+  inset-block-start: 3px;
+  inset-inline-start: -34px;
+}
+
+.anat-ls__pin--connector {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-start: -28px;
+}
+
+.anat-ls__pin--side {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-start: calc(100% + 6px);
+}
+
+.anat-ls__pin--item {
+  inset-block-start: -12px;
+  inset-inline-end: -32px;
+}
+
+.anat-ls__markers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--ns-space-5);
+  margin-block-start: var(--ns-space-5);
+}
+
+.anat-ls__markers span {
+  display: grid;
+  justify-items: center;
+  gap: var(--ns-space-1);
+  color: var(--ns-color-text-muted);
+  font-family: var(--ns-font-mono);
+  font-size: 10px;
+}
+
+.anat-ls__markers i {
+  display: grid;
+  place-items: center;
+  inline-size: 24px;
+  block-size: 24px;
+  color: var(--ns-color-primary);
+  font-family: var(--ns-font-sans);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: var(--ns-font-weight-bold);
+}
+
+.anat-ls__markers i.is-steps {
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-primary);
+  color: var(--ns-color-on-primary);
+  font-size: 11px;
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);

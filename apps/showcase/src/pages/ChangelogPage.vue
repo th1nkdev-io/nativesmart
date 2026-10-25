@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "List : puces, coches et étapes",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "List : puce, numéro, coche, tiret, icône au choix ou aucun marqueur, en cinq tons"
+      },
+      {
+        kind: "Nouveau",
+        text: "Étapes numérotées reliées par un trait, titre et description pour chaque élément"
+      },
+      {
+        kind: "Nouveau",
+        text: "Trois espacements, séparateurs, deux ou trois colonnes sur grand écran"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "Link : liens dans le texte, liens autonomes, liens externes",
     changes: [
       {

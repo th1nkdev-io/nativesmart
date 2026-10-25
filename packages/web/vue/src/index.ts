@@ -24,6 +24,7 @@ export const implementedComponents = [
   "keyboard-avoider",
   "label",
   "link",
+  "list",
   "modal",
   "safe-area",
   "scroll-area",
