@@ -36,8 +36,7 @@ export const buttonContract = defineContract({
       defaultValue: false
     }),
     property("href", "string", "Renders a link that looks like a button"),
-    property("type", "enum", "Form behaviour of a button element", {
-      values: ["button", "submit", "reset"],
+    property("type", "string", "Form behaviour of a button element: button, submit or reset", {
       defaultValue: "button"
     }),
     property("children", "slot", "Custom label content; label stays the accessible name"),

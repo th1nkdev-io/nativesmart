@@ -8,7 +8,7 @@ const button = getComponentContract("button")!;
 describe("variations", () => {
   it("starts from contract defaults and labels the component", () => {
     expect(defaultProps(button)).toMatchObject({
-      label: "Button",
+      label: "Envoyer",
       variant: "solid",
       intent: "primary",
       size: "md",
@@ -37,14 +37,26 @@ describe("variations", () => {
 
   it("lists every enum value and every boolean state", () => {
     const groups = variationsFor(button);
-    expect(groups.map((group) => group.title)).toEqual(["variant", "intent", "size", "states"]);
+    expect(groups.map((group) => group.title)).toEqual([
+      "variant",
+      "intent",
+      "size",
+      "shape",
+      "states"
+    ]);
     expect(groups[0].items.map((item) => item.label)).toEqual([
       "solid",
+      "soft",
       "outline",
       "ghost",
       "link"
     ]);
-    expect(groups[3].items.map((item) => item.label)).toEqual(["default", "loading", "disabled"]);
+    expect(groups[4].items.map((item) => item.label)).toEqual([
+      "default",
+      "loading",
+      "block",
+      "disabled"
+    ]);
   });
 });
 
