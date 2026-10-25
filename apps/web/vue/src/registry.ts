@@ -26,6 +26,7 @@ import StackDemo from "./demos/StackDemo.vue";
 import SurfaceDemo from "./demos/SurfaceDemo.vue";
 import TextDemo from "./demos/TextDemo.vue";
 import ToastDemo from "./demos/ToastDemo.vue";
+import ToggleButtonDemo from "./demos/ToggleButtonDemo.vue";
 
 /**
  * Contract id to Vue component. Props use the contract property names one to one; demos wrap
@@ -60,7 +61,8 @@ export const registry: Readonly<Record<string, Component>> = {
   surface: SurfaceDemo,
   spinner: NsSpinner,
   text: TextDemo,
-  toast: ToastDemo
+  toast: ToastDemo,
+  "toggle-button": ToggleButtonDemo
 };
 
 /** Minimum width of one variation tile, in pixels, for components wider than a control. */
@@ -90,5 +92,6 @@ export const variationTiles: Readonly<Record<string, number>> = {
   stack: 260,
   surface: 240,
   text: 280,
-  toast: 400
+  toast: 400,
+  "toggle-button": 300
 };

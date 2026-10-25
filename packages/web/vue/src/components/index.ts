@@ -205,5 +205,7 @@ export type {
   NsTextTone,
   NsTextWeight
 } from "./NsText.vue";
+export { default as NsToggleButton } from "./NsToggleButton.vue";
+export type { NsToggleButtonProps, NsToggleButtonVariant } from "./NsToggleButton.vue";
 export { default as NsToast } from "./NsToast.vue";
 export type { NsToastIntent, NsToastProps } from "./NsToast.vue";

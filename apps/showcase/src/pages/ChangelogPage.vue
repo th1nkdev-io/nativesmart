@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "ToggleButton : un bouton qui garde son état",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "ToggleButton : v-model:pressed, aria-pressed, le même nom allumé ou éteint"
+      },
+      {
+        kind: "Nouveau",
+        text: "Icône qui change à l'état pressé, comme l'œil barré pour masquer un solde"
+      },
+      {
+        kind: "Nouveau",
+        text: "Contour, fantôme ou teinté au repos, la teinte et la bordure de l'intention une fois pressé"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "IconButton : l'icône seule, toujours nommée",
     changes: [
       {

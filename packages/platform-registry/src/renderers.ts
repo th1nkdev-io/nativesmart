@@ -190,6 +190,7 @@ export const rendererManifests: readonly RendererManifest[] = [
       "spacer",
       "stack",
       "surface",
+      "toggle-button",
       ...previewComponents
     ],
     styling: "CSS custom properties and Tailwind preset",

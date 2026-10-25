@@ -5264,6 +5264,111 @@ button[aria-selected="true"] .component-tabs__count {
   border-radius: var(--ns-radius-xs);
 }
 
+/* ToggleButton: the same button off and on, with the part that changes */
+.anat-tg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ns-space-5);
+  padding: var(--ns-space-10) var(--ns-space-4) var(--ns-space-8);
+  border-radius: var(--ns-radius-xl);
+  background: var(--ns-color-surface-sunken);
+}
+
+.anat-tg__state {
+  display: grid;
+  justify-items: center;
+  gap: var(--ns-space-2);
+}
+
+.anat-tg__state:last-child {
+  margin-block-start: var(--ns-space-6);
+  gap: var(--ns-space-6);
+}
+
+.anat-tg__state small {
+  color: var(--ns-color-text-muted);
+  font-family: var(--ns-font-mono);
+  font-size: 10px;
+}
+
+.anat-tg__button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ns-space-2);
+  min-block-size: 40px;
+  padding-inline: var(--ns-space-4);
+  border: 1px solid var(--ns-color-border);
+  border-radius: var(--ns-radius-control);
+  background: var(--ns-color-surface);
+  color: var(--ns-color-text);
+  font-size: var(--ns-text-label-md-size);
+  font-weight: var(--ns-font-weight-semibold);
+  outline: 2px dashed transparent;
+  outline-offset: 4px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-tg__button.is-pressed {
+  border-color: var(--ns-color-primary);
+  background: var(--ns-color-primary-muted);
+  color: var(--ns-color-primary-text);
+}
+
+.anat-tg__button.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-tg__part {
+  position: relative;
+  display: inline-flex;
+  padding: 2px;
+  border-radius: var(--ns-radius-sm);
+}
+
+.anat-tg__part.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-tg svg {
+  inline-size: 16px;
+  block-size: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.anat-tg__button.is-pressed svg {
+  fill: currentColor;
+}
+
+.anat-tg__arrow {
+  color: var(--ns-color-text-subtle);
+  transform: rotate(90deg);
+}
+
+.anat-tg__pin {
+  position: absolute;
+}
+
+.anat-tg__pin--root {
+  inset-block-start: -14px;
+  inset-inline-end: -14px;
+}
+
+.anat-tg__pin--below {
+  inset-block-start: calc(100% + 10px);
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-tg__pin--above {
+  inset-block-end: calc(100% + 10px);
+  inset-inline-start: calc(50% - 11px);
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);

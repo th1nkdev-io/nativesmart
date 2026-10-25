@@ -21,6 +21,7 @@ import SpacerAnatomy from "./SpacerAnatomy.vue";
 import StackAnatomy from "./StackAnatomy.vue";
 import SurfaceAnatomy from "./SurfaceAnatomy.vue";
 import TextAnatomy from "./TextAnatomy.vue";
+import ToggleButtonAnatomy from "./ToggleButtonAnatomy.vue";
 
 /**
  * Illustrated anatomies: a drawing of the component with a numbered pin on each part. Components
@@ -48,5 +49,6 @@ export const anatomyFigures: Readonly<Record<string, Component>> = {
   spacer: SpacerAnatomy,
   stack: StackAnatomy,
   surface: SurfaceAnatomy,
-  text: TextAnatomy
+  text: TextAnatomy,
+  "toggle-button": ToggleButtonAnatomy
 };

@@ -53,6 +53,23 @@ in a tooltip on hover and focus.
 
 A badge count joins the name (« Notifications, 3 »); an empty badge draws a dot.
 
+### ToggleButton
+
+A button that stays on or off, exposed with `aria-pressed`. Its name stays the same in both states:
+
+```vue
+<NsToggleButton v-model:pressed="favorite" label="Favori" icon="heart" />
+<NsToggleButton
+  v-model:pressed="hidden"
+  label="Masquer le solde"
+  icon="eye"
+  icon-pressed="eye-off"
+  icon-only
+/>
+```
+
+For one choice among several, use `NsSegmentedControl`.
+
 ### AspectRatio
 
 Frames any media at a ratio token (`video`, `square`, `photo`, `portrait`, `story`, `wide`,

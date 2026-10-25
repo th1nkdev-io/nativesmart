@@ -34,5 +34,6 @@ export const implementedComponents = [
   "stack",
   "surface",
   "text",
-  "toast"
+  "toast",
+  "toggle-button"
 ] as const;
