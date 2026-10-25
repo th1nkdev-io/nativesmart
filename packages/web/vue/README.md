@@ -195,6 +195,21 @@ nested panels lift on their own. The slot receives the resolved level:
 `variant` picks a shadow (`elevated`), an outline, a fill or glass; `tone` colors the layer and its
 text. `interactive` lifts it on hover and makes a `div` keyboard-operable as a button.
 
+### Text
+
+Running text in a semantic role: `body`, `lead`, `label`, `caption`, `overline`, `quote`, `heading`
+or `display`. The role picks the text style and the element (p, span, blockquote, h1 to h6):
+
+```vue
+<NsText role="lead">Kofi reçoit son argent en quelques secondes.</NsText>
+<NsText size="sm" tone="muted" :lines="3" expandable>{{ description }}</NsText>
+<NsText strike tone="subtle" numeric>15 000 FCFA</NsText>
+<NsText copyable>NS-4521</NsText>
+```
+
+`strong`, `italic`, `strike`, `mark` and `underline` wrap the text in the matching element, so the
+meaning is announced. The expand button only appears when the text really overflows.
+
 ### Code
 
 A word of code in a sentence, or a block with a title, a copy button and light syntax colors:

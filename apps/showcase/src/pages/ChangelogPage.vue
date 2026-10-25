@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "Text : rôles, décorations et texte replié",
+    changes: [
+      {
+        kind: "Amélioré",
+        text: "Text : chapô, surtitre et citation en plus, tailles, graisses, tons et alignements"
+      },
+      {
+        kind: "Amélioré",
+        text: "Gras, italique, souligné, barré et surligné en vraies balises, chiffres tabulaires"
+      },
+      {
+        kind: "Amélioré",
+        text: "Coupe après n lignes avec « Lire la suite », bouton de copie du texte"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "Kbd : des raccourcis qui parlent chaque clavier",
     changes: [
       {

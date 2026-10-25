@@ -4463,6 +4463,128 @@ button[aria-selected="true"] .component-tabs__count {
   font-style: normal;
 }
 
+/* Text: a clamped paragraph with a highlight, its expand and copy buttons, and the decorations */
+.anat-tx {
+  position: relative;
+  display: grid;
+  gap: var(--ns-space-2);
+  padding: var(--ns-space-5);
+  border-radius: var(--ns-radius-xl);
+  background: var(--ns-color-surface);
+  box-shadow: var(--ns-elevation-card);
+  outline: 2px dashed transparent;
+  outline-offset: 4px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-tx.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-tx__content {
+  position: relative;
+  margin: 0;
+  padding: 2px 4px;
+  border-radius: var(--ns-radius-sm);
+  color: var(--ns-color-text);
+  font-size: var(--ns-text-body-sm-size);
+  line-height: 1.6;
+  transition: background-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-tx__content.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-tx mark,
+.anat-tx__decorations mark {
+  position: relative;
+  padding-inline: 0.15em;
+  border-radius: 3px;
+  background: var(--ns-color-warning-muted);
+  color: var(--ns-color-on-warning-muted);
+}
+
+.anat-tx mark.is-active {
+  outline: 2px solid var(--ns-color-warning);
+}
+
+.anat-tx__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--ns-space-10);
+}
+
+.anat-tx__expand,
+.anat-tx__copy {
+  position: relative;
+  padding: 2px 4px;
+  border-radius: var(--ns-radius-sm);
+  color: var(--ns-color-text-link);
+  font-size: var(--ns-text-caption-size);
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.anat-tx__copy {
+  display: inline-grid;
+  place-items: center;
+  color: var(--ns-color-text-subtle);
+}
+
+.anat-tx__copy svg {
+  inline-size: 14px;
+  block-size: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.anat-tx__expand.is-active,
+.anat-tx__copy.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-tx__pin {
+  position: absolute;
+}
+
+.anat-tx__pin--root {
+  inset-block-start: -12px;
+  inset-inline-start: -12px;
+}
+
+.anat-tx__pin--content {
+  inset-block-end: -6px;
+  inset-inline-end: -30px;
+}
+
+.anat-tx__pin--mark {
+  inset-block-start: -24px;
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-tx__pin--action {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-start: calc(100% + 4px);
+}
+
+.anat-tx__decorations {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--ns-space-2) var(--ns-space-4);
+  margin-block-start: var(--ns-space-5);
+  color: var(--ns-color-text);
+  font-size: var(--ns-text-body-sm-size);
+}
+
+.anat-tx__decorations .is-numeric {
+  font-family: var(--ns-font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);

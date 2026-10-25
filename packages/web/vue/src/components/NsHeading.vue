@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, useSlots, type VNode } from "vue";
+import { computed, useSlots } from "vue";
+import { slotText } from "./slot-text";
 
 export type NsHeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 export type NsHeadingSize = "auto" | "display" | "xl" | "lg" | "md" | "sm" | "xs";
@@ -55,23 +56,11 @@ const styles: Record<Exclude<NsHeadingSize, "auto">, string> = {
 };
 const textStyle = computed(() => (props.size === "auto" ? `h${level.value}` : styles[props.size]));
 
-function slotText(nodes: VNode[] | undefined): string {
-  return (nodes ?? [])
-    .map((node) =>
-      typeof node.children === "string"
-        ? node.children
-        : Array.isArray(node.children)
-          ? slotText(node.children as VNode[])
-          : ""
-    )
-    .join("");
-}
-
 /** `Envoyez de l'argent` becomes `envoyez-de-l-argent`. */
 function slugify(value: string) {
   return value
     .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
+    .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");

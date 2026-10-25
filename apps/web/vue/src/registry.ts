@@ -75,6 +75,6 @@ export const variationTiles: Readonly<Record<string, number>> = {
   spacer: 240,
   stack: 260,
   surface: 240,
-  text: 300,
+  text: 280,
   toast: 400
 };

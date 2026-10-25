@@ -15,6 +15,7 @@ import ScrollAreaAnatomy from "./ScrollAreaAnatomy.vue";
 import SpacerAnatomy from "./SpacerAnatomy.vue";
 import StackAnatomy from "./StackAnatomy.vue";
 import SurfaceAnatomy from "./SurfaceAnatomy.vue";
+import TextAnatomy from "./TextAnatomy.vue";
 
 /**
  * Illustrated anatomies: a drawing of the component with a numbered pin on each part. Components
@@ -36,5 +37,6 @@ export const anatomyFigures: Readonly<Record<string, Component>> = {
   "scroll-area": ScrollAreaAnatomy,
   spacer: SpacerAnatomy,
   stack: StackAnatomy,
-  surface: SurfaceAnatomy
+  surface: SurfaceAnatomy,
+  text: TextAnatomy
 };

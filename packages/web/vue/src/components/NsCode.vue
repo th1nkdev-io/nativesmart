@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref, useSlots, type VNode } from "vue";
+import { computed, onBeforeUnmount, ref, useSlots } from "vue";
+import { slotText } from "./slot-text";
 import { parseLineRanges, tokenizeLine, type NsCodeLanguage } from "./code-syntax";
 import NsIcon from "./NsIcon.vue";
 
@@ -53,19 +54,6 @@ const props = withDefaults(defineProps<NsCodeProps>(), {
 
 const emit = defineEmits<{ copy: [code: string] }>();
 const slots = useSlots();
-
-/* The slot text when no code prop: a block keeps its own line breaks, minus the outer blank lines. */
-function slotText(nodes: VNode[] | undefined): string {
-  return (nodes ?? [])
-    .map((node) =>
-      typeof node.children === "string"
-        ? node.children
-        : Array.isArray(node.children)
-          ? slotText(node.children as VNode[])
-          : ""
-    )
-    .join("");
-}
 
 const source = computed(() => {
   const text = props.code ?? slotText(slots.default?.());

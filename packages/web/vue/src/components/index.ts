@@ -168,6 +168,13 @@ export type {
   NsSurfaceVariant
 } from "./NsSurface.vue";
 export { default as NsText } from "./NsText.vue";
-export type { NsTextProps, NsTextRole, NsTextTone } from "./NsText.vue";
+export type {
+  NsTextAlign,
+  NsTextProps,
+  NsTextRole,
+  NsTextSize,
+  NsTextTone,
+  NsTextWeight
+} from "./NsText.vue";
 export { default as NsToast } from "./NsToast.vue";
 export type { NsToastIntent, NsToastProps } from "./NsToast.vue";
