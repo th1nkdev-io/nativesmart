@@ -1563,21 +1563,168 @@ kbd {
   justify-content: space-between;
 }
 
-.availability {
+/* Availability: every technology, grouped by family, with its status */
+.availability-card {
+  gap: 0;
+}
+
+.availability-card__summary {
   display: grid;
   gap: var(--ns-space-2);
+  padding: var(--ns-space-3) var(--ns-space-4);
+  border-block-end: 1px solid var(--ns-color-border-subtle);
+}
+
+.availability-card__bar {
+  display: flex;
+  gap: 3px;
+  block-size: 6px;
+}
+
+.availability-card__bar i {
+  flex-basis: 0;
+  border-radius: var(--ns-radius-full);
+}
+
+.availability-card__summary p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ns-space-1) var(--ns-space-3);
   margin: 0;
+  font-size: var(--ns-text-caption-size);
+}
+
+.availability-card__summary span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--ns-color-text-muted);
+}
+
+.availability-card__summary span::before {
+  content: "";
+  inline-size: 7px;
+  block-size: 7px;
+  border-radius: var(--ns-radius-full);
+  background: var(--availability-tone);
+}
+
+.availability-card .is-lab {
+  --availability-tone: var(--ns-color-success);
+}
+
+.availability-card .is-coded {
+  --availability-tone: var(--ns-color-info);
+}
+
+.availability-card .is-planned {
+  --availability-tone: var(--ns-color-border);
+}
+
+.availability-card__bar i {
+  background: var(--availability-tone);
+}
+
+.availability-card__families {
+  display: grid;
+  gap: var(--ns-space-1);
+  padding: var(--ns-space-2) var(--ns-space-2) var(--ns-space-3);
+}
+
+.availability-card__family h3 {
+  margin: var(--ns-space-2) var(--ns-space-2) var(--ns-space-1);
+  color: var(--ns-color-text-subtle);
+  font-size: 10px;
+  font-weight: var(--ns-font-weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.availability-card__family ul {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 
-.availability li {
-  display: flex;
+.availability-row {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
   align-items: center;
-  gap: var(--ns-space-2);
+  gap: var(--ns-space-2-5);
+  inline-size: 100%;
+  padding: 6px var(--ns-space-2);
+  border: 0;
+  border-radius: var(--ns-radius-md);
+  background: transparent;
+  color: var(--ns-color-text);
+  font: inherit;
+  font-size: var(--ns-text-body-sm-size);
+  text-align: start;
+  cursor: pointer;
+  transition: background-color var(--ns-duration-fast) var(--ns-easing-standard);
 }
 
-.availability small {
-  margin-inline-start: auto;
+.availability-row:hover {
+  background: var(--ns-color-surface-hover);
+}
+
+.availability-row:focus-visible {
+  outline: var(--ns-focus-ring-width) solid var(--ns-color-focus-ring);
+  outline-offset: -2px;
+}
+
+.availability-row svg {
+  inline-size: 16px;
+  block-size: 16px;
+  fill: currentColor;
+}
+
+.availability-row.is-planned svg {
+  fill: var(--ns-color-text-subtle);
+}
+
+.availability-row.is-planned .availability-row__name {
+  color: var(--ns-color-text-muted);
+}
+
+.availability-row__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.availability-row__status {
+  padding: 1px 7px;
+  border-radius: var(--ns-radius-full);
+  background: color-mix(in srgb, var(--availability-tone) 16%, transparent);
+  color: var(--ns-color-text-muted);
+  font-size: 10px;
+  font-weight: var(--ns-font-weight-semibold);
+  white-space: nowrap;
+}
+
+.availability-row.is-lab .availability-row__status {
+  color: var(--ns-color-success-text);
+}
+
+.availability-row.is-coded .availability-row__status {
+  color: var(--ns-color-info-text);
+}
+
+.availability-row.is-planned .availability-row__status {
+  background: transparent;
+  color: var(--ns-color-text-subtle);
+}
+
+.availability-row.is-current {
+  background: var(--ns-color-primary-muted);
+  box-shadow: inset 2px 0 0 var(--ns-color-primary);
+}
+
+[dir="rtl"] .availability-row.is-current {
+  box-shadow: inset -2px 0 0 var(--ns-color-primary);
 }
 
 /* Pages */
@@ -1958,83 +2105,275 @@ button[aria-selected="true"] .component-tabs__count {
   font-size: var(--ns-text-label-md-size);
 }
 
-/* Anatomy: a schematic of nested parts beside the numbered legend */
-.api-anatomy {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: var(--ns-space-6);
-  align-items: start;
-}
-
-.api-anatomy__map {
-  display: grid;
-  gap: var(--ns-space-3);
-  padding: var(--ns-space-4);
-  border: 1.5px dashed color-mix(in srgb, var(--ns-color-primary) 55%, transparent);
-  border-radius: var(--ns-radius-xl);
-  background:
-    radial-gradient(circle, var(--ns-color-border-subtle) 1px, transparent 1.5px) 0 0 / 14px 14px,
-    color-mix(in srgb, var(--ns-color-primary-muted) 40%, var(--ns-color-surface));
-}
-
-.api-anatomy__parts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--ns-space-2);
-}
-
-.api-anatomy__root,
-.api-anatomy__part {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--ns-space-2);
-  font-family: var(--ns-font-mono);
-  font-size: 12px;
-}
-
-.api-anatomy__root {
-  color: var(--ns-color-primary);
-  font-weight: var(--ns-font-weight-semibold);
-}
-
-.api-anatomy__part {
-  padding: var(--ns-space-2) var(--ns-space-3);
-  border: 1px solid var(--ns-color-border);
-  border-radius: var(--ns-radius-md);
-  background: var(--ns-color-surface);
-  box-shadow: var(--ns-elevation-1);
-}
-
-.api-anatomy__map b,
-.api-pin {
+/* Anatomy: an illustration with numbered pins, or a structure tree */
+.anatomy-pin {
   display: inline-grid;
   flex: none;
   place-items: center;
-  inline-size: 20px;
-  block-size: 20px;
+  inline-size: 22px;
+  block-size: 22px;
   border-radius: var(--ns-radius-full);
   background: var(--ns-color-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ns-color-surface) 85%, transparent);
   color: var(--ns-color-on-primary);
   font-family: var(--ns-font-sans);
   font-size: 11px;
+  font-style: normal;
   font-weight: var(--ns-font-weight-bold);
+  transition:
+    transform var(--ns-duration-fast) var(--ns-easing-standard),
+    background-color var(--ns-duration-fast) var(--ns-easing-standard);
 }
 
-.api-anatomy__list {
+.anatomy-pin.is-active,
+.api-legend li.is-active .anatomy-pin {
+  background: var(--ns-color-warning);
+  color: var(--ns-color-on-warning);
+  transform: scale(1.18);
+}
+
+.api-anatomy {
   display: grid;
-  gap: var(--ns-space-3);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: var(--ns-space-8);
+  align-items: start;
+}
+
+.anatomy-figure {
+  display: grid;
+  gap: var(--ns-space-4);
+  padding: var(--ns-space-6);
+  border-radius: var(--ns-radius-xl);
+  background:
+    radial-gradient(circle, var(--ns-color-border-subtle) 1px, transparent 1.5px) 0 0 / 14px 14px,
+    var(--ns-color-surface-muted);
+}
+
+.anat-ar {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--ns-radius-image);
+  outline: 2px dashed transparent;
+  outline-offset: 5px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-ar.is-root {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-ar__media {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+}
+
+.anat-ar__overlay {
+  position: absolute;
+  inset: var(--ns-space-3) var(--ns-space-3) auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.anat-ar__chip,
+.anat-ar__like {
+  display: inline-grid;
+  place-items: center;
+  padding: 2px 10px;
+  border-radius: var(--ns-radius-full);
+  background: rgb(255 255 255 / 0.9);
+  color: #0f172a;
+  font-size: 11px;
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.anat-ar__like {
+  inline-size: 26px;
+  padding: 0;
+  block-size: 26px;
+  color: #e03131;
+  font-size: 14px;
+}
+
+.anat-ar__caption {
+  position: absolute;
+  inset: auto 0 0;
+  display: grid;
+  padding: var(--ns-space-8) var(--ns-space-4) var(--ns-space-3);
+  border-radius: 0 0 var(--ns-radius-image) var(--ns-radius-image);
+  background: linear-gradient(to top, rgb(2 6 23 / 0.75), transparent);
+  color: #fff;
+  font-size: 12px;
+}
+
+.anat-ar__caption strong {
+  font-size: 14px;
+}
+
+.anat-ar__pin {
+  position: absolute;
+}
+
+.anat-ar__pin--root {
+  inset-block-start: -11px;
+  inset-inline-end: 22%;
+}
+
+.anat-ar__pin--media {
+  inset-block-start: 42%;
+  inset-inline-start: 32%;
+}
+
+.anat-ar__pin--overlay {
+  inset-block-start: 40px;
+  inset-inline-start: 26px;
+}
+
+.anat-ar__pin--caption {
+  inset-block-end: 46px;
+  inset-inline-start: 26px;
+}
+
+.anat-ar__states {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ns-space-4);
+}
+
+.anat-ar__states figure {
+  display: grid;
+  gap: var(--ns-space-1-5);
+  margin: 0;
+}
+
+.anat-ar__states figcaption {
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-text-caption-size);
+}
+
+.anat-ar__mini {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--ns-radius-md);
+  background: var(--ns-color-surface);
+  color: var(--ns-color-text-subtle);
+}
+
+.anat-ar__mini .anatomy-pin {
+  position: absolute;
+  inset-block-start: -9px;
+  inset-inline-start: -9px;
+}
+
+.anat-ar__mini--loading {
+  background:
+    linear-gradient(100deg, transparent 30%, var(--ns-color-surface) 50%, transparent 70%) 0 0 /
+      250% 100% no-repeat,
+    var(--ns-color-border);
+  animation: anat-shimmer 1.6s var(--ns-easing-standard) infinite;
+}
+
+.anat-ar__mini svg {
+  inline-size: 26px;
+  block-size: 26px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@keyframes anat-shimmer {
+  from {
+    background-position:
+      100% 0,
+      0 0;
+  }
+  to {
+    background-position:
+      -50% 0,
+      0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anat-ar__mini--loading {
+    animation: none;
+  }
+}
+
+.api-legend {
+  display: grid;
+  gap: var(--ns-space-1);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.api-anatomy__list li {
+.api-legend li,
+.api-tree__node {
   display: flex;
+  align-items: flex-start;
   gap: var(--ns-space-3);
+  padding: var(--ns-space-2-5) var(--ns-space-3);
+  border-radius: var(--ns-radius-lg);
+  transition: background-color var(--ns-duration-fast) var(--ns-easing-standard);
 }
 
-.api-anatomy__list code {
+.api-legend li:hover,
+.api-legend li.is-active {
+  background: var(--ns-color-surface-muted);
+}
+
+.api-legend span,
+.api-tree__node span {
+  display: grid;
+  gap: 2px;
+}
+
+.api-legend code,
+.api-tree__node code {
+  justify-self: start;
   font-weight: var(--ns-font-weight-semibold);
+}
+
+.api-legend small,
+.api-tree__node small {
+  color: var(--ns-color-text-muted);
+  font-size: var(--ns-text-body-sm-size);
+  line-height: var(--ns-text-body-sm-line-height);
+}
+
+/* Tree: root, then its parts hanging from a rail */
+.api-tree {
+  display: grid;
+  gap: var(--ns-space-2);
+}
+
+.api-tree__node--root {
+  justify-self: start;
+  background: var(--ns-color-primary-muted);
+}
+
+.api-tree__children {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--ns-space-2);
+  margin: 0;
+  margin-inline-start: 22px;
+  padding: var(--ns-space-2) 0 0 var(--ns-space-5);
+  border-inline-start: 2px solid var(--ns-color-border);
+  list-style: none;
+}
+
+.api-tree__children .api-tree__node {
+  position: relative;
+  border: 1px solid var(--ns-color-border-subtle);
+  background: var(--ns-color-surface);
 }
 
 /* Properties: rows that stack on small screens */
@@ -2046,7 +2385,7 @@ button[aria-selected="true"] .component-tabs__count {
 
 .api-table__row {
   display: grid;
-  grid-template-columns: minmax(150px, 0.8fr) minmax(0, 1.4fr) minmax(0, 1.2fr);
+  grid-template-columns: minmax(170px, 0.7fr) minmax(0, 1.4fr) minmax(0, 1.2fr);
   gap: var(--ns-space-4);
   align-items: start;
   padding: var(--ns-space-3) var(--ns-space-4);
@@ -2065,9 +2404,10 @@ button[aria-selected="true"] .component-tabs__count {
 }
 
 .api-prop {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: var(--ns-space-1-5);
-  justify-items: start;
 }
 
 .api-prop > code {
@@ -2317,7 +2657,7 @@ button[aria-selected="true"] .component-tabs__count {
   font-weight: var(--ns-font-weight-semibold);
 }
 
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   .api-anatomy {
     grid-template-columns: minmax(0, 1fr);
   }

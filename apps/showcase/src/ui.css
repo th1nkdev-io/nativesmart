@@ -356,24 +356,49 @@
   padding: var(--ns-space-4);
 }
 
-.props-list {
-  display: grid;
+.props-section + .props-section {
+  border-block-start: 1px solid var(--ns-color-border);
+}
+
+.props-section__title {
+  margin: 0;
+  padding: var(--ns-space-2-5) var(--ns-space-4) var(--ns-space-1);
+  color: var(--ns-color-text-subtle);
+  font-size: 10px;
+  font-weight: var(--ns-font-weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.props-panel__modified {
+  min-inline-size: 16px;
+  padding: 0 5px;
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-primary);
+  color: var(--ns-color-on-primary);
+  font-size: 10px;
+  font-weight: var(--ns-font-weight-bold);
+  line-height: 16px;
+  text-align: center;
+}
+
+.props-panel .ghost-button:disabled {
+  opacity: 0.45;
+  cursor: default;
 }
 
 .prop {
   display: grid;
-  gap: var(--ns-space-2);
-  padding: var(--ns-space-4);
-}
-
-.prop + .prop {
-  border-block-start: 1px solid var(--ns-color-border);
+  gap: var(--ns-space-1-5);
+  padding: var(--ns-space-2) var(--ns-space-4) var(--ns-space-3);
 }
 
 .prop--inline {
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  column-gap: var(--ns-space-4);
+  column-gap: var(--ns-space-3);
+  row-gap: 2px;
+  padding-block: var(--ns-space-2);
 }
 
 .prop--inline .prop__head,
@@ -388,36 +413,50 @@
 
 .prop__head {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: var(--ns-space-2);
 }
 
 .prop__name {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-family: var(--ns-font-mono);
-  font-size: var(--ns-text-code-size);
+  font-size: 12.5px;
   font-weight: var(--ns-font-weight-semibold);
 }
 
 .prop__required {
-  margin-inline-start: 2px;
+  margin-inline-start: -3px;
   color: var(--ns-color-danger);
 }
 
-.prop__kind {
-  color: var(--ns-color-text-disabled);
-  font-size: var(--ns-text-caption-size);
+.prop__dot {
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-primary);
 }
 
-.prop--inline .prop__kind {
-  display: none;
+.prop__kind {
+  padding: 0 6px;
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-surface-muted);
+  color: var(--ns-color-text-subtle);
+  font-size: 10px;
+  line-height: 16px;
 }
 
 .prop__description {
+  display: -webkit-box;
+  overflow: hidden;
   margin: 0;
   color: var(--ns-color-text-muted);
-  font-size: var(--ns-text-caption-size);
-  line-height: var(--ns-text-caption-line-height);
+  font-size: 11.5px;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 /* Coming soon: component page of a component the active technology does not have yet. */

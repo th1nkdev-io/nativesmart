@@ -4,15 +4,19 @@ import {
   type ComponentContract,
   type ComponentProperty
 } from "@nativesmart/contracts";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import Icon from "../editorial/Icon.vue";
 import type { IconName } from "../editorial/icons";
 import { state } from "../state";
 import { technologies } from "../technologies";
+import { anatomyFigures } from "./anatomy";
 
 const props = defineProps<{ contract: ComponentContract }>();
 
 const described = computed(() => describeContract(props.contract));
+const figure = computed(() => anatomyFigures[props.contract.id]);
+const activePart = ref<string>();
+const partNumber = (part: string) => props.contract.anatomy.indexOf(part) + 1;
 const settings = computed(() =>
   props.contract.properties.filter((property) => property.kind !== "slot")
 );
@@ -146,26 +150,47 @@ const techName = computed(
         <h3 data-toc>Anatomie</h3>
         <p>Les parties du composant, nommées de la même façon dans toutes les technologies.</p>
       </header>
-      <div class="api-anatomy">
-        <div class="api-anatomy__map" aria-hidden="true">
-          <span class="api-anatomy__root"><b>1</b> {{ contract.anatomy[0] }}</span>
-          <div class="api-anatomy__parts">
-            <span
-              v-for="(part, index) in contract.anatomy.slice(1)"
-              :key="part"
-              class="api-anatomy__part"
-            >
-              <b>{{ index + 2 }}</b> {{ part }}
-            </span>
-          </div>
-        </div>
-        <ol class="api-anatomy__list">
-          <li v-for="(part, index) in described.anatomy" :key="part.name">
-            <b class="api-pin">{{ index + 1 }}</b>
-            <div>
+      <div v-if="figure" class="api-anatomy">
+        <component
+          :is="figure"
+          :number="partNumber"
+          :active="activePart"
+          @hover="activePart = $event"
+        />
+        <ol class="api-legend" @mouseleave="activePart = undefined">
+          <li
+            v-for="(part, index) in described.anatomy"
+            :key="part.name"
+            :class="{ 'is-active': activePart === part.name }"
+            @mouseenter="activePart = part.name"
+          >
+            <b class="anatomy-pin">{{ index + 1 }}</b>
+            <span>
               <code>{{ part.name }}</code>
-              <p>{{ part.description || "—" }}</p>
-            </div>
+              <small>{{ part.description }}</small>
+            </span>
+          </li>
+        </ol>
+      </div>
+      <div v-else class="api-tree">
+        <div class="api-tree__node api-tree__node--root">
+          <b class="anatomy-pin">1</b>
+          <span>
+            <code>{{ described.anatomy[0]?.name }}</code>
+            <small>{{ described.anatomy[0]?.description }}</small>
+          </span>
+        </div>
+        <ol v-if="described.anatomy.length > 1" class="api-tree__children">
+          <li
+            v-for="(part, index) in described.anatomy.slice(1)"
+            :key="part.name"
+            class="api-tree__node"
+          >
+            <b class="anatomy-pin">{{ index + 2 }}</b>
+            <span>
+              <code>{{ part.name }}</code>
+              <small>{{ part.description }}</small>
+            </span>
           </li>
         </ol>
       </div>
@@ -187,12 +212,10 @@ const techName = computed(
         <div v-for="property in settings" :key="property.name" class="api-table__row" role="row">
           <span class="api-prop" role="cell">
             <code>{{ property.name }}</code>
-            <span class="api-pills">
-              <span :class="['api-kind', `api-kind--${property.kind}`]">{{
-                kindLabels[property.kind]
-              }}</span>
-              <span v-if="property.required" class="api-required">requis</span>
-            </span>
+            <span :class="['api-kind', `api-kind--${property.kind}`]">{{
+              kindLabels[property.kind]
+            }}</span>
+            <span v-if="property.required" class="api-required">requis</span>
           </span>
           <span class="api-values" role="cell">
             <template v-if="values(property).length">

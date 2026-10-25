@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ComponentContract, ComponentProperty } from "@nativesmart/contracts";
-import { editableKinds, type ShowcasePropValue } from "@nativesmart/showcase-runtime";
+import { defaultProps, editableKinds, type ShowcasePropValue } from "@nativesmart/showcase-runtime";
 import { computed } from "vue";
 import LabSegmented from "../ui/LabSegmented.vue";
 import LabSelect from "../ui/LabSelect.vue";
@@ -13,6 +13,29 @@ defineEmits<{ reset: [] }>();
 const editable = computed(() =>
   props.contract.properties.filter((property) => editableKinds.has(property.kind))
 );
+
+/* Appearance first: the settings people try most. Then text content, then on/off options. */
+const sections = computed(() =>
+  [
+    { id: "appearance", label: "Apparence", kinds: ["enum"] },
+    { id: "content", label: "Contenu", kinds: ["string", "number", "string-list"] },
+    { id: "options", label: "Options", kinds: ["boolean"] }
+  ]
+    .map((section) => ({
+      ...section,
+      items: editable.value.filter((property) => section.kinds.includes(property.kind))
+    }))
+    .filter((section) => section.items.length > 0)
+);
+
+const defaults = computed(() => defaultProps(props.contract));
+function isModified(property: ComponentProperty) {
+  const current = values.value[property.name];
+  const initial = defaults.value[property.name];
+  if (property.kind === "boolean") return Boolean(current) !== Boolean(initial);
+  return JSON.stringify(current ?? "") !== JSON.stringify(initial ?? "");
+}
+const modified = computed(() => editable.value.filter(isModified).length);
 
 const kindLabels: Record<string, string> = {
   boolean: "booléen",
@@ -64,27 +87,41 @@ function text(value: ShowcasePropValue | undefined) {
   <section class="aside-card props-panel" aria-labelledby="props-title">
     <header class="aside-card__head">
       <h2 id="props-title" class="aside__title">Propriétés</h2>
-      <button type="button" class="ghost-button" @click="$emit('reset')">
+      <button
+        type="button"
+        class="ghost-button"
+        :disabled="modified === 0"
+        :title="modified ? 'Revenir aux valeurs par défaut' : 'Aucune propriété modifiée'"
+        @click="$emit('reset')"
+      >
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
           <path d="M3 3v5h5" />
         </svg>
         Réinitialiser
+        <span v-if="modified" class="props-panel__modified">{{ modified }}</span>
       </button>
     </header>
     <p v-if="editable.length === 0" class="muted">Aucune propriété modifiable.</p>
 
-    <div class="props-list">
+    <div v-for="section in sections" :key="section.id" class="props-section">
+      <h3 class="props-section__title">{{ section.label }}</h3>
       <div
-        v-for="property in editable"
+        v-for="property in section.items"
         :key="property.name"
-        :class="['prop', { 'prop--inline': property.kind === 'boolean' }]"
+        :class="[
+          'prop',
+          { 'prop--inline': property.kind === 'boolean', 'is-modified': isModified(property) }
+        ]"
       >
         <div class="prop__head">
           <span class="prop__name">
             {{ property.name }}<span v-if="property.required" class="prop__required">*</span>
+            <i v-if="isModified(property)" class="prop__dot" title="Modifiée" />
           </span>
-          <span class="prop__kind">{{ kindLabels[property.kind] ?? property.kind }}</span>
+          <span v-if="property.kind !== 'boolean'" class="prop__kind">{{
+            kindLabels[property.kind] ?? property.kind
+          }}</span>
         </div>
 
         <LabSwitch
@@ -116,12 +153,12 @@ function text(value: ShowcasePropValue | undefined) {
           class="lab-input prop__control"
           :type="property.kind === 'number' ? 'number' : 'text'"
           :value="text(values[property.name])"
-          :placeholder="property.kind === 'string-list' ? 'valeur, valeur…' : ''"
+          :placeholder="property.kind === 'string-list' ? 'valeur, valeur…' : 'Vide'"
           :aria-label="property.name"
           @input="setText(property, ($event.target as HTMLInputElement).value)"
         />
 
-        <p class="prop__description">{{ property.description }}</p>
+        <p class="prop__description" :title="property.description">{{ property.description }}</p>
       </div>
     </div>
   </section>

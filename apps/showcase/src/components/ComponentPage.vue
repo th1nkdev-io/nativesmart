@@ -9,7 +9,8 @@ import {
 import { computed, ref } from "vue";
 import { categoryNames } from "../labels";
 import { state, type ComponentTab } from "../state";
-import { getTechnology, technologies } from "../technologies";
+import { getTechnology } from "../technologies";
+import AvailabilityCard from "./AvailabilityCard.vue";
 import ComingSoon from "./ComingSoon.vue";
 import ContractPanel from "./ContractPanel.vue";
 import OnThisPage from "./OnThisPage.vue";
@@ -27,14 +28,6 @@ const implemented = computed(
 );
 const coded = computed(() => technology.value.implemented.has(props.contract.id));
 const tab = computed<ComponentTab>(() => state.tab);
-const availability = computed(() =>
-  technologies.map((item) => ({
-    id: item.id,
-    name: item.name,
-    available: item.implemented.has(props.contract.id),
-    inLab: item.url !== null
-  }))
-);
 
 const statusLabels: Record<string, string> = {
   draft: "Prévu",
@@ -172,23 +165,7 @@ function reset() {
 
         <OnThisPage v-if="tab === 'api'" :key="`${contract.id}-api`" />
 
-        <section class="aside-card">
-          <header class="aside-card__head">
-            <h2 class="aside__title">Disponibilité</h2>
-            <span class="aside-card__count">
-              {{ availability.filter((item) => item.available).length }}/{{ availability.length }}
-            </span>
-          </header>
-          <ul class="availability aside-card__body">
-            <li v-for="item in availability" :key="item.id">
-              <span :class="['dot', item.available ? 'dot--available' : 'dot--planned']" />
-              <span>{{ item.name }}</span>
-              <small class="muted">
-                {{ item.available ? (item.inLab ? "Dans le Lab" : "Codé") : "—" }}
-              </small>
-            </li>
-          </ul>
-        </section>
+        <AvailabilityCard :contract="contract" />
       </div>
     </Teleport>
   </article>

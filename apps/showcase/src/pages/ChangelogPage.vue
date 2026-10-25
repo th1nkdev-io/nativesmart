@@ -19,7 +19,12 @@ const releases = [
       {
         kind: "Nouveau",
         text: "Contrats documentés : sens de chaque partie, état, événement, touche et token"
-      }
+      },
+      {
+        kind: "Amélioré",
+        text: "Panneau latéral : propriétés groupées, disponibilité par famille avec logos"
+      },
+      { kind: "Nouveau", text: "Anatomie illustrée d'AspectRatio, avec repères numérotés" }
     ]
   },
   {
