@@ -7,6 +7,7 @@ import CodeAnatomy from "./CodeAnatomy.vue";
 import ContainerAnatomy from "./ContainerAnatomy.vue";
 import CopyButtonAnatomy from "./CopyButtonAnatomy.vue";
 import DividerAnatomy from "./DividerAnatomy.vue";
+import FabAnatomy from "./FabAnatomy.vue";
 import GridAnatomy from "./GridAnatomy.vue";
 import HeadingAnatomy from "./HeadingAnatomy.vue";
 import IconAnatomy from "./IconAnatomy.vue";
@@ -39,6 +40,7 @@ export const anatomyFigures: Readonly<Record<string, Component>> = {
   container: ContainerAnatomy,
   "copy-button": CopyButtonAnatomy,
   divider: DividerAnatomy,
+  fab: FabAnatomy,
   grid: GridAnatomy,
   heading: HeadingAnatomy,
   icon: IconAnatomy,

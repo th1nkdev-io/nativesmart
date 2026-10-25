@@ -9,6 +9,7 @@ import CodeDemo from "./demos/CodeDemo.vue";
 import ContainerDemo from "./demos/ContainerDemo.vue";
 import CopyButtonDemo from "./demos/CopyButtonDemo.vue";
 import DividerDemo from "./demos/DividerDemo.vue";
+import FabDemo from "./demos/FabDemo.vue";
 import GridDemo from "./demos/GridDemo.vue";
 import HeadingDemo from "./demos/HeadingDemo.vue";
 import IconDemo from "./demos/IconDemo.vue";
@@ -47,6 +48,7 @@ export const registry: Readonly<Record<string, Component>> = {
   container: ContainerDemo,
   "copy-button": CopyButtonDemo,
   divider: DividerDemo,
+  fab: FabDemo,
   grid: GridDemo,
   heading: HeadingDemo,
   icon: IconDemo,
@@ -82,6 +84,7 @@ export const variationTiles: Readonly<Record<string, number>> = {
   container: 240,
   "copy-button": 280,
   divider: 260,
+  fab: 300,
   grid: 240,
   heading: 280,
   icon: 200,

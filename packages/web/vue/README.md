@@ -119,6 +119,26 @@ the arrows move the selection, skipping disabled options. The indicator slides t
 />
 ```
 
+### FloatingActionButton
+
+The main action of a screen, floating in a corner. With `actions`, it opens a menu (speed dial):
+focus moves to the first action, the arrows walk the menu and Escape brings focus back.
+
+```vue
+<NsFab label="Nouveau transfert" extended @press="start" />
+<NsFab
+  v-model:open="menu"
+  label="Actions rapides"
+  :actions="[
+    { key: 'send', label: 'Envoyer', icon: 'send' },
+    { key: 'scan', label: 'Scanner', icon: 'image' }
+  ]"
+  @action="run"
+/>
+```
+
+`position="absolute"` keeps it inside a container instead of the window.
+
 ### AspectRatio
 
 Frames any media at a ratio token (`video`, `square`, `photo`, `portrait`, `story`, `wide`,

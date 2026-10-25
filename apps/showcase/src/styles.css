@@ -5746,6 +5746,186 @@ button[aria-selected="true"] .component-tabs__count {
   color: var(--ns-color-primary-text);
 }
 
+/* FloatingActionButton: an extended button with its badge, its open actions above */
+.anat-fab {
+  display: grid;
+  justify-items: end;
+  padding: var(--ns-space-8) var(--ns-space-10) var(--ns-space-10);
+  border-radius: var(--ns-radius-xl);
+  background:
+    linear-gradient(var(--ns-color-surface-muted) 0 0) 24px 24px / 50% 10px no-repeat,
+    linear-gradient(var(--ns-color-surface-muted) 0 0) 24px 48px / 35% 10px no-repeat,
+    var(--ns-color-surface);
+  box-shadow: var(--ns-elevation-card);
+}
+
+.anat-fab__root {
+  position: relative;
+  display: grid;
+  justify-items: end;
+  gap: var(--ns-space-3);
+  padding: var(--ns-space-2);
+  border-radius: var(--ns-radius-lg);
+  outline: 2px dashed transparent;
+  outline-offset: 2px;
+  transition: outline-color var(--ns-duration-fast) var(--ns-easing-standard);
+}
+
+.anat-fab__root.is-active {
+  outline-color: var(--ns-color-warning);
+}
+
+.anat-fab__actions {
+  position: relative;
+  display: grid;
+  justify-items: end;
+  gap: var(--ns-space-2-5);
+  padding: var(--ns-space-1);
+  border-radius: var(--ns-radius-md);
+}
+
+.anat-fab__actions.is-active {
+  background: var(--ns-color-warning-muted);
+}
+
+.anat-fab__action {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--ns-space-2);
+  padding-inline-end: 8px;
+  border-radius: var(--ns-radius-full);
+}
+
+.anat-fab__action.is-active {
+  box-shadow: 0 0 0 2px var(--ns-color-warning);
+}
+
+.anat-fab__action small {
+  padding: 2px 8px;
+  border-radius: var(--ns-radius-md);
+  background: var(--ns-color-surface-raised);
+  box-shadow: var(--ns-elevation-card);
+  color: var(--ns-color-text);
+  font-size: 11px;
+  font-weight: var(--ns-font-weight-semibold);
+}
+
+.anat-fab__action i {
+  display: grid;
+  place-items: center;
+  inline-size: 36px;
+  block-size: 36px;
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-surface-raised);
+  box-shadow: var(--ns-elevation-raised);
+  color: var(--ns-color-primary-text);
+}
+
+.anat-fab svg {
+  inline-size: 16px;
+  block-size: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.anat-fab svg.is-open {
+  inline-size: 20px;
+  block-size: 20px;
+  transform: rotate(45deg);
+}
+
+.anat-fab__button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ns-space-2);
+  block-size: 56px;
+  padding-inline: var(--ns-space-5) var(--ns-space-6);
+  border-radius: 28px;
+  background: var(--ns-color-primary);
+  box-shadow: var(--ns-elevation-raised);
+  color: var(--ns-color-on-primary);
+  font-size: var(--ns-text-label-lg-size);
+  font-weight: var(--ns-font-weight-semibold);
+  white-space: nowrap;
+}
+
+.anat-fab__button.is-active {
+  box-shadow:
+    0 0 0 3px var(--ns-color-warning),
+    var(--ns-elevation-raised);
+}
+
+.anat-fab__part {
+  position: relative;
+  display: inline-flex;
+  padding: 2px;
+  border-radius: var(--ns-radius-sm);
+}
+
+.anat-fab__part.is-active {
+  background: var(--ns-color-warning);
+  color: var(--ns-color-on-warning);
+}
+
+.anat-fab__badge {
+  position: absolute;
+  inset-block-start: -4px;
+  inset-inline-end: -4px;
+  display: grid;
+  place-items: center;
+  min-inline-size: 20px;
+  block-size: 20px;
+  border-radius: var(--ns-radius-full);
+  background: var(--ns-color-danger);
+  box-shadow: 0 0 0 2px var(--ns-color-surface);
+  color: var(--ns-color-on-danger);
+  font-size: 11px;
+  font-weight: var(--ns-font-weight-bold);
+}
+
+.anat-fab__badge.is-active {
+  background: var(--ns-color-warning);
+}
+
+.anat-fab__pin {
+  position: absolute;
+}
+
+.anat-fab__pin--root {
+  inset-block-start: -12px;
+  inset-inline-start: -12px;
+}
+
+.anat-fab__pin--actions {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-start: -30px;
+}
+
+.anat-fab__pin--action {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-end: -30px;
+}
+
+.anat-fab__pin--button {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-start: -30px;
+}
+
+.anat-fab__pin--below {
+  inset-block-start: calc(100% + 14px);
+  inset-inline-start: calc(50% - 11px);
+}
+
+.anat-fab__pin--badge {
+  inset-block-start: calc(50% - 11px);
+  inset-inline-start: calc(100% + 6px);
+}
+
 .api-legend {
   display: grid;
   gap: var(--ns-space-1);

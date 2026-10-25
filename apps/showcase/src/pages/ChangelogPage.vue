@@ -6,6 +6,24 @@ import PageHero from "../editorial/PageHero.vue";
 const releases = [
   {
     date: "25 octobre 2026",
+    title: "FloatingActionButton : l'action principale de l'écran",
+    changes: [
+      {
+        kind: "Nouveau",
+        text: "FloatingActionButton : rond ou carré arrondi, étendu avec son texte, trois tailles et trois fonds"
+      },
+      {
+        kind: "Nouveau",
+        text: "Menu d'actions qui s'ouvre en cascade, focus sur la première action, Échap et flèches"
+      },
+      {
+        kind: "Nouveau",
+        text: "Quatre coins, fixé à la fenêtre ou dans son conteneur, pastille, croix à l'ouverture"
+      }
+    ]
+  },
+  {
+    date: "25 octobre 2026",
     title: "SegmentedControl : un choix parmi quelques-uns",
     changes: [
       {

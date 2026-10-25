@@ -17,6 +17,7 @@ export const implementedComponents = [
   "container",
   "copy-button",
   "divider",
+  "fab",
   "grid",
   "heading",
   "icon",

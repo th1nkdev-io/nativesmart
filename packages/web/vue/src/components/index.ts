@@ -71,6 +71,16 @@ export type {
   NsDividerTone,
   NsDividerVariant
 } from "./NsDivider.vue";
+export { default as NsFab } from "./NsFab.vue";
+export type {
+  NsFabAction,
+  NsFabPlacement,
+  NsFabPosition,
+  NsFabProps,
+  NsFabShape,
+  NsFabSize,
+  NsFabTone
+} from "./NsFab.vue";
 export { default as NsGrid } from "./NsGrid.vue";
 export type {
   NsGridAlign,
